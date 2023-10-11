@@ -1,3 +1,16 @@
 {
-  
+  "users": [
+   {
+      "id": 1,
+      "name": "Goktug Sulun",
+      "email": "goktug.sulun@hotmail.com",
+      "password": "123456"
+   },
+   {
+      "id": 2,
+      "name": "Damla Nur Yılmaz",
+      "email": "damlanurylmaz@hotmail.com",
+      "password": "123456"
+   }
+  ]
 }
