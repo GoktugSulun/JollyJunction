@@ -7,18 +7,6 @@ import { DashboardActions } from './Dashboard.slice';
 
 const mainSagaName = 'Dashboard/request';
 
-export const DashboardSagaActions = {
-   getPosts: createAction(`${mainSagaName}/getPosts`),
-   createPosts: createAction(`${mainSagaName}/createPosts`),
-};
+export const DashboardSagaActions = {};
 
-export default [
-   createSagaWatcher({
-    actionType: DashboardSagaActions.getPosts.type,
-    takeType: SagaTakeTypes.TAKE_LATEST,
-    *func () {
-      const result = yield call(request, { method: HttpMethodTypes.GET, url: '/posts' });
-      yield put(DashboardActions.setPosts(result.data));
-    }
-   })
-];
+export default [];

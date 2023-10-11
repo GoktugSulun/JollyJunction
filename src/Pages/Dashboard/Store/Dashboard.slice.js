@@ -11,11 +11,7 @@ const initialState = {
 const DashboardSlice = createSlice({
    name: NAME,
    initialState,
-   reducers: {
-      setPosts: (state, action) => {
-         state.posts = action.payload;
-      }
-   },
+   reducers: {},
    extraReducers: (builder) => requestStatusReducer(builder, DashboardSagaActions)
 });
 
