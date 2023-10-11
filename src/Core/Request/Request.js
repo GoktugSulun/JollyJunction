@@ -4,7 +4,7 @@ import { handleError } from './HandleError';
 
 const baseURL = 'http://localhost:3000';
 
-export const request = async ({ method, url, data = null }) => {
+export const request = async (method, url, data = null) => {
    try {
       const response = await axios({
          method,
