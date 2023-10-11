@@ -11,7 +11,7 @@ const requestStatusReducer = (builder, sagaActions) => {
    };
 
    const getActionType = (action) => {
-      //* action format => (SliceName/request/ActionType/HttpResponseType)
+      //* action type format => (SliceName/request/ActionType/HttpResponseType)
       return action.type.split('/')[2];
    };
 
@@ -26,8 +26,10 @@ const requestStatusReducer = (builder, sagaActions) => {
             if (!state.requestStatus) {
                state.requestStatus = {};
             }
+            console.log(action, ' action bro');
             if (action.payload) {
-               state.actionPayload[getActionType(action)] = action.payload;
+               console.log(action.payload, ' act');
+               // state.actionPayload[getActionType(action)] = 'deneme';
             } else {
                state.actionPayload = {};
             }

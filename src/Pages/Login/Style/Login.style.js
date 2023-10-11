@@ -53,6 +53,7 @@ export const Login = styled(PageWrapper)`
          }
          &__button {
             margin-top: 20px;
+            position: relative;
          }
          &__sign-up {
             color: grey;

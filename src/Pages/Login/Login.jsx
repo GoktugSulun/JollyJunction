@@ -7,11 +7,12 @@ import { Button } from '../../Core/Components/Buttons/Button.style';
 import { Facebook, GitHub, Google, LinkedIn } from '@mui/icons-material';
 import { IconButton, Tooltip } from '@mui/material';
 import { Link } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { snackbar } from '../../Core/Utils/Snackbar';
 import { NotifierTypes } from '../../Core/Constants/Enums';
 import _ from 'lodash';
 import { LoginSagaActions } from './Store/Login.saga';
+import Loading from '../../Core/Components/Loading/Loading';
 
 const schema = yup.object({
   email: yup.string().email('Invalid email format!').required('Required!'),
@@ -25,6 +26,7 @@ const defaultValues = {
 
 const Login = () => {
   const dispatch = useDispatch();
+  const { loading } = useSelector((state) => state.Login);
   const { registerHandler, form } = useMaterialForm({
     defaultValues,
     schema
@@ -37,7 +39,7 @@ const Login = () => {
   const capitiliaze = (str) => (`${str[0].toUpperCase()}${str.slice(1)}`);
 
   const onError = (error) => {
-    const emptyEntry = Object.entries(error).find(([keys, values]) => values.type === 'required');
+    const emptyEntry = Object.entries(error).find(([, value]) => value.type === 'required');
     if (emptyEntry?.length) {
       dispatch(snackbar(`${capitiliaze(emptyEntry[0])} cannot be empty!`, { variant: NotifierTypes.ERROR }));
     } else {
@@ -92,7 +94,7 @@ const Login = () => {
             className="sign-in__button"
             onClick={signInHandler}
           > 
-            Sign in 
+            { loading?.login ? <Loading size={30} color="#FFFFFF" /> : 'Sign in' } 
           </Button>
           <p className="sign-in__sign-up"> Don&apos;t you have an account ? <Link to="/register"> Click here </Link> to sign up. </p>
         </div>
