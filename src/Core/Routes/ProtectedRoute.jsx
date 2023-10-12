@@ -24,6 +24,10 @@ export default ProtectedRoute;
 
 ProtectedRoute.propTypes = {
    isAllowed: PropTypes.bool,
-   redirectPath: PropTypes.string,
-   children: PropTypes.any
+   redirectPath: PropTypes.string
+};
+
+ProtectedRoute.defaultProps = {
+   isAllowed: true,
+   redirectPath: '/login',
 };
