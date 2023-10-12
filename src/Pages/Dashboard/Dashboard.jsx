@@ -1,8 +1,9 @@
 import React from 'react';
+import * as S from './Style/Dashboard.style';
 
 const Dashboard = () => {
   return (
-    <div>Dashboard</div>
+    <S.Dashboard>Dashboard</S.Dashboard>
   );
 };
 
