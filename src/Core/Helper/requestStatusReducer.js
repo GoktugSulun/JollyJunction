@@ -41,7 +41,7 @@ const requestStatusReducer = (builder, sagaActions) => {
          (state, action) => {
             state.loading[getActionType(action)] = false;
             state.requestStatus[getActionType(action)] = HttpResponseTypes.IDLE;
-            state.actionPayload[getActionType(action)] = null;
+            // state.actionPayload[getActionType(action)] = null;
          }
       )
       .addMatcher(

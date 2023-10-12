@@ -6,11 +6,10 @@ import { TextInput } from '../../Core/Inputs';
 import { Button } from '../../Core/Components/Buttons/Button.style';
 import { Facebook, GitHub, Google, LinkedIn } from '@mui/icons-material';
 import { IconButton, Tooltip } from '@mui/material';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { snackbar } from '../../Core/Utils/Snackbar';
 import { NotifierTypes } from '../../Core/Constants/Enums';
-import _ from 'lodash';
 import { LoginSagaActions } from './Store/Login.saga';
 import Loading from '../../Core/Components/Loading/Loading';
 
@@ -26,6 +25,7 @@ const defaultValues = {
 
 const Login = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const { loading } = useSelector((state) => state.Login);
   const { registerHandler, form } = useMaterialForm({
     defaultValues,
@@ -103,7 +103,12 @@ const Login = () => {
           <p className="overlay__description">
             Register with your personal details to share post, view other posts and interact with them by liking, commenting.
           </p>
-          <Button className="overlay__button"> Sign up </Button>
+          <Button 
+            onClick={() => navigate('/register')} 
+            className="overlay__button"
+          > 
+            Sign up 
+          </Button>
         </div>
       </div>
     </S.Login>

@@ -11,7 +11,7 @@ export const Login = styled(PageWrapper)`
       box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
       border-radius: 15px;
       display: flex;
-      .sign-in {
+      .sign-in, .sign-up {
          width: 500px;
          padding: 50px 70px;
          display: flex;
@@ -55,7 +55,7 @@ export const Login = styled(PageWrapper)`
             margin-top: 20px;
             position: relative;
          }
-         &__sign-up {
+         &__sign-up, &__sign-in {
             color: grey;
             font-size: 14px;
             text-align: center;
@@ -114,7 +114,7 @@ export const Login = styled(PageWrapper)`
    @media (max-width: 900px) {
       .container {
          width: 90%;
-         .sign-in {
+         .sign-in, .sign-up {
             width: 100%;
             &__sign-up {
                display: block;
@@ -135,7 +135,7 @@ export const Login = styled(PageWrapper)`
    @media (max-width: 600px) {
       .container {
          width: 95%;
-         .sign-in {
+         .sign-in, .sign-up {
             padding: 50px 25px;
          }
       }

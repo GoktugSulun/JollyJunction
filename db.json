@@ -1,16 +1,25 @@
 {
   "users": [
-   {
+    {
       "id": 1,
-      "name": "Goktug Sulun",
+      "name": "Goktug",
+      "surname": "Sulun",
       "email": "goktug.sulun@hotmail.com",
       "password": "123456"
-   },
-   {
+    },
+    {
       "id": 2,
-      "name": "Damla Nur Yılmaz",
+      "name": "Damla Nur",
+      "surname": "Yilmaz",
       "email": "damlanurylmaz@hotmail.com",
       "password": "123456"
-   }
+    },
+    {
+      "name": "Burak",
+      "surname": "Yilmazer",
+      "email": "burak.yilmazer@mdpgroup.com",
+      "password": "123",
+      "id": 3
+    }
   ]
 }
