@@ -95,7 +95,7 @@ TextInput.defaultProps = {
   fullWidth: false,
   startAdornment: null,
   endAdornment: null,
-  placeholder: 'deneme',
+  placeholder: '',
   label: '',
   helperText: '',
   error: false,
@@ -105,7 +105,7 @@ TextInput.defaultProps = {
   defaultValue: null,
   palette: {
     defaultColor: 'primary',
-    inputColor: '#800080', // default #1976d2
+    inputColor: '#4A329A', // default #1976d2
     labelColor: '', 
     hoverColor: '' // default rgba(0, 0, 0, 0.87)
   },
