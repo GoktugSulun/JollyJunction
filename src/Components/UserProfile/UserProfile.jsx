@@ -5,11 +5,11 @@ import LetterImage from '../LetterImage/LetterImage';
 
 const UserProfile = (props) => {
   return (
-    <S.UserProfile>
+    <S.UserProfile small={props.small} >
       {
          props.src 
             ?  <img src={props.src} alt="user" />
-            :  <LetterImage name={props.name} />
+            :  <LetterImage fontSize={props.fontSize} name={props.name} />
       }
       <div className="user-info">
          <div className="user-info__name"> {props.name} </div>
@@ -24,11 +24,15 @@ export default UserProfile;
 UserProfile.propTypes = {
    src: PropTypes.string,
    name: PropTypes.string,
-   position: PropTypes.string
+   position: PropTypes.string,
+   small: PropTypes.bool,
+   fontSize: PropTypes.string
 };
 
 UserProfile.defaultProps = {
    src: '',
    name: '',
-   position: ''
+   position: '',
+   small: false,
+   fontSize: '35px'
 };

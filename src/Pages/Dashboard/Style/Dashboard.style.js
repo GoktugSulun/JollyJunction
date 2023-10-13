@@ -26,17 +26,6 @@ export const Profile = styled.div`
    background: #181818;
    border-radius: 10px;
    padding: 25px;
-   .user-info {
-      &__name {
-         color: #c9c9c9;
-         font-size: 18px;
-      }
-      &__position {
-         margin-top: 2px;
-         color: #9d9a9a;
-         font-size: 14px;
-      }
-   }
    .user-detail {
       &__row {
          display: flex;
@@ -121,10 +110,6 @@ export const Profile = styled.div`
    }
 `;
 
-export const FriendList = styled.div`
-   background: #181818;
-`;
-
 export const Advertisement = styled.div`
    background: #181818;
    padding: 25px;
@@ -134,6 +119,7 @@ export const Advertisement = styled.div`
       align-items: flex-end;
       justify-content: space-between;
       &__title {
+         font-weight: 500;
          color: #c9c9c9;
       }
    }
@@ -166,5 +152,33 @@ export const Advertisement = styled.div`
       margin-top: 15px;
       color: #575757;
       font-size: 14px;
+   }
+`;
+
+export const FriendList = styled.div`
+   background: #181818;
+   border-radius: 10px;
+   margin-top: 30px;
+   padding: 25px;
+   .title {
+      color: #c9c9c9;
+      font-weight: 500;
+      margin-bottom: 30px;
+   }
+   .friend {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 10px;
+      margin-top: 20px;
+      .MuiIconButton-root {
+         background-color: #333;
+         :hover {
+            background-color: #555;
+         }
+         svg path {
+            fill: #927CD9;
+         }
+      }
    }
 `;
