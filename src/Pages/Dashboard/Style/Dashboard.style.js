@@ -127,4 +127,44 @@ export const FriendList = styled.div`
 
 export const Advertisement = styled.div`
    background: #181818;
+   padding: 25px;
+   border-radius: 10px;
+   .header {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      &__title {
+         color: #c9c9c9;
+      }
+   }
+   img {
+      border-radius: 10px;
+      margin: 15px 0;
+      width: 100%;
+   }
+   .sponsor {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      &__name {
+         font-size: 14px;
+         color: #c9c9c9;
+         opacity: .7;
+      }
+      &__url {
+         font-size: 14px;
+         color: #575757;
+         text-decoration: none;
+         transition: color 350ms;
+         :hover {
+            color: #b0aeae;
+            text-decoration: underline;
+         }
+      }
+   }
+   .description {
+      margin-top: 15px;
+      color: #575757;
+      font-size: 14px;
+   }
 `;
