@@ -1,5 +1,5 @@
 import styled from '@emotion/styled';
-import { Divider, alpha } from '@mui/material';
+import { Divider } from '@mui/material';
 
 export const Header = styled.div`
    width: 100vw;
