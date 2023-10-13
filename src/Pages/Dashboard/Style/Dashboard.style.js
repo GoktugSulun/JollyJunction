@@ -41,7 +41,7 @@ export const Profile = styled.div`
             }
          }
          span {
-            color: #575757;
+            color: #7a7a7a;
             font-size: 14px;
          }
       }
@@ -56,7 +56,7 @@ export const Profile = styled.div`
          align-items: center;
       }
       &__key {
-         color: #575757;
+         color: #7a7a7a;
          font-size: 14px;
       }
       &__value {
@@ -93,7 +93,7 @@ export const Profile = styled.div`
          display: flex;
          align-items: center;
          gap: 15px;
-         color: #575757;
+         color: #7a7a7a;
          svg {
             font-size: 30px;
          }
@@ -104,7 +104,7 @@ export const Profile = styled.div`
          color: #9a9a9a;
          font-size: 14px;
          .link {
-            color: #575757;
+            color: #7a7a7a;
          }
       }
    }
@@ -180,5 +180,37 @@ export const FriendList = styled.div`
             fill: #927CD9;
          }
       }
+   }
+`;
+
+export const CreatePost = styled.div`
+   background: #181818;
+   border-radius: 10px;
+   padding: 25px 25px 15px 25px;
+   .header {
+      display: flex;
+      align-items: center;
+      gap: 30px;
+      img {
+         width: 60px;
+         height: 60px;
+         border-radius: 50%;
+      }
+      .MuiOutlinedInput-root {
+         background-color: #2d2d2d;
+         border-radius: 30px;
+         input {
+            color: #FFFFFF;
+            padding: 20px 30px;
+         }
+         fieldset {
+            border: none;
+         }
+      }
+   }
+   .tools {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
    }
 `;

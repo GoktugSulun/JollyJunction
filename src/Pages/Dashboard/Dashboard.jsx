@@ -3,6 +3,7 @@ import * as S from './Style/Dashboard.style';
 import Profile from './Components/Profile';
 import Advertisement from './Components/Advertisement';
 import FriendList from './Components/FriendList';
+import CreatePost from './Components/Post/CreatePost';
 
 const Dashboard = () => {
   return (
@@ -11,7 +12,7 @@ const Dashboard = () => {
         <Profile />
       </S.ProfileWrapper>
       <S.PostWrapper>
-        posts
+        <CreatePost />
       </S.PostWrapper>
       <S.SidebarWrapper>
         <Advertisement />
