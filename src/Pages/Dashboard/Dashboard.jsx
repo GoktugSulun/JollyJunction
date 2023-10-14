@@ -4,6 +4,7 @@ import Profile from './Components/Profile';
 import Advertisement from './Components/Advertisement';
 import FriendList from './Components/FriendList';
 import CreatePost from './Components/Post/CreatePost';
+import Post from './Components/Post/Post';
 
 const Dashboard = () => {
   return (
@@ -13,6 +14,8 @@ const Dashboard = () => {
       </S.ProfileWrapper>
       <S.PostWrapper>
         <CreatePost />
+        <Post />
+        <Post />
       </S.PostWrapper>
       <S.SidebarWrapper>
         <Advertisement />

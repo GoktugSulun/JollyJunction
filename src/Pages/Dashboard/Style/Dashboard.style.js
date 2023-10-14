@@ -6,7 +6,7 @@ export const Dashboard = styled(ContentWrapper)`
    display: grid;
    grid-template-columns: 1fr 2fr 1fr;
    padding: 0 75px;
-   margin-top: 50px;
+   margin-top: 30px;
    gap: 50px;
 `;
 
@@ -212,5 +212,65 @@ export const CreatePost = styled.div`
       display: flex;
       align-items: center;
       justify-content: space-between;
+   }
+`;
+
+export const Post = styled.div`
+   background-color: #181818;
+   border-radius: 10px;
+   margin-top: 25px;
+   :last-child {
+      margin-bottom: 25px;
+   }
+   padding: 25px 25px 15px 25px;
+   display: flex;
+   flex-direction: column;
+   gap: 20px;
+   .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 10px;
+      .MuiIconButton-root {
+         background-color: #333;
+         :hover {
+            background-color: #555;
+         }
+         svg path {
+            fill: #927CD9;
+         }
+      }
+   }
+   .description {
+      color: #c9c9c9;
+      font-size: 14px;
+      margin-top: 10px;
+   }
+   img {
+      width: 100%;
+      max-height: 400px;
+      object-fit: cover;
+      height: auto;
+      border-radius: 10px;
+   }
+   .buttons {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      .MuiIconButton-root {
+         :hover {
+            background-color: #333;
+         }
+         svg path {
+            fill: #927CD9;
+         }
+      }
+      .comment {
+         margin-left: 15px;
+      }
+      .count {
+         color: #927CD9;
+      }
    }
 `;

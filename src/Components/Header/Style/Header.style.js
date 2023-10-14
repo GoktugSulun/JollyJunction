@@ -35,6 +35,7 @@ export const Search = styled.div`
             }
          }
          :hover {
+            background-color: #333;
             svg {
                opacity: 1;
             }
