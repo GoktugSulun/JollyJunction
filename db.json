@@ -34,6 +34,90 @@
       "comments": [],
       "date": "2023-10-14T14:32:29.489Z",
       "id": 1
+    },
+    {
+      "description": "post denemesi yapıyorum merhaba arkadaşlar nasılsınız iyi misiniz ?",
+      "user": {
+        "id": 1,
+        "name": "Goktug",
+        "surname": "Sulun"
+      },
+      "likes": [],
+      "comments": [],
+      "date": "2023-10-15T15:16:19.313Z",
+      "id": 2
+    },
+    {
+      "description": "post - 3",
+      "user": {},
+      "likes": [],
+      "comments": [],
+      "date": "2023-10-15T15:18:25.555Z",
+      "id": 3
+    },
+    {
+      "description": "post - 4",
+      "user": {},
+      "likes": [],
+      "comments": [],
+      "date": "2023-10-15T15:20:07.483Z",
+      "id": 4
+    },
+    {
+      "description": "deneme",
+      "user": {},
+      "likes": [],
+      "comments": [],
+      "date": "2023-10-15T15:20:13.223Z",
+      "id": 5
+    },
+    {
+      "description": "post - 5",
+      "user": {},
+      "likes": [],
+      "comments": [],
+      "date": "2023-10-15T15:21:17.015Z",
+      "id": 6
+    },
+    {
+      "description": "1",
+      "user": {},
+      "likes": [],
+      "comments": [],
+      "date": "2023-10-15T15:21:20.603Z",
+      "id": 7
+    },
+    {
+      "description": "232322",
+      "user": {},
+      "likes": [],
+      "comments": [],
+      "date": "2023-10-15T15:21:22.763Z",
+      "id": 8
+    },
+    {
+      "description": "aaaaa",
+      "user": {},
+      "likes": [],
+      "comments": [],
+      "date": "2023-10-15T15:30:28.555Z",
+      "id": 9
+    },
+    {
+      "description": "bbbb",
+      "user": {},
+      "likes": [],
+      "comments": [],
+      "date": "2023-10-15T15:30:29.837Z",
+      "id": 10
+    },
+    {
+      "description": "cccc",
+      "user": {},
+      "likes": [],
+      "comments": [],
+      "date": "2023-10-15T15:30:31.086Z",
+      "id": 11
     }
   ]
 }

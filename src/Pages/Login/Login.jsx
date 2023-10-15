@@ -96,6 +96,7 @@ const Login = () => {
           <TextInput
             label="Password"
             {...registerHandler('password')}
+            type="password"
           />
           <a className="sign-in__forgot-password"> Forgot your password ? </a>
           <Button 

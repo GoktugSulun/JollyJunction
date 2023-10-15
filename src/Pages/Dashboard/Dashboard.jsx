@@ -14,14 +14,12 @@ import useHttpResponse from '../../Core/Hooks/useHttpResponse';
 
 const Dashboard = () => {
   const dispatch = useDispatch();
-  const { page, limit, canBeMorePost } = useSelector(state => state.Dashboard);
+  const { posts, page, limit, canBeMorePost } = useSelector(state => state.Dashboard);
   
   // TODO: 'More Post' button and the snackbar message are gonna be removed. Instead of this, I am gonna do scroll & fetch combination. 
   const fetchMorePost = () => {
     if (canBeMorePost) {
       dispatch(DashboardSagaActions.getPosts({ page, limit }));
-    } else {
-      dispatch(snackbar('There is no more post', { variant: NotifierTypes.INFO }));
     }
   };
 
@@ -43,8 +41,16 @@ const Dashboard = () => {
       </S.ProfileWrapper>
       <S.PostWrapper>
         <CreatePost />
-        <Post />
-        <Post />
+        {
+          posts.map((obj) => (
+            <Post 
+              key={obj.id}
+              data={obj}
+            />
+          ))
+        }
+        {/* <Post />
+        <Post /> */}
         <Button onClick={fetchMorePost}>
           More Post
         </Button>

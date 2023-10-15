@@ -14,6 +14,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { snackbar } from '../../../../Core/Utils/Snackbar';
 import { NotifierTypes } from '../../../../Core/Constants/Enums';
 import { DashboardSagaActions } from '../../Store/Dashboard.saga';
+import useHttpResponse from '../../../../Core/Hooks/useHttpResponse';
+import Loading from '../../../../Core/Components/Loading/Loading';
 
 const defaultValues = {
    value: '',
@@ -22,11 +24,13 @@ const defaultValues = {
 const CreatePost = () => {
    const dispatch = useDispatch();
    const { user } = useSelector(state => state.Login);
+   const { loading } = useSelector(state => state.Dashboard);
    const { registerHandler, form } = useMaterialForm({ defaultValues });
 
    const createPost = () => {
       if (!form.getValues('value')) {
          dispatch(snackbar('You need to write a description or select an image, audio, attachment!', { variant: NotifierTypes.ERROR }));
+         return;
       }
       const payload = {
          description: form.getValues('value'),
@@ -42,6 +46,13 @@ const CreatePost = () => {
       };
       dispatch(DashboardSagaActions.createPost(payload));
    };
+
+   useHttpResponse({
+      success: ({ idleAction }) => {
+         form.reset(defaultValues);
+         idleAction();
+      }
+   }, DashboardSagaActions.createPost());
 
    return (
       <S.CreatePost>
@@ -96,12 +107,13 @@ const CreatePost = () => {
                Attachment
             </Button>
             <Button
-               endIcon={<SendIcon />}
+               endIcon={loading?.createPost ? <Loading size={20} /> : <SendIcon />}
                bgColor="#333"
                hoverBgColor="#555"
                $color="#927CD9"
                borderRadius="30px"
                onClick={createPost}
+               disabled={loading?.createPost}
             >
                POST
             </Button>

@@ -7,7 +7,6 @@ import { Button } from '../../../Core/Components/Buttons/Button.style';
 import * as S from '../Style/Header.style';
 import PersonIcon from '@mui/icons-material/Person';
 import LogoutIcon from '@mui/icons-material/Logout';
-import { Divider } from '@mui/material';
 
 const StyledMenu = styled((props) => (
   <Menu
@@ -58,11 +57,19 @@ const StyledMenu = styled((props) => (
 const UserMenu = () => {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
+
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
+
   const handleClose = () => {
     setAnchorEl(null);
+  };
+
+  const logout = () => {
+    handleClose();
+    localStorage.clear();
+    location.reload();
   };
 
   return (
@@ -95,7 +102,7 @@ const UserMenu = () => {
           Profile
         </MenuItem>
         <S.CustomDivider />
-        <MenuItem onClick={handleClose} disableRipple>
+        <MenuItem onClick={logout} disableRipple>
           <LogoutIcon />
           Çıkış Yap
         </MenuItem>

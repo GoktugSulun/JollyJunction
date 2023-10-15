@@ -18,10 +18,10 @@ const Tools = () => {
       <IconButton onClick={toggleTheme} >
          <NightlightRoundIcon />
       </IconButton>
-      <IconButton >
+      <IconButton>
          <NotificationsIcon />
       </IconButton>
-      <IconButton >
+      <IconButton>
          <HelpIcon />
       </IconButton>
       <UserMenu />

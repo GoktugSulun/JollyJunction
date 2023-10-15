@@ -9,8 +9,9 @@ import FavoriteIcon from '@mui/icons-material/Favorite';
 import ChatBubbleOutlineIcon from '@mui/icons-material/ChatBubbleOutline';
 import BookmarkBorderIcon from '@mui/icons-material/BookmarkBorder';
 import BookmarkIcon from '@mui/icons-material/Bookmark';
+import PropTypes from 'prop-types';
 
-const Post = () => {
+const Post = ({ data }) => {
    const liked = true;
    const saved = true;
 
@@ -27,8 +28,8 @@ const Post = () => {
             </IconButton>
          </Tooltip>
       </div>
-      <p className="description"> Lorem ipsum dolor sit amet consectetur adipisicing elit. Odit, sint. </p>
-      <img src={PostImageURL} alt="post-content" />
+      <p className="description"> { data.description } </p>
+      { data.img && <img src={PostImageURL} alt="post-content" /> }
       <div className="buttons">
          <div className="buttons__group">
             <Tooltip title={liked ? 'Cancel' : 'Like'} >
@@ -40,13 +41,13 @@ const Post = () => {
                   } 
                </IconButton>
             </Tooltip>
-            <span className="count"> 2 </span>
+            <span className="count"> { data.likes.length } </span>
             <Tooltip title="Comment" >
                <IconButton className="comment" >
                   <ChatBubbleOutlineIcon /> 
                </IconButton>
             </Tooltip>
-            <span className="count"> 5 </span>
+            <span className="count"> { data.comments.length } </span>
          </div>
          <Tooltip title={saved ? 'Save' : 'Cancel'} >
             <IconButton>
@@ -63,3 +64,7 @@ const Post = () => {
 };
 
 export default Post;
+
+Post.propTypes = {
+   data: PropTypes.object.isRequired
+};
