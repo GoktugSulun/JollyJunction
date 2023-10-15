@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import * as S from '../../Style/Dashboard.style';
 import UserURL from '../../../../assets/Pngs/foto.jpeg';
 import TextInput from '../../../../Core/Inputs/TextInput';
@@ -23,6 +23,8 @@ const defaultValues = {
 
 const CreatePost = () => {
    const dispatch = useDispatch();
+   const [imageURL, setImageURL] = useState(null);
+   const [files, setFiles] = useState([]);
    const { user } = useSelector(state => state.Login);
    const { loading } = useSelector(state => state.Dashboard);
    const { registerHandler, form } = useMaterialForm({ defaultValues });
@@ -42,9 +44,17 @@ const CreatePost = () => {
          },
          likes: [],
          comments: [],
-         date: new Date()
+         date: new Date(),
+         // file: JSON.stringify(files?.[0]) || null
       };
       dispatch(DashboardSagaActions.createPost(payload));
+   };
+
+   const handleFiles = (e) => {
+      //* single image for now
+      const files = [...e.target.files];
+      setFiles(files);
+      setImageURL(URL.createObjectURL(files[0]));
    };
 
    useHttpResponse({
@@ -64,6 +74,10 @@ const CreatePost = () => {
                fullWidth
             />
          </div>
+         { imageURL && <>
+            <Divider margin="20px 0" />
+            <img className="user-post-img" src={imageURL} alt="user-post" />
+         </> }
          <Divider margin="20px 0" />
          <div className="tools">
             <Button
@@ -73,8 +87,11 @@ const CreatePost = () => {
                hoverColor="#FFFFFF"
                $color="#7a7a7a"
                borderRadius="30px"
+               component="label"
+               onChange={handleFiles}
             >
                Image
+               <input type="file" accept="image/*" />
             </Button>
             <Button
                startIcon={<AudioFileIcon />}

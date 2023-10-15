@@ -8,8 +8,6 @@ import Post from './Components/Post/Post';
 import { useDispatch, useSelector } from 'react-redux';
 import { DashboardSagaActions } from './Store/Dashboard.saga';
 import { Button } from '../../Core/Components/Buttons/Button.style';
-import { snackbar } from '../../Core/Utils/Snackbar';
-import { NotifierTypes } from '../../Core/Constants/Enums';
 import useHttpResponse from '../../Core/Hooks/useHttpResponse';
 
 const Dashboard = () => {
@@ -49,8 +47,6 @@ const Dashboard = () => {
             />
           ))
         }
-        {/* <Post />
-        <Post /> */}
         <Button onClick={fetchMorePost}>
           More Post
         </Button>
