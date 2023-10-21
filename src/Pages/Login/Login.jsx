@@ -27,7 +27,7 @@ const defaultValues = {
 const Login = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { loading } = useSelector((state) => state.Login);
+  const { loading, user } = useSelector((state) => state.Login);
   const { registerHandler, form } = useMaterialForm({
     defaultValues,
     schema
@@ -55,6 +55,7 @@ const Login = () => {
   useHttpResponse({
     success: ({ idleAction }) => {
       idleAction();
+      localStorage.setItem('user_id', user?.id);
       navigate('/');
     }
   }, LoginSagaActions.login());
