@@ -1,64 +1,122 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import * as S from './Style/Dashboard.style';
-import Profile from './Components/Profile';
-import Advertisement from './Components/Advertisement';
-import FriendList from './Components/FriendList';
-import CreatePost from './Components/Post/CreatePost';
-import Post from './Components/Post/Post';
 import { useDispatch, useSelector } from 'react-redux';
 import { DashboardSagaActions } from './Store/Dashboard.saga';
-import { Button } from '../../Core/Components/Buttons/Button.style';
-import useHttpResponse from '../../Core/Hooks/useHttpResponse';
-import Loading from '../../Core/Components/Loading/Loading';
+import { useNavigate } from 'react-router-dom';
+import { useHttpResponse, useMaterialForm } from '../../Core/Hooks';
+import { snackbar } from '../../Core/Utils/Snackbar';
+import { Checkbox, SelectInput } from '../../Core/Inputs';
+import { useWatch } from 'react-hook-form';
+import * as yup from 'yup';
+
+const defaultValues = {
+  user_id: '', 
+  checked: false
+};
+
+const DUMMY_VALUES = [
+  {
+    id: 1,
+    name: 'Goktug'
+  },
+  {
+    id: 2,
+    name: 'Damla'
+  },
+  {
+    id: 3,
+    name: 'Oznur'
+  },
+  {
+    id: 4,
+    name: 'Sedat'
+  }
+];
+
+const schema = yup.object({
+  checked: yup.bool().test('isReaded', 'Lütfen sözleşmeyi kabul ediniz!', (value) => value)
+});
 
 const Dashboard = () => {
   const dispatch = useDispatch();
-  const { posts, page, limit, canBeMorePost, loading } = useSelector(state => state.Dashboard);
-  
-  // TODO: 'More Post' button and the snackbar message are gonna be removed. Instead of this, I am gonna do scroll & fetch combination. 
-  const fetchMorePost = () => {
-    if (canBeMorePost) {
-      dispatch(DashboardSagaActions.getPosts({ page, limit }));
-    }
+  const navigate = useNavigate();
+  const { posts } = useSelector((state) => state.Dashboard);
+  const [value, setValue] = useState('');
+  const [checked, setChecked] = useState(false);
+
+  const { registerHandler, form } = useMaterialForm({
+    defaultValues,
+    schema
+  });
+
+  const onSubmit = (data) => {
+    console.log(data, ' data');
+  };
+
+  const onError = (errors) => {
+    console.log(errors, ' errors');
+  };
+
+  const reFetch = () => {
+    console.log(form.getValues(), ' fpormös');
+    form.handleSubmit(onSubmit, onError)();
+    // dispatch(DashboardSagaActions.getPosts([{ id: 1, name: 2 }]));
   };
 
   useHttpResponse({
-    success: ({ idleAction }) => {
-      fetchMorePost();
+    success: ({ idleAction, payload }) => {
+      dispatch(snackbar('Postlar başarıyla geldi'));
       idleAction();
     }
-  }, DashboardSagaActions.createPost());
-  
+  }, DashboardSagaActions.getPosts());
+
   useEffect(() => {
-    fetchMorePost();
+    dispatch(DashboardSagaActions.getPosts());
   }, []);
+
+  useEffect(() => {
+    console.log(value, ' value');
+  }, [checked]);
 
   return (
     <S.Dashboard>
-      <S.ProfileWrapper>
-        <Profile />
-      </S.ProfileWrapper>
-      <S.PostWrapper>
-        <CreatePost />
-        {
-          posts.map((obj) => (
-            <Post 
-              key={obj.id}
-              data={obj}
-            />
-          ))
-        }
-        <div className="loading-container">
-          { loading?.getPosts && <Loading size={50} /> }
-        </div>
-        <Button onClick={fetchMorePost}>
-          More Post
-        </Button>
-      </S.PostWrapper>
-      <S.SidebarWrapper>
-        <Advertisement />
-        <FriendList />
-      </S.SidebarWrapper>
+      <h2> Posts - Dashboard </h2>
+      <button onClick={reFetch} > ReFetch posts </button>
+      <button onClick={() => navigate('/register')} > Register </button>
+      <button onClick={() => navigate('/login')} > Login </button>
+
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 30, justifyContent: 'center', padding: 100 }}>
+        <SelectInput 
+          label="Users" 
+          fullWidth 
+          helperText="Doldurulması zorunlu alandır!"
+          {...registerHandler('user_id')}
+          // value={value}
+          data={DUMMY_VALUES}
+          emptyValue="None"
+          onChange={(_, value) => setValue(value)}
+        />
+
+        <Checkbox 
+          label="Okudum, kabul ediyorum"
+          // checked={checked}
+          {...registerHandler('checked')}
+          onChange={(_, value) => {
+            console.log(value, ' VALUE ON CHANGE ÇEK');
+            setChecked(value);
+          }}
+        />
+      </div>
+
+      {
+        !posts.length
+          ? <p> There is no posts </p>
+          : posts.map((post) => {
+            return (
+              <div key={post.id}> { post.name } </div>
+            );
+          })
+      }
     </S.Dashboard>
   );
 };

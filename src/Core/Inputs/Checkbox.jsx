@@ -7,6 +7,8 @@ import { CustomFormControlLabel } from './Style/Input.style';
 
 const CheckboxInput = (props) => {
 
+   console.log(props, ' pr');
+
    const onChangeHandler = (event) => {
       if (!_.isEmpty(props.control)) {
         props.field.onChange(event.target.checked);
@@ -23,6 +25,8 @@ const CheckboxInput = (props) => {
       }
       return {};
    };
+
+   console.log(props.fieldState.error, ' alo');
 
   return (
    <CustomFormControlLabel 

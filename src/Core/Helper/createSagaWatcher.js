@@ -3,6 +3,7 @@ import { SagaTakeTypes } from '../Constants/Enums';
 import withErrorHandling from './withErrorHandling';
 
 const createSagaWatcher = ({ actionType, takeType, func }) => {
+   
    if ([actionType, takeType, func].some(i => !i)) {
       throw Error('createSagaWatcher: missing arguments.');
    }

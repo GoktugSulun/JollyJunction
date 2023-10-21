@@ -1,20 +1,14 @@
 import { call, put } from 'redux-saga/effects';
 import requestStatusAction from './requestStatusAction';
-import { ResponseError } from '../Models/ResponseError.model';
-import { snackbar } from '../Utils/Snackbar';
-import { NotifierTypes } from '../Constants/Enums';
 
 const withErrorHandling = (func) => function* (action) {
    try {
       yield put(requestStatusAction.loading(action.type));
-      yield call(func, action);
+      yield call(func);
       yield put(requestStatusAction.success(action.type));
-    } catch (error) {
-      if (error instanceof ResponseError) {
-        yield put(requestStatusAction.failure(action.type));
-        yield put(snackbar('Sunucu ile bağlantı kesildi', { variant: NotifierTypes.ERROR }));
-     }
-     console.error(error);
+    } catch (e) {
+      yield put(requestStatusAction.failure(action.type));
+      //* e.message => snackbar ile göster
     }
 };
 
