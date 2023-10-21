@@ -23,11 +23,11 @@ const Search = () => {
   return (
     <S.Search>
       <h1 className="title"> Socialpedia </h1>
-      <TextInput
+      {/* <TextInput
         {...registerHandler('search')}
         placeholder="Search..."
         endAdornment={<IconButton> <SearchIcon /> </IconButton>}
-      />
+      /> */}
     </S.Search>
   );
 };

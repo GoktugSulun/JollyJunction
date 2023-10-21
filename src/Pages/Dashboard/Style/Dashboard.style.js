@@ -8,9 +8,11 @@ export const Dashboard = styled(ContentWrapper)`
    padding: 0 75px;
    margin-top: 30px;
    gap: 50px;
+   transition: padding 350ms;
 
    @media (max-width: 900px) {
       grid-template-columns: 1fr;
+      padding: 0 40px;
    }
 `;
 
