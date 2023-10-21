@@ -11,7 +11,7 @@ const requestStatusReducer = (builder, sagaActions) => {
    };
 
    const getActionType = (action) => {
-      //* action format => (SliceName/request/ActionType/HttpResponseType)
+      //* action type format => (SliceName/request/ActionType/HttpResponseType)
       return action.type.split('/')[2];
    };
 
@@ -27,7 +27,7 @@ const requestStatusReducer = (builder, sagaActions) => {
                state.requestStatus = {};
             }
             if (action.payload) {
-               state.actionPayload[getActionType(action)] = action.payload;
+               // state.actionPayload[getActionType(action)] = 'deneme';
             } else {
                state.actionPayload = {};
             }
@@ -39,7 +39,7 @@ const requestStatusReducer = (builder, sagaActions) => {
          (state, action) => {
             state.loading[getActionType(action)] = false;
             state.requestStatus[getActionType(action)] = HttpResponseTypes.IDLE;
-            state.actionPayload[getActionType(action)] = null;
+            // state.actionPayload[getActionType(action)] = null;
          }
       )
       .addMatcher(

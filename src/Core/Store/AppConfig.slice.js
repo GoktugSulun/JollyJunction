@@ -12,6 +12,7 @@ const AppConfigSlice = createSlice({
    initialState,
    reducers: {
       enqueueSnackbar: (state, action) => {
+         console.log(action.payload, ' acc');
          const newNotification = {
             message: action.payload?.message || '',
             options: {
