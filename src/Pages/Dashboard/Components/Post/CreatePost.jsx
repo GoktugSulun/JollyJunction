@@ -44,8 +44,9 @@ const CreatePost = () => {
          },
          likes: [],
          comments: [],
+         saves: [],
          date: new Date().toString(),
-         // file: JSON.stringify(files?.[0]) || null
+         files: files.map((file) => file.name)
       };
       dispatch(DashboardSagaActions.createPost(payload));
    };
@@ -60,6 +61,8 @@ const CreatePost = () => {
    useHttpResponse({
       success: ({ idleAction }) => {
          form.reset(defaultValues);
+         setFiles([]);
+         setImageURL(null);
          idleAction();
       }
    }, DashboardSagaActions.createPost());

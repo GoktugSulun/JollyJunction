@@ -12,6 +12,7 @@ import BookmarkIcon from '@mui/icons-material/Bookmark';
 import PropTypes from 'prop-types';
 import { useDispatch, useSelector } from 'react-redux';
 import { DashboardSagaActions } from '../../Store/Dashboard.saga';
+import Pngs from '../../../../assets/Pngs/Pngs';
 
 const Post = ({ data }) => {
    const dispatch = useDispatch();
@@ -54,8 +55,12 @@ const Post = ({ data }) => {
       };
       dispatch(DashboardSagaActions.savePost(payload));
    };
-   
 
+   const getImageURL = () => {
+      const targetImage = Pngs.find((path) => path.includes(data.files[0]));
+      return targetImage;
+   };
+   
    return (
     <S.Post>
       <div className="header">
@@ -70,7 +75,7 @@ const Post = ({ data }) => {
          </Tooltip>
       </div>
       <p className="description"> { data.description } </p>
-      { data.img && <img src={PostImageURL} alt="post-content" /> }
+      { !!data.files.length && <img loading="lazy" src={getImageURL()} alt="post-content" /> }
       <div className="buttons">
          <div className="buttons__group">
             <Tooltip title={isItLiked() ? 'Unlike' : 'Like'} >
