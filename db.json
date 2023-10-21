@@ -30,15 +30,11 @@
         "name": "Goktug",
         "surname": "Sulun"
       },
-      "likes": [
-        {
-          "id": 1,
-          "name": "Goktug",
-          "surname": "Sulun",
-          "email": "goktug.sulun@hotmail.com"
-        }
-      ],
+      "likes": [],
       "comments": [],
+      "saves": [
+        1
+      ],
       "date": "2023-10-14T14:32:29.489Z",
       "id": 1
     },
@@ -49,77 +45,13 @@
         "name": "Goktug",
         "surname": "Sulun"
       },
-      "likes": [],
-      "comments": [],
-      "date": "2023-10-15T15:16:19.313Z",
-      "id": 2
-    },
-    {
-      "description": "naber lan cönkir",
-      "user": {
-        "id": 1,
-        "name": "Goktug",
-        "surname": "Sulun"
-      },
       "likes": [
-        {
-          "id": 1,
-          "name": "Goktug",
-          "surname": "Sulun",
-          "email": "goktug.sulun@hotmail.com"
-        }
+        1
       ],
       "comments": [],
-      "date": "2023-10-21T18:53:42.743Z",
-      "id": 3
-    },
-    {
-      "description": "deneme dostum",
-      "user": {
-        "id": 1,
-        "name": "Goktug",
-        "surname": "Sulun"
-      },
-      "likes": [],
-      "comments": [],
-      "date": "2023-10-21T18:57:42.908Z",
-      "id": 4
-    },
-    {
-      "description": "alooo",
-      "user": {
-        "id": 1,
-        "name": "Goktug",
-        "surname": "Sulun"
-      },
-      "likes": [],
-      "comments": [],
-      "date": "2023-10-21T19:01:26.824Z",
-      "id": 5
-    },
-    {
-      "description": "aaaaa",
-      "user": {
-        "id": 1,
-        "name": "Goktug",
-        "surname": "Sulun"
-      },
-      "likes": [],
-      "comments": [],
-      "date": "Sat Oct 21 2023 22:03:39 GMT+0300 (GMT+03:00)",
-      "id": 6
-    },
-    {
-      "description": "naber nasılsınzı gençlik",
-      "user": {
-        "id": 1,
-        "name": "Goktug",
-        "surname": "Sulun"
-      },
-      "likes": [],
-      "comments": [],
-      "date": "Sat Oct 21 2023 22:05:14 GMT+0300 (GMT+03:00)",
-      "id": 7
+      "saves": [],
+      "date": "2023-10-15T15:16:19.313Z",
+      "id": 2
     }
   ]
 }

@@ -59,9 +59,11 @@ const Dashboard = () => {
               <Loading size={50} />
             </div>)
         }
-        <Button onClick={fetchMorePost}>
-          More Post
-        </Button>
+        <div className="more-button-container">
+          <Button onClick={fetchMorePost}>
+            More Post
+          </Button>
+        </div>
       </S.PostWrapper>
       <S.SidebarWrapper>
         <Advertisement />

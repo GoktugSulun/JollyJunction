@@ -14,20 +14,19 @@ import { useDispatch, useSelector } from 'react-redux';
 import { DashboardSagaActions } from '../../Store/Dashboard.saga';
 
 const Post = ({ data }) => {
-   const saved = true;
    const dispatch = useDispatch();
    const { user } = useSelector((state) => state.Login);
 
    const isItLiked = () => {
-      return !!data.likes.find((obj) => obj.id === user?.id);
+      return !!data.likes.find((user_id) => user_id === user?.id);
    };
 
    const likeHandler = () => {
       const updatedData = {
          ...data,
          likes: isItLiked() 
-            ? data.likes.filter((obj) => obj.id !== user.id)
-            : [...data.likes, user]
+            ? data.likes.filter((user_id) => user_id !== user.id)
+            : [...data.likes, user.id]
       };
       const payload = {
          post_id: data.id,
@@ -36,6 +35,26 @@ const Post = ({ data }) => {
       };
       dispatch(DashboardSagaActions.likePost(payload));
    };
+
+   const isItSaved = () => {
+      return !!data.saves.find((user_id) => user_id === user?.id);
+   };
+
+   const saveHandler = () => {
+      const updatedData = {
+         ...data,
+         saves: isItSaved() 
+            ? data.saves.filter((user_id) => user_id !== user.id)
+            : [...data.saves, user.id]
+      };
+      const payload = {
+         post_id: data.id,
+         data: updatedData,
+         saved: !isItSaved()
+      };
+      dispatch(DashboardSagaActions.savePost(payload));
+   };
+   
 
    return (
     <S.Post>
@@ -71,10 +90,10 @@ const Post = ({ data }) => {
             </Tooltip>
             <span className="count"> { data.comments.length } </span>
          </div>
-         <Tooltip title={saved ? 'Unsave' : 'Save'} >
-            <IconButton>
+         <Tooltip title={isItSaved() ? 'Unsave' : 'Save'} >
+            <IconButton onClick={saveHandler}>
                { 
-                  saved 
+                  isItSaved() 
                      ? <BookmarkIcon /> 
                      : <BookmarkBorderIcon /> 
                } 

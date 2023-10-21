@@ -24,6 +24,21 @@ export const PostWrapper = styled.div`
    .loading-container {
       margin: 50px 0;
    }
+   .more-button-container {
+      margin: 25px 0;
+      display: flex;
+      justify-content: center;
+      button {
+         width: 50%;
+      }
+   }
+   @media (max-width: 900px) {
+      .more-button-container {
+         button {
+            width: 100%;
+         }
+      }
+   }
 `;
 
 export const SidebarWrapper = styled.div`

@@ -27,7 +27,6 @@ const DashboardSlice = createSlice({
       //* after creating a post, this func is called to update posts state
       setPost: (state, action) => {
          state.posts.unshift(action.payload);
-         console.log(state.posts, ' state post uzunluk');
          if ((state.posts.length + 1) >= state.limit * state.page) {
             state.page += 1;
          }
