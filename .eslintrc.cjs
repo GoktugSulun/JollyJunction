@@ -22,7 +22,6 @@ module.exports = {
     ],
     "react/jsx-uses-react": "error",   
     "react/jsx-uses-vars": "error",
-    'jsx-quotes': [2, 'prefer-double'],
     "semi": [2, "always"],
     "react-hooks/rules-of-hooks": 'error',
     "react-hooks/exhaustive-deps": 'off',

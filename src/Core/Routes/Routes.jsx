@@ -7,11 +7,11 @@ import ProtectedRoute from './ProtectedRoute';
 const RouteList = () => {
    return (
       <Routes>
-         <Route path="/login" element={<Login />} />
-         <Route path="/register" element={<Register />} />
          <Route element={<ProtectedRoute isAllowed />}>
             <Route path="/" element={<Dashboard />} />
          </Route>
+         <Route path="/login" element={<Login />} />
+         <Route path="/register" element={<Register />} />
          <Route path="*" element={<div> Page Not Found! </div>} />
       </Routes>
    );
