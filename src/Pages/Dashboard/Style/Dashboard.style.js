@@ -8,18 +8,28 @@ export const Dashboard = styled(ContentWrapper)`
    padding: 0 75px;
    margin-top: 30px;
    gap: 50px;
+
+   @media (max-width: 900px) {
+      grid-template-columns: 1fr;
+   }
 `;
 
 export const ProfileWrapper = styled.div`
-   
+   @media (max-width: 900px) {
+      display: none;
+   }
 `;
 
 export const PostWrapper = styled.div`
-
+   .loading-container {
+      margin: 50px 0;
+   }
 `;
 
 export const SidebarWrapper = styled.div`
-
+   @media (max-width: 900px) {
+      display: none;
+   }
 `;
 
 export const Profile = styled.div`
@@ -218,6 +228,7 @@ export const CreatePost = styled.div`
    .tools {
       display: flex;
       align-items: center;
+      flex-wrap: wrap;
       justify-content: space-between;
       .MuiButton-root {
          position: relative;

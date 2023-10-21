@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 const LetterImage = (props) => {
   return (
     <S.LetterImage fontSize={props.fontSize} >
-      <span> {props.name?.[0] || '?'} </span>
+      <span> {props.name?.[0]?.trim() || '?'} </span>
     </S.LetterImage>
   );
 };

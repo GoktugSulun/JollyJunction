@@ -10,17 +10,23 @@ import ChatBubbleOutlineIcon from '@mui/icons-material/ChatBubbleOutline';
 import BookmarkBorderIcon from '@mui/icons-material/BookmarkBorder';
 import BookmarkIcon from '@mui/icons-material/Bookmark';
 import PropTypes from 'prop-types';
+import { useSelector } from 'react-redux';
 
 const Post = ({ data }) => {
    const liked = true;
    const saved = true;
+   const { user } = useSelector((state) => state.Login);
+
+   const isItLiked = () => {
+      return !!data.likes.find((obj) => obj.id === user?.id);
+   };
 
    return (
     <S.Post>
       <div className="header">
          <UserProfile
-            name="Hakan Dinçtürk"
-            position="Backend Developer"
+            name={`${data?.user?.name || ''} ${data?.user?.surname || ''}`}
+            position={data?.user?.position || ''}
          />
          <Tooltip title="Add Friend" placement="top" >
             <IconButton>
@@ -32,10 +38,10 @@ const Post = ({ data }) => {
       { data.img && <img src={PostImageURL} alt="post-content" /> }
       <div className="buttons">
          <div className="buttons__group">
-            <Tooltip title={liked ? 'Cancel' : 'Like'} >
+            <Tooltip title={isItLiked() ? 'Cancel' : 'Like'} >
                <IconButton>
                   { 
-                     liked 
+                     isItLiked() 
                         ? <FavoriteIcon /> 
                         : <FavoriteBorderIcon /> 
                   } 

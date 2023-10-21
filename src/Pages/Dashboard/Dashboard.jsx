@@ -9,10 +9,11 @@ import { useDispatch, useSelector } from 'react-redux';
 import { DashboardSagaActions } from './Store/Dashboard.saga';
 import { Button } from '../../Core/Components/Buttons/Button.style';
 import useHttpResponse from '../../Core/Hooks/useHttpResponse';
+import Loading from '../../Core/Components/Loading/Loading';
 
 const Dashboard = () => {
   const dispatch = useDispatch();
-  const { posts, page, limit, canBeMorePost } = useSelector(state => state.Dashboard);
+  const { posts, page, limit, canBeMorePost, loading } = useSelector(state => state.Dashboard);
   
   // TODO: 'More Post' button and the snackbar message are gonna be removed. Instead of this, I am gonna do scroll & fetch combination. 
   const fetchMorePost = () => {
@@ -47,6 +48,9 @@ const Dashboard = () => {
             />
           ))
         }
+        <div className="loading-container">
+          { loading?.getPosts && <Loading size={50} /> }
+        </div>
         <Button onClick={fetchMorePost}>
           More Post
         </Button>

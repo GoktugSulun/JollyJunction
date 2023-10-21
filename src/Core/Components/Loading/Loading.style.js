@@ -6,7 +6,7 @@ export const Loading = styled.div`
    justify-content: center;
    align-items: center;
    width: 100%;
-   height: 100%;
+   height: auto;
    ${(props) => props.blur && css`
       position: absolute;
       top: 0;
