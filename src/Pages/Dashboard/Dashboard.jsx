@@ -24,7 +24,6 @@ const Dashboard = () => {
 
   useHttpResponse({
     success: ({ idleAction }) => {
-      fetchMorePost();
       idleAction();
     }
   }, DashboardSagaActions.createPost());
@@ -41,6 +40,12 @@ const Dashboard = () => {
       <S.PostWrapper>
         <CreatePost />
         {
+          loading?.createPost &&
+            (<div className="loading-container">
+              <Loading size={50} />
+            </div>)
+        }
+        {
           posts.map((obj) => (
             <Post 
               key={obj.id}
@@ -48,9 +53,12 @@ const Dashboard = () => {
             />
           ))
         }
-        <div className="loading-container">
-          { loading?.getPosts && <Loading size={50} /> }
-        </div>
+        {
+          loading?.getPosts &&
+            (<div className="loading-container">
+              <Loading size={50} />
+            </div>)
+        }
         <Button onClick={fetchMorePost}>
           More Post
         </Button>

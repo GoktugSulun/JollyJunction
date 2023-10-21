@@ -44,7 +44,7 @@ const CreatePost = () => {
          },
          likes: [],
          comments: [],
-         date: new Date(),
+         date: new Date().toString(),
          // file: JSON.stringify(files?.[0]) || null
       };
       dispatch(DashboardSagaActions.createPost(payload));

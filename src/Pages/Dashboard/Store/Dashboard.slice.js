@@ -6,7 +6,7 @@ const NAME = 'Dashboard';
 
 const initialState = {
    posts: [],
-   page: 1, //* buraları tekrar düşün eğer 4 tane post gelirse ve 1 tane oluşturursam 5 tane post olur sayfa değişmez vs.
+   page: 1,
    limit: 10,
    canBeMorePost: true
 };
@@ -22,6 +22,14 @@ const DashboardSlice = createSlice({
          }
          if (action.payload.length < state.limit) {
             state.canBeMorePost = false;
+         }
+      },
+      //* after creating a post, this func is called to update posts state
+      setPost: (state, action) => {
+         state.posts.unshift(action.payload);
+         console.log(state.posts, ' state post uzunluk');
+         if ((state.posts.length + 1) >= state.limit * state.page) {
+            state.page += 1;
          }
       },
       setPage: (state, action) => {

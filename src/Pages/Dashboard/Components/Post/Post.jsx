@@ -13,7 +13,6 @@ import PropTypes from 'prop-types';
 import { useSelector } from 'react-redux';
 
 const Post = ({ data }) => {
-   const liked = true;
    const saved = true;
    const { user } = useSelector((state) => state.Login);
 
