@@ -12,6 +12,7 @@ import { snackbar } from '../../Core/Utils/Snackbar';
 import { NotifierTypes } from '../../Core/Constants/Enums';
 import { LoginSagaActions } from './Store/Login.saga';
 import Loading from '../../Core/Components/Loading/Loading';
+import useHttpResponse from '../../Core/Hooks/useHttpResponse';
 
 const schema = yup.object({
   email: yup.string().email('Invalid email format!').required('Required!'),
@@ -51,6 +52,13 @@ const Login = () => {
     form.handleSubmit(onSignIn, onError)();
   };
 
+  useHttpResponse({
+    success: ({ idleAction }) => {
+      idleAction();
+      navigate('/');
+    }
+  }, LoginSagaActions.login());
+
   return (
     <S.Login>
       <div className="container">
@@ -88,6 +96,7 @@ const Login = () => {
           <TextInput
             label="Password"
             {...registerHandler('password')}
+            type="password"
           />
           <a className="sign-in__forgot-password"> Forgot your password ? </a>
           <Button 

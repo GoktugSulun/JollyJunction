@@ -22,9 +22,10 @@ export default [
          if (!result.data.length) {
             yield put(snackbar('Email veya şifre yanlış!', { variant: NotifierTypes.ERROR }));
          } else {
-            yield put(LoginActions.setUser(result.data[0]));
+            const user = { ...result.data[0] };
+            delete user.password;
+            yield put(LoginActions.setUser(user));
             localStorage.setItem('token', 'ABC123ABC123');
-            window.location.href = '/';
          }
       }
    })

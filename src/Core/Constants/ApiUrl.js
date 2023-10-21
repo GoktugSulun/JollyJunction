@@ -1,3 +1,4 @@
 export const ApiUrl = Object.freeze({
-   users: '/users'
+   users: '/users',
+   posts: '/posts',
 });
