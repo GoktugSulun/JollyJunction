@@ -10,14 +10,31 @@ import ChatBubbleOutlineIcon from '@mui/icons-material/ChatBubbleOutline';
 import BookmarkBorderIcon from '@mui/icons-material/BookmarkBorder';
 import BookmarkIcon from '@mui/icons-material/Bookmark';
 import PropTypes from 'prop-types';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { DashboardSagaActions } from '../../Store/Dashboard.saga';
 
 const Post = ({ data }) => {
    const saved = true;
+   const dispatch = useDispatch();
    const { user } = useSelector((state) => state.Login);
 
    const isItLiked = () => {
       return !!data.likes.find((obj) => obj.id === user?.id);
+   };
+
+   const likeHandler = () => {
+      const updatedData = {
+         ...data,
+         likes: isItLiked() 
+            ? data.likes.filter((obj) => obj.id !== user.id)
+            : [...data.likes, user]
+      };
+      const payload = {
+         post_id: data.id,
+         data: updatedData,
+         liked: !isItLiked()
+      };
+      dispatch(DashboardSagaActions.likePost(payload));
    };
 
    return (
@@ -37,8 +54,8 @@ const Post = ({ data }) => {
       { data.img && <img src={PostImageURL} alt="post-content" /> }
       <div className="buttons">
          <div className="buttons__group">
-            <Tooltip title={isItLiked() ? 'Cancel' : 'Like'} >
-               <IconButton>
+            <Tooltip title={isItLiked() ? 'Unlike' : 'Like'} >
+               <IconButton onClick={likeHandler} >
                   { 
                      isItLiked() 
                         ? <FavoriteIcon /> 
@@ -54,7 +71,7 @@ const Post = ({ data }) => {
             </Tooltip>
             <span className="count"> { data.comments.length } </span>
          </div>
-         <Tooltip title={saved ? 'Save' : 'Cancel'} >
+         <Tooltip title={saved ? 'Unsave' : 'Save'} >
             <IconButton>
                { 
                   saved 

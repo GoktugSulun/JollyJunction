@@ -30,7 +30,14 @@
         "name": "Goktug",
         "surname": "Sulun"
       },
-      "likes": [],
+      "likes": [
+        {
+          "id": 1,
+          "name": "Goktug",
+          "surname": "Sulun",
+          "email": "goktug.sulun@hotmail.com"
+        }
+      ],
       "comments": [],
       "date": "2023-10-14T14:32:29.489Z",
       "id": 1
@@ -54,7 +61,14 @@
         "name": "Goktug",
         "surname": "Sulun"
       },
-      "likes": [],
+      "likes": [
+        {
+          "id": 1,
+          "name": "Goktug",
+          "surname": "Sulun",
+          "email": "goktug.sulun@hotmail.com"
+        }
+      ],
       "comments": [],
       "date": "2023-10-21T18:53:42.743Z",
       "id": 3

@@ -11,7 +11,8 @@ const mainSagaName = 'Dashboard/request';
 
 export const DashboardSagaActions = {
    getPosts: createAction(`${mainSagaName}/getPosts`),
-   createPost: createAction(`${mainSagaName}/createPost`)
+   createPost: createAction(`${mainSagaName}/createPost`),
+   likePost: createAction(`${mainSagaName}/likePost`)
 };
 
 export default [
@@ -31,6 +32,15 @@ export default [
          const response = yield call(request, HttpMethodTypes.POST, `${ApiUrl.posts}`, payload);
          yield put(DashboardActions.setPost(response.data));
          yield put(snackbar('Post is created successfully'));
+      }
+   }),
+   createSagaWatcher({
+      actionType: DashboardSagaActions.likePost.type,
+      takeType: SagaTakeTypes.TAKE_LATEST,
+      * func({ payload }) {
+         yield call(request, HttpMethodTypes.PUT, `${ApiUrl.posts}/${payload.post_id}`, payload.data);
+         yield put(DashboardActions.updatePost(payload));
+         yield put(snackbar(payload.liked ? 'Post is liked successfully' : 'Post is unliked successfully'));
       }
    })
 ];

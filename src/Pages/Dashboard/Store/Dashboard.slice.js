@@ -32,6 +32,11 @@ const DashboardSlice = createSlice({
             state.page += 1;
          }
       },
+      //* after like process, this func is called to update posts state
+      updatePost: (state, action) => {
+         const { post_id, data } = action.payload;
+         state.posts = state.posts.map((obj) => obj.id === post_id ? data : obj);
+      },
       setPage: (state, action) => {
          state.page = action.payload;
       }
