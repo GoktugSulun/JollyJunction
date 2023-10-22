@@ -54,7 +54,88 @@
       "id": 1
     },
     {
+      "sender_user": {
+        "id": 2,
+        "name": "Damla Nur",
+        "surname": "Yilmaz",
+        "position": "Frontend Developer",
+        "email": "damlanurylmaz@hotmail.com",
+        "img": "damla.jpg",
+        "friends": []
+      },
+      "receiver_user": {
+        "id": 1,
+        "name": "Goktug",
+        "surname": "Sulun",
+        "position": "Frontend Developer",
+        "img": "goktug.jpeg"
+      },
+      "type": 2,
+      "date": "Sun Oct 22 2023 12:27:27 GMT+0300 (GMT+03:00)",
       "id": 2
+    },
+    {
+      "sender_user": {
+        "id": 2,
+        "name": "Damla Nur",
+        "surname": "Yilmaz",
+        "position": "Frontend Developer",
+        "email": "damlanurylmaz@hotmail.com",
+        "img": "damla.jpg",
+        "friends": []
+      },
+      "receiver_user": {
+        "id": 1,
+        "name": "Goktug",
+        "surname": "Sulun",
+        "position": "Frontend Developer",
+        "img": "goktug.jpeg"
+      },
+      "type": 3,
+      "date": "Sun Oct 22 2023 12:27:27 GMT+0300 (GMT+03:00)",
+      "id": 3
+    },
+    {
+      "sender_user": {
+        "id": 2,
+        "name": "Damla Nur",
+        "surname": "Yilmaz",
+        "position": "Frontend Developer",
+        "email": "damlanurylmaz@hotmail.com",
+        "img": "damla.jpg",
+        "friends": []
+      },
+      "receiver_user": {
+        "id": 1,
+        "name": "Goktug",
+        "surname": "Sulun",
+        "position": "Frontend Developer",
+        "img": "goktug.jpeg"
+      },
+      "type": 2,
+      "date": "Sun Oct 22 2023 12:27:27 GMT+0300 (GMT+03:00)",
+      "id": 4
+    },
+    {
+      "sender_user": {
+        "id": 2,
+        "name": "Damla Nur",
+        "surname": "Yilmaz",
+        "position": "Frontend Developer",
+        "email": "damlanurylmaz@hotmail.com",
+        "img": "damla.jpg",
+        "friends": []
+      },
+      "receiver_user": {
+        "id": 1,
+        "name": "Goktug",
+        "surname": "Sulun",
+        "position": "Frontend Developer",
+        "img": "goktug.jpeg"
+      },
+      "type": 1,
+      "date": "Sun Oct 22 2023 12:27:27 GMT+0300 (GMT+03:00)",
+      "id": 5
     }
   ],
   "posts": [
