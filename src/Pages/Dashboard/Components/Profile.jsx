@@ -2,7 +2,6 @@ import React from 'react';
 import * as S from '../Style/Dashboard.style';
 import { Divider } from '../../../Components/Divider/Divider.style';
 import UserProfile from '../../../Components/UserProfile/UserProfile';
-import UserURL from '../../../assets/Pngs/foto.jpeg';
 import LocationOnIcon from '@mui/icons-material/LocationOn';
 import SchoolIcon from '@mui/icons-material/School';
 import BusinessCenterIcon from '@mui/icons-material/BusinessCenter';
@@ -10,15 +9,23 @@ import TwitterIcon from '@mui/icons-material/Twitter';
 import LinkedInIcon from '@mui/icons-material/LinkedIn';
 import EditIcon from '@mui/icons-material/Edit';
 import { IconButton } from '@mui/material';
+import { useSelector } from 'react-redux';
+import { UserImages } from '../../../assets/Pngs/Pngs';
 
 const Profile = () => {
+   const { user: authorizedUser } = useSelector((state) => state.Login);
+
+   const getUserSrc = () => {
+      return UserImages.find((src) => src.includes(authorizedUser.img)) || null;
+   };
+
    return (
       <S.Profile>
          <div className="user">
             <UserProfile 
-               name="Goktug Sulun" 
-               position="Frontend Developer"
-               src={UserURL}
+               name={`${authorizedUser?.name || ''} ${authorizedUser?.surname || ''}`}
+               position={authorizedUser?.position || ''}
+               src={getUserSrc()}
             />
          </div>
          <Divider />

@@ -8,9 +8,11 @@ export const Dashboard = styled(ContentWrapper)`
    padding: 0 75px;
    margin-top: 30px;
    gap: 50px;
+   transition: padding 350ms;
 
    @media (max-width: 900px) {
       grid-template-columns: 1fr;
+      padding: 0 40px;
    }
 `;
 
@@ -23,6 +25,21 @@ export const ProfileWrapper = styled.div`
 export const PostWrapper = styled.div`
    .loading-container {
       margin: 50px 0;
+   }
+   .more-button-container {
+      margin: 25px 0;
+      display: flex;
+      justify-content: center;
+      button {
+         width: 50%;
+      }
+   }
+   @media (max-width: 900px) {
+      .more-button-container {
+         button {
+            width: 100%;
+         }
+      }
    }
 `;
 
@@ -173,7 +190,7 @@ export const FriendList = styled.div`
    .title {
       color: #c9c9c9;
       font-weight: 500;
-      margin-bottom: 30px;
+      margin-bottom: 20px;
    }
    .friend {
       display: flex;
@@ -190,6 +207,10 @@ export const FriendList = styled.div`
             fill: #927CD9;
          }
       }
+   }
+   .no-friend {
+      color: #575757;
+      font-size: 14px;
    }
 `;
 

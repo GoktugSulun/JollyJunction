@@ -27,7 +27,7 @@ const defaultValues = {
 const Login = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { loading } = useSelector((state) => state.Login);
+  const { loading, user } = useSelector((state) => state.Login);
   const { registerHandler, form } = useMaterialForm({
     defaultValues,
     schema
@@ -52,9 +52,16 @@ const Login = () => {
     form.handleSubmit(onSignIn, onError)();
   };
 
+  const onKeyDownHandler = (e) => {
+    if (e.key === 'Enter') {
+      signInHandler();
+    }
+  };
+
   useHttpResponse({
     success: ({ idleAction }) => {
       idleAction();
+      localStorage.setItem('user_id', user?.id);
       navigate('/');
     }
   }, LoginSagaActions.login());
@@ -92,11 +99,13 @@ const Login = () => {
           <TextInput
             label="Email"
             {...registerHandler('email')}
+            onKeyDown={onKeyDownHandler}
           />
           <TextInput
             label="Password"
             {...registerHandler('password')}
             type="password"
+            onKeyDown={onKeyDownHandler}
           />
           <a className="sign-in__forgot-password"> Forgot your password ? </a>
           <Button 

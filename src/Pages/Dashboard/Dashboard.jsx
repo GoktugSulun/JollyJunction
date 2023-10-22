@@ -14,6 +14,7 @@ import Loading from '../../Core/Components/Loading/Loading';
 const Dashboard = () => {
   const dispatch = useDispatch();
   const { posts, page, limit, canBeMorePost, loading } = useSelector(state => state.Dashboard);
+  const { user: authorizedUser } = useSelector(state => state.Login);
   
   // TODO: 'More Post' button and the snackbar message are gonna be removed. Instead of this, I am gonna do scroll & fetch combination. 
   const fetchMorePost = () => {
@@ -22,15 +23,19 @@ const Dashboard = () => {
     }
   };
 
+  const fetchNotificationsICreated = () => {
+    dispatch(DashboardSagaActions.getNotificationsICreated(authorizedUser.id));
+  };
+
   useHttpResponse({
     success: ({ idleAction }) => {
-      fetchMorePost();
       idleAction();
     }
   }, DashboardSagaActions.createPost());
   
   useEffect(() => {
     fetchMorePost();
+    fetchNotificationsICreated();
   }, []);
 
   return (
@@ -41,6 +46,12 @@ const Dashboard = () => {
       <S.PostWrapper>
         <CreatePost />
         {
+          loading?.createPost &&
+            (<div className="loading-container">
+              <Loading size={50} />
+            </div>)
+        }
+        {
           posts.map((obj) => (
             <Post 
               key={obj.id}
@@ -48,12 +59,17 @@ const Dashboard = () => {
             />
           ))
         }
-        <div className="loading-container">
-          { loading?.getPosts && <Loading size={50} /> }
+        {
+          loading?.getPosts &&
+            (<div className="loading-container">
+              <Loading size={50} />
+            </div>)
+        }
+        <div className="more-button-container">
+          <Button onClick={fetchMorePost}>
+            More Post
+          </Button>
         </div>
-        <Button onClick={fetchMorePost}>
-          More Post
-        </Button>
       </S.PostWrapper>
       <S.SidebarWrapper>
         <Advertisement />

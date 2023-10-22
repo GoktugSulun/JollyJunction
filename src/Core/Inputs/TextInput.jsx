@@ -42,6 +42,7 @@ const TextInput = (props) => {
           endAdornment={props.endAdornment}
           onChange={onChangeHandler}
           onBlur={props.field?.onBlur || props.onBlur} 
+          onKeyDown={props.onKeyDown}
           {...getValue()}
           name={props.field?.name || props.name} 
           inputRef={props.field?.ref || props.inputRef} 
@@ -78,6 +79,7 @@ TextInput.propTypes = {
   error: PropTypes.bool,
   type: PropTypes.string,
   onChange: PropTypes.any,
+  onKeyDown: PropTypes.func,
   rules: PropTypes.object,
   defaultValue: PropTypes.any,
   palette: PropTypes.object,
@@ -101,6 +103,7 @@ TextInput.defaultProps = {
   error: false,
   type: 'text',
   onChange: () => {},
+  onKeyDown: () => {},
   rules: {},
   defaultValue: null,
   palette: {

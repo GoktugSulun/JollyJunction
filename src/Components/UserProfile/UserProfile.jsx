@@ -5,10 +5,10 @@ import LetterImage from '../LetterImage/LetterImage';
 
 const UserProfile = (props) => {
   return (
-    <S.UserProfile small={props.small} >
+    <S.UserProfile small={props.small} justImage={!props.name.trim() && !props.position.trim()} >
       {
          props.src 
-            ?  <img src={props.src} alt="user" />
+            ?  <img className="user-img" src={props.src} alt="user" />
             :  <LetterImage fontSize={props.fontSize} name={props.name} />
       }
       <div className="user-info">

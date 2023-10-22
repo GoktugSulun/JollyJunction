@@ -1,15 +1,19 @@
+import { css } from '@emotion/react';
 import styled from '@emotion/styled';
 
 export const UserProfile = styled.div`
    display: flex;
    align-items: center;
    gap: 15px;
-   img {
-      width: 70px;
-      height: 70px;
+   .user-img {
+      width: 60px;
+      height: 60px;
       border-radius: 50%;
    }
    .user-info {
+      ${(props) => props.justImage && css`
+         display: none;
+      `}
       &__name {
          color: #c9c9c9;
          font-size: ${(props) => props.small ? '16px' : '18px'};

@@ -8,6 +8,11 @@ export const Header = styled.div`
    display: flex;
    justify-content: space-between;
    padding: 0 75px;
+   transition: padding 350ms;
+
+   @media (max-width: 900px) {
+      padding: 0 40px;
+   }
 `;
 
 export const Search = styled.div`
@@ -48,6 +53,7 @@ export const Tools = styled.div`
    display: flex;
    align-items: center;
    gap: 25px;
+   transition: gap 350ms;
    .MuiIconButton-root {
       :hover {
          background-color: #333;
@@ -56,10 +62,27 @@ export const Tools = styled.div`
          fill: #FFFFFF;
       }
    }
+   @media (max-width: 900px) {
+      gap: 15px;
+   }
 `;
 
 export const MenuWrapper = styled.div`
-
+   .menu-button {
+      display: none;
+   }
+   .MuiIconButton-root {
+      width: 40px;
+      height: 40px;
+   }
+   @media (max-width: 600px) {
+      .menu-button {
+         display: block;
+      }
+      .profile-button {
+         display: none;
+      }
+   }
 `;
 
 export const CustomDivider = styled(Divider)`

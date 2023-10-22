@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import * as S from '../../Style/Dashboard.style';
-import UserURL from '../../../../assets/Pngs/foto.jpeg';
+import UserURL from '../../../../assets/Pngs/goktug.jpeg';
 import TextInput from '../../../../Core/Inputs/TextInput';
 import useMaterialForm from '../../../../Core/Hooks/useMaterialForm';
 import { Divider } from '../../../../Components/Divider/Divider.style';
@@ -16,6 +16,8 @@ import { NotifierTypes } from '../../../../Core/Constants/Enums';
 import { DashboardSagaActions } from '../../Store/Dashboard.saga';
 import useHttpResponse from '../../../../Core/Hooks/useHttpResponse';
 import Loading from '../../../../Core/Components/Loading/Loading';
+import { UserImages } from '../../../../assets/Pngs/Pngs';
+import UserProfile from '../../../../Components/UserProfile/UserProfile';
 
 const defaultValues = {
    value: '',
@@ -25,7 +27,7 @@ const CreatePost = () => {
    const dispatch = useDispatch();
    const [imageURL, setImageURL] = useState(null);
    const [files, setFiles] = useState([]);
-   const { user } = useSelector(state => state.Login);
+   const { user: authorizedUser } = useSelector(state => state.Login);
    const { loading } = useSelector(state => state.Dashboard);
    const { registerHandler, form } = useMaterialForm({ defaultValues });
 
@@ -37,15 +39,16 @@ const CreatePost = () => {
       const payload = {
          description: form.getValues('value'),
          user: {
-            id: user.id,
-            name: user.name,
-            surname: user.surname,
-            position: user.position
+            id: authorizedUser.id,
+            name: authorizedUser.name,
+            surname: authorizedUser.surname,
+            position: authorizedUser.position
          },
          likes: [],
          comments: [],
-         date: new Date(),
-         // file: JSON.stringify(files?.[0]) || null
+         saves: [],
+         date: new Date().toString(),
+         files: files.map((file) => file.name)
       };
       dispatch(DashboardSagaActions.createPost(payload));
    };
@@ -57,9 +60,15 @@ const CreatePost = () => {
       setImageURL(URL.createObjectURL(files[0]));
    };
 
+   const getUserSrc = () => {
+      return UserImages.find((src) => src.includes(authorizedUser.img)) || null;
+   };
+
    useHttpResponse({
       success: ({ idleAction }) => {
          form.reset(defaultValues);
+         setFiles([]);
+         setImageURL(null);
          idleAction();
       }
    }, DashboardSagaActions.createPost());
@@ -67,7 +76,7 @@ const CreatePost = () => {
    return (
       <S.CreatePost>
          <div className="header">
-            <img src={UserURL} alt="user" />
+            <UserProfile src={getUserSrc()} />
             <TextInput
                {...registerHandler('value')}
                placeholder="What's on your mind..."
