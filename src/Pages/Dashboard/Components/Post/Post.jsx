@@ -2,7 +2,6 @@ import React from 'react';
 import * as S from '../../Style/Dashboard.style';
 import UserProfile from '../../../../Components/UserProfile/UserProfile';
 import { IconButton, Tooltip } from '@mui/material';
-import PostImageURL from '../../../../assets/Pngs/img-1.jpg';
 import PersonAddIcon from '@mui/icons-material/PersonAdd';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import FavoriteIcon from '@mui/icons-material/Favorite';
@@ -12,22 +11,22 @@ import BookmarkIcon from '@mui/icons-material/Bookmark';
 import PropTypes from 'prop-types';
 import { useDispatch, useSelector } from 'react-redux';
 import { DashboardSagaActions } from '../../Store/Dashboard.saga';
-import Pngs from '../../../../assets/Pngs/Pngs';
+import { PostImages, UserImages } from '../../../../assets/Pngs/Pngs';
 
 const Post = ({ data }) => {
    const dispatch = useDispatch();
-   const { user } = useSelector((state) => state.Login);
+   const { user: authorizedUser } = useSelector((state) => state.Login);
 
    const isItLiked = () => {
-      return !!data.likes.find((user_id) => user_id === user?.id);
+      return !!data.likes.find((user_id) => user_id === authorizedUser?.id);
    };
 
    const likeHandler = () => {
       const updatedData = {
          ...data,
          likes: isItLiked() 
-            ? data.likes.filter((user_id) => user_id !== user.id)
-            : [...data.likes, user.id]
+            ? data.likes.filter((user_id) => user_id !== authorizedUser.id)
+            : [...data.likes, authorizedUser.id]
       };
       const payload = {
          post_id: data.id,
@@ -38,15 +37,15 @@ const Post = ({ data }) => {
    };
 
    const isItSaved = () => {
-      return !!data.saves.find((user_id) => user_id === user?.id);
+      return !!data.saves.find((user_id) => user_id === authorizedUser?.id);
    };
 
    const saveHandler = () => {
       const updatedData = {
          ...data,
          saves: isItSaved() 
-            ? data.saves.filter((user_id) => user_id !== user.id)
-            : [...data.saves, user.id]
+            ? data.saves.filter((user_id) => user_id !== authorizedUser.id)
+            : [...data.saves, authorizedUser.id]
       };
       const payload = {
          post_id: data.id,
@@ -57,8 +56,19 @@ const Post = ({ data }) => {
    };
 
    const getImageURL = () => {
-      const targetImage = Pngs.find((path) => path.includes(data.files[0]));
-      return targetImage;
+      return PostImages.find((path) => path.includes(data.files[0]));
+   };
+
+   const isPersonMyFriend = () => {
+      //* Authorized user and post creator same person
+      if (authorizedUser.id === data.user.id) {
+         return true;
+      }
+      return !!authorizedUser?.friends?.find((user_id) => user_id === data.user.id);
+   };
+
+   const getUserSrc = () => {
+      return UserImages.find((src) => src.includes(data.user.img)) || null;
    };
    
    return (
@@ -67,12 +77,21 @@ const Post = ({ data }) => {
          <UserProfile
             name={`${data?.user?.name || ''} ${data?.user?.surname || ''}`}
             position={data?.user?.position || ''}
+            src={getUserSrc()}
          />
-         <Tooltip title="Add Friend" placement="top" >
-            <IconButton>
-               <PersonAddIcon />
-            </IconButton>
-         </Tooltip>
+         {
+            !isPersonMyFriend()
+               && (
+                  <Tooltip 
+                     title="Add Friend" 
+                     placement="top" 
+                  >
+                     <IconButton> 
+                        <PersonAddIcon />
+                     </IconButton>
+                  </Tooltip>
+               )
+         }
       </div>
       <p className="description"> { data.description } </p>
       { !!data.files.length && <img loading="lazy" src={getImageURL()} alt="post-content" /> }

@@ -9,6 +9,7 @@ import PersonIcon from '@mui/icons-material/Person';
 import LogoutIcon from '@mui/icons-material/Logout';
 import MenuIcon from '@mui/icons-material/Menu';
 import { IconButton } from '@mui/material';
+import { useSelector } from 'react-redux';
 
 const StyledMenu = styled((props) => (
   <Menu
@@ -58,6 +59,7 @@ const StyledMenu = styled((props) => (
 
 const UserMenu = () => {
   const [anchorEl, setAnchorEl] = React.useState(null);
+  const { user } = useSelector((state) => state.Login);
   const open = Boolean(anchorEl);
 
   const handleClick = (event) => {
@@ -92,7 +94,7 @@ const UserMenu = () => {
         bgColor="#2d2d2d"
         $color="#c7c5c5"
       >
-        Goktug Sulun
+        {`${user?.name} ${user?.surname}`}
       </Button>
       <StyledMenu
         id="demo-customized-menu"
