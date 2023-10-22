@@ -22,7 +22,7 @@ const RouteList = () => {
       }
    }, [user, token]);
 
-   if (!user?.id) {
+   if (!user?.id && token) {
       return (
          <FullSizeLoadingWrapper>
             <Loading size={80} />
