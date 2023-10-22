@@ -7,6 +7,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
 import { LoginSagaActions } from '../../Pages/Login/Store/Login.saga';
 import _ from 'lodash';
+import Loading from '../Components/Loading/Loading';
+import { FullSizeLoadingWrapper } from '../Components/Pages/FullSizeLoadingWrapper.style';
 
 const RouteList = () => {
    const token = localStorage.getItem('token');
@@ -19,6 +21,14 @@ const RouteList = () => {
          dispatch(LoginSagaActions.getUser({ user_id }));
       }
    }, [user, token]);
+
+   if (!user?.id) {
+      return (
+         <FullSizeLoadingWrapper>
+            <Loading size={80} />
+         </FullSizeLoadingWrapper>
+      );
+   }
 
    return (
       <Routes>
