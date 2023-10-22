@@ -14,12 +14,17 @@ import Loading from '../../Core/Components/Loading/Loading';
 const Dashboard = () => {
   const dispatch = useDispatch();
   const { posts, page, limit, canBeMorePost, loading } = useSelector(state => state.Dashboard);
+  const { user: authorizedUser } = useSelector(state => state.Login);
   
   // TODO: 'More Post' button and the snackbar message are gonna be removed. Instead of this, I am gonna do scroll & fetch combination. 
   const fetchMorePost = () => {
     if (canBeMorePost) {
       dispatch(DashboardSagaActions.getPosts({ page, limit }));
     }
+  };
+
+  const fetchNotificationsICreated = () => {
+    dispatch(DashboardSagaActions.getNotificationsICreated(authorizedUser.id));
   };
 
   useHttpResponse({
@@ -30,6 +35,7 @@ const Dashboard = () => {
   
   useEffect(() => {
     fetchMorePost();
+    fetchNotificationsICreated();
   }, []);
 
   return (

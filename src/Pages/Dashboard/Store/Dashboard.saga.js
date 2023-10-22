@@ -13,7 +13,10 @@ export const DashboardSagaActions = {
    getPosts: createAction(`${mainSagaName}/getPosts`),
    createPost: createAction(`${mainSagaName}/createPost`),
    likePost: createAction(`${mainSagaName}/likePost`),
-   savePost: createAction(`${mainSagaName}/savePost`)
+   savePost: createAction(`${mainSagaName}/savePost`),
+   addFriend: createAction(`${mainSagaName}/addFriend`),
+   removeFriend: createAction(`${mainSagaName}/removeFriend`),
+   getNotificationsICreated: createAction(`${mainSagaName}/getNotificationsICreated`),
 };
 
 export default [
@@ -51,6 +54,22 @@ export default [
          yield call(request, HttpMethodTypes.PUT, `${ApiUrl.posts}/${payload.post_id}`, payload.data);
          yield put(DashboardActions.updatePost(payload));
          yield put(snackbar(payload.saved ? 'Post is saved successfully' : 'Post is unsaved successfully'));
+      }
+   }),
+   createSagaWatcher({
+      actionType: DashboardSagaActions.addFriend.type,
+      takeType: SagaTakeTypes.TAKE_LATEST,
+      * func({ payload }) {
+         yield call(request, HttpMethodTypes.POST, `${ApiUrl.notifications}`, payload);
+         yield put(snackbar('Friendship request are sent successfully'));
+      }
+   }),
+   createSagaWatcher({
+      actionType: DashboardSagaActions.getNotificationsICreated.type,
+      takeType: SagaTakeTypes.TAKE_LATEST,
+      * func({ payload }) {
+         const response = yield call(request, HttpMethodTypes.GET, `${ApiUrl.notifications}?sender_user.id=${payload}`);
+         yield put(DashboardActions.setNotificationsICreated(response?.data || []));
       }
    })
 ];

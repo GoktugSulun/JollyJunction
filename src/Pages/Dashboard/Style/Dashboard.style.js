@@ -190,7 +190,7 @@ export const FriendList = styled.div`
    .title {
       color: #c9c9c9;
       font-weight: 500;
-      margin-bottom: 30px;
+      margin-bottom: 20px;
    }
    .friend {
       display: flex;
@@ -207,6 +207,10 @@ export const FriendList = styled.div`
             fill: #927CD9;
          }
       }
+   }
+   .no-friend {
+      color: #575757;
+      font-size: 14px;
    }
 `;
 
