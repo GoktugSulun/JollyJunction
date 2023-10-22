@@ -23,10 +23,6 @@ const Dashboard = () => {
     }
   };
 
-  const fetchNotificationsICreated = () => {
-    dispatch(DashboardSagaActions.getNotificationsICreated(authorizedUser.id));
-  };
-
   useHttpResponse({
     success: ({ idleAction }) => {
       idleAction();
@@ -35,7 +31,8 @@ const Dashboard = () => {
   
   useEffect(() => {
     fetchMorePost();
-    fetchNotificationsICreated();
+    dispatch(DashboardSagaActions.getNotificationsICreated(authorizedUser.id));
+    dispatch(DashboardSagaActions.getNotifications(authorizedUser.id));
   }, []);
 
   return (
