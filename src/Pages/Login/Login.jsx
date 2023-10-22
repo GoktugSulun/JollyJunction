@@ -52,6 +52,12 @@ const Login = () => {
     form.handleSubmit(onSignIn, onError)();
   };
 
+  const onKeyDownHandler = (e) => {
+    if (e.key === 'Enter') {
+      signInHandler();
+    }
+  };
+
   useHttpResponse({
     success: ({ idleAction }) => {
       idleAction();
@@ -93,11 +99,13 @@ const Login = () => {
           <TextInput
             label="Email"
             {...registerHandler('email')}
+            onKeyDown={onKeyDownHandler}
           />
           <TextInput
             label="Password"
             {...registerHandler('password')}
             type="password"
+            onKeyDown={onKeyDownHandler}
           />
           <a className="sign-in__forgot-password"> Forgot your password ? </a>
           <Button 
