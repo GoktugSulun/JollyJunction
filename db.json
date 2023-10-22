@@ -31,15 +31,7 @@
       "friends": []
     }
   ],
-  "notifications": [
-    {
-      "sender_user_id": 1,
-      "receiver_user_id": 2,
-      "type": 1,
-      "date": "2023-10-14T14:32:29.489Z",
-      "read": false
-    }
-  ],
+  "notifications": [],
   "posts": [
     {
       "description": "deneme post",
@@ -56,7 +48,8 @@
       ],
       "comments": [],
       "saves": [
-        1
+        1,
+        2
       ],
       "files": [],
       "date": "2023-10-14T14:32:29.489Z",
