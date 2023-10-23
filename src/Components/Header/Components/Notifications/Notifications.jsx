@@ -35,7 +35,9 @@ const Notications = () => {
   };
 
   const handleClose = () => {
-    dispatch(NotificationSagaActions.getUnreadNotifications(authorizedUser.id));
+    if (notifications.length) {
+      dispatch(NotificationSagaActions.getUnreadNotifications(authorizedUser.id));
+    }
     setAnchorEl(null);
   };
 
@@ -87,20 +89,15 @@ const Notications = () => {
         open={open}
         onClose={handleClose}
       >
-        { 
-          loading?.getNotifications 
-            ? <Loading margin="20px 0" /> 
-            : <>
-                <NotificationsContent />
-                <S.ShowAllButton 
-                  onClick={showAllNotifications}
-                >
-                  Tümünü Göster 
-                  <span className="more-count"> ({notifications.length}) </span>
-                  {/* <span className="more-count"> (+{notifications.length - 4} more) </span> */}
-                </S.ShowAllButton>
-              </>
-        }  
+        { loading?.getNotifications && <Loading blur color="#FFFFFF" /> }
+        <NotificationsContent />
+        <S.ShowAllButton 
+          onClick={showAllNotifications}
+        >
+          Tümünü Göster 
+          <span className="more-count"> ({notifications.length}) </span>
+          {/* <span className="more-count"> (+{notifications.length - 4} more) </span> */}
+        </S.ShowAllButton>
       </S.StyledMenu>
     </S.NoticationsMenuWrapper>
   );

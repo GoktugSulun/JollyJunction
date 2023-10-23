@@ -18,6 +18,9 @@ const NotificationSlice = createSlice({
       filterNotifications: (state, action) => {
          const { notification_id } = action.payload;
          state.notifications = state.notifications.filter((obj) => obj.id !== notification_id);
+      },
+      unshiftNotification: (state, action) => {
+         state.notifications.unshift(action.payload);
       }
    },
    extraReducers: (builder) => requestStatusReducer(builder, NotificationSagaActions)

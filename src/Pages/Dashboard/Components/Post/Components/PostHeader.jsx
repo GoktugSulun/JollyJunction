@@ -11,7 +11,7 @@ import { DashboardSagaActions } from '../../../Store/Dashboard.saga';
 const PostHeader = ({ data }) => {
    const dispatch = useDispatch();
    const { user: authorizedUser } = useSelector((state) => state.Login);
-   const { notificationsICreated } = useSelector((state) => state.Dashboard);
+   const { notificationsICreated, loading } = useSelector((state) => state.Dashboard);
 
    const getUserSrc = () => {
       return UserImages.find((src) => src.includes(data.user.img)) || null;
@@ -38,7 +38,9 @@ const PostHeader = ({ data }) => {
          sender_user: { ...authorizedUser },
          receiver_user: { ...data.user },
          type: NotificationTypes.REQUEST_FOR_FRIENDSHIP,
-         created_at: new Date().toString()
+         created_at: new Date().toString(),
+         read: false,
+         is_removed: false
       };
       dispatch(DashboardSagaActions.addFriend(payload));
    };
@@ -52,6 +54,7 @@ const PostHeader = ({ data }) => {
       />
       {
          friendCanBeAdded()
+            && loading?.getNotificationsICreated === false
             && (
                <Tooltip 
                   title="Add Friend" 

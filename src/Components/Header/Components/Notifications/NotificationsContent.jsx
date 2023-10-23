@@ -12,6 +12,7 @@ import Loading from '../../../../Core/Components/Loading/Loading';
 const NotificationsContent = () => {
   const dispatch = useDispatch();
   const { notifications, loading } = useSelector((state) => state.Notification);
+  const { user: authorizedUser } = useSelector((state) => state.Login);
 
   const getUserSrc = () => {
     return UserImages.find((src) => src.includes(notifications?.[0]?.sender_user?.img)) || null;
@@ -21,19 +22,43 @@ const NotificationsContent = () => {
     switch (type) {
       case NotificationTypes.REQUEST_FOR_FRIENDSHIP:
         return 'sent you a friendship request.';
-      case NotificationTypes.ADDED_FRIEND:
-        return 'accepted your friendship request.';
       case NotificationTypes.LIKED_POST:
         return 'liked your post.';
       case NotificationTypes.COMMENTED_POST:
         return 'commented on your post.';
+      case NotificationTypes.ACCEPTED_FRIENDSHIP_REQUEST:
+        return 'accepted your friendship request.';
+      case NotificationTypes.YOU_ARE_FRIEND_NOW:
+        return 'and you are friends now.';
       default:
         throw new Error('undefined notification type!');
     }
   };
 
-  const acceptHandler = (notification_id) => {
-    
+  const acceptHandler = ({ notification_id, sender_user }) => {
+    const payload = {
+      notification_id,
+      dataForNotificationWillBeRemoved: {
+        is_removed: true
+      },
+      dataForSenderUser: {
+        sender_user: { ...authorizedUser },
+        receiver_user: { ...sender_user },
+        type: NotificationTypes.ACCEPTED_FRIENDSHIP_REQUEST,
+        created_at: new Date(),
+        read: false,
+        is_removed: false
+      },
+      dataForReceiverUser: {
+        sender_user: { ...sender_user },
+        receiver_user: { ...authorizedUser },
+        type: NotificationTypes.YOU_ARE_FRIEND_NOW,
+        created_at: new Date(),
+        read: true,
+        is_removed: false
+      }
+    };
+    dispatch(NotificationSagaActions.acceptFriendshipRequest(payload));
   };
 
   const deleteHandler = (notification_id) => {
@@ -53,18 +78,8 @@ const NotificationsContent = () => {
   };
 
   const getDate = (created_at) => {
-    const duration = moment.duration(moment().diff(created_at));
-    const hours = Math.floor(duration.asHours());
-    const days = Math.floor(duration.asDays());
-    const weeks = Math.floor(duration.asWeeks());
-    
-    if (hours < 24) {
-      return `${hours}h`;
-    }
-    if (days < 7) {
-      return `${days}d`;
-    } 
-    return `${weeks}w`;
+    const diff = moment.duration(moment().diff(created_at)).humanize();
+    return `${diff} ago`;
   };
 
   if (!notifications.length) {
@@ -96,7 +111,7 @@ const NotificationsContent = () => {
                     <div className="buttons">
                       <Button 
                         disabled={loading?.rejectFriendshipRequest || loading?.acceptFriendshipRequest}
-                        onClick={() => acceptHandler(obj.id)}
+                        onClick={() => acceptHandler({ notification_id: obj.id, sender_user: obj.sender_user })}
                       >
                         { loading?.acceptFriendshipRequest ? <Loading size={25} color="#FFFFFF" /> : 'Accept' }
                       </Button>

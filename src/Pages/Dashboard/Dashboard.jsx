@@ -29,6 +29,13 @@ const Dashboard = () => {
       idleAction();
     }
   }, DashboardSagaActions.createPost());
+
+  useHttpResponse({
+    success: ({ idleAction }) => {
+       dispatch(DashboardSagaActions.getNotificationsICreated(authorizedUser.id));
+       idleAction();
+    }
+ }, DashboardSagaActions.addFriend());
   
   useEffect(() => {
     fetchMorePost();
