@@ -6,6 +6,7 @@ import { MenuItem } from '@mui/material';
 import * as S from '../../Style/Header.style';
 import { Button } from '../../../../Core/Components/Buttons/Button.style';
 import Loading from '../../../../Core/Components/Loading/Loading';
+import moment from 'moment';
 
 const NotificationsContent = () => {
   const { notifications, loading } = useSelector((state) => state.Notification);
@@ -14,8 +15,8 @@ const NotificationsContent = () => {
     return UserImages.find((src) => src.includes(notifications?.[0]?.sender_user?.img)) || null;
 };
 
-  const getNotificationMessage = (obj) => {
-    switch (obj.type) {
+  const getNotificationMessage = (type) => {
+    switch (type) {
       case NotificationTypes.REQUEST_FOR_FRIENDSHIP:
         return 'sent you a friendship request.';
       case NotificationTypes.ADDED_FRIEND:
@@ -29,8 +30,8 @@ const NotificationsContent = () => {
     }
   };
 
-  const approveHandler = (e) => {
-    console.log('clicked approve');
+  const approveHandler = (notification_id) => {
+    
   };
 
   const deleteHandler = (e) => {
@@ -41,6 +42,21 @@ const NotificationsContent = () => {
     // e.stopPropagation();
     // e.preventDefault();
     console.log('clicked noti');
+  };
+
+  const getDate = (created_at) => {
+    const duration = moment.duration(moment().diff(created_at));
+    const hours = Math.floor(duration.asHours());
+    const days = Math.floor(duration.asDays());
+    const weeks = Math.floor(duration.asWeeks());
+    
+    if (hours < 24) {
+      return `${hours}h`;
+    }
+    if (days < 7) {
+      return `${days}d`;
+    } 
+    return `${weeks}w`;
   };
 
   if (!notifications.length) {
@@ -63,14 +79,14 @@ const NotificationsContent = () => {
               <img alt="sender-user" src={getUserSrc()} />
               <p className="description">
                 <span className="description__sender-user"> { `${obj.sender_user.name} ${obj.sender_user.surname}` } </span>
-                <span className="description__text"> {getNotificationMessage(obj)} </span>
-                <span className="description__date"> 4g </span>
+                <span className="description__text"> {getNotificationMessage(obj.type)} </span>
+                <span className="description__date"> {getDate(obj.created_at)} </span>
               </p>
               {
                 obj.type === NotificationTypes.REQUEST_FOR_FRIENDSHIP 
                   && (
                     <div className="buttons">
-                      <Button onClick={approveHandler}>
+                      <Button onClick={() => approveHandler(obj.id)}>
                         Approve
                       </Button>
                       <Button

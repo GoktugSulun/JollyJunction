@@ -38,7 +38,7 @@ const PostHeader = ({ data }) => {
          sender_user: { ...authorizedUser },
          receiver_user: { ...data.user },
          type: NotificationTypes.REQUEST_FOR_FRIENDSHIP,
-         date: new Date().toString()
+         created_at: new Date().toString()
       };
       dispatch(DashboardSagaActions.addFriend(payload));
    };

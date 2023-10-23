@@ -47,7 +47,7 @@ const CreatePost = () => {
          likes: [],
          comments: [],
          saves: [],
-         date: new Date().toString(),
+         created_at: new Date().toString(),
          files: files.map((file) => file.name)
       };
       dispatch(DashboardSagaActions.createPost(payload));

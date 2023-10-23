@@ -50,7 +50,7 @@
         "img": "goktug.jpeg"
       },
       "type": 1,
-      "date": "Sun Oct 22 2023 12:27:27 GMT+0300 (GMT+03:00)",
+      "created_at": "Sun Oct 22 2023 12:27:27 GMT+0300 (GMT+03:00)",
       "id": 1,
       "read": true
     },
@@ -72,7 +72,7 @@
         "img": "goktug.jpeg"
       },
       "type": 2,
-      "date": "Sun Oct 22 2023 12:27:27 GMT+0300 (GMT+03:00)",
+      "created_at": "Sun Oct 22 2023 12:27:27 GMT+0300 (GMT+03:00)",
       "id": 2,
       "read": true
     },
@@ -94,7 +94,7 @@
         "img": "goktug.jpeg"
       },
       "type": 3,
-      "date": "Sun Oct 22 2023 12:27:27 GMT+0300 (GMT+03:00)",
+      "created_at": "Sun Oct 22 2023 12:27:27 GMT+0300 (GMT+03:00)",
       "id": 3,
       "read": true
     },
@@ -116,7 +116,7 @@
         "img": "goktug.jpeg"
       },
       "type": 2,
-      "date": "Sun Oct 22 2023 12:27:27 GMT+0300 (GMT+03:00)",
+      "created_at": "Sun Oct 22 2023 12:27:27 GMT+0300 (GMT+03:00)",
       "id": 4,
       "read": true
     },
@@ -138,7 +138,7 @@
         "img": "goktug.jpeg"
       },
       "type": 2,
-      "date": "Sun Oct 22 2023 12:27:27 GMT+0300 (GMT+03:00)",
+      "created_at": "Sun Oct 22 2023 12:27:27 GMT+0300 (GMT+03:00)",
       "id": 5,
       "read": true
     },
@@ -160,7 +160,7 @@
         "img": "goktug.jpeg"
       },
       "type": 1,
-      "date": "Sun Oct 22 2023 12:27:27 GMT+0300 (GMT+03:00)",
+      "created_at": "Sun Oct 22 2023 12:27:27 GMT+0300 (GMT+03:00)",
       "id": 6,
       "read": true
     },
@@ -182,7 +182,7 @@
         "img": "goktug.jpeg"
       },
       "type": 1,
-      "date": "Sun Oct 22 2023 12:27:27 GMT+0300 (GMT+03:00)",
+      "created_at": "Sun Oct 22 2023 12:27:27 GMT+0300 (GMT+03:00)",
       "id": 7,
       "read": true
     }
@@ -207,7 +207,7 @@
         2
       ],
       "files": [],
-      "date": "2023-10-14T14:32:29.489Z",
+      "created_at": "2023-10-14T14:32:29.489Z",
       "id": 1
     },
     {
@@ -225,7 +225,7 @@
       "comments": [],
       "saves": [],
       "files": [],
-      "date": "2023-10-15T15:16:19.313Z",
+      "created_at": "2023-10-15T15:16:19.313Z",
       "id": 2
     },
     {
@@ -240,7 +240,7 @@
       "likes": [],
       "comments": [],
       "saves": [],
-      "date": "Sat Oct 21 2023 23:28:38 GMT+0300 (GMT+03:00)",
+      "created_at": "Sat Oct 21 2023 23:28:38 GMT+0300 (GMT+03:00)",
       "files": [
         "img-2.jpg"
       ],
@@ -260,7 +260,7 @@
       ],
       "comments": [],
       "saves": [],
-      "date": "Sat Oct 21 2023 23:37:36 GMT+0300 (GMT+03:00)",
+      "created_at": "Sat Oct 21 2023 23:37:36 GMT+0300 (GMT+03:00)",
       "files": [
         "img-1.jpg"
       ],
@@ -280,7 +280,7 @@
       "saves": [
         1
       ],
-      "date": "Sat Oct 21 2023 23:38:03 GMT+0300 (GMT+03:00)",
+      "created_at": "Sat Oct 21 2023 23:38:03 GMT+0300 (GMT+03:00)",
       "files": [
         "img-3.jpg"
       ],
@@ -298,7 +298,7 @@
       "likes": [],
       "comments": [],
       "saves": [],
-      "date": "Sat Oct 21 2023 23:38:26 GMT+0300 (GMT+03:00)",
+      "created_at": "Sat Oct 21 2023 23:38:26 GMT+0300 (GMT+03:00)",
       "files": [
         "img-1.jpg"
       ],
