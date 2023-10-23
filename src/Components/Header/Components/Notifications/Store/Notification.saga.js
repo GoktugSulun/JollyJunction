@@ -5,6 +5,7 @@ import { HttpMethodTypes, SagaTakeTypes } from '../../../../../Core/Constants/En
 import { request } from '../../../../../Core/Request/Request';
 import { ApiUrl } from '../../../../../Core/Constants/ApiUrl';
 import { NotificationActions } from './Notification.slice';
+import { snackbar } from '../../../../../Core/Utils/Snackbar';
 
 const mainSagaName = 'Notification/request';
 
@@ -12,6 +13,8 @@ export const NotificationSagaActions = {
    updateSeenNotification: createAction(`${mainSagaName}/updateSeenNotification`),
    getNotifications: createAction(`${mainSagaName}/getNotifications`),
    getUnreadNotifications: createAction(`${mainSagaName}/getUnreadNotifications`),
+   acceptFriendshipRequest: createAction(`${mainSagaName}/acceptFriendshipRequest`),
+   rejectFriendshipRequest: createAction(`${mainSagaName}/rejectFriendshipRequest`),
 };
 
 export default [
@@ -19,7 +22,7 @@ export default [
       actionType: NotificationSagaActions.getNotifications.type,
       takeType: SagaTakeTypes.TAKE_LATEST,
       * func({ payload }) {
-         const response = yield call(request, HttpMethodTypes.GET, `${ApiUrl.notifications}?receiver_user.id=${payload}`);
+         const response = yield call(request, HttpMethodTypes.GET, `${ApiUrl.notifications}?receiver_user.id=${payload}&is_removed=false`);
          yield put(NotificationActions.setNotifications(response?.data || []));
       }
    }),
@@ -27,7 +30,7 @@ export default [
       actionType: NotificationSagaActions.getUnreadNotifications.type,
       takeType: SagaTakeTypes.TAKE_LATEST,
       * func({ payload }) {
-         const response = yield call(request, HttpMethodTypes.GET, `${ApiUrl.notifications}?receiver_user.id=${payload}&read=false`);
+         const response = yield call(request, HttpMethodTypes.GET, `${ApiUrl.notifications}?receiver_user.id=${payload}&read=false&is_removed=false`);
          yield put(NotificationActions.setNotifications(response?.data || []));
       }
    }),
@@ -36,6 +39,22 @@ export default [
       takeType: SagaTakeTypes.TAKE_LATEST,
       * func({ payload }) {
          yield call(request, HttpMethodTypes.PATCH, `${ApiUrl.notifications}/${payload.notification_id}`, payload.data);
+      }
+   }),
+   // createSagaWatcher({
+   //    actionType: NotificationSagaActions.acceptFriendshipRequest.type,
+   //    takeType: SagaTakeTypes.TAKE_LATEST,
+   //    * func({ payload }) {
+   //       yield call(request, HttpMethodTypes.PATCH, `${ApiUrl.notifications}/${payload.notification_id}`, payload.data);
+   //    }
+   // }),
+   createSagaWatcher({
+      actionType: NotificationSagaActions.rejectFriendshipRequest.type,
+      takeType: SagaTakeTypes.TAKE_LATEST,
+      * func({ payload }) {
+         yield call(request, HttpMethodTypes.PATCH, `${ApiUrl.notifications}/${payload.notification_id}`, payload.data);
+         yield put(snackbar('Friendship request is rejected'));
+         yield put(NotificationActions.filterNotifications({ notification_id: payload.notification_id }));
       }
    })
 ];

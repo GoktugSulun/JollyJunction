@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { NotificationSagaActions } from './Notificaiton.saga';
+import { NotificationSagaActions } from './Notification.saga';
 import requestStatusReducer from '../../../../../Core/Helper/requestStatusReducer';
 
 const NAME = 'Notification';
@@ -15,6 +15,10 @@ const NotificationSlice = createSlice({
       setNotifications: (state, action) => {
          state.notifications = action.payload;
       },
+      filterNotifications: (state, action) => {
+         const { notification_id } = action.payload;
+         state.notifications = state.notifications.filter((obj) => obj.id !== notification_id);
+      }
    },
    extraReducers: (builder) => requestStatusReducer(builder, NotificationSagaActions)
 });

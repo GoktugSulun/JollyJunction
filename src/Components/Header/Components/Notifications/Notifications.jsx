@@ -3,7 +3,7 @@ import * as S from '../../Style/Header.style';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import NotificationsContent from './NotificationsContent';
 import { useDispatch, useSelector } from 'react-redux';
-import { NotificationSagaActions } from './Store/Notificaiton.saga';
+import { NotificationSagaActions } from './Store/Notification.saga';
 import useHttpResponse from '../../../../Core/Hooks/useHttpResponse';
 import Loading from '../../../../Core/Components/Loading/Loading';
 

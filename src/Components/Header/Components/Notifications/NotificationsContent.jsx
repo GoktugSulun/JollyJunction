@@ -1,14 +1,16 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { UserImages } from '../../../../assets/Pngs/Pngs';
 import { NotificationTypes } from '../../../../Core/Constants/Enums';
 import { MenuItem } from '@mui/material';
 import * as S from '../../Style/Header.style';
 import { Button } from '../../../../Core/Components/Buttons/Button.style';
-import Loading from '../../../../Core/Components/Loading/Loading';
 import moment from 'moment';
+import { NotificationSagaActions } from './Store/Notification.saga';
+import Loading from '../../../../Core/Components/Loading/Loading';
 
 const NotificationsContent = () => {
+  const dispatch = useDispatch();
   const { notifications, loading } = useSelector((state) => state.Notification);
 
   const getUserSrc = () => {
@@ -30,12 +32,18 @@ const NotificationsContent = () => {
     }
   };
 
-  const approveHandler = (notification_id) => {
+  const acceptHandler = (notification_id) => {
     
   };
 
-  const deleteHandler = (e) => {
-    console.log('clicked delete');
+  const deleteHandler = (notification_id) => {
+    const payload = {
+      notification_id,
+      data: {
+        is_removed: true
+      }
+    };
+    dispatch(NotificationSagaActions.rejectFriendshipRequest(payload));
   };
 
   const notificationHandler = (e) => {
@@ -86,14 +94,18 @@ const NotificationsContent = () => {
                 obj.type === NotificationTypes.REQUEST_FOR_FRIENDSHIP 
                   && (
                     <div className="buttons">
-                      <Button onClick={() => approveHandler(obj.id)}>
-                        Approve
+                      <Button 
+                        disabled={loading?.rejectFriendshipRequest || loading?.acceptFriendshipRequest}
+                        onClick={() => acceptHandler(obj.id)}
+                      >
+                        { loading?.acceptFriendshipRequest ? <Loading size={25} color="#FFFFFF" /> : 'Accept' }
                       </Button>
                       <Button
                         bgColor="#484747"
-                        onClick={deleteHandler}
+                        disabled={loading?.rejectFriendshipRequest || loading?.acceptFriendshipRequest}
+                        onClick={() => deleteHandler(obj.id)}
                       >
-                        Delete
+                        { loading?.rejectFriendshipRequest ? <Loading size={25} color="#FFFFFF" /> : 'Delete' }
                       </Button>
                     </div>
                   )

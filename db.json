@@ -52,7 +52,8 @@
       "type": 1,
       "created_at": "Sun Oct 22 2023 12:27:27 GMT+0300 (GMT+03:00)",
       "id": 1,
-      "read": true
+      "read": true,
+      "is_removed": true
     },
     {
       "sender_user": {
@@ -74,7 +75,8 @@
       "type": 2,
       "created_at": "Sun Oct 22 2023 12:27:27 GMT+0300 (GMT+03:00)",
       "id": 2,
-      "read": true
+      "read": true,
+      "is_removed": false
     },
     {
       "sender_user": {
@@ -96,7 +98,8 @@
       "type": 3,
       "created_at": "Sun Oct 22 2023 12:27:27 GMT+0300 (GMT+03:00)",
       "id": 3,
-      "read": true
+      "read": true,
+      "is_removed": false
     },
     {
       "sender_user": {
@@ -118,7 +121,8 @@
       "type": 2,
       "created_at": "Sun Oct 22 2023 12:27:27 GMT+0300 (GMT+03:00)",
       "id": 4,
-      "read": true
+      "read": true,
+      "is_removed": false
     },
     {
       "sender_user": {
@@ -140,7 +144,8 @@
       "type": 2,
       "created_at": "Sun Oct 22 2023 12:27:27 GMT+0300 (GMT+03:00)",
       "id": 5,
-      "read": true
+      "read": true,
+      "is_removed": false
     },
     {
       "sender_user": {
@@ -162,7 +167,8 @@
       "type": 1,
       "created_at": "Sun Oct 22 2023 12:27:27 GMT+0300 (GMT+03:00)",
       "id": 6,
-      "read": true
+      "read": true,
+      "is_removed": false
     },
     {
       "sender_user": {
@@ -184,7 +190,8 @@
       "type": 1,
       "created_at": "Sun Oct 22 2023 12:27:27 GMT+0300 (GMT+03:00)",
       "id": 7,
-      "read": true
+      "read": true,
+      "is_removed": false
     }
   ],
   "posts": [

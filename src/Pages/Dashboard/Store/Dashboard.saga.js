@@ -68,7 +68,7 @@ export default [
       actionType: DashboardSagaActions.getNotificationsICreated.type,
       takeType: SagaTakeTypes.TAKE_LATEST,
       * func({ payload }) {
-         const response = yield call(request, HttpMethodTypes.GET, `${ApiUrl.notifications}?sender_user.id=${payload}`);
+         const response = yield call(request, HttpMethodTypes.GET, `${ApiUrl.notifications}?sender_user.id=${payload}&is_removed=false`);
          yield put(DashboardActions.setNotificationsICreated(response?.data || []));
       }
    })
