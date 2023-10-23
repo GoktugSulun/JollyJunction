@@ -42,10 +42,6 @@ const NotificationsContent = () => {
     console.log('clicked noti');
   };
 
-  const showAllNotifications = () => {
-    console.log('show all notificaitons');
-  };
-
   if (!notifications.length) {
     return (
       <MenuItem>
@@ -55,46 +51,38 @@ const NotificationsContent = () => {
   }
 
   return (
-    <div className="menu-item-container">
-        {
-          notifications.slice(-4).map((obj) => (
-            <MenuItem onClick={notificationHandler} key={obj.id} >
-              <S.NotificationItem>
-                <img alt="sender-user" src={getUserSrc()} />
-                <p className="description">
-                  <span className="description__sender-user"> { `${obj.sender_user.name} ${obj.sender_user.surname}` } </span>
-                  <span className="description__text"> {getNotificationMessage(obj)} </span>
-                  <span className="description__date"> 4g </span>
-                </p>
-                {
-                  obj.type === NotificationTypes.REQUEST_FOR_FRIENDSHIP 
-                    && (
-                      <div className="buttons">
-                        <Button onClick={approveHandler}>
-                          Approve
-                        </Button>
-                        <Button
-                          bgColor="#484747"
-                          onClick={deleteHandler}
-                        >
-                          Delete
-                        </Button>
-                      </div>
-                    )
-                }
-              </S.NotificationItem>
-            </MenuItem>
-            ))
-        }
-        {
-          notifications.length > 4 
-            && (
-              <S.ShowAllButton onClick={showAllNotifications}>
-                Tümünü Göster <span className="more-count"> (+{notifications.length - 4} more) </span>
-              </S.ShowAllButton>
-            ) 
-        }
-      </div>
+    <S.NotificationsContent>
+      {
+        notifications.map((obj) => (
+          <MenuItem onClick={notificationHandler} key={obj.id} >
+            <S.NotificationItem>
+              <img alt="sender-user" src={getUserSrc()} />
+              <p className="description">
+                <span className="description__sender-user"> { `${obj.sender_user.name} ${obj.sender_user.surname}` } </span>
+                <span className="description__text"> {getNotificationMessage(obj)} </span>
+                <span className="description__date"> 4g </span>
+              </p>
+              {
+                obj.type === NotificationTypes.REQUEST_FOR_FRIENDSHIP 
+                  && (
+                    <div className="buttons">
+                      <Button onClick={approveHandler}>
+                        Approve
+                      </Button>
+                      <Button
+                        bgColor="#484747"
+                        onClick={deleteHandler}
+                      >
+                        Delete
+                      </Button>
+                    </div>
+                  )
+              }
+            </S.NotificationItem>
+          </MenuItem>
+          ))
+      }
+    </S.NotificationsContent>
   );
 };
 

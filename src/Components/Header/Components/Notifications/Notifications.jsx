@@ -3,6 +3,7 @@ import * as S from '../../Style/Header.style';
 import { IconButton } from '@mui/material';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import NotificationsContent from './NotificationsContent';
+import { useSelector } from 'react-redux';
 
 const menuProps = {
   elevation: 0,
@@ -32,6 +33,10 @@ const Notications = () => {
     setAnchorEl(null);
   };
 
+  const showAllNotifications = () => {
+    console.log('show all notificaitons');
+  };
+
   return (
     <S.NoticationsMenuWrapper>
       <IconButton onClick={handleClick}>
@@ -44,7 +49,13 @@ const Notications = () => {
         onClose={handleClose}
       >
         <NotificationsContent />
-      </S.StyledMenu>
+        <S.ShowAllButton 
+          onClick={showAllNotifications}
+        >
+          Tümünü Göster 
+          {/* <span className="more-count"> (+{notifications.length - 4} more) </span> */}
+        </S.ShowAllButton>
+        </S.StyledMenu>
     </S.NoticationsMenuWrapper>
   );
 };

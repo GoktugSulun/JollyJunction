@@ -124,8 +124,8 @@ export const StyledMenu = muiStyled(Menu)(({ theme }) => ({
      '& .MuiMenuItem-root': {
        color: '#c7c5c5',
        padding: '10px 20px',
-       ':not(:last-child)': {
-         borderBottom: '1px solid #555',
+       '&:not(:last-child)': {
+         borderBottom: '1px solid #555'
        },
        '& .user-info__name': {
          fontSize: 16
@@ -148,7 +148,7 @@ export const StyledMenu = muiStyled(Menu)(({ theme }) => ({
    },
  }));
 
- export const NotificationItem = styled.div`
+export const NotificationItem = styled.div`
    display: flex;
    align-items: center;
    gap: 15px;
@@ -182,11 +182,14 @@ export const StyledMenu = muiStyled(Menu)(({ theme }) => ({
    }
  `;
 
- export const ShowAllButton = styled(Button)`
+export const ShowAllButton = styled(Button)`
    width: 100%;
    background-color: transparent;
    padding: 10px 0;
    border-radius: 0;
+   background-color: #444;
+   border-top: 1px solid #555;
+   box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
    :hover {
       background-color: #555;
    }
@@ -197,3 +200,20 @@ export const StyledMenu = muiStyled(Menu)(({ theme }) => ({
       color: #9f9d9d;
    }
  `;
+
+export const NotificationsContent = styled.div`
+   max-height: 400px;
+   overflow-y: auto;
+   overflow-x: hidden;
+   position: relative;
+   ::-webkit-scrollbar {
+      width: 5px;
+   }
+   ::-webkit-scrollbar-track {
+      background: inherit; 
+   }
+   ::-webkit-scrollbar-thumb {
+      background: #555; 
+      border-radius: 10px;
+   }
+`;
