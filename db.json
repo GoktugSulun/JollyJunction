@@ -51,7 +51,8 @@
       },
       "type": 1,
       "date": "Sun Oct 22 2023 12:27:27 GMT+0300 (GMT+03:00)",
-      "id": 1
+      "id": 1,
+      "read": true
     },
     {
       "sender_user": {
@@ -72,7 +73,8 @@
       },
       "type": 2,
       "date": "Sun Oct 22 2023 12:27:27 GMT+0300 (GMT+03:00)",
-      "id": 2
+      "id": 2,
+      "read": true
     },
     {
       "sender_user": {
@@ -93,7 +95,8 @@
       },
       "type": 3,
       "date": "Sun Oct 22 2023 12:27:27 GMT+0300 (GMT+03:00)",
-      "id": 3
+      "id": 3,
+      "read": true
     },
     {
       "sender_user": {
@@ -114,7 +117,30 @@
       },
       "type": 2,
       "date": "Sun Oct 22 2023 12:27:27 GMT+0300 (GMT+03:00)",
-      "id": 4
+      "id": 4,
+      "read": true
+    },
+    {
+      "sender_user": {
+        "id": 2,
+        "name": "Damla Nur",
+        "surname": "Yilmaz",
+        "position": "Frontend Developer",
+        "email": "damlanurylmaz@hotmail.com",
+        "img": "damla.jpg",
+        "friends": []
+      },
+      "receiver_user": {
+        "id": 1,
+        "name": "Goktug",
+        "surname": "Sulun",
+        "position": "Frontend Developer",
+        "img": "goktug.jpeg"
+      },
+      "type": 2,
+      "date": "Sun Oct 22 2023 12:27:27 GMT+0300 (GMT+03:00)",
+      "id": 5,
+      "read": true
     },
     {
       "sender_user": {
@@ -135,7 +161,8 @@
       },
       "type": 1,
       "date": "Sun Oct 22 2023 12:27:27 GMT+0300 (GMT+03:00)",
-      "id": 5
+      "id": 6,
+      "read": true
     },
     {
       "sender_user": {
@@ -156,28 +183,8 @@
       },
       "type": 1,
       "date": "Sun Oct 22 2023 12:27:27 GMT+0300 (GMT+03:00)",
-      "id": 6
-    },
-    {
-      "sender_user": {
-        "id": 2,
-        "name": "Damla Nur",
-        "surname": "Yilmaz",
-        "position": "Frontend Developer",
-        "email": "damlanurylmaz@hotmail.com",
-        "img": "damla.jpg",
-        "friends": []
-      },
-      "receiver_user": {
-        "id": 1,
-        "name": "Goktug",
-        "surname": "Sulun",
-        "position": "Frontend Developer",
-        "img": "goktug.jpeg"
-      },
-      "type": 3,
-      "date": "Sun Oct 22 2023 12:27:27 GMT+0300 (GMT+03:00)",
-      "id": 7
+      "id": 7,
+      "read": true
     }
   ],
   "posts": [

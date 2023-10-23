@@ -10,6 +10,7 @@ import { DashboardSagaActions } from './Store/Dashboard.saga';
 import { Button } from '../../Core/Components/Buttons/Button.style';
 import useHttpResponse from '../../Core/Hooks/useHttpResponse';
 import Loading from '../../Core/Components/Loading/Loading';
+import { NotificationSagaActions } from '../../Components/Header/Components/Notifications/Store/Notificaiton.saga';
 
 const Dashboard = () => {
   const dispatch = useDispatch();
@@ -32,7 +33,7 @@ const Dashboard = () => {
   useEffect(() => {
     fetchMorePost();
     dispatch(DashboardSagaActions.getNotificationsICreated(authorizedUser.id));
-    dispatch(DashboardSagaActions.getNotifications(authorizedUser.id));
+    dispatch(NotificationSagaActions.getUnreadNotifications(authorizedUser.id));
   }, []);
 
   return (

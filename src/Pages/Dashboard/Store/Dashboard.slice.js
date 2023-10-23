@@ -7,7 +7,6 @@ const NAME = 'Dashboard';
 const initialState = {
    posts: [],
    notificationsICreated: [],
-   notifications: [],
    page: 1,
    limit: 10,
    canBeMorePost: true
@@ -43,10 +42,7 @@ const DashboardSlice = createSlice({
       },
       setNotificationsICreated: (state, action) => {
          state.notificationsICreated = action.payload;
-      },
-      setNotifications: (state, action) => {
-         state.notifications = action.payload;
-      },
+      }
    },
    extraReducers: (builder) => requestStatusReducer(builder, DashboardSagaActions)
 });

@@ -7,13 +7,14 @@ export const Loading = styled.div`
    align-items: center;
    width: 100%;
    height: auto;
+   margin: ${(props) => props.margin};
    ${(props) => props.blur && css`
       position: absolute;
       top: 0;
       left: 0;
+      height: 100%;
       border-radius: inherit;
-      transform: translate(-50%, -50%);
-      background-color: rgba(255, 255, 255, .6);
+      background-color: rgba(255, 255, 255, .2);
    `}
    .MuiCircularProgress-root svg circle {
       stroke: ${(props) => props.color};

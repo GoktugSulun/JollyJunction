@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
-import { Divider, Menu } from '@mui/material';
-import { styled as muiStyled, alpha } from '@mui/material/styles';
+import { Divider, IconButton, Menu } from '@mui/material';
+import { styled as muiStyled, alpha, css } from '@mui/material/styles';
 import { Button } from '../../../Core/Components/Buttons/Button.style';
 
 export const Header = styled.div`
@@ -57,11 +57,17 @@ export const Tools = styled.div`
    gap: 25px;
    transition: gap 350ms;
    .MuiIconButton-root {
+      width: 40px;
+      height: 40px;
       :hover {
          background-color: #333;
       }
-      svg path {
-         fill: #FFFFFF;
+      svg {
+         width: 100%;
+         height: 100%;
+         path {
+            fill: #FFFFFF;
+         }
       }
    }
    @media (max-width: 900px) {
@@ -84,6 +90,30 @@ export const MenuWrapper = styled.div`
       .profile-button {
          display: none;
       }
+   }
+`;
+
+export const NotificationIconButton = styled(IconButton)`
+   position: relative;
+   ${(props) => props.open && css`
+      background: #333;
+   `}
+   ::before {
+      content: ${(props) => `"${props.count}"`};
+      scale: ${(props) => props.count > 0 ? 1 : 0};
+      transition: scale 350ms;
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: 15px;
+      height: 15px;
+      background-color: red;
+      color: #fff;
+      font-size: 12px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border-radius: 50%;
    }
 `;
 
@@ -152,6 +182,16 @@ export const NotificationItem = styled.div`
    display: flex;
    align-items: center;
    gap: 15px;
+   ${(props) => !props.read && css`
+      ::before {
+         content: "";
+         transition: scale 350ms;
+         min-width: 10px;
+         height: 10px;
+         background-color: red;
+         border-radius: 50%;
+      }
+   `}
    img {
       width: 60px;
       height: 60px;
@@ -174,7 +214,6 @@ export const NotificationItem = styled.div`
       display: flex;
       align-items: center;
       gap: 10px;
-      /* flex-wrap: wrap; */
       button {
          padding: 5px 10px;
          font-size: 14px;

@@ -1,9 +1,11 @@
-import * as React from 'react';
+import React, { useEffect, useState } from 'react';
 import * as S from '../../Style/Header.style';
-import { IconButton } from '@mui/material';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import NotificationsContent from './NotificationsContent';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { NotificationSagaActions } from './Store/Notificaiton.saga';
+import useHttpResponse from '../../../../Core/Hooks/useHttpResponse';
+import Loading from '../../../../Core/Components/Loading/Loading';
 
 const menuProps = {
   elevation: 0,
@@ -22,7 +24,10 @@ const menuProps = {
 };
 
 const Notications = () => {
-  const [anchorEl, setAnchorEl] = React.useState(null);
+  const dispatch = useDispatch();
+  const { notifications, loading } = useSelector((state) => state.Notification);
+  const { user: authorizedUser } = useSelector((state) => state.Login);
+  const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
 
   const handleClick = (event) => {
@@ -30,6 +35,7 @@ const Notications = () => {
   };
 
   const handleClose = () => {
+    dispatch(NotificationSagaActions.getUnreadNotifications(authorizedUser.id));
     setAnchorEl(null);
   };
 
@@ -37,25 +43,65 @@ const Notications = () => {
     console.log('show all notificaitons');
   };
 
+  const getUnreadNotification= () => {
+    return notifications.filter((obj) => !obj.read);
+  };
+
+  useHttpResponse({
+    success: ({ idleAction }) => {
+      if (open) {
+        const unreadNotifications = getUnreadNotification();
+        if (unreadNotifications.length > 0) {
+          for (let i=0; i<unreadNotifications.length; i++) {
+            const payload = {
+              notification_id: unreadNotifications[i].id,
+              data: { read: true }
+            };
+            dispatch(NotificationSagaActions.updateSeenNotification(payload));
+          }
+        }
+      }
+      idleAction();
+    }
+  }, NotificationSagaActions.getNotifications());
+
+  useEffect(() => {
+    if (!open) {
+      return;
+    }
+    dispatch(NotificationSagaActions.getNotifications(authorizedUser.id));
+  }, [open]);
+
   return (
     <S.NoticationsMenuWrapper>
-      <IconButton onClick={handleClick}>
+      <S.NotificationIconButton 
+        open={open} 
+        onClick={handleClick}
+        count={getUnreadNotification().length}
+      >
         <NotificationsIcon />
-      </IconButton>
+      </S.NotificationIconButton>
       <S.StyledMenu
         {...menuProps}
         anchorEl={anchorEl}
         open={open}
         onClose={handleClose}
       >
-        <NotificationsContent />
-        <S.ShowAllButton 
-          onClick={showAllNotifications}
-        >
-          Tümünü Göster 
-          {/* <span className="more-count"> (+{notifications.length - 4} more) </span> */}
-        </S.ShowAllButton>
-        </S.StyledMenu>
+        { 
+          loading?.getNotifications 
+            ? <Loading margin="20px 0" /> 
+            : <>
+                <NotificationsContent />
+                <S.ShowAllButton 
+                  onClick={showAllNotifications}
+                >
+                  Tümünü Göster 
+                  <span className="more-count"> ({notifications.length}) </span>
+                  {/* <span className="more-count"> (+{notifications.length - 4} more) </span> */}
+                </S.ShowAllButton>
+              </>
+        }  
+      </S.StyledMenu>
     </S.NoticationsMenuWrapper>
   );
 };

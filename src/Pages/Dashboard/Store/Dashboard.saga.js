@@ -17,7 +17,6 @@ export const DashboardSagaActions = {
    addFriend: createAction(`${mainSagaName}/addFriend`),
    removeFriend: createAction(`${mainSagaName}/removeFriend`),
    getNotificationsICreated: createAction(`${mainSagaName}/getNotificationsICreated`),
-   getNotifications: createAction(`${mainSagaName}/getNotifications`),
 };
 
 export default [
@@ -71,22 +70,6 @@ export default [
       * func({ payload }) {
          const response = yield call(request, HttpMethodTypes.GET, `${ApiUrl.notifications}?sender_user.id=${payload}`);
          yield put(DashboardActions.setNotificationsICreated(response?.data || []));
-      }
-   }),
-   createSagaWatcher({
-      actionType: DashboardSagaActions.getNotificationsICreated.type,
-      takeType: SagaTakeTypes.TAKE_LATEST,
-      * func({ payload }) {
-         const response = yield call(request, HttpMethodTypes.GET, `${ApiUrl.notifications}?sender_user.id=${payload}`);
-         yield put(DashboardActions.setNotificationsICreated(response?.data || []));
-      }
-   }),
-   createSagaWatcher({
-      actionType: DashboardSagaActions.getNotifications.type,
-      takeType: SagaTakeTypes.TAKE_LATEST,
-      * func({ payload }) {
-         const response = yield call(request, HttpMethodTypes.GET, `${ApiUrl.notifications}?receiver_user.id=${payload}`);
-         yield put(DashboardActions.setNotifications(response?.data || []));
       }
    })
 ];

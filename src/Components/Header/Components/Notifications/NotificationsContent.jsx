@@ -5,9 +5,10 @@ import { NotificationTypes } from '../../../../Core/Constants/Enums';
 import { MenuItem } from '@mui/material';
 import * as S from '../../Style/Header.style';
 import { Button } from '../../../../Core/Components/Buttons/Button.style';
+import Loading from '../../../../Core/Components/Loading/Loading';
 
 const NotificationsContent = () => {
-  const { notifications } = useSelector((state) => state.Dashboard);
+  const { notifications, loading } = useSelector((state) => state.Notification);
 
   const getUserSrc = () => {
     return UserImages.find((src) => src.includes(notifications?.[0]?.sender_user?.img)) || null;
@@ -54,8 +55,11 @@ const NotificationsContent = () => {
     <S.NotificationsContent>
       {
         notifications.map((obj) => (
-          <MenuItem onClick={notificationHandler} key={obj.id} >
-            <S.NotificationItem>
+          <MenuItem 
+            onClick={notificationHandler} 
+            key={obj.id}
+          >
+            <S.NotificationItem read={obj.read} >
               <img alt="sender-user" src={getUserSrc()} />
               <p className="description">
                 <span className="description__sender-user"> { `${obj.sender_user.name} ${obj.sender_user.surname}` } </span>
