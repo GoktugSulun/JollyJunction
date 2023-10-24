@@ -8,6 +8,7 @@ import FavoriteIcon from '@mui/icons-material/Favorite';
 import ChatBubbleOutlineIcon from '@mui/icons-material/ChatBubbleOutline';
 import BookmarkBorderIcon from '@mui/icons-material/BookmarkBorder';
 import BookmarkIcon from '@mui/icons-material/Bookmark';
+import { NotificationTypes } from '../../../../../Core/Constants/Enums';
 
 const PostFooter = ({ data }) => {
    const dispatch = useDispatch();
@@ -24,9 +25,18 @@ const PostFooter = ({ data }) => {
             ? data.likes.filter((user_id) => user_id !== authorizedUser.id)
             : [...data.likes, authorizedUser.id]
       };
+      const notificationData = {
+         sender_user: { ...authorizedUser },
+         receiver_user: { ...data.user },
+         type: NotificationTypes.LIKED_POST,
+         created_at: new Date().toString(),
+         read: false,
+         is_removed: false,
+       };
       const payload = {
          post_id: data.id,
          data: updatedData,
+         notificationData,
          liked: !isItLiked()
       };
       dispatch(DashboardSagaActions.likePost(payload));

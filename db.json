@@ -15,7 +15,7 @@
       "name": "Damla Nur",
       "surname": "Yilmaz",
       "position": "Frontend Developer",
-      "email": "damlanurylmaz@hotmail.com",
+      "email": "damlanur.ylmaz@hotmail.com",
       "password": "123456",
       "img": "damla.jpg",
       "friends": []
@@ -34,11 +34,33 @@
   "notifications": [
     {
       "sender_user": {
+        "id": 1,
+        "name": "Goktug",
+        "surname": "Sulun",
+        "position": "Frontend Developer",
+        "email": "goktug.sulun@hotmail.com",
+        "img": "goktug.jpeg",
+        "friends": []
+      },
+      "receiver_user": {
+        "id": 2,
+        "name": "Damla Nur",
+        "surname": "Yilmaz",
+        "position": "Frontend Developer"
+      },
+      "type": 2,
+      "created_at": "Tue Oct 24 2023 17:46:06 GMT+0300 (GMT+03:00)",
+      "read": true,
+      "is_removed": false,
+      "id": 1
+    },
+    {
+      "sender_user": {
         "id": 2,
         "name": "Damla Nur",
         "surname": "Yilmaz",
         "position": "Frontend Developer",
-        "email": "damlanurylmaz@hotmail.com",
+        "email": "damlanur.ylmaz@hotmail.com",
         "img": "damla.jpg",
         "friends": []
       },
@@ -49,34 +71,9 @@
         "position": "Frontend Developer",
         "img": "goktug.jpeg"
       },
-      "type": 1,
-      "created_at": "Mon Oct 23 2023 17:12:02 GMT+0300 (GMT+03:00)",
+      "type": 2,
+      "created_at": "Tue Oct 24 2023 18:00:35 GMT+0300 (GMT+03:00)",
       "read": true,
-      "is_removed": true,
-      "id": 1
-    },
-    {
-      "sender_user": {
-        "id": 1,
-        "name": "Goktug",
-        "surname": "Sulun",
-        "position": "Frontend Developer",
-        "email": "goktug.sulun@hotmail.com",
-        "img": "goktug.jpeg",
-        "friends": []
-      },
-      "receiver_user": {
-        "id": 2,
-        "name": "Damla Nur",
-        "surname": "Yilmaz",
-        "position": "Frontend Developer",
-        "email": "damlanurylmaz@hotmail.com",
-        "img": "damla.jpg",
-        "friends": []
-      },
-      "type": 5,
-      "created_at": "2023-10-23T14:12:39.820Z",
-      "read": false,
       "is_removed": false,
       "id": 2
     },
@@ -86,7 +83,7 @@
         "name": "Damla Nur",
         "surname": "Yilmaz",
         "position": "Frontend Developer",
-        "email": "damlanurylmaz@hotmail.com",
+        "email": "damlanur.ylmaz@hotmail.com",
         "img": "damla.jpg",
         "friends": []
       },
@@ -95,12 +92,10 @@
         "name": "Goktug",
         "surname": "Sulun",
         "position": "Frontend Developer",
-        "email": "goktug.sulun@hotmail.com",
-        "img": "goktug.jpeg",
-        "friends": []
+        "img": "goktug.jpeg"
       },
-      "type": 4,
-      "created_at": "2023-10-23T14:12:39.820Z",
+      "type": 2,
+      "created_at": "Tue Oct 24 2023 18:00:37 GMT+0300 (GMT+03:00)",
       "read": true,
       "is_removed": false,
       "id": 3
@@ -194,7 +189,9 @@
         "position": "Frontend Developer",
         "img": "goktug.jpeg"
       },
-      "likes": [],
+      "likes": [
+        2
+      ],
       "comments": [],
       "saves": [
         1
@@ -214,7 +211,9 @@
         "position": "Frontend Developer",
         "img": "goktug.jpeg"
       },
-      "likes": [],
+      "likes": [
+        2
+      ],
       "comments": [],
       "saves": [],
       "created_at": "Sat Oct 21 2023 23:38:26 GMT+0300 (GMT+03:00)",
@@ -222,6 +221,23 @@
         "img-1.jpg"
       ],
       "id": 6
+    },
+    {
+      "description": "selam nasılsın bu benim denemem ben damla",
+      "user": {
+        "id": 2,
+        "name": "Damla Nur",
+        "surname": "Yilmaz",
+        "position": "Frontend Developer"
+      },
+      "likes": [
+        1
+      ],
+      "comments": [],
+      "saves": [],
+      "created_at": "Tue Oct 24 2023 17:21:47 GMT+0300 (GMT+03:00)",
+      "files": [],
+      "id": 7
     }
   ]
 }

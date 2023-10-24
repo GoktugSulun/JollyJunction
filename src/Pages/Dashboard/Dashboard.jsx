@@ -24,6 +24,12 @@ const Dashboard = () => {
     }
   };
 
+  const sortedPosts = () => {
+    const sortedArrays = [...posts];
+    sortedArrays.sort((a,b) => new Date(b.created_at).getTime() - new Date(a.created_at).getTime());
+    return sortedArrays;
+  };
+
   useHttpResponse({
     success: ({ idleAction }) => {
       idleAction();
@@ -36,7 +42,7 @@ const Dashboard = () => {
        idleAction();
     }
  }, DashboardSagaActions.addFriend());
-  
+
   useEffect(() => {
     fetchMorePost();
     dispatch(DashboardSagaActions.getNotificationsICreated(authorizedUser.id));
@@ -57,7 +63,7 @@ const Dashboard = () => {
             </div>)
         }
         {
-          posts.map((obj) => (
+          sortedPosts().map((obj) => (
             <Post 
               key={obj.id}
               data={obj}
