@@ -112,7 +112,7 @@ const UserMenu = () => {
         <S.CustomDivider />
         <MenuItem onClick={logout} disableRipple>
           <LogoutIcon />
-          Çıkış Yap
+          Logout
         </MenuItem>
       </StyledMenu>
     </S.MenuWrapper>
