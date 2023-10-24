@@ -8,39 +8,10 @@ import FavoriteIcon from '@mui/icons-material/Favorite';
 import ChatBubbleOutlineIcon from '@mui/icons-material/ChatBubbleOutline';
 import BookmarkBorderIcon from '@mui/icons-material/BookmarkBorder';
 import BookmarkIcon from '@mui/icons-material/Bookmark';
-import { NotificationTypes } from '../../../../../Core/Constants/Enums';
 
-const PostFooter = ({ data }) => {
+const PostFooter = ({ data, isItLiked, likeHandler }) => {
    const dispatch = useDispatch();
    const { user: authorizedUser } = useSelector((state) => state.Login);
-
-   const isItLiked = () => {
-      return !!data.likes.find((user_id) => user_id === authorizedUser?.id);
-   };
-
-   const likeHandler = () => {
-      const updatedData = {
-         ...data,
-         likes: isItLiked() 
-            ? data.likes.filter((user_id) => user_id !== authorizedUser.id)
-            : [...data.likes, authorizedUser.id]
-      };
-      const notificationData = {
-         sender_user: { ...authorizedUser },
-         receiver_user: { ...data.user },
-         type: NotificationTypes.LIKED_POST,
-         created_at: new Date().toString(),
-         read: false,
-         is_removed: false,
-       };
-      const payload = {
-         post_id: data.id,
-         data: updatedData,
-         notificationData,
-         liked: !isItLiked()
-      };
-      dispatch(DashboardSagaActions.likePost(payload));
-   };
 
    const isItSaved = () => {
       return !!data.saves.find((user_id) => user_id === authorizedUser?.id);
@@ -97,5 +68,7 @@ const PostFooter = ({ data }) => {
 export default PostFooter;
 
 PostFooter.propTypes = {
-   data: PropTypes.object.isRequired
+   data: PropTypes.object.isRequired,
+   isItLiked: PropTypes.func.isRequired,
+   likeHandler: PropTypes.func.isRequired,
 };
