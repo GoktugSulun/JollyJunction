@@ -138,45 +138,45 @@ export const CustomDivider = styled(Divider)`
 `;
 
 export const StyledMenu = muiStyled(Menu)(({ theme }) => ({
-   '& .MuiPaper-root': {
-     borderRadius: 6,
-     backgroundColor: '#2d2d2d',
-     marginTop: '15px',
-     width: 600,
-     overflowX: 'hidden',
-     color:
+  '& .MuiPaper-root': {
+    borderRadius: 6,
+    backgroundColor: '#2d2d2d',
+    marginTop: '15px',
+    width: 600,
+    overflowX: 'hidden',
+    color:
        theme.palette.mode === 'light' ? 'rgb(55, 65, 81)' : theme.palette.grey[300],
-     boxShadow:
+    boxShadow:
        'rgb(255, 255, 255) 0px 0px 0px 0px, rgba(0, 0, 0, 0.05) 0px 0px 0px 1px, rgba(0, 0, 0, 0.1) 0px 10px 15px -3px, rgba(0, 0, 0, 0.05) 0px 4px 6px -2px',
-     '& .MuiMenu-list': {
-       padding: '0',
-     },
-     '& .MuiMenuItem-root': {
-       color: '#c7c5c5',
-       padding: '10px 20px',
-       '&:not(:last-child)': {
-         borderBottom: '1px solid #555'
-       },
-       '& .user-info__name': {
-         fontSize: 16
-       },
-       '& .MuiSvgIcon-root': {
-         fontSize: 18,
-         color: '#c7c5c5',
-         marginRight: theme.spacing(1.5),
-         '& path': {
-           fill: '#c7c5c5'
-         },
-       },
-       '&:active': {
-         backgroundColor: alpha(
-           theme.palette.primary.main,
-           theme.palette.action.selectedOpacity,
-         ),
-       },
-     },
-   },
- }));
+    '& .MuiMenu-list': {
+      padding: '0',
+    },
+    '& .MuiMenuItem-root': {
+      color: '#c7c5c5',
+      padding: '10px 20px',
+      '&:not(:last-child)': {
+        borderBottom: '1px solid #555'
+      },
+      '& .user-info__name': {
+        fontSize: 16
+      },
+      '& .MuiSvgIcon-root': {
+        fontSize: 18,
+        color: '#c7c5c5',
+        marginRight: theme.spacing(1.5),
+        '& path': {
+          fill: '#c7c5c5'
+        },
+      },
+      '&:active': {
+        backgroundColor: alpha(
+          theme.palette.primary.main,
+          theme.palette.action.selectedOpacity,
+        ),
+      },
+    },
+  },
+}));
 
 export const NotificationItem = styled.div`
    display: flex;
@@ -204,6 +204,11 @@ export const NotificationItem = styled.div`
       }
       &__sender-user {
          font-weight: 600;
+         color: #c7c5c5;
+         text-decoration: none;
+         :hover {
+            text-decoration: underline;
+         }
       }
       &__date {
          font-size: 14px;

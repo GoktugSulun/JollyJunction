@@ -8,6 +8,7 @@ import { Button } from '../../../../Core/Components/Buttons/Button.style';
 import moment from 'moment';
 import { NotificationSagaActions } from './Store/Notification.saga';
 import Loading from '../../../../Core/Components/Loading/Loading';
+import { Link } from 'react-router-dom';
 
 const NotificationsContent = () => {
   const dispatch = useDispatch();
@@ -16,22 +17,22 @@ const NotificationsContent = () => {
 
   const getUserSrc = () => {
     return UserImages.find((src) => src.includes(notifications?.[0]?.sender_user?.img)) || null;
-};
+  };
 
   const getNotificationMessage = (type) => {
     switch (type) {
-      case NotificationTypes.REQUEST_FOR_FRIENDSHIP:
-        return 'sent you a friendship request.';
-      case NotificationTypes.LIKED_POST:
-        return 'liked your post.';
-      case NotificationTypes.COMMENTED_POST:
-        return 'commented on your post.';
-      case NotificationTypes.ACCEPTED_FRIENDSHIP_REQUEST:
-        return 'accepted your friendship request.';
-      case NotificationTypes.YOU_ARE_FRIEND_NOW:
-        return 'and you are friends now.';
-      default:
-        throw new Error('undefined notification type!');
+    case NotificationTypes.REQUEST_FOR_FRIENDSHIP:
+      return 'sent you a friendship request.';
+    case NotificationTypes.LIKED_POST:
+      return 'liked your post.';
+    case NotificationTypes.COMMENTED_POST:
+      return 'commented on your post.';
+    case NotificationTypes.ACCEPTED_FRIENDSHIP_REQUEST:
+      return 'accepted your friendship request.';
+    case NotificationTypes.YOU_ARE_FRIEND_NOW:
+      return 'and you are friends now.';
+    default:
+      throw new Error('undefined notification type!');
     }
   };
 
@@ -101,7 +102,7 @@ const NotificationsContent = () => {
             <S.NotificationItem read={obj.read} >
               <img alt="sender-user" src={getUserSrc()} />
               <p className="description">
-                <span className="description__sender-user"> { `${obj.sender_user.name} ${obj.sender_user.surname}` } </span>
+                <Link className="description__sender-user"> { `${obj.sender_user.name} ${obj.sender_user.surname}` } </Link>
                 <span className="description__text"> {getNotificationMessage(obj.type)} </span>
                 <span className="description__date"> {getDate(obj.created_at)} </span>
               </p>
@@ -127,7 +128,7 @@ const NotificationsContent = () => {
               }
             </S.NotificationItem>
           </MenuItem>
-          ))
+        ))
       }
     </S.NotificationsContent>
   );

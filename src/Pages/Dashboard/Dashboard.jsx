@@ -38,10 +38,10 @@ const Dashboard = () => {
 
   useHttpResponse({
     success: ({ idleAction }) => {
-       dispatch(DashboardSagaActions.getNotificationsICreated(authorizedUser.id));
-       idleAction();
+      dispatch(DashboardSagaActions.getNotificationsICreated(authorizedUser.id));
+      idleAction();
     }
- }, DashboardSagaActions.addFriend());
+  }, DashboardSagaActions.addFriend());
 
   useEffect(() => {
     fetchMorePost();
