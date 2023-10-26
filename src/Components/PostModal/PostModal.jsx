@@ -20,8 +20,10 @@ const PostModal = () => {
       <Modal
         open={isOpen}
         onClose={handleClose}
+        onTransitionEnter={(e) => console.log(e, 1)}
+        onTransitionExited={(e) => console.log(e, 2)}
       >
-        <S.PostModal>
+        <S.PostModal isOpen={isOpen}>
           {
             postData?.files?.length
               && <S.Image>
