@@ -12,6 +12,7 @@ import useHttpResponse from '../../Core/Hooks/useHttpResponse';
 import Loading from '../../Core/Components/Loading/Loading';
 import { NotificationSagaActions } from '../../Components/Header/Components/Notifications/Store/Notification.saga';
 import { DashboardActions } from './Store/Dashboard.slice';
+import PostModal from '../../Components/PostModal/PostModal';
 
 const Dashboard = () => {
   const dispatch = useDispatch();
@@ -90,6 +91,7 @@ const Dashboard = () => {
         <Advertisement />
         <FriendList />
       </S.SidebarWrapper>
+      <PostModal />
     </S.Dashboard>
   );
 };

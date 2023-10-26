@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import * as S from './Style/UserProfile.styled';
+import * as S from './Style/UserProfile.style';
 import Profile from '../Dashboard/Components/Profile';
 import Post from '../Dashboard/Components/Post/Post';
 import { useDispatch, useSelector } from 'react-redux';

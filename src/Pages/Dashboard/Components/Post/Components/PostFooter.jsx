@@ -8,67 +8,74 @@ import FavoriteIcon from '@mui/icons-material/Favorite';
 import ChatBubbleOutlineIcon from '@mui/icons-material/ChatBubbleOutline';
 import BookmarkBorderIcon from '@mui/icons-material/BookmarkBorder';
 import BookmarkIcon from '@mui/icons-material/Bookmark';
+import { PostModalActions } from '../../../../../Components/PostModal/Store/PostModal.slice';
+import { ModalTypes } from '../../../../../Core/Constants/Enums';
 
 const PostFooter = ({ data, isItLiked, likeHandler }) => {
-   const dispatch = useDispatch();
-   const { user: authorizedUser } = useSelector((state) => state.Login);
+  const dispatch = useDispatch();
+  const { user: authorizedUser } = useSelector((state) => state.Login);
 
-   const isItSaved = () => {
-      return !!data.saves.find((user_id) => user_id === authorizedUser?.id);
-   };
+  const isItSaved = () => {
+    return !!data.saves.find((user_id) => user_id === authorizedUser?.id);
+  };
 
-   const saveHandler = () => {
-      const updatedData = {
-         ...data,
-         saves: isItSaved() 
-            ? data.saves.filter((user_id) => user_id !== authorizedUser.id)
-            : [...data.saves, authorizedUser.id]
-      };
-      const payload = {
-         post_id: data.id,
-         data: updatedData,
-         saved: !isItSaved()
-      };
-      dispatch(DashboardSagaActions.savePost(payload));
-   };
+  const saveHandler = () => {
+    const updatedData = {
+      ...data,
+      saves: isItSaved() 
+        ? data.saves.filter((user_id) => user_id !== authorizedUser.id)
+        : [...data.saves, authorizedUser.id]
+    };
+    const payload = {
+      post_id: data.id,
+      data: updatedData,
+      saved: !isItSaved()
+    };
+    dispatch(DashboardSagaActions.savePost(payload));
+  };
+
+  const openPostModal = () => {
+    dispatch(PostModalActions.setPostData(data));
+    dispatch(PostModalActions.handleModal(ModalTypes.OPEN));
+  };
 
   return (
-   <div className="buttons">
+    <div className="buttons">
       <div className="buttons__group">
-         <Tooltip title={isItLiked() ? 'Unlike' : 'Like'} >
-            <IconButton onClick={likeHandler} >
-               { 
-                  isItLiked() 
-                     ? <FavoriteIcon /> 
-                     : <FavoriteBorderIcon /> 
-               } 
-            </IconButton>
-         </Tooltip>
-         <span className="count"> { data.likes.length } </span>
-         <Tooltip title="Comment" >
-            <IconButton className="comment" >
-               <ChatBubbleOutlineIcon /> 
-            </IconButton>
-         </Tooltip>
-         <span className="count"> { data.comments.length } </span>
+        <Tooltip title={isItLiked() ? 'Unlike' : 'Like'} >
+          <IconButton onClick={likeHandler} >
+            { 
+              isItLiked() 
+                ? <FavoriteIcon /> 
+                : <FavoriteBorderIcon /> 
+            } 
+          </IconButton>
+        </Tooltip>
+        <span className="count"> { data.likes.length } </span>
+        <Tooltip title="Comment" >
+          <IconButton onClick={openPostModal} className="comment" >
+            <ChatBubbleOutlineIcon /> 
+          </IconButton>
+        </Tooltip>
+        <span className="count"> { data.comments.length } </span>
       </div>
       <Tooltip title={isItSaved() ? 'Unsave' : 'Save'} >
-         <IconButton onClick={saveHandler}>
-            { 
-               isItSaved() 
-                  ? <BookmarkIcon /> 
-                  : <BookmarkBorderIcon /> 
-            } 
-         </IconButton>
+        <IconButton onClick={saveHandler}>
+          { 
+            isItSaved() 
+              ? <BookmarkIcon /> 
+              : <BookmarkBorderIcon /> 
+          } 
+        </IconButton>
       </Tooltip>
-   </div>
+    </div>
   );
 };
 
 export default PostFooter;
 
 PostFooter.propTypes = {
-   data: PropTypes.object.isRequired,
-   isItLiked: PropTypes.func.isRequired,
-   likeHandler: PropTypes.func.isRequired,
+  data: PropTypes.object.isRequired,
+  isItLiked: PropTypes.func.isRequired,
+  likeHandler: PropTypes.func.isRequired,
 };
