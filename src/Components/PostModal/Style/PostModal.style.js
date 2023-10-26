@@ -102,6 +102,11 @@ export const CommentsSectionBody = styled.div`
     flex-direction: column;
     gap: 25px;
     margin: 10px 5px 10px 0;
+    .loading-container {
+        height: 100%;
+        display: flex;
+        align-items: center;
+    }
 `;
 
 export const CommentContainer = styled.div`
@@ -123,6 +128,7 @@ export const CommentContainer = styled.div`
         display: flex;
         flex-direction: column;
         gap: 20px;
+        flex: 1;
     }
 `;
 

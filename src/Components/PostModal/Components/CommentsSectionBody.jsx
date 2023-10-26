@@ -7,55 +7,64 @@ import { Link } from 'react-router-dom';
 import { Button } from '../../../Core/Components/Buttons/Button.style';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import { CustomIconButton } from '../../Styles/Common.style';
+import Loading from '../../../Core/Components/Loading/Loading';
 
 const CommentsSectionBody = () => {
-  const  { postData } = useSelector((state) => state.PostModal);
+  const  { postData, comments, loading } = useSelector((state) => state.PostModal);
 
-  const getDate = () => {
-    const diff = moment.duration(moment().diff(postData?.created_at)).humanize();
+  const getDate = (created_at) => {
+    const diff = moment.duration(moment().diff(created_at)).humanize();
     return `${diff} ago`;
+  };
+
+  const sortedComments = () => {
+    const sortedArrays = [...comments];
+    sortedArrays.sort((a,b) => new Date(b.created_at).getTime() - new Date(a.created_at).getTime());
+    return sortedArrays;
   };
 
   return (
     <S.CommentsSectionBody>
+      { loading?.createComments && <Loading /> }
       {
-        [{ id: 1 }, { id: 2 }, { id: 3 }, { id: 4 }].map((obj) => (
-          <S.CommentContainer key={obj.id}>
-            <Button
-              bgColor="transparent"
-              padding="0"
-              disableRipple
-              minWidth="0"
-            >
-              <img src={getUserImageURL(postData?.user?.img)} alt="user-commented" />
-            </Button>
-            <div className="comment-wrapper">
-              <S.Comment>
-                <div className="header">
-                  <div className="user">
-                    <Link className="user__name"> {postData?.user?.name} {postData?.user?.surname} </Link> 
-                    <span className="user__position"> {postData?.user?.position} </span>
+        loading?.getComments
+          ? <div className="loading-container"> <Loading size={50} /> </div>
+          : sortedComments().map((obj) => (
+            <S.CommentContainer key={obj.id}>
+              <Button
+                bgColor="transparent"
+                padding="0"
+                disableRipple
+                minWidth="0"
+              >
+                <img src={getUserImageURL(obj?.user?.img)} alt="user-commented" />
+              </Button>
+              <div className="comment-wrapper">
+                <S.Comment>
+                  <div className="header">
+                    <div className="user">
+                      <Link className="user__name"> {obj?.user?.name} {obj?.user?.surname} </Link> 
+                      <span className="user__position"> {obj?.user?.position} </span>
+                    </div>
+                    <CustomIconButton fontSize={20}>
+                      <FavoriteBorderIcon />
+                    </CustomIconButton>
                   </div>
-                  <CustomIconButton fontSize={20}>
-                    <FavoriteBorderIcon />
-                  </CustomIconButton>
-                </div>
-                <p className="text"> Lorem ipsum dolor sit amet consectetur adipisicing elit. Quas minus ullam accusantium dicta dolorum totam voluptatibus, laborum, amet necessitatibus eligendi dolore ipsum reprehenderit eaque maiores sint numquam sequi rerum culpa, voluptates tempore illum fugiat vitae? Ipsa voluptates distinctio in ipsam. 
-                </p>
-                <div className="footer">
-                  <span className="date"> {getDate()} </span> 
-                  <Button
-                    bgColor="trasparent"
-                    padding="0"
-                    minWidth="inital"
-                  >
-              2 likes
-                  </Button>
-                </div>
-              </S.Comment>
-            </div>
-          </S.CommentContainer>
-        ))
+                  <p className="text"> {obj?.comment} </p>
+                  <div className="footer">
+                    <span className="date"> {getDate(obj?.created_at)} </span> 
+                    <Button
+                      bgColor="trasparent"
+                      padding="0"
+                      minWidth="inital"
+                    >
+                    0 likes
+                    </Button>
+                  </div>
+                </S.Comment>
+              </div>
+            </S.CommentContainer>
+          ))
       }
       
     </S.CommentsSectionBody>

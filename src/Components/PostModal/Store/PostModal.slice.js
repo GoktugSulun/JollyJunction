@@ -26,6 +26,7 @@ const PostModalSlice = createSlice({
     },
     setComment: (state, action) => {
       state.comments = [action.payload, ...state.comments];
+      state.postData.comments = [action.payload, ...state.postData.comments];
     }
   },
   extraReducers: (builder) => requestStatusReducer(builder, PostModalSagaActions)

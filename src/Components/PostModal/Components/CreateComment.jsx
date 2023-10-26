@@ -7,6 +7,7 @@ import { IconButton } from '@mui/material';
 import { useWatch } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
 import { PostModalSagaActions } from '../Store/PostModal.saga';
+import useHttpResponse from '../../../Core/Hooks/useHttpResponse';
 
 const defaultValues = {
   comment: ''
@@ -15,6 +16,7 @@ const defaultValues = {
 const CreateComment = () => {
   const dispatch = useDispatch();
   const { postData } = useSelector((state) => state.PostModal);
+  const { user: authorizedUser } = useSelector((state) => state.Login);
   const { registerHandler, form } = useMaterialForm({
     defaultValues
   });
@@ -23,11 +25,14 @@ const CreateComment = () => {
 
   const createCommentHandler = () => {
     const payload = {
-      comment: form.getValues('comment'),
-      created_at: new Date().toString(),
-      user: form.user,
-      post_id: postData.id,
-      is_removed: false
+      data: {
+        comment: form.getValues('comment'),
+        created_at: new Date().toString(),
+        user: authorizedUser,
+        post_id: postData.id,
+        is_removed: false
+      },
+      currentComments: postData.comments
     };
     dispatch(PostModalSagaActions.createComment(payload));
   };
@@ -37,6 +42,13 @@ const CreateComment = () => {
       createCommentHandler();
     }
   };
+
+  useHttpResponse({
+    success: ({ idleAction }) => {
+      idleAction();
+      form.reset(defaultValues);
+    }
+  }, PostModalSagaActions.createComment());
 
   return (
     <S.CreateComment disabled={comment === ''} >

@@ -196,6 +196,29 @@
       "read": true,
       "is_removed": false,
       "id": 6
+    },
+    {
+      "sender_user": {
+        "id": 2,
+        "name": "Damla Nur",
+        "surname": "Yilmaz",
+        "position": "Frontend Developer",
+        "email": "damlanur.ylmaz@hotmail.com",
+        "img": "damla.jpg",
+        "friends": []
+      },
+      "receiver_user": {
+        "id": 1,
+        "name": "Goktug",
+        "surname": "Sulun",
+        "position": "Frontend Developer",
+        "img": "goktug.jpeg"
+      },
+      "type": 2,
+      "created_at": "Fri Oct 27 2023 01:35:55 GMT+0300 (GMT+03:00)",
+      "read": false,
+      "is_removed": false,
+      "id": 7
     }
   ],
   "posts": [
@@ -302,11 +325,48 @@
         "position": "Frontend Developer",
         "img": "goktug.jpeg"
       },
-      "likes": [],
-      "comments": [
-        1
+      "likes": [
+        2
       ],
-      "saves": [],
+      "comments": [
+        {
+          "comment": "aiko - 2",
+          "created_at": "Fri Oct 27 2023 02:12:44 GMT+0300 (GMT+03:00)",
+          "user": {
+            "id": 2,
+            "name": "Damla Nur",
+            "surname": "Yilmaz",
+            "position": "Frontend Developer",
+            "email": "damlanur.ylmaz@hotmail.com",
+            "img": "damla.jpg",
+            "friends": []
+          },
+          "post_id": 6,
+          "is_removed": false,
+          "id": 2
+        },
+        {
+          "comment": "aşko - 1",
+          "created_at": "Fri Oct 27 2023 02:12:40 GMT+0300 (GMT+03:00)",
+          "user": {
+            "id": 2,
+            "name": "Damla Nur",
+            "surname": "Yilmaz",
+            "position": "Frontend Developer",
+            "email": "damlanur.ylmaz@hotmail.com",
+            "img": "damla.jpg",
+            "friends": []
+          },
+          "post_id": 6,
+          "is_removed": false,
+          "id": 1
+        },
+        3,
+        4
+      ],
+      "saves": [
+        2
+      ],
       "created_at": "Sat Oct 21 2023 23:38:26 GMT+0300 (GMT+03:00)",
       "files": [
         "img-1.jpg"
@@ -438,11 +498,68 @@
   ],
   "comments": [
     {
-      "comment": "deneme yorumu ",
-      "created_at": "Fri Oct 27 2023 01:20:18 GMT+0300 (GMT+03:00)",
+      "comment": "aşko - 1",
+      "created_at": "Fri Oct 27 2023 02:12:40 GMT+0300 (GMT+03:00)",
+      "user": {
+        "id": 2,
+        "name": "Damla Nur",
+        "surname": "Yilmaz",
+        "position": "Frontend Developer",
+        "email": "damlanur.ylmaz@hotmail.com",
+        "img": "damla.jpg",
+        "friends": []
+      },
       "post_id": 6,
       "is_removed": false,
       "id": 1
+    },
+    {
+      "comment": "aiko - 2",
+      "created_at": "Fri Oct 27 2023 02:12:44 GMT+0300 (GMT+03:00)",
+      "user": {
+        "id": 2,
+        "name": "Damla Nur",
+        "surname": "Yilmaz",
+        "position": "Frontend Developer",
+        "email": "damlanur.ylmaz@hotmail.com",
+        "img": "damla.jpg",
+        "friends": []
+      },
+      "post_id": 6,
+      "is_removed": false,
+      "id": 2
+    },
+    {
+      "comment": "aşko - 3",
+      "created_at": "Fri Oct 27 2023 02:12:47 GMT+0300 (GMT+03:00)",
+      "user": {
+        "id": 2,
+        "name": "Damla Nur",
+        "surname": "Yilmaz",
+        "position": "Frontend Developer",
+        "email": "damlanur.ylmaz@hotmail.com",
+        "img": "damla.jpg",
+        "friends": []
+      },
+      "post_id": 6,
+      "is_removed": false,
+      "id": 3
+    },
+    {
+      "comment": "aşko - 4",
+      "created_at": "Fri Oct 27 2023 02:13:12 GMT+0300 (GMT+03:00)",
+      "user": {
+        "id": 2,
+        "name": "Damla Nur",
+        "surname": "Yilmaz",
+        "position": "Frontend Developer",
+        "email": "damlanur.ylmaz@hotmail.com",
+        "img": "damla.jpg",
+        "friends": []
+      },
+      "post_id": 6,
+      "is_removed": false,
+      "id": 4
     }
   ]
 }
