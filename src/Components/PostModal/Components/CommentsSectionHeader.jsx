@@ -13,8 +13,8 @@ const CommentsSectionHeader = () => {
   const navigate = useNavigate();
   const { postData } = useSelector((state) => state.PostModal); 
 
-  const navigateHandler = () => {
-    navigate(`profile/${postData.user.name} ${postData.user.name}/${postData.id}`);
+  const getUrl = () => {
+    return `profile/${postData.user.name}${postData.user.surname}/${postData.user.id}`;
   };
 
   const closeModalHandler = () => {
@@ -24,18 +24,20 @@ const CommentsSectionHeader = () => {
   return (
     <S.CommentsSectionHeader>
       <div className="header">
-        <div className="header__user">
-          <Tooltip title="View profile">
-            <Button
-              bgColor="transparent"
-              padding="0"
-            >
-              <img src={getUserImageURL(postData?.user?.img)} alt="user" />
-            </Button>
-          </Tooltip>
-          <Tooltip title="View profile">
-            <Link to={navigateHandler}> {postData?.user?.name} {postData?.user?.surname} </Link>
-          </Tooltip>
+        <div className="user">
+          <Button
+            bgColor="transparent"
+            padding="0"
+            minWidth="0"
+            disableRipple
+            onClick={() => navigate(getUrl())}
+          >
+            <img src={getUserImageURL(postData?.user?.img)} alt="user" />
+          </Button>
+          <div className="user__info">
+            <Link className="user__name" to={getUrl()}> {postData?.user?.name} {postData?.user?.surname} </Link>
+            <span className="user__position"> {postData?.user?.position} </span>
+          </div>
         </div>
         <Tooltip title="Close">
           <IconButton onClick={closeModalHandler}>

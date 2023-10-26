@@ -14,7 +14,7 @@ export const PostModal = styled.div`
 `;
 
 export const Image = styled.div`
-    flex: 1.5;
+    flex: 1;
     overflow: hidden;
     img {
         width: 100%;
@@ -36,28 +36,34 @@ export const CommentsSectionHeader = styled.div`
         justify-content: space-between;
         align-items: center;
         padding: 20px 20px 10px 20px;
-        &__user {
+        .user {
             display: flex;
             align-items: center;
-            gap: 10px;
-            .MuiButton-root {
-                :hover + a {
-                    color: #FFFFFF;
-                    /* text-decoration: underline; */
-                }
-                img {
-                    width: 50px;
-                    height: 50px;
-                    border-radius: 50%;
-                }
+            gap: 20px;
+            &__info {
+                display: flex;
+                flex-direction: column;
             }
-            a {
+            &__position {
+                font-size: 12px;
+                color: #9a9a9a;
+            }
+            &__name {
                 color: #c9c9c9;
                 text-decoration: none;
                 transition: all 350ms;
                 :hover {
                     color: #FFFFFF;
-                    /* text-decoration: underline; */
+                }
+            }
+            .MuiButton-root {
+                :hover + .user__info .user__name {
+                    color: #FFFFFF;
+                }
+                img {
+                    width: 50px;
+                    height: 50px;
+                    border-radius: 50%;
                 }
             }
         }
@@ -91,6 +97,77 @@ export const CommentsSectionBody = styled.div`
     flex: 1;
     overflow-x: hidden;
     overflow-y: auto;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+    margin: 10px 5px 10px 0;
+`;
+
+export const CommentContainer = styled.div`
+    display: flex;
+    gap: 20px;
+    .MuiButton-root {
+        align-self: flex-start;
+        min-width: initial;
+        :hover + .comment-wrapper div .header .user .user__name {
+            color: #FFFFFF;
+        }
+        img {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+        }
+    }
+    .comment-wrapper {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+    }
+`;
+
+export const Comment = styled.div`
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    .header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 10px;
+        .user {
+            display: flex;
+            flex-direction: column;
+            &__name {
+                color: #c9c9c9;
+                text-decoration: none;
+                :hover {
+                    color: #FFFFFF;
+                }
+            }
+            &__position {
+                font-size: 12px;
+                color: #9a9a9a;
+            }
+        }
+    }
+    .text {
+        color: #c9c9c9;
+        font-size: 14px;
+        display: -webkit-box;
+        -webkit-line-clamp: 3;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+    }
+    .footer {
+        display: flex;
+        gap: 15px;
+        align-items: center;
+        > * {
+            font-size: 12px;
+            color: #9a9a9a;
+        }
+    }
 `;
 
 export const CommentsSectionFooter = styled.div`
@@ -155,7 +232,6 @@ export const CreateComment = styled.div`
         }
         .MuiIconButton-root {
             svg {
-                transition: opacity 350ms;
                 path {
                     fill: ${(props) => props.disabled ? '#9d9a9a' : '#c9c9c9'};
                 }
