@@ -9,7 +9,22 @@ export const UserProfile = styled(ContentWrapper)`
     margin-top: 30px;
     gap: 50px;
     transition: padding 350ms;
-
+    .post-wrapper {
+        div:first-child {
+            margin-top: 0;
+        }
+        .loading-container {
+            margin: 25px 0;
+        }
+        .more-button-container {
+            display: flex;
+            justify-content: center;
+            margin-top: 25px;
+            button {
+                width: 100%;
+            }
+        }
+    }
     @media (max-width: 900px) {
         grid-template-columns: 1fr;
         padding: 0 40px;

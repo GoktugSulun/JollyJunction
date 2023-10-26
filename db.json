@@ -264,6 +264,60 @@
       "created_at": "Tue Oct 24 2023 18:21:15 GMT+0300 (GMT+03:00)",
       "files": [],
       "id": 8
+    },
+    {
+      "description": "deneme -1",
+      "user": {
+        "id": 1,
+        "name": "Goktug",
+        "surname": "Sulun",
+        "position": "Frontend Developer",
+        "email": "goktug.sulun@hotmail.com",
+        "img": "goktug.jpeg",
+        "friends": []
+      },
+      "likes": [],
+      "comments": [],
+      "saves": [],
+      "created_at": "Thu Oct 26 2023 15:42:22 GMT+0300 (GMT+03:00)",
+      "files": [],
+      "id": 9
+    },
+    {
+      "description": "deneme -2 ",
+      "user": {
+        "id": 1,
+        "name": "Goktug",
+        "surname": "Sulun",
+        "position": "Frontend Developer",
+        "email": "goktug.sulun@hotmail.com",
+        "img": "goktug.jpeg",
+        "friends": []
+      },
+      "likes": [],
+      "comments": [],
+      "saves": [],
+      "created_at": "Thu Oct 26 2023 15:42:25 GMT+0300 (GMT+03:00)",
+      "files": [],
+      "id": 10
+    },
+    {
+      "description": "deneme - 3",
+      "user": {
+        "id": 1,
+        "name": "Goktug",
+        "surname": "Sulun",
+        "position": "Frontend Developer",
+        "email": "goktug.sulun@hotmail.com",
+        "img": "goktug.jpeg",
+        "friends": []
+      },
+      "likes": [],
+      "comments": [],
+      "saves": [],
+      "created_at": "Thu Oct 26 2023 15:42:28 GMT+0300 (GMT+03:00)",
+      "files": [],
+      "id": 11
     }
   ]
 }
