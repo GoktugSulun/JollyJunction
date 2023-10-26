@@ -23,6 +23,12 @@ export const Search = styled.div`
    gap: 35px;
    .title {
       color: #927CD9;
+      font-size: 35px;
+      border-radius: 10px;
+      padding: 10px 20px;
+      :hover {
+         background: #333;
+      }
    }
    .MuiOutlinedInput-root {
       background-color: #2d2d2d;
