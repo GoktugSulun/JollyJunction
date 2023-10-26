@@ -14,6 +14,7 @@ const PostModalSlice = createSlice({
   name: NAME,
   initialState,
   reducers: {
+    setReset: () => initialState,
     setPostData: (state, action) => {
       state.postData = action.payload;
     },

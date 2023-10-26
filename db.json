@@ -269,7 +269,7 @@
       "id": 5
     },
     {
-      "description": "tekrardan NYC",
+      "description": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.",
       "user": {
         "id": 1,
         "name": "Goktug",
@@ -345,7 +345,9 @@
       },
       "likes": [],
       "comments": [],
-      "saves": [],
+      "saves": [
+        2
+      ],
       "created_at": "Thu Oct 26 2023 15:42:22 GMT+0300 (GMT+03:00)",
       "files": [],
       "id": 9

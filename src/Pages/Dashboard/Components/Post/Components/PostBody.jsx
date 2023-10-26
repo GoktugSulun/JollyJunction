@@ -3,15 +3,15 @@ import PropTypes from 'prop-types';
 import { PostImages } from '../../../../../assets/Pngs/Pngs';
 
 const PostBody = ({ data, likeHandler, isItLiked }) => {
-   const getImageURL = () => {
-      return PostImages.find((path) => path.includes(data.files[0]));
-   };
+  const getImageURL = () => {
+    return PostImages.find((path) => path.includes(data.files[0]));
+  };
 
-   const onDoubleClickHandler = () => {
+  const onDoubleClickHandler = () => {
     if (!isItLiked()) {
       likeHandler();
     }
-   };
+  };
 
   return (
     <>
@@ -24,7 +24,7 @@ const PostBody = ({ data, likeHandler, isItLiked }) => {
 export default PostBody;
 
 PostBody.propTypes = {
-   data: PropTypes.object.isRequired,
-   likeHandler: PropTypes.func.isRequired,
-   isItLiked: PropTypes.func.isRequired,
+  data: PropTypes.object.isRequired,
+  likeHandler: PropTypes.func.isRequired,
+  isItLiked: PropTypes.func.isRequired,
 };
