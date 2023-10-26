@@ -90,7 +90,7 @@ const Notications = () => {
         onClose={handleClose}
       >
         { loading?.getNotifications && <Loading blur color="#FFFFFF" /> }
-        <NotificationsContent />
+        <NotificationsContent handleClose={handleClose} />
         <S.ShowAllButton 
           onClick={showAllNotifications}
         >

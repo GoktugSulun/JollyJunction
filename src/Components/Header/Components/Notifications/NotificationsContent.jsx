@@ -8,10 +8,12 @@ import { Button } from '../../../../Core/Components/Buttons/Button.style';
 import moment from 'moment';
 import { NotificationSagaActions } from './Store/Notification.saga';
 import Loading from '../../../../Core/Components/Loading/Loading';
-import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
+import PropTypes from 'prop-types';
 
-const NotificationsContent = () => {
+const NotificationsContent = ({ handleClose }) => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const { notifications, loading } = useSelector((state) => state.Notification);
   const { user: authorizedUser } = useSelector((state) => state.Login);
 
@@ -83,6 +85,12 @@ const NotificationsContent = () => {
     return `${diff} ago`;
   };
 
+  const navigateToUserProfile = (user) => {
+    handleClose();
+    const url = `profile/${user.name}${user.surname}/${user.id}`;
+    navigate(url);
+  };
+
   if (!notifications.length) {
     return (
       <MenuItem>
@@ -102,7 +110,14 @@ const NotificationsContent = () => {
             <S.NotificationItem read={obj.read} >
               <img alt="sender-user" src={getUserSrc()} />
               <p className="description">
-                <Link className="description__sender-user"> { `${obj.sender_user.name} ${obj.sender_user.surname}` } </Link>
+                <Button 
+                  className="description__sender-user"
+                  bgColor="transparent"
+                  padding="0"
+                  onClick={() => navigateToUserProfile(obj.sender_user)}
+                >  
+                  { `${obj.sender_user.name} ${obj.sender_user.surname}` } 
+                </Button>
                 <span className="description__text"> {getNotificationMessage(obj.type)} </span>
                 <span className="description__date"> {getDate(obj.created_at)} </span>
               </p>
@@ -135,3 +150,7 @@ const NotificationsContent = () => {
 };
 
 export default NotificationsContent;
+
+NotificationsContent.propTypes = {
+  handleClose: PropTypes.func.isRequired
+};

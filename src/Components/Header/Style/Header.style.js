@@ -205,6 +205,9 @@ export const NotificationItem = styled.div`
    }
    .description {
       font-size: 16px;
+      display: flex;
+      align-items: center;
+      gap: 5px;
       span {
          white-space: normal;
       }
