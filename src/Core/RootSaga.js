@@ -3,6 +3,7 @@ import Login from '../Pages/Login/Store/Login.saga';
 import Register from '../Pages/Register/Store/Register.saga';
 import UserProfile from '../Pages/UserProfile/Store/UserProfile.saga';
 import Notification from '../Components/Header/Components/Notifications/Store/Notification.saga';
+import PostModal from '../Components/PostModal/Store/PostModal.saga';
 
 export default [
   Dashboard,
@@ -10,4 +11,5 @@ export default [
   Register,
   UserProfile,
   Notification,
+  PostModal,
 ].flat();
