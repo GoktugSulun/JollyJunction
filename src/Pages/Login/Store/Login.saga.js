@@ -10,40 +10,40 @@ import { LoginActions } from './Login.slice';
 const mainSagaName = 'Login/request';
 
 export const LoginSagaActions = {
-   login: createAction(`${mainSagaName}/login`),
-   getUser: createAction(`${mainSagaName}/getUser`),
+  login: createAction(`${mainSagaName}/login`),
+  getUser: createAction(`${mainSagaName}/getUser`),
 };
 
 export default [
-   createSagaWatcher({
-      actionType: LoginSagaActions.login.type,
-      takeType: SagaTakeTypes.TAKE_LATEST,
-      * func({ payload }) {
-         const result = yield call(request, HttpMethodTypes.GET, `${ApiUrl.users}?email=${payload.email}&password=${payload.password}`);
-         if (!result?.data?.length) {
-            yield put(snackbar('Email or password are wrong!', { variant: NotifierTypes.ERROR }));
-         } else {
-            const user = { ...result.data[0] };
-            delete user.password;
-            yield put(LoginActions.setUser(user));
-            localStorage.setItem('token', 'ABC123ABC123');
-         }
+  createSagaWatcher({
+    actionType: LoginSagaActions.login.type,
+    takeType: SagaTakeTypes.TAKE_LATEST,
+    * func({ payload }) {
+      const result = yield call(request, HttpMethodTypes.GET, `${ApiUrl.users}?email=${payload.email}&password=${payload.password}`);
+      if (!result?.data?.length) {
+        yield put(snackbar('Email or password are wrong!', { variant: NotifierTypes.ERROR }));
+      } else {
+        const user = { ...result.data[0] };
+        delete user.password;
+        yield put(LoginActions.setUser(user));
+        localStorage.setItem('token', 'ABC123ABC123');
       }
-   }),
-   createSagaWatcher({
-      actionType: LoginSagaActions.getUser.type,
-      takeType: SagaTakeTypes.TAKE_LATEST,
-      * func({ payload }) {
-         const result = yield call(request, HttpMethodTypes.GET, `${ApiUrl.users}/${payload.user_id}`);
-         if (!result?.data?.id) {
-            yield put(snackbar('Unauthorized!', { variant: NotifierTypes.ERROR }));
-            localStorage.clear();
-            window.location.href = '/login';
-         } else {
-            const user = { ...result.data };
-            delete user.password;
-            yield put(LoginActions.setUser(user));
-         }
+    }
+  }),
+  createSagaWatcher({
+    actionType: LoginSagaActions.getUser.type,
+    takeType: SagaTakeTypes.TAKE_LATEST,
+    * func({ payload }) {
+      const result = yield call(request, HttpMethodTypes.GET, `${ApiUrl.users}/${payload.user_id}`);
+      if (!result?.data?.id) {
+        yield put(snackbar('Unauthorized!', { variant: NotifierTypes.ERROR }));
+        localStorage.clear();
+        window.location.href = '/login';
+      } else {
+        const user = { ...result.data };
+        delete user.password;
+        yield put(LoginActions.setUser(user));
       }
-   })
+    }
+  })
 ];

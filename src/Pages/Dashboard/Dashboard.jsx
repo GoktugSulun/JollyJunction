@@ -10,6 +10,8 @@ import { DashboardSagaActions } from './Store/Dashboard.saga';
 import { Button } from '../../Core/Components/Buttons/Button.style';
 import useHttpResponse from '../../Core/Hooks/useHttpResponse';
 import Loading from '../../Core/Components/Loading/Loading';
+import { NotificationSagaActions } from '../../Components/Header/Components/Notifications/Store/Notification.saga';
+import { DashboardActions } from './Store/Dashboard.slice';
 
 const Dashboard = () => {
   const dispatch = useDispatch();
@@ -23,8 +25,10 @@ const Dashboard = () => {
     }
   };
 
-  const fetchNotificationsICreated = () => {
-    dispatch(DashboardSagaActions.getNotificationsICreated(authorizedUser.id));
+  const sortedPosts = () => {
+    const sortedArrays = [...posts];
+    sortedArrays.sort((a,b) => new Date(b.created_at).getTime() - new Date(a.created_at).getTime());
+    return sortedArrays;
   };
 
   useHttpResponse({
@@ -32,10 +36,21 @@ const Dashboard = () => {
       idleAction();
     }
   }, DashboardSagaActions.createPost());
-  
+
+  useHttpResponse({
+    success: ({ idleAction }) => {
+      dispatch(DashboardSagaActions.getNotificationsICreated(authorizedUser.id));
+      idleAction();
+    }
+  }, DashboardSagaActions.addFriend());
+
   useEffect(() => {
     fetchMorePost();
-    fetchNotificationsICreated();
+    dispatch(DashboardSagaActions.getNotificationsICreated(authorizedUser.id));
+    dispatch(NotificationSagaActions.getUnreadNotifications(authorizedUser.id));
+    return () => {
+      dispatch(DashboardActions.setReset());
+    };
   }, []);
 
   return (
@@ -52,7 +67,7 @@ const Dashboard = () => {
             </div>)
         }
         {
-          posts.map((obj) => (
+          sortedPosts().map((obj) => (
             <Post 
               key={obj.id}
               data={obj}

@@ -38,16 +38,11 @@ const CreatePost = () => {
       }
       const payload = {
          description: form.getValues('value'),
-         user: {
-            id: authorizedUser.id,
-            name: authorizedUser.name,
-            surname: authorizedUser.surname,
-            position: authorizedUser.position
-         },
+         user: { ...authorizedUser },
          likes: [],
          comments: [],
          saves: [],
-         date: new Date().toString(),
+         created_at: new Date().toString(),
          files: files.map((file) => file.name)
       };
       dispatch(DashboardSagaActions.createPost(payload));
