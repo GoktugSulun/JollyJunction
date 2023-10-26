@@ -23,6 +23,9 @@ const PostModalSlice = createSlice({
     },
     handleModal: (state, action) => {
       state.isOpen = action.payload;
+    },
+    setComment: (state, action) => {
+      state.comments = [action.payload, ...state.comments];
     }
   },
   extraReducers: (builder) => requestStatusReducer(builder, PostModalSagaActions)

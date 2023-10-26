@@ -13,8 +13,6 @@ const PostModal = () => {
 
   const handleClose = () => dispatch(PostModalActions.handleModal(ModalTypes.CLOSE));
 
-  console.log(getPostsImageURL(postData?.files?.[0]), ' getPostsImageURL(data?.files?.[0]) => ', postData);
-
   return (
     <div>
       <Modal
