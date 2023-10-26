@@ -8,6 +8,23 @@
       "email": "goktug.sulun@hotmail.com",
       "password": "123456",
       "img": "goktug.jpeg",
+      "town": "Küçükçekmece",
+      "city": "İstanbul",
+      "country": "Türkiye",
+      "company": "MDP Group",
+      "school": "Bahçeşehir Üniversitesi",
+      "social_profiles": [
+        {
+          "id": 1,
+          "name": "Twitter",
+          "url": "https://twitter.com"
+        },
+        {
+          "id": 2,
+          "name": "Linkedin",
+          "url": "https://linkedin.com"
+        }
+      ],
       "friends": []
     },
     {

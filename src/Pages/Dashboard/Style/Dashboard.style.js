@@ -54,6 +54,7 @@ export const Profile = styled.div`
    border-radius: 10px;
    padding: 25px;
    place-self: flex-start;
+   transition: width 350ms;
    .user-detail {
       &__row {
          display: flex;
@@ -135,6 +136,9 @@ export const Profile = styled.div`
             color: #7a7a7a;
          }
       }
+   }
+   @media (max-width: 900px) {
+      width: 100%;
    }
 `;
 

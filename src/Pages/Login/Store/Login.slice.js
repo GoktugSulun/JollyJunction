@@ -5,18 +5,18 @@ import { LoginSagaActions } from './Login.saga';
 const NAME = 'Login';
 
 const initialState = {
-   user: {}
+  user: {}
 };
 
 const LoginSlice = createSlice({
-   name: NAME,
-   initialState,
-   reducers: {
-      setUser: (state, action) => {
-         state.user = action.payload;
-      }
-   },
-   extraReducers: (builder) => requestStatusReducer(builder, LoginSagaActions)
+  name: NAME,
+  initialState,
+  reducers: {
+    setUser: (state, action) => {
+      state.user = action.payload;
+    }
+  },
+  extraReducers: (builder) => requestStatusReducer(builder, LoginSagaActions)
 });
 
 const { actions, reducer } = LoginSlice;

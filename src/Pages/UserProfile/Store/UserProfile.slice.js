@@ -6,6 +6,7 @@ const NAME = 'UserProfile';
 
 const initialState = {
   posts: [],
+  user: {},
   page: 1,
   limit: 10,
   canBeMorePost: true
@@ -24,6 +25,9 @@ const DashboardSlice = createSlice({
       if (action.payload.length < state.limit) {
         state.canBeMorePost = false;
       }
+    },
+    setUser: (state, action) => {
+      state.user = action.payload;
     }
   },
   extraReducers: (builder) => requestStatusReducer(builder, UserProfileSagaActions)

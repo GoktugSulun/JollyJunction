@@ -16,6 +16,7 @@ const DashboardSlice = createSlice({
   name: NAME,
   initialState,
   reducers: {
+    setReset: () => initialState,
     setPosts: (state, action) => {
       state.posts = [...state.posts, ...action.payload];
       if ((state.posts.length + action.payload.length) >= state.limit * state.page) {
