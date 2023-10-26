@@ -1,7 +1,4 @@
 import { Route, Routes } from 'react-router-dom';
-import Dashboard from '../../Pages/Dashboard/Dashboard';
-import Login from '../../Pages/Login/Login';
-import Register from '../../Pages/Register/Register';
 import ProtectedRoute from './ProtectedRoute';
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
@@ -9,6 +6,12 @@ import { LoginSagaActions } from '../../Pages/Login/Store/Login.saga';
 import _ from 'lodash';
 import Loading from '../Components/Loading/Loading';
 import { FullSizeLoadingWrapper } from '../Components/Pages/FullSizeLoadingWrapper.style';
+
+// PAGES
+import Dashboard from '../../Pages/Dashboard/Dashboard';
+import Login from '../../Pages/Login/Login';
+import Register from '../../Pages/Register/Register';
+import UserProfile from '../../Pages/UserProfile/UserProfile';
 
 const RouteList = () => {
   const token = localStorage.getItem('token');
@@ -36,7 +39,7 @@ const RouteList = () => {
       <Route path="/register" element={<Register />} />
       <Route element={<ProtectedRoute isAllowed />}>
         <Route path="/" element={<Dashboard />} />
-        <Route path="/profile/:user/:id" element={<div style={{ color: 'white'}}> New page olacak </div>} />
+        <Route path="/profile/:user/:id" element={<UserProfile />} />
       </Route>
       <Route path="*" element={<div> Page Not Found! </div>} />
     </Routes>

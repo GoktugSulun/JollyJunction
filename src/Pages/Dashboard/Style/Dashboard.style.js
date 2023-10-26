@@ -53,6 +53,7 @@ export const Profile = styled.div`
    background: #181818;
    border-radius: 10px;
    padding: 25px;
+   place-self: flex-start;
    .user-detail {
       &__row {
          display: flex;

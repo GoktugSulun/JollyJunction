@@ -13,77 +13,77 @@ import { useSelector } from 'react-redux';
 import { UserImages } from '../../../assets/Pngs/Pngs';
 
 const Profile = () => {
-   const { user: authorizedUser } = useSelector((state) => state.Login);
+  const { user: authorizedUser } = useSelector((state) => state.Login);
 
-   const getUserSrc = () => {
-      return UserImages.find((src) => src.includes(authorizedUser.img)) || null;
-   };
+  const getUserSrc = () => {
+    return UserImages.find((src) => src.includes(authorizedUser.img)) || null;
+  };
 
-   return (
-      <S.Profile>
-         <div className="user">
-            <UserProfile 
-               name={`${authorizedUser?.name || ''} ${authorizedUser?.surname || ''}`}
-               position={authorizedUser?.position || ''}
-               src={getUserSrc()}
-            />
-         </div>
-         <Divider />
-         <div className="user-detail">
-            <div className="user-detail__row">
-               <LocationOnIcon />
-               <span> Küçükçekmece, İstanbul </span>
+  return (
+    <S.Profile>
+      <div className="user">
+        <UserProfile 
+          name={`${authorizedUser?.name || ''} ${authorizedUser?.surname || ''}`}
+          position={authorizedUser?.position || ''}
+          src={getUserSrc()}
+        />
+      </div>
+      <Divider />
+      <div className="user-detail">
+        <div className="user-detail__row">
+          <LocationOnIcon />
+          <span> Küçükçekmece, İstanbul </span>
+        </div>
+        <div className="user-detail__row">
+          <SchoolIcon />
+          <span> Bahcesehir University </span>
+        </div>
+        <div className="user-detail__row">
+          <BusinessCenterIcon />
+          <span> MDP Group </span>
+        </div>
+      </div>
+      <Divider />
+      <div className="profile-data">
+        <div className="profile-data__row">
+          <span className="profile-data__key"> Who&apos;s viewed your profile </span>
+          <span className="profile-data__value"> 1281 </span>
+        </div>
+        <div className="profile-data__row">
+          <span className="profile-data__key"> Impressions of your post </span>
+          <span className="profile-data__value"> 264 </span>
+        </div>
+      </div>
+      <Divider />
+      <div className="social-profile">
+        <div className="social-profile__title"> Social Profiles </div>
+        <div className="social-profile__row"> 
+          <div className="social-profile__info">
+            <TwitterIcon />
+            <div className="social-profile__names">
+              <span> Twitter </span>
+              <span className="link"> https://twitter.com </span>
             </div>
-            <div className="user-detail__row">
-               <SchoolIcon />
-               <span> Bahcesehir University </span>
+          </div>
+          <IconButton>
+            <EditIcon />
+          </IconButton>
+        </div>
+        <div className="social-profile__row"> 
+          <div className="social-profile__info">
+            <LinkedInIcon />
+            <div className="social-profile__names">
+              <span> LinkedIn </span>
+              <span className="link"> https://www.linkedin.com </span>
             </div>
-            <div className="user-detail__row">
-               <BusinessCenterIcon />
-               <span> MDP Group </span>
-            </div>
-         </div>
-         <Divider />
-         <div className="profile-data">
-            <div className="profile-data__row">
-               <span className="profile-data__key"> Who&apos;s viewed your profile </span>
-               <span className="profile-data__value"> 1281 </span>
-            </div>
-            <div className="profile-data__row">
-            <span className="profile-data__key"> Impressions of your post </span>
-            <span className="profile-data__value"> 264 </span>
-            </div>
-         </div>
-         <Divider />
-         <div className="social-profile">
-            <div className="social-profile__title"> Social Profiles </div>
-            <div className="social-profile__row"> 
-               <div className="social-profile__info">
-                  <TwitterIcon />
-                  <div className="social-profile__names">
-                     <span> Twitter </span>
-                     <span className="link"> https://twitter.com </span>
-                  </div>
-               </div>
-               <IconButton>
-                  <EditIcon />
-               </IconButton>
-            </div>
-            <div className="social-profile__row"> 
-               <div className="social-profile__info">
-                  <LinkedInIcon />
-                  <div className="social-profile__names">
-                     <span> LinkedIn </span>
-                     <span className="link"> https://www.linkedin.com </span>
-                  </div>
-               </div>
-               <IconButton>
-                  <EditIcon />
-               </IconButton>
-            </div>
-         </div>
-      </S.Profile>
-   );
+          </div>
+          <IconButton>
+            <EditIcon />
+          </IconButton>
+        </div>
+      </div>
+    </S.Profile>
+  );
 };
 
 export default Profile;

@@ -14,33 +14,33 @@ const Post = ({ data }) => {
 
   const isItLiked = () => {
     return !!data.likes.find((user_id) => user_id === authorizedUser?.id);
- };
-
-  const likeHandler = () => {
-      const updatedData = {
-        ...data,
-        likes: isItLiked() 
-            ? data.likes.filter((user_id) => user_id !== authorizedUser.id)
-            : [...data.likes, authorizedUser.id]
-      };
-      const notificationData = {
-        sender_user: { ...authorizedUser },
-        receiver_user: { ...data.user },
-        type: NotificationTypes.LIKED_POST,
-        created_at: new Date().toString(),
-        read: false,
-        is_removed: false,
-      };
-      const payload = {
-        post_id: data.id,
-        data: updatedData,
-        ...(authorizedUser.id === data.user.id ? {} : {notificationData}),
-        liked: !isItLiked()
-      };
-      dispatch(DashboardSagaActions.likePost(payload));
   };
 
-   return (
+  const likeHandler = () => {
+    const updatedData = {
+      ...data,
+      likes: isItLiked() 
+        ? data.likes.filter((user_id) => user_id !== authorizedUser.id)
+        : [...data.likes, authorizedUser.id]
+    };
+    const notificationData = {
+      sender_user: { ...authorizedUser },
+      receiver_user: { ...data.user },
+      type: NotificationTypes.LIKED_POST,
+      created_at: new Date().toString(),
+      read: false,
+      is_removed: false,
+    };
+    const payload = {
+      post_id: data.id,
+      data: updatedData,
+      ...(authorizedUser.id === data.user.id ? {} : {notificationData}),
+      liked: !isItLiked()
+    };
+    dispatch(DashboardSagaActions.likePost(payload));
+  };
+
+  return (
     <S.Post>
       <PostHeader data={data} />
       <PostBody 
@@ -60,5 +60,5 @@ const Post = ({ data }) => {
 export default Post;
 
 Post.propTypes = {
-   data: PropTypes.object.isRequired
+  data: PropTypes.object.isRequired
 };

@@ -5,9 +5,9 @@ import { CircularProgress } from '@mui/material';
 
 const Loading = ({ blur, size, color, margin }) => {
   return (
-   <S.Loading margin={margin} color={color} blur={blur}>
-    <CircularProgress size={size} />
-   </S.Loading>
+    <S.Loading margin={margin} color={color} blur={blur}>
+      <CircularProgress size={size} />
+    </S.Loading>
   );
 };
 
