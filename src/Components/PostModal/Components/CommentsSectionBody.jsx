@@ -5,7 +5,6 @@ import { getUserImageURL } from '../../../assets/Pngs/Pngs';
 import moment from 'moment';
 import { Link } from 'react-router-dom';
 import { Button } from '../../../Core/Components/Buttons/Button.style';
-import { IconButton } from '@mui/material';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import { CustomIconButton } from '../../Styles/Common.style';
 

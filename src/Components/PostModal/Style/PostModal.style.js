@@ -14,7 +14,7 @@ export const PostModal = styled.div`
 `;
 
 export const Image = styled.div`
-    flex: 1;
+    flex: 1.5;
     overflow: hidden;
     img {
         width: 100%;
