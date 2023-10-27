@@ -54,6 +54,7 @@ const CreateComment = () => {
     <S.CreateComment disabled={comment === ''} >
       <TextInput
         fullWidth
+        id="create-comment-input"
         placeholder="Make a comment..."
         endAdornment={<IconButton onClick={createCommentHandler} disabled={comment === ''} > <SendIcon /> </IconButton>}
         {...registerHandler('comment')}

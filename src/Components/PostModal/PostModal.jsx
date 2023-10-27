@@ -7,12 +7,32 @@ import { ModalTypes } from '../../Core/Constants/Enums';
 import { getPostsImageURL } from '../../assets/Pngs/Pngs';
 import CommentsSection from './Components/CommentsSection';
 import { PostModalSagaActions } from './Store/PostModal.saga';
+import useHttpResponse from '../../Core/Hooks/useHttpResponse';
+import { DashboardSagaActions } from '../../Pages/Dashboard/Store/Dashboard.saga';
 
 const PostModal = () => {
   const dispatch = useDispatch();
   const { isOpen, postData } = useSelector((state) => state.PostModal); 
 
   const handleClose = () => dispatch(PostModalActions.handleModal(ModalTypes.CLOSE));
+
+  useHttpResponse({
+    success: ({ idleAction }) => {
+      if (isOpen) {
+        dispatch(PostModalSagaActions.getSpecificPost({ post_id: postData.id }));
+        idleAction();
+      }
+    }
+  }, DashboardSagaActions.likePost());
+
+  useHttpResponse({
+    success: ({ idleAction }) => {
+      if (isOpen) {
+        dispatch(PostModalSagaActions.getSpecificPost({ post_id: postData.id }));
+        idleAction();
+      }
+    }
+  }, DashboardSagaActions.savePost());
 
   useEffect(() => {
     if (isOpen) {

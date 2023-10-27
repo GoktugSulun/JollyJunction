@@ -44,7 +44,6 @@ export default [
     * func({ payload }) {
       yield call(request, HttpMethodTypes.PUT, `${ApiUrl.posts}/${payload.post_id}`, payload.data);
       if (payload.notificationData) {
-        console.log(payload.notificationData, ' buraya girmemelei');
         yield call(request, HttpMethodTypes.POST, `${ApiUrl.notifications}`, payload.notificationData);
       }
       yield put(DashboardActions.updatePost(payload));

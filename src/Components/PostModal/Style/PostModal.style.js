@@ -16,10 +16,15 @@ export const PostModal = styled.div`
 export const Image = styled.div`
     flex: 1.5;
     overflow: hidden;
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;
     img {
         width: 100%;
         height: 100%;
         object-fit: fill;
+    }
+    @media (max-width: 900px) {
+        display: none;
     }
 `;
 
@@ -28,6 +33,8 @@ export const CommentsSection = styled.div`
     background: #0f0f0f;
     display: flex;
     flex-direction: column;
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
 `;
 
 export const CommentsSectionHeader = styled.div`
