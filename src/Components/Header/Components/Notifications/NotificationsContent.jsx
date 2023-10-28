@@ -10,6 +10,8 @@ import { NotificationSagaActions } from './Store/Notification.saga';
 import Loading from '../../../../Core/Components/Loading/Loading';
 import { useNavigate } from 'react-router-dom';
 import PropTypes from 'prop-types';
+import useHttpResponse from '../../../../Core/Hooks/useHttpResponse';
+import { LoginActions } from '../../../../Pages/Login/Store/Login.slice';
 
 const NotificationsContent = ({ handleClose }) => {
   const dispatch = useDispatch();
@@ -55,7 +57,9 @@ const NotificationsContent = ({ handleClose }) => {
         created_at: new Date(),
         read: true,
         is_removed: false
-      }
+      },
+      user_id: authorizedUser.id,
+      newUserList: { friends: [sender_user, ...authorizedUser.friends] }
     };
     dispatch(NotificationSagaActions.acceptFriendshipRequest(payload));
   };

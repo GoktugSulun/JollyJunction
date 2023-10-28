@@ -14,6 +14,9 @@ const LoginSlice = createSlice({
   reducers: {
     setUser: (state, action) => {
       state.user = action.payload;
+    },
+    updateUserFriends: (state, action) => {
+      state.user.friends = action.payload;
     }
   },
   extraReducers: (builder) => requestStatusReducer(builder, LoginSagaActions)

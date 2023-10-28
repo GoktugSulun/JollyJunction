@@ -1,6 +1,5 @@
 import React from 'react';
 import UserProfile from '../../../../../Components/UserProfile/UserProfile';
-import { UserImages } from '../../../../../assets/Pngs/Pngs';
 import PropTypes from 'prop-types';
 import { useDispatch, useSelector } from 'react-redux';
 import { IconButton, Tooltip } from '@mui/material';
@@ -8,15 +7,12 @@ import PersonAddIcon from '@mui/icons-material/PersonAdd';
 import { NotificationTypes } from '../../../../../Core/Constants/Enums';
 import { DashboardSagaActions } from '../../../Store/Dashboard.saga';
 import Loading from '../../../../../Core/Components/Loading/Loading';
+import { getUserImageURL } from '../../../../../assets/Pngs/Pngs';
 
 const PostHeader = ({ data }) => {
   const dispatch = useDispatch();
   const { user: authorizedUser } = useSelector((state) => state.Login);
   const { notificationsICreated, loading } = useSelector((state) => state.Dashboard);
-
-  const getUserSrc = () => {
-    return UserImages.find((src) => src.includes(data.user.img)) || null;
-  };
 
   const isPersonMyFriend = () => {
     //* Authorized user and post creator same person
@@ -51,7 +47,7 @@ const PostHeader = ({ data }) => {
       <UserProfile
         name={`${data?.user?.name || ''} ${data?.user?.surname || ''}`}
         position={data?.user?.position || ''}
-        src={getUserSrc()}
+        src={getUserImageURL(data?.user?.img)}
       />
       {
         loading?.addFriend || loading?.getNotificationsICreated

@@ -72,7 +72,7 @@ const UserProfile = () => {
         }
         { loading?.getPosts && !posts.length && <div className="loading-container"> <Loading /> </div> }
         {
-          posts.length && canBeMorePost
+          !!posts.length && canBeMorePost
             && (<div className="more-button-container">
               <Button onClick={fetchMorePost}> More Post </Button>
             </div>)

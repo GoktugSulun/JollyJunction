@@ -81,11 +81,12 @@ const Dashboard = () => {
               <Loading size={50} />
             </div>)
         }
-        <div className="more-button-container">
-          <Button onClick={fetchMorePost}>
-            More Post
-          </Button>
-        </div>
+        {
+          !!posts.length && canBeMorePost
+            && (<div className="more-button-container">
+              <Button onClick={fetchMorePost}> More Post </Button>
+            </div>)
+        }
       </S.PostWrapper>
       <S.SidebarWrapper>
         <Advertisement />

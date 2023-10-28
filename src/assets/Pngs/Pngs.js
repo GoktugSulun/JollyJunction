@@ -5,6 +5,7 @@ import img3 from './img-3.jpg';
 //* User Images
 import goktug from './goktug.jpeg';
 import damla from './damla.jpg';
+import oznur from './öznur.jpeg';
 
 export const PostImages =  [
   img1,
@@ -14,7 +15,8 @@ export const PostImages =  [
 
 export const UserImages = [
   goktug,
-  damla
+  damla,
+  oznur
 ];
 
 export const getPostsImageURL = (url) => {

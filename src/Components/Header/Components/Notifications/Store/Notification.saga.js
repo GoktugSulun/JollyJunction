@@ -6,6 +6,7 @@ import { request } from '../../../../../Core/Request/Request';
 import { ApiUrl } from '../../../../../Core/Constants/ApiUrl';
 import { NotificationActions } from './Notification.slice';
 import { snackbar } from '../../../../../Core/Utils/Snackbar';
+import { LoginActions } from '../../../../../Pages/Login/Store/Login.slice';
 
 const mainSagaName = 'Notification/request';
 
@@ -45,12 +46,15 @@ export default [
     actionType: NotificationSagaActions.acceptFriendshipRequest.type,
     takeType: SagaTakeTypes.TAKE_EVERY,
     * func({ payload }) {
+      yield call(request, HttpMethodTypes.PATCH, `${ApiUrl.users}/${payload.user_id}`, payload.newUserList);
+      // yield call(request, HttpMethodTypes.PATCH, `${ApiUrl.users}/${payload.user_id}`, payload.newUserList);
       yield call(request, HttpMethodTypes.PATCH, `${ApiUrl.notifications}/${payload.notification_id}`, payload.dataForNotificationWillBeRemoved);
       yield call(request, HttpMethodTypes.POST, `${ApiUrl.notifications}`, payload.dataForSenderUser);
       const response = yield call(request, HttpMethodTypes.POST, `${ApiUrl.notifications}`, payload.dataForReceiverUser);
       yield put(snackbar('Friendship request is accepted'));
       yield put(NotificationActions.filterNotifications({ notification_id: payload.notification_id }));
       yield put(NotificationActions.unshiftNotification(response.data));
+      yield put(LoginActions.updateUserFriends(payload.newUserList));
     }
   }),
   createSagaWatcher({
