@@ -1,6 +1,8 @@
 import { createSlice } from '@reduxjs/toolkit';
 import requestStatusReducer from '../../../Core/Helper/requestStatusReducer';
 import { UserProfileSagaActions } from './UserProfile.saga';
+import { DashboardSagaActions } from '../../Dashboard/Store/Dashboard.saga';
+import { PostModalSagaActions } from '../../../Components/PostModal/Store/PostModal.saga';
 
 const NAME = 'UserProfile';
 
@@ -30,7 +32,21 @@ const DashboardSlice = createSlice({
       state.user = action.payload;
     }
   },
-  extraReducers: (builder) => requestStatusReducer(builder, UserProfileSagaActions)
+  extraReducers: (builder) => {
+    builder.addCase(DashboardSagaActions.likePost, (state, action) => {
+      const { post_id, data } = action.payload;
+      state.posts = state.posts.map((obj) => obj.id === post_id ? data : obj);
+    });
+    builder.addCase(DashboardSagaActions.savePost, (state, action) => {
+      const { post_id, data } = action.payload;
+      state.posts = state.posts.map((obj) => obj.id === post_id ? data : obj);
+    });
+    builder.addCase(PostModalSagaActions.createComment, (state, action) => {
+      const { data, post_id } = action.payload;
+      state.posts = state.posts.map((obj) => obj.id === post_id ? { ...obj, comments: data } : obj);
+    });
+    requestStatusReducer(builder, UserProfileSagaActions);
+  }
 });
 
 const { reducer, actions } = DashboardSlice;

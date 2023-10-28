@@ -57,7 +57,7 @@ const Dashboard = () => {
   return (
     <S.Dashboard>
       <S.ProfileWrapper>
-        <Profile />
+        <Profile data={authorizedUser} />
       </S.ProfileWrapper>
       <S.PostWrapper>
         <CreatePost />

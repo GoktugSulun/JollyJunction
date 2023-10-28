@@ -11,6 +11,8 @@ import { Button } from '../../Core/Components/Buttons/Button.style';
 import { UserProfileActions } from './Store/UserProfile.slice';
 import { DashboardSagaActions } from '../Dashboard/Store/Dashboard.saga';
 import useHttpResponse from '../../Core/Hooks/useHttpResponse';
+import PostModal from '../../Components/PostModal/PostModal';
+import { ProfileWrapper } from '../Dashboard/Style/Dashboard.style';
 
 const UserProfile = () => {
   const dispatch = useDispatch();
@@ -54,7 +56,9 @@ const UserProfile = () => {
 
   return (
     <S.UserProfile>
-      <Profile data={authorizedUser.id === Number(params.id) ? authorizedUser : user} />
+      <ProfileWrapper>      
+        <Profile data={authorizedUser.id === Number(params.id) ? authorizedUser : user} />
+      </ProfileWrapper>
       <div className="post-wrapper">
         {
           !posts.length && loading?.getPosts === false
@@ -74,6 +78,7 @@ const UserProfile = () => {
             </div>)
         }
       </div>
+      <PostModal />
     </S.UserProfile>
   );
 };

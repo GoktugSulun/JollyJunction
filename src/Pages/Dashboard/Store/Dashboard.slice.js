@@ -45,8 +45,8 @@ const DashboardSlice = createSlice({
       state.notificationsICreated = action.payload;
     },
     setComments: (state, action) => {
-      const { data, post_id } = action.payload;
-      state.posts = state.posts.map((obj) => obj.id === post_id ? { ...obj, comments: data } : obj);
+      const { data } = action.payload;
+      state.posts = state.posts.map((obj) => obj.id === data.post_id ? { ...obj, comments: data } : obj);
     }
   },
   extraReducers: (builder) => requestStatusReducer(builder, DashboardSagaActions)

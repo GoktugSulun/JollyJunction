@@ -216,7 +216,7 @@
       },
       "type": 2,
       "created_at": "Fri Oct 27 2023 01:35:55 GMT+0300 (GMT+03:00)",
-      "read": false,
+      "read": true,
       "is_removed": false,
       "id": 7
     },
@@ -241,7 +241,7 @@
       },
       "type": 2,
       "created_at": "Fri Oct 27 2023 13:27:41 GMT+0300 (GMT+03:00)",
-      "read": false,
+      "read": true,
       "is_removed": false,
       "id": 8
     },
@@ -264,7 +264,7 @@
       },
       "type": 2,
       "created_at": "Fri Oct 27 2023 13:31:11 GMT+0300 (GMT+03:00)",
-      "read": false,
+      "read": true,
       "is_removed": false,
       "id": 9
     },
@@ -287,7 +287,7 @@
       },
       "type": 2,
       "created_at": "Fri Oct 27 2023 13:32:09 GMT+0300 (GMT+03:00)",
-      "read": false,
+      "read": true,
       "is_removed": false,
       "id": 10
     },
@@ -310,7 +310,7 @@
       },
       "type": 2,
       "created_at": "Fri Oct 27 2023 13:32:15 GMT+0300 (GMT+03:00)",
-      "read": false,
+      "read": true,
       "is_removed": false,
       "id": 11
     },
@@ -335,9 +335,695 @@
       },
       "type": 2,
       "created_at": "Fri Oct 27 2023 13:36:31 GMT+0300 (GMT+03:00)",
-      "read": false,
+      "read": true,
       "is_removed": false,
       "id": 12
+    },
+    {
+      "sender_user": {
+        "id": 2,
+        "name": "Damla Nur",
+        "surname": "Yilmaz",
+        "position": "Frontend Developer",
+        "email": "damlanur.ylmaz@hotmail.com",
+        "img": "damla.jpg",
+        "friends": []
+      },
+      "receiver_user": {
+        "id": 1,
+        "name": "Goktug",
+        "surname": "Sulun",
+        "position": "Frontend Developer",
+        "img": "goktug.jpeg"
+      },
+      "type": 2,
+      "created_at": "Fri Oct 27 2023 14:17:39 GMT+0300 (GMT+03:00)",
+      "read": true,
+      "is_removed": false,
+      "id": 13
+    },
+    {
+      "sender_user": {
+        "id": 2,
+        "name": "Damla Nur",
+        "surname": "Yilmaz",
+        "position": "Frontend Developer",
+        "email": "damlanur.ylmaz@hotmail.com",
+        "img": "damla.jpg",
+        "friends": []
+      },
+      "receiver_user": {
+        "id": 1,
+        "name": "Goktug",
+        "surname": "Sulun",
+        "position": "Frontend Developer",
+        "email": "goktug.sulun@hotmail.com",
+        "img": "goktug.jpeg",
+        "friends": []
+      },
+      "type": 2,
+      "created_at": "Fri Oct 27 2023 15:12:54 GMT+0300 (GMT+03:00)",
+      "read": true,
+      "is_removed": false,
+      "id": 14
+    },
+    {
+      "sender_user": {
+        "id": 1,
+        "name": "Goktug",
+        "surname": "Sulun",
+        "position": "Frontend Developer",
+        "email": "goktug.sulun@hotmail.com",
+        "img": "goktug.jpeg",
+        "town": "Küçükçekmece",
+        "city": "İstanbul",
+        "country": "Türkiye",
+        "company": "MDP Group",
+        "school": "Bahçeşehir Üniversitesi",
+        "social_profiles": [
+          {
+            "id": 1,
+            "name": "Twitter",
+            "url": "https://twitter.com"
+          },
+          {
+            "id": 2,
+            "name": "Linkedin",
+            "url": "https://linkedin.com"
+          }
+        ],
+        "friends": []
+      },
+      "receiver_user": {
+        "id": 1,
+        "name": "Goktug",
+        "surname": "Sulun",
+        "position": "Frontend Developer",
+        "email": "goktug.sulun@hotmail.com",
+        "img": "goktug.jpeg",
+        "friends": []
+      },
+      "type": 3,
+      "created_at": "Fri Oct 27 2023 15:18:52 GMT+0300 (GMT+03:00)",
+      "read": true,
+      "is_removed": false,
+      "id": 15
+    },
+    {
+      "sender_user": {
+        "id": 1,
+        "name": "Goktug",
+        "surname": "Sulun",
+        "position": "Frontend Developer",
+        "email": "goktug.sulun@hotmail.com",
+        "img": "goktug.jpeg",
+        "town": "Küçükçekmece",
+        "city": "İstanbul",
+        "country": "Türkiye",
+        "company": "MDP Group",
+        "school": "Bahçeşehir Üniversitesi",
+        "social_profiles": [
+          {
+            "id": 1,
+            "name": "Twitter",
+            "url": "https://twitter.com"
+          },
+          {
+            "id": 2,
+            "name": "Linkedin",
+            "url": "https://linkedin.com"
+          }
+        ],
+        "friends": []
+      },
+      "receiver_user": {
+        "id": 1,
+        "name": "Goktug",
+        "surname": "Sulun",
+        "position": "Frontend Developer",
+        "email": "goktug.sulun@hotmail.com",
+        "img": "goktug.jpeg",
+        "friends": []
+      },
+      "type": 3,
+      "created_at": "Fri Oct 27 2023 15:18:55 GMT+0300 (GMT+03:00)",
+      "read": true,
+      "is_removed": false,
+      "id": 16
+    },
+    {
+      "sender_user": {
+        "id": 1,
+        "name": "Goktug",
+        "surname": "Sulun",
+        "position": "Frontend Developer",
+        "email": "goktug.sulun@hotmail.com",
+        "img": "goktug.jpeg",
+        "town": "Küçükçekmece",
+        "city": "İstanbul",
+        "country": "Türkiye",
+        "company": "MDP Group",
+        "school": "Bahçeşehir Üniversitesi",
+        "social_profiles": [
+          {
+            "id": 1,
+            "name": "Twitter",
+            "url": "https://twitter.com"
+          },
+          {
+            "id": 2,
+            "name": "Linkedin",
+            "url": "https://linkedin.com"
+          }
+        ],
+        "friends": []
+      },
+      "receiver_user": {
+        "id": 2,
+        "name": "Damla Nur",
+        "surname": "Yilmaz",
+        "position": "Frontend Developer",
+        "email": "damlanur.ylmaz@hotmail.com",
+        "img": "damla.jpg",
+        "friends": []
+      },
+      "type": 2,
+      "created_at": "Fri Oct 27 2023 15:22:58 GMT+0300 (GMT+03:00)",
+      "read": true,
+      "is_removed": false,
+      "id": 17
+    },
+    {
+      "sender_user": {
+        "id": 2,
+        "name": "Damla Nur",
+        "surname": "Yilmaz",
+        "position": "Frontend Developer",
+        "email": "damlanur.ylmaz@hotmail.com",
+        "img": "damla.jpg",
+        "friends": []
+      },
+      "receiver_user": {
+        "id": 1,
+        "name": "Goktug",
+        "surname": "Sulun",
+        "position": "Frontend Developer",
+        "email": "goktug.sulun@hotmail.com",
+        "img": "goktug.jpeg",
+        "friends": []
+      },
+      "type": 3,
+      "created_at": "Fri Oct 27 2023 15:25:08 GMT+0300 (GMT+03:00)",
+      "read": true,
+      "is_removed": false,
+      "id": 18
+    },
+    {
+      "sender_user": {
+        "id": 2,
+        "name": "Damla Nur",
+        "surname": "Yilmaz",
+        "position": "Frontend Developer",
+        "email": "damlanur.ylmaz@hotmail.com",
+        "img": "damla.jpg",
+        "friends": []
+      },
+      "receiver_user": {
+        "id": 1,
+        "name": "Goktug",
+        "surname": "Sulun",
+        "position": "Frontend Developer",
+        "email": "goktug.sulun@hotmail.com",
+        "img": "goktug.jpeg",
+        "friends": []
+      },
+      "type": 3,
+      "created_at": "Fri Oct 27 2023 15:25:11 GMT+0300 (GMT+03:00)",
+      "read": true,
+      "is_removed": false,
+      "id": 19
+    },
+    {
+      "sender_user": {
+        "id": 1,
+        "name": "Goktug",
+        "surname": "Sulun",
+        "position": "Frontend Developer",
+        "email": "goktug.sulun@hotmail.com",
+        "img": "goktug.jpeg",
+        "town": "Küçükçekmece",
+        "city": "İstanbul",
+        "country": "Türkiye",
+        "company": "MDP Group",
+        "school": "Bahçeşehir Üniversitesi",
+        "social_profiles": [
+          {
+            "id": 1,
+            "name": "Twitter",
+            "url": "https://twitter.com"
+          },
+          {
+            "id": 2,
+            "name": "Linkedin",
+            "url": "https://linkedin.com"
+          }
+        ],
+        "friends": []
+      },
+      "receiver_user": {
+        "id": 2,
+        "name": "Damla Nur",
+        "surname": "Yilmaz",
+        "position": "Frontend Developer",
+        "email": "damlanur.ylmaz@hotmail.com",
+        "img": "damla.jpg",
+        "friends": []
+      },
+      "type": 3,
+      "created_at": "Fri Oct 27 2023 15:27:41 GMT+0300 (GMT+03:00)",
+      "read": false,
+      "is_removed": false,
+      "id": 20
+    },
+    {
+      "sender_user": {
+        "id": 1,
+        "name": "Goktug",
+        "surname": "Sulun",
+        "position": "Frontend Developer",
+        "email": "goktug.sulun@hotmail.com",
+        "img": "goktug.jpeg",
+        "town": "Küçükçekmece",
+        "city": "İstanbul",
+        "country": "Türkiye",
+        "company": "MDP Group",
+        "school": "Bahçeşehir Üniversitesi",
+        "social_profiles": [
+          {
+            "id": 1,
+            "name": "Twitter",
+            "url": "https://twitter.com"
+          },
+          {
+            "id": 2,
+            "name": "Linkedin",
+            "url": "https://linkedin.com"
+          }
+        ],
+        "friends": []
+      },
+      "receiver_user": {
+        "id": 2,
+        "name": "Damla Nur",
+        "surname": "Yilmaz",
+        "position": "Frontend Developer",
+        "email": "damlanur.ylmaz@hotmail.com",
+        "img": "damla.jpg",
+        "friends": []
+      },
+      "type": 3,
+      "created_at": "Fri Oct 27 2023 15:27:48 GMT+0300 (GMT+03:00)",
+      "read": false,
+      "is_removed": false,
+      "id": 21
+    },
+    {
+      "sender_user": {
+        "id": 1,
+        "name": "Goktug",
+        "surname": "Sulun",
+        "position": "Frontend Developer",
+        "email": "goktug.sulun@hotmail.com",
+        "img": "goktug.jpeg",
+        "town": "Küçükçekmece",
+        "city": "İstanbul",
+        "country": "Türkiye",
+        "company": "MDP Group",
+        "school": "Bahçeşehir Üniversitesi",
+        "social_profiles": [
+          {
+            "id": 1,
+            "name": "Twitter",
+            "url": "https://twitter.com"
+          },
+          {
+            "id": 2,
+            "name": "Linkedin",
+            "url": "https://linkedin.com"
+          }
+        ],
+        "friends": []
+      },
+      "receiver_user": {
+        "id": 2,
+        "name": "Damla Nur",
+        "surname": "Yilmaz",
+        "position": "Frontend Developer",
+        "email": "damlanur.ylmaz@hotmail.com",
+        "img": "damla.jpg",
+        "friends": []
+      },
+      "type": 2,
+      "created_at": "Fri Oct 27 2023 15:28:06 GMT+0300 (GMT+03:00)",
+      "read": false,
+      "is_removed": false,
+      "id": 22
+    },
+    {
+      "sender_user": {
+        "id": 1,
+        "name": "Goktug",
+        "surname": "Sulun",
+        "position": "Frontend Developer",
+        "email": "goktug.sulun@hotmail.com",
+        "img": "goktug.jpeg",
+        "town": "Küçükçekmece",
+        "city": "İstanbul",
+        "country": "Türkiye",
+        "company": "MDP Group",
+        "school": "Bahçeşehir Üniversitesi",
+        "social_profiles": [
+          {
+            "id": 1,
+            "name": "Twitter",
+            "url": "https://twitter.com"
+          },
+          {
+            "id": 2,
+            "name": "Linkedin",
+            "url": "https://linkedin.com"
+          }
+        ],
+        "friends": []
+      },
+      "receiver_user": {
+        "id": 2,
+        "name": "Damla Nur",
+        "surname": "Yilmaz",
+        "position": "Frontend Developer",
+        "email": "damlanur.ylmaz@hotmail.com",
+        "img": "damla.jpg",
+        "friends": []
+      },
+      "type": 2,
+      "created_at": "Fri Oct 27 2023 16:04:59 GMT+0300 (GMT+03:00)",
+      "read": false,
+      "is_removed": false,
+      "id": 23
+    },
+    {
+      "sender_user": {
+        "id": 1,
+        "name": "Goktug",
+        "surname": "Sulun",
+        "position": "Frontend Developer",
+        "email": "goktug.sulun@hotmail.com",
+        "img": "goktug.jpeg",
+        "town": "Küçükçekmece",
+        "city": "İstanbul",
+        "country": "Türkiye",
+        "company": "MDP Group",
+        "school": "Bahçeşehir Üniversitesi",
+        "social_profiles": [
+          {
+            "id": 1,
+            "name": "Twitter",
+            "url": "https://twitter.com"
+          },
+          {
+            "id": 2,
+            "name": "Linkedin",
+            "url": "https://linkedin.com"
+          }
+        ],
+        "friends": []
+      },
+      "receiver_user": {
+        "id": 2,
+        "name": "Damla Nur",
+        "surname": "Yilmaz",
+        "position": "Frontend Developer",
+        "email": "damlanur.ylmaz@hotmail.com",
+        "img": "damla.jpg",
+        "friends": []
+      },
+      "type": 3,
+      "created_at": "Fri Oct 27 2023 16:05:24 GMT+0300 (GMT+03:00)",
+      "read": false,
+      "is_removed": false,
+      "id": 24
+    },
+    {
+      "sender_user": {
+        "id": 1,
+        "name": "Goktug",
+        "surname": "Sulun",
+        "position": "Frontend Developer",
+        "email": "goktug.sulun@hotmail.com",
+        "img": "goktug.jpeg",
+        "town": "Küçükçekmece",
+        "city": "İstanbul",
+        "country": "Türkiye",
+        "company": "MDP Group",
+        "school": "Bahçeşehir Üniversitesi",
+        "social_profiles": [
+          {
+            "id": 1,
+            "name": "Twitter",
+            "url": "https://twitter.com"
+          },
+          {
+            "id": 2,
+            "name": "Linkedin",
+            "url": "https://linkedin.com"
+          }
+        ],
+        "friends": []
+      },
+      "receiver_user": {
+        "id": 2,
+        "name": "Damla Nur",
+        "surname": "Yilmaz",
+        "position": "Frontend Developer",
+        "email": "damlanur.ylmaz@hotmail.com",
+        "img": "damla.jpg",
+        "friends": []
+      },
+      "type": 2,
+      "created_at": "Fri Oct 27 2023 16:05:34 GMT+0300 (GMT+03:00)",
+      "read": false,
+      "is_removed": false,
+      "id": 25
+    },
+    {
+      "sender_user": {
+        "id": 1,
+        "name": "Goktug",
+        "surname": "Sulun",
+        "position": "Frontend Developer",
+        "email": "goktug.sulun@hotmail.com",
+        "img": "goktug.jpeg",
+        "town": "Küçükçekmece",
+        "city": "İstanbul",
+        "country": "Türkiye",
+        "company": "MDP Group",
+        "school": "Bahçeşehir Üniversitesi",
+        "social_profiles": [
+          {
+            "id": 1,
+            "name": "Twitter",
+            "url": "https://twitter.com"
+          },
+          {
+            "id": 2,
+            "name": "Linkedin",
+            "url": "https://linkedin.com"
+          }
+        ],
+        "friends": []
+      },
+      "receiver_user": {
+        "id": 2,
+        "name": "Damla Nur",
+        "surname": "Yilmaz",
+        "position": "Frontend Developer",
+        "email": "damlanur.ylmaz@hotmail.com",
+        "img": "damla.jpg",
+        "friends": []
+      },
+      "type": 2,
+      "created_at": "Fri Oct 27 2023 16:06:02 GMT+0300 (GMT+03:00)",
+      "read": false,
+      "is_removed": false,
+      "id": 26
+    },
+    {
+      "sender_user": {
+        "id": 1,
+        "name": "Goktug",
+        "surname": "Sulun",
+        "position": "Frontend Developer",
+        "email": "goktug.sulun@hotmail.com",
+        "img": "goktug.jpeg",
+        "town": "Küçükçekmece",
+        "city": "İstanbul",
+        "country": "Türkiye",
+        "company": "MDP Group",
+        "school": "Bahçeşehir Üniversitesi",
+        "social_profiles": [
+          {
+            "id": 1,
+            "name": "Twitter",
+            "url": "https://twitter.com"
+          },
+          {
+            "id": 2,
+            "name": "Linkedin",
+            "url": "https://linkedin.com"
+          }
+        ],
+        "friends": []
+      },
+      "receiver_user": {
+        "id": 2,
+        "name": "Damla Nur",
+        "surname": "Yilmaz",
+        "position": "Frontend Developer",
+        "email": "damlanur.ylmaz@hotmail.com",
+        "img": "damla.jpg",
+        "friends": []
+      },
+      "type": 2,
+      "created_at": "Fri Oct 27 2023 16:15:35 GMT+0300 (GMT+03:00)",
+      "read": false,
+      "is_removed": false,
+      "id": 27
+    },
+    {
+      "sender_user": {
+        "id": 1,
+        "name": "Goktug",
+        "surname": "Sulun",
+        "position": "Frontend Developer",
+        "email": "goktug.sulun@hotmail.com",
+        "img": "goktug.jpeg",
+        "town": "Küçükçekmece",
+        "city": "İstanbul",
+        "country": "Türkiye",
+        "company": "MDP Group",
+        "school": "Bahçeşehir Üniversitesi",
+        "social_profiles": [
+          {
+            "id": 1,
+            "name": "Twitter",
+            "url": "https://twitter.com"
+          },
+          {
+            "id": 2,
+            "name": "Linkedin",
+            "url": "https://linkedin.com"
+          }
+        ],
+        "friends": []
+      },
+      "receiver_user": {
+        "id": 2,
+        "name": "Damla Nur",
+        "surname": "Yilmaz",
+        "position": "Frontend Developer",
+        "email": "damlanur.ylmaz@hotmail.com",
+        "img": "damla.jpg",
+        "friends": []
+      },
+      "type": 2,
+      "created_at": "Fri Oct 27 2023 16:17:13 GMT+0300 (GMT+03:00)",
+      "read": false,
+      "is_removed": false,
+      "id": 28
+    },
+    {
+      "sender_user": {
+        "id": 1,
+        "name": "Goktug",
+        "surname": "Sulun",
+        "position": "Frontend Developer",
+        "email": "goktug.sulun@hotmail.com",
+        "img": "goktug.jpeg",
+        "town": "Küçükçekmece",
+        "city": "İstanbul",
+        "country": "Türkiye",
+        "company": "MDP Group",
+        "school": "Bahçeşehir Üniversitesi",
+        "social_profiles": [
+          {
+            "id": 1,
+            "name": "Twitter",
+            "url": "https://twitter.com"
+          },
+          {
+            "id": 2,
+            "name": "Linkedin",
+            "url": "https://linkedin.com"
+          }
+        ],
+        "friends": []
+      },
+      "receiver_user": {
+        "id": 2,
+        "name": "Damla Nur",
+        "surname": "Yilmaz",
+        "position": "Frontend Developer",
+        "email": "damlanur.ylmaz@hotmail.com",
+        "img": "damla.jpg",
+        "friends": []
+      },
+      "type": 2,
+      "created_at": "Fri Oct 27 2023 16:17:13 GMT+0300 (GMT+03:00)",
+      "read": false,
+      "is_removed": false,
+      "id": 29
+    },
+    {
+      "sender_user": {
+        "id": 1,
+        "name": "Goktug",
+        "surname": "Sulun",
+        "position": "Frontend Developer",
+        "email": "goktug.sulun@hotmail.com",
+        "img": "goktug.jpeg",
+        "town": "Küçükçekmece",
+        "city": "İstanbul",
+        "country": "Türkiye",
+        "company": "MDP Group",
+        "school": "Bahçeşehir Üniversitesi",
+        "social_profiles": [
+          {
+            "id": 1,
+            "name": "Twitter",
+            "url": "https://twitter.com"
+          },
+          {
+            "id": 2,
+            "name": "Linkedin",
+            "url": "https://linkedin.com"
+          }
+        ],
+        "friends": []
+      },
+      "receiver_user": {
+        "id": 2,
+        "name": "Damla Nur",
+        "surname": "Yilmaz",
+        "position": "Frontend Developer",
+        "email": "damlanur.ylmaz@hotmail.com",
+        "img": "damla.jpg",
+        "friends": []
+      },
+      "type": 2,
+      "created_at": "Sat Oct 28 2023 15:35:10 GMT+0300 (GMT+03:00)",
+      "read": false,
+      "is_removed": false,
+      "id": 30
     }
   ],
   "posts": [
@@ -383,7 +1069,8 @@
         "img": "goktug.jpeg"
       },
       "likes": [
-        1
+        1,
+        2
       ],
       "comments": [],
       "saves": [],
@@ -483,7 +1170,8 @@
         },
         3,
         4,
-        8
+        8,
+        24
       ],
       "saves": [
         2
@@ -508,7 +1196,9 @@
       "likes": [
         1
       ],
-      "comments": [],
+      "comments": [
+        9
+      ],
       "saves": [
         2
       ],
@@ -533,6 +1223,22 @@
       ],
       "comments": [
         {
+          "comment": "yakışıklı nabersin",
+          "created_at": "Fri Oct 27 2023 15:25:08 GMT+0300 (GMT+03:00)",
+          "user": {
+            "id": 2,
+            "name": "Damla Nur",
+            "surname": "Yilmaz",
+            "position": "Frontend Developer",
+            "email": "damlanur.ylmaz@hotmail.com",
+            "img": "damla.jpg",
+            "friends": []
+          },
+          "post_id": 8,
+          "is_removed": false,
+          "id": 19
+        },
+        {
           "comment": "alo",
           "created_at": "Fri Oct 27 2023 13:45:03 GMT+0300 (GMT+03:00)",
           "user": {
@@ -547,7 +1253,8 @@
           "post_id": 8,
           "is_removed": false,
           "id": 7
-        }
+        },
+        20
       ],
       "saves": [
         1
@@ -587,7 +1294,8 @@
           "is_removed": false,
           "id": 5
         },
-        6
+        6,
+        16
       ],
       "saves": [
         2
@@ -607,8 +1315,33 @@
         "img": "goktug.jpeg",
         "friends": []
       },
-      "likes": [],
-      "comments": [],
+      "likes": [
+        2,
+        1
+      ],
+      "comments": [
+        {
+          "comment": "heeyy deedim sana",
+          "created_at": "Fri Oct 27 2023 15:12:58 GMT+0300 (GMT+03:00)",
+          "user": {
+            "id": 2,
+            "name": "Damla Nur",
+            "surname": "Yilmaz",
+            "position": "Frontend Developer",
+            "email": "damlanur.ylmaz@hotmail.com",
+            "img": "damla.jpg",
+            "friends": []
+          },
+          "post_id": 10,
+          "is_removed": false,
+          "id": 10
+        },
+        11,
+        12,
+        13,
+        14,
+        15
+      ],
       "saves": [],
       "created_at": "Thu Oct 26 2023 15:42:25 GMT+0300 (GMT+03:00)",
       "files": [],
@@ -651,6 +1384,105 @@
       "created_at": "Thu Oct 26 2023 15:55:06 GMT+0300 (GMT+03:00)",
       "files": [],
       "id": 12
+    },
+    {
+      "description": "deneme",
+      "user": {
+        "id": 2,
+        "name": "Damla Nur",
+        "surname": "Yilmaz",
+        "position": "Frontend Developer",
+        "email": "damlanur.ylmaz@hotmail.com",
+        "img": "damla.jpg",
+        "friends": []
+      },
+      "likes": [
+        1
+      ],
+      "comments": [],
+      "saves": [],
+      "created_at": "Fri Oct 27 2023 15:21:36 GMT+0300 (GMT+03:00)",
+      "files": [],
+      "id": 13
+    },
+    {
+      "description": "deneme - 2",
+      "user": {
+        "id": 2,
+        "name": "Damla Nur",
+        "surname": "Yilmaz",
+        "position": "Frontend Developer",
+        "email": "damlanur.ylmaz@hotmail.com",
+        "img": "damla.jpg",
+        "friends": []
+      },
+      "likes": [
+        1
+      ],
+      "comments": [],
+      "saves": [
+        1
+      ],
+      "created_at": "Fri Oct 27 2023 15:21:39 GMT+0300 (GMT+03:00)",
+      "files": [],
+      "id": 14
+    },
+    {
+      "description": "alooo",
+      "user": {
+        "id": 2,
+        "name": "Damla Nur",
+        "surname": "Yilmaz",
+        "position": "Frontend Developer",
+        "email": "damlanur.ylmaz@hotmail.com",
+        "img": "damla.jpg",
+        "friends": []
+      },
+      "likes": [],
+      "comments": [
+        {
+          "comment": "naber canımsın he",
+          "created_at": "Fri Oct 27 2023 15:23:06 GMT+0300 (GMT+03:00)",
+          "user": {
+            "id": 1,
+            "name": "Goktug",
+            "surname": "Sulun",
+            "position": "Frontend Developer",
+            "email": "goktug.sulun@hotmail.com",
+            "img": "goktug.jpeg",
+            "town": "Küçükçekmece",
+            "city": "İstanbul",
+            "country": "Türkiye",
+            "company": "MDP Group",
+            "school": "Bahçeşehir Üniversitesi",
+            "social_profiles": [
+              {
+                "id": 1,
+                "name": "Twitter",
+                "url": "https://twitter.com"
+              },
+              {
+                "id": 2,
+                "name": "Linkedin",
+                "url": "https://linkedin.com"
+              }
+            ],
+            "friends": []
+          },
+          "post_id": 15,
+          "is_removed": false,
+          "id": 17
+        },
+        18,
+        22,
+        23
+      ],
+      "saves": [
+        1
+      ],
+      "created_at": "Fri Oct 27 2023 15:21:42 GMT+0300 (GMT+03:00)",
+      "files": [],
+      "id": 15
     }
   ],
   "comments": [
@@ -781,6 +1613,432 @@
       "post_id": 6,
       "is_removed": false,
       "id": 8
+    },
+    {
+      "comment": "güzel deneme postuymuş helal kerkenez",
+      "created_at": "Fri Oct 27 2023 14:20:56 GMT+0300 (GMT+03:00)",
+      "user": {
+        "id": 2,
+        "name": "Damla Nur",
+        "surname": "Yilmaz",
+        "position": "Frontend Developer",
+        "email": "damlanur.ylmaz@hotmail.com",
+        "img": "damla.jpg",
+        "friends": []
+      },
+      "post_id": 7,
+      "is_removed": false,
+      "id": 9
+    },
+    {
+      "comment": "heeyy deedim sana",
+      "created_at": "Fri Oct 27 2023 15:12:58 GMT+0300 (GMT+03:00)",
+      "user": {
+        "id": 2,
+        "name": "Damla Nur",
+        "surname": "Yilmaz",
+        "position": "Frontend Developer",
+        "email": "damlanur.ylmaz@hotmail.com",
+        "img": "damla.jpg",
+        "friends": []
+      },
+      "post_id": 10,
+      "is_removed": false,
+      "id": 10
+    },
+    {
+      "comment": "bu nedir ya - 2",
+      "created_at": "Fri Oct 27 2023 15:13:01 GMT+0300 (GMT+03:00)",
+      "user": {
+        "id": 2,
+        "name": "Damla Nur",
+        "surname": "Yilmaz",
+        "position": "Frontend Developer",
+        "email": "damlanur.ylmaz@hotmail.com",
+        "img": "damla.jpg",
+        "friends": []
+      },
+      "post_id": 10,
+      "is_removed": false,
+      "id": 11
+    },
+    {
+      "comment": "kjkj",
+      "created_at": "Fri Oct 27 2023 15:14:04 GMT+0300 (GMT+03:00)",
+      "user": {
+        "id": 1,
+        "name": "Goktug",
+        "surname": "Sulun",
+        "position": "Frontend Developer",
+        "email": "goktug.sulun@hotmail.com",
+        "img": "goktug.jpeg",
+        "town": "Küçükçekmece",
+        "city": "İstanbul",
+        "country": "Türkiye",
+        "company": "MDP Group",
+        "school": "Bahçeşehir Üniversitesi",
+        "social_profiles": [
+          {
+            "id": 1,
+            "name": "Twitter",
+            "url": "https://twitter.com"
+          },
+          {
+            "id": 2,
+            "name": "Linkedin",
+            "url": "https://linkedin.com"
+          }
+        ],
+        "friends": []
+      },
+      "post_id": 10,
+      "is_removed": false,
+      "id": 12
+    },
+    {
+      "comment": "aloo",
+      "created_at": "Fri Oct 27 2023 15:18:52 GMT+0300 (GMT+03:00)",
+      "user": {
+        "id": 1,
+        "name": "Goktug",
+        "surname": "Sulun",
+        "position": "Frontend Developer",
+        "email": "goktug.sulun@hotmail.com",
+        "img": "goktug.jpeg",
+        "town": "Küçükçekmece",
+        "city": "İstanbul",
+        "country": "Türkiye",
+        "company": "MDP Group",
+        "school": "Bahçeşehir Üniversitesi",
+        "social_profiles": [
+          {
+            "id": 1,
+            "name": "Twitter",
+            "url": "https://twitter.com"
+          },
+          {
+            "id": 2,
+            "name": "Linkedin",
+            "url": "https://linkedin.com"
+          }
+        ],
+        "friends": []
+      },
+      "post_id": 10,
+      "is_removed": false,
+      "id": 13
+    },
+    {
+      "comment": "heeyy bro",
+      "created_at": "Fri Oct 27 2023 15:18:55 GMT+0300 (GMT+03:00)",
+      "user": {
+        "id": 1,
+        "name": "Goktug",
+        "surname": "Sulun",
+        "position": "Frontend Developer",
+        "email": "goktug.sulun@hotmail.com",
+        "img": "goktug.jpeg",
+        "town": "Küçükçekmece",
+        "city": "İstanbul",
+        "country": "Türkiye",
+        "company": "MDP Group",
+        "school": "Bahçeşehir Üniversitesi",
+        "social_profiles": [
+          {
+            "id": 1,
+            "name": "Twitter",
+            "url": "https://twitter.com"
+          },
+          {
+            "id": 2,
+            "name": "Linkedin",
+            "url": "https://linkedin.com"
+          }
+        ],
+        "friends": []
+      },
+      "post_id": 10,
+      "is_removed": false,
+      "id": 14
+    },
+    {
+      "comment": "BEN",
+      "created_at": "Fri Oct 27 2023 15:21:20 GMT+0300 (GMT+03:00)",
+      "user": {
+        "id": 1,
+        "name": "Goktug",
+        "surname": "Sulun",
+        "position": "Frontend Developer",
+        "email": "goktug.sulun@hotmail.com",
+        "img": "goktug.jpeg",
+        "town": "Küçükçekmece",
+        "city": "İstanbul",
+        "country": "Türkiye",
+        "company": "MDP Group",
+        "school": "Bahçeşehir Üniversitesi",
+        "social_profiles": [
+          {
+            "id": 1,
+            "name": "Twitter",
+            "url": "https://twitter.com"
+          },
+          {
+            "id": 2,
+            "name": "Linkedin",
+            "url": "https://linkedin.com"
+          }
+        ],
+        "friends": []
+      },
+      "post_id": 10,
+      "is_removed": false,
+      "id": 15
+    },
+    {
+      "comment": "ne var lan",
+      "created_at": "Fri Oct 27 2023 15:21:48 GMT+0300 (GMT+03:00)",
+      "user": {
+        "id": 2,
+        "name": "Damla Nur",
+        "surname": "Yilmaz",
+        "position": "Frontend Developer",
+        "email": "damlanur.ylmaz@hotmail.com",
+        "img": "damla.jpg",
+        "friends": []
+      },
+      "post_id": 9,
+      "is_removed": false,
+      "id": 16
+    },
+    {
+      "comment": "naber canımsın he",
+      "created_at": "Fri Oct 27 2023 15:23:06 GMT+0300 (GMT+03:00)",
+      "user": {
+        "id": 1,
+        "name": "Goktug",
+        "surname": "Sulun",
+        "position": "Frontend Developer",
+        "email": "goktug.sulun@hotmail.com",
+        "img": "goktug.jpeg",
+        "town": "Küçükçekmece",
+        "city": "İstanbul",
+        "country": "Türkiye",
+        "company": "MDP Group",
+        "school": "Bahçeşehir Üniversitesi",
+        "social_profiles": [
+          {
+            "id": 1,
+            "name": "Twitter",
+            "url": "https://twitter.com"
+          },
+          {
+            "id": 2,
+            "name": "Linkedin",
+            "url": "https://linkedin.com"
+          }
+        ],
+        "friends": []
+      },
+      "post_id": 15,
+      "is_removed": false,
+      "id": 17
+    },
+    {
+      "comment": "heeyyy güzellik",
+      "created_at": "Fri Oct 27 2023 15:23:16 GMT+0300 (GMT+03:00)",
+      "user": {
+        "id": 1,
+        "name": "Goktug",
+        "surname": "Sulun",
+        "position": "Frontend Developer",
+        "email": "goktug.sulun@hotmail.com",
+        "img": "goktug.jpeg",
+        "town": "Küçükçekmece",
+        "city": "İstanbul",
+        "country": "Türkiye",
+        "company": "MDP Group",
+        "school": "Bahçeşehir Üniversitesi",
+        "social_profiles": [
+          {
+            "id": 1,
+            "name": "Twitter",
+            "url": "https://twitter.com"
+          },
+          {
+            "id": 2,
+            "name": "Linkedin",
+            "url": "https://linkedin.com"
+          }
+        ],
+        "friends": []
+      },
+      "post_id": 15,
+      "is_removed": false,
+      "id": 18
+    },
+    {
+      "comment": "yakışıklı nabersin",
+      "created_at": "Fri Oct 27 2023 15:25:08 GMT+0300 (GMT+03:00)",
+      "user": {
+        "id": 2,
+        "name": "Damla Nur",
+        "surname": "Yilmaz",
+        "position": "Frontend Developer",
+        "email": "damlanur.ylmaz@hotmail.com",
+        "img": "damla.jpg",
+        "friends": []
+      },
+      "post_id": 8,
+      "is_removed": false,
+      "id": 19
+    },
+    {
+      "comment": "heyt beee",
+      "created_at": "Fri Oct 27 2023 15:25:11 GMT+0300 (GMT+03:00)",
+      "user": {
+        "id": 2,
+        "name": "Damla Nur",
+        "surname": "Yilmaz",
+        "position": "Frontend Developer",
+        "email": "damlanur.ylmaz@hotmail.com",
+        "img": "damla.jpg",
+        "friends": []
+      },
+      "post_id": 8,
+      "is_removed": false,
+      "id": 20
+    },
+    {
+      "comment": "kanka",
+      "created_at": "Fri Oct 27 2023 15:27:41 GMT+0300 (GMT+03:00)",
+      "user": {
+        "id": 1,
+        "name": "Goktug",
+        "surname": "Sulun",
+        "position": "Frontend Developer",
+        "email": "goktug.sulun@hotmail.com",
+        "img": "goktug.jpeg",
+        "town": "Küçükçekmece",
+        "city": "İstanbul",
+        "country": "Türkiye",
+        "company": "MDP Group",
+        "school": "Bahçeşehir Üniversitesi",
+        "social_profiles": [
+          {
+            "id": 1,
+            "name": "Twitter",
+            "url": "https://twitter.com"
+          },
+          {
+            "id": 2,
+            "name": "Linkedin",
+            "url": "https://linkedin.com"
+          }
+        ],
+        "friends": []
+      },
+      "post_id": 15,
+      "is_removed": false,
+      "id": 21
+    },
+    {
+      "comment": "ne",
+      "created_at": "Fri Oct 27 2023 15:27:48 GMT+0300 (GMT+03:00)",
+      "user": {
+        "id": 1,
+        "name": "Goktug",
+        "surname": "Sulun",
+        "position": "Frontend Developer",
+        "email": "goktug.sulun@hotmail.com",
+        "img": "goktug.jpeg",
+        "town": "Küçükçekmece",
+        "city": "İstanbul",
+        "country": "Türkiye",
+        "company": "MDP Group",
+        "school": "Bahçeşehir Üniversitesi",
+        "social_profiles": [
+          {
+            "id": 1,
+            "name": "Twitter",
+            "url": "https://twitter.com"
+          },
+          {
+            "id": 2,
+            "name": "Linkedin",
+            "url": "https://linkedin.com"
+          }
+        ],
+        "friends": []
+      },
+      "post_id": 15,
+      "is_removed": false,
+      "id": 22
+    },
+    {
+      "comment": "d",
+      "created_at": "Fri Oct 27 2023 16:05:24 GMT+0300 (GMT+03:00)",
+      "user": {
+        "id": 1,
+        "name": "Goktug",
+        "surname": "Sulun",
+        "position": "Frontend Developer",
+        "email": "goktug.sulun@hotmail.com",
+        "img": "goktug.jpeg",
+        "town": "Küçükçekmece",
+        "city": "İstanbul",
+        "country": "Türkiye",
+        "company": "MDP Group",
+        "school": "Bahçeşehir Üniversitesi",
+        "social_profiles": [
+          {
+            "id": 1,
+            "name": "Twitter",
+            "url": "https://twitter.com"
+          },
+          {
+            "id": 2,
+            "name": "Linkedin",
+            "url": "https://linkedin.com"
+          }
+        ],
+        "friends": []
+      },
+      "post_id": 15,
+      "is_removed": false,
+      "id": 23
+    },
+    {
+      "comment": "bu nedir lo",
+      "created_at": "Sat Oct 28 2023 15:02:07 GMT+0300 (GMT+03:00)",
+      "user": {
+        "id": 1,
+        "name": "Goktug",
+        "surname": "Sulun",
+        "position": "Frontend Developer",
+        "email": "goktug.sulun@hotmail.com",
+        "img": "goktug.jpeg",
+        "town": "Küçükçekmece",
+        "city": "İstanbul",
+        "country": "Türkiye",
+        "company": "MDP Group",
+        "school": "Bahçeşehir Üniversitesi",
+        "social_profiles": [
+          {
+            "id": 1,
+            "name": "Twitter",
+            "url": "https://twitter.com"
+          },
+          {
+            "id": 2,
+            "name": "Linkedin",
+            "url": "https://linkedin.com"
+          }
+        ],
+        "friends": []
+      },
+      "post_id": 6,
+      "is_removed": false,
+      "id": 24
     }
   ]
 }

@@ -8,6 +8,7 @@ import { useWatch } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
 import { PostModalSagaActions } from '../Store/PostModal.saga';
 import useHttpResponse from '../../../Core/Hooks/useHttpResponse';
+import { NotificationTypes } from '../../../Core/Constants/Enums';
 
 const defaultValues = {
   comment: ''
@@ -32,7 +33,17 @@ const CreateComment = () => {
         post_id: postData.id,
         is_removed: false
       },
-      currentComments: postData.comments
+      currentComments: postData.comments,
+      notificationData: authorizedUser.id === postData.user.id 
+        ? null
+        : {
+          sender_user: { ...authorizedUser },
+          receiver_user: { ...postData.user },
+          type: NotificationTypes.COMMENTED_POST,
+          created_at: new Date().toString(),
+          read: false,
+          is_removed: false,
+        }
     };
     dispatch(PostModalSagaActions.createComment(payload));
   };

@@ -6,8 +6,8 @@ import createSagaWatcher from '../../../Core/Helper/createSagaWatcher';
 import { ApiUrl } from '../../../Core/Constants/ApiUrl';
 import { PostModalActions } from './PostModal.slice';
 import { snackbar } from '../../../Core/Utils/Snackbar';
-import { DashboardSagaActions } from '../../../Pages/Dashboard/Store/Dashboard.saga';
 import { DashboardActions } from '../../../Pages/Dashboard/Store/Dashboard.slice';
+import _ from 'lodash';
 
 const mainSagaName = 'PostModal/request';
 
@@ -40,11 +40,14 @@ export default [
     actionType: PostModalSagaActions.createComment.type,
     takeType: SagaTakeTypes.TAKE_LATEST,
     * func({ payload }) {
-      const { data, currentComments } = payload;
+      const { data, currentComments, notificationData } = payload;
       const response = yield call(request, HttpMethodTypes.POST, `${ApiUrl.comments}`, data);
-      yield call(request, HttpMethodTypes.PATCH, `${ApiUrl.posts}/${payload.data.post_id}`, { comments: [...currentComments, response.data.id] });
+      yield call(request, HttpMethodTypes.PATCH, `${ApiUrl.posts}/${data.post_id}`, { comments: [...currentComments, response.data.id] });
+      if (notificationData) {
+        yield call(request, HttpMethodTypes.POST, ApiUrl.notifications, notificationData);
+      }
       yield put(PostModalActions.setComment(response.data));
-      yield put(DashboardActions.setComments({ post_id: payload.data.post_id, data: [...currentComments, response.data.id] }));
+      yield put(DashboardActions.setComments({ post_id: data.post_id, data: [...currentComments, response.data.id] }));
       yield put(snackbar('Post is created'));
     }
   })

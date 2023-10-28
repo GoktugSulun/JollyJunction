@@ -9,8 +9,6 @@ import BookmarkIcon from '@mui/icons-material/Bookmark';
 import { useDispatch, useSelector } from 'react-redux';
 import { Button } from '../../../Core/Components/Buttons/Button.style';
 import moment from 'moment';
-import TextInput from '../../../Core/Inputs/TextInput';
-import { Divider } from '../../Divider/Divider.style';
 import { NotificationTypes } from '../../../Core/Constants/Enums';
 import { DashboardSagaActions } from '../../../Pages/Dashboard/Store/Dashboard.saga';
 
