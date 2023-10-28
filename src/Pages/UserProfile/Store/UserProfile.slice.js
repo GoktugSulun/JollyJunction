@@ -1,6 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 import requestStatusReducer from '../../../Core/Helper/requestStatusReducer';
 import { UserProfileSagaActions } from './UserProfile.saga';
+import { postUpdateReducer } from '../../../Core/Helper/postUpdateReducer';
 
 const NAME = 'UserProfile';
 
@@ -28,9 +29,16 @@ const DashboardSlice = createSlice({
     },
     setUser: (state, action) => {
       state.user = action.payload;
+    },
+    setComments: (state, action) => {
+      const { data, post_id } = action.payload;
+      state.posts = state.posts.map((obj) => obj.id === post_id ? { ...obj, comments: data } : obj);
     }
   },
-  extraReducers: (builder) => requestStatusReducer(builder, UserProfileSagaActions)
+  extraReducers: (builder) => {
+    postUpdateReducer(builder);
+    requestStatusReducer(builder, UserProfileSagaActions);
+  }
 });
 
 const { reducer, actions } = DashboardSlice;

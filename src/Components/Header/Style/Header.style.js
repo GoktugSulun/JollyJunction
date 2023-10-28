@@ -113,6 +113,7 @@ export const NotificationIconButton = styled(IconButton)`
       right: 0;
       width: 15px;
       height: 15px;
+      padding: 2px;
       background-color: red;
       color: #fff;
       font-size: 12px;
@@ -205,9 +206,9 @@ export const NotificationItem = styled.div`
    }
    .description {
       font-size: 16px;
-      display: flex;
+      /* display: flex;
       align-items: center;
-      gap: 5px;
+      gap: 5px; */
       span {
          white-space: normal;
       }

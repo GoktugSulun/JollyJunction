@@ -1,7 +1,7 @@
 export default Object.freeze({
-   SUCCESS: 'success',
-   WARNING: 'warning',
-   ERROR: 'error',
-   INFO: 'info',
-   DEFAULT: 'default'
+  SUCCESS: 'success',
+  WARNING: 'warning',
+  ERROR: 'error',
+  INFO: 'info',
+  DEFAULT: 'default'
 });

@@ -7,14 +7,17 @@ const UserProfile = (props) => {
   return (
     <S.UserProfile small={props.small} justImage={!props.name.trim() && !props.position.trim()} >
       {
-        props.src 
+        props.src
           ?  <img className="user-img" src={props.src} alt="user" />
           :  <LetterImage fontSize={props.fontSize} name={props.name} />
       }
-      <div className="user-info">
-        <div className="user-info__name"> {props.name} </div>
-        <div className="user-info__position"> {props.position} </div>
-      </div>
+      {
+        props.displayName
+          && <div className="user-info">
+            <div className="user-info__name"> {props.name} </div>
+            <div className="user-info__position"> {props.position} </div>
+          </div>
+      }
     </S.UserProfile>
   );
 };
@@ -26,7 +29,8 @@ UserProfile.propTypes = {
   name: PropTypes.string,
   position: PropTypes.string,
   small: PropTypes.bool,
-  fontSize: PropTypes.string
+  fontSize: PropTypes.string,
+  displayName: PropTypes.bool
 };
 
 UserProfile.defaultProps = {
@@ -34,5 +38,6 @@ UserProfile.defaultProps = {
   name: '',
   position: '',
   small: false,
-  fontSize: '35px'
+  fontSize: '35px',
+  displayName: true
 };

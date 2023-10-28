@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import * as S from './Style/UserProfile.styled';
+import * as S from './Style/UserProfile.style';
 import Profile from '../Dashboard/Components/Profile';
 import Post from '../Dashboard/Components/Post/Post';
 import { useDispatch, useSelector } from 'react-redux';
@@ -11,6 +11,8 @@ import { Button } from '../../Core/Components/Buttons/Button.style';
 import { UserProfileActions } from './Store/UserProfile.slice';
 import { DashboardSagaActions } from '../Dashboard/Store/Dashboard.saga';
 import useHttpResponse from '../../Core/Hooks/useHttpResponse';
+import PostModal from '../../Components/PostModal/PostModal';
+import { ProfileWrapper } from '../Dashboard/Style/Dashboard.style';
 
 const UserProfile = () => {
   const dispatch = useDispatch();
@@ -54,7 +56,9 @@ const UserProfile = () => {
 
   return (
     <S.UserProfile>
-      <Profile data={authorizedUser.id === Number(params.id) ? authorizedUser : user} />
+      <ProfileWrapper>      
+        <Profile data={authorizedUser.id === Number(params.id) ? authorizedUser : user} />
+      </ProfileWrapper>
       <div className="post-wrapper">
         {
           !posts.length && loading?.getPosts === false
@@ -68,12 +72,13 @@ const UserProfile = () => {
         }
         { loading?.getPosts && !posts.length && <div className="loading-container"> <Loading /> </div> }
         {
-          posts.length && canBeMorePost
+          !!posts.length && canBeMorePost
             && (<div className="more-button-container">
               <Button onClick={fetchMorePost}> More Post </Button>
             </div>)
         }
       </div>
+      <PostModal />
     </S.UserProfile>
   );
 };

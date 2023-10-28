@@ -12,6 +12,7 @@ import useHttpResponse from '../../Core/Hooks/useHttpResponse';
 import Loading from '../../Core/Components/Loading/Loading';
 import { NotificationSagaActions } from '../../Components/Header/Components/Notifications/Store/Notification.saga';
 import { DashboardActions } from './Store/Dashboard.slice';
+import PostModal from '../../Components/PostModal/PostModal';
 
 const Dashboard = () => {
   const dispatch = useDispatch();
@@ -56,7 +57,7 @@ const Dashboard = () => {
   return (
     <S.Dashboard>
       <S.ProfileWrapper>
-        <Profile />
+        <Profile data={authorizedUser} />
       </S.ProfileWrapper>
       <S.PostWrapper>
         <CreatePost />
@@ -80,16 +81,18 @@ const Dashboard = () => {
               <Loading size={50} />
             </div>)
         }
-        <div className="more-button-container">
-          <Button onClick={fetchMorePost}>
-            More Post
-          </Button>
-        </div>
+        {
+          !!posts.length && canBeMorePost
+            && (<div className="more-button-container">
+              <Button onClick={fetchMorePost}> More Post </Button>
+            </div>)
+        }
       </S.PostWrapper>
       <S.SidebarWrapper>
         <Advertisement />
         <FriendList />
       </S.SidebarWrapper>
+      <PostModal />
     </S.Dashboard>
   );
 };

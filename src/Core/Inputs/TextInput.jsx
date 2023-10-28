@@ -23,43 +23,43 @@ const TextInput = (props) => {
     return {};
   };
 
-   return (
-      <CustomFormControl 
-        fullWidth={props.fullWidth}
-        $withLabel={!!props.label}
+  return (
+    <CustomFormControl 
+      fullWidth={props.fullWidth}
+      $withLabel={!!props.label}
+    >
+      <CustomInputLabel 
+        shrink
+        error={props.error || !!props.fieldState?.error} 
+        htmlFor={props.id}
+        palette={props.palette}
       >
-        <CustomInputLabel 
-          shrink
-          error={props.error || !!props.fieldState?.error} 
-          htmlFor={props.id}
-          palette={props.palette}
-        >
-          {props.label}
-        </CustomInputLabel>
-        <CustomOutlinedInput
-          {...(props.id ? { id: props.id } : {})}
-          startAdornment={props.startAdornment}
-          endAdornment={props.endAdornment}
-          onChange={onChangeHandler}
-          onBlur={props.field?.onBlur || props.onBlur} 
-          onKeyDown={props.onKeyDown}
-          {...getValue()}
-          name={props.field?.name || props.name} 
-          inputRef={props.field?.ref || props.inputRef} 
-          type={props.type}
-          placeholder={props.placeholder}
-          notched={false}
-          error={props.error || !!props.fieldState?.error} 
-          color={props.palette.defaultColor}
-          palette={props.palette}
-        />
-        <FormHelperText
-          error={props.error || !!props.fieldState?.error} 
-        >
-          { props.fieldState?.error?.message || props.helperText }
-        </FormHelperText>
-      </CustomFormControl>
-   );
+        {props.label}
+      </CustomInputLabel>
+      <CustomOutlinedInput
+        {...(props.id ? { id: props.id } : {})}
+        startAdornment={props.startAdornment}
+        endAdornment={props.endAdornment}
+        onChange={onChangeHandler}
+        onBlur={props.field?.onBlur || props.onBlur} 
+        onKeyDown={props.onKeyDown}
+        {...getValue()}
+        name={props.field?.name || props.name} 
+        inputRef={props.field?.ref || props.inputRef} 
+        type={props.type}
+        placeholder={props.placeholder}
+        notched={false}
+        error={props.error || !!props.fieldState?.error} 
+        color={props.palette.defaultColor}
+        palette={props.palette}
+      />
+      <FormHelperText
+        error={props.error || !!props.fieldState?.error} 
+      >
+        { props.fieldState?.error?.message || props.helperText }
+      </FormHelperText>
+    </CustomFormControl>
+  );
 };
 
 export default withInput(TextInput);

@@ -54,7 +54,27 @@ export const Profile = styled.div`
    border-radius: 10px;
    padding: 25px;
    place-self: flex-start;
+   flex: 1;
    transition: width 350ms;
+   .user {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 5px;
+      .MuiIconButton-root {
+         svg {
+            path {
+               fill: #9a9a9a;
+            }
+         }
+         :hover {
+            background-color: #333;
+            svg path {
+               fill: #FFFFFF;
+            }
+         }
+      }
+   }
    .user-detail {
       &__row {
          display: flex;

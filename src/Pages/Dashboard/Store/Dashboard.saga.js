@@ -44,10 +44,9 @@ export default [
     * func({ payload }) {
       yield call(request, HttpMethodTypes.PUT, `${ApiUrl.posts}/${payload.post_id}`, payload.data);
       if (payload.notificationData) {
-        console.log(payload.notificationData, ' buraya girmemelei');
         yield call(request, HttpMethodTypes.POST, `${ApiUrl.notifications}`, payload.notificationData);
       }
-      yield put(DashboardActions.updatePost(payload));
+      // yield put(DashboardActions.updatePost(payload));
       yield put(snackbar(payload.liked ? 'Post is liked successfully' : 'Post is unliked successfully'));
     }
   }),
@@ -56,7 +55,7 @@ export default [
     takeType: SagaTakeTypes.TAKE_LATEST,
     * func({ payload }) {
       yield call(request, HttpMethodTypes.PUT, `${ApiUrl.posts}/${payload.post_id}`, payload.data);
-      yield put(DashboardActions.updatePost(payload));
+      // yield put(DashboardActions.updatePost(payload));
       yield put(snackbar(payload.saved ? 'Post is saved successfully' : 'Post is unsaved successfully'));
     }
   }),

@@ -1,5 +1,5 @@
 import React from 'react';
-import * as S from '../Style/UserProfile.styled';
+import * as S from '../Style/UserProfile.style';
 import SearchOffIcon from '@mui/icons-material/SearchOff';
 
 const NoData = () => {

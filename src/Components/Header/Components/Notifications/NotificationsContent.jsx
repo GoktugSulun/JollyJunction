@@ -1,6 +1,6 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { UserImages } from '../../../../assets/Pngs/Pngs';
+import { UserImages, getUserImageURL } from '../../../../assets/Pngs/Pngs';
 import { NotificationTypes } from '../../../../Core/Constants/Enums';
 import { MenuItem } from '@mui/material';
 import * as S from '../../Style/Header.style';
@@ -10,16 +10,14 @@ import { NotificationSagaActions } from './Store/Notification.saga';
 import Loading from '../../../../Core/Components/Loading/Loading';
 import { useNavigate } from 'react-router-dom';
 import PropTypes from 'prop-types';
+import useHttpResponse from '../../../../Core/Hooks/useHttpResponse';
+import { LoginActions } from '../../../../Pages/Login/Store/Login.slice';
 
 const NotificationsContent = ({ handleClose }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { notifications, loading } = useSelector((state) => state.Notification);
   const { user: authorizedUser } = useSelector((state) => state.Login);
-
-  const getUserSrc = () => {
-    return UserImages.find((src) => src.includes(notifications?.[0]?.sender_user?.img)) || null;
-  };
 
   const getNotificationMessage = (type) => {
     switch (type) {
@@ -59,7 +57,9 @@ const NotificationsContent = ({ handleClose }) => {
         created_at: new Date(),
         read: true,
         is_removed: false
-      }
+      },
+      user_id: authorizedUser.id,
+      newUserList: { friends: [sender_user, ...authorizedUser.friends] }
     };
     dispatch(NotificationSagaActions.acceptFriendshipRequest(payload));
   };
@@ -87,8 +87,14 @@ const NotificationsContent = ({ handleClose }) => {
 
   const navigateToUserProfile = (user) => {
     handleClose();
-    const url = `profile/${user.name}${user.surname}/${user.id}`;
+    const url = `profile/${user.name.split(' ').join('')}${user.surname}/${user.id}`;
     navigate(url);
+  };
+
+  const sortedNotifications = () => {
+    const sortedArrays = [...notifications];
+    sortedArrays.sort((a,b) => new Date(b.created_at).getTime() - new Date(a.created_at).getTime());
+    return sortedArrays;
   };
 
   if (!notifications.length) {
@@ -102,13 +108,13 @@ const NotificationsContent = ({ handleClose }) => {
   return (
     <S.NotificationsContent>
       {
-        notifications.map((obj) => (
+        sortedNotifications().map((obj) => (
           <MenuItem 
             onClick={notificationHandler} 
             key={obj.id}
           >
             <S.NotificationItem read={obj.read} >
-              <img alt="sender-user" src={getUserSrc()} />
+              <img alt="sender-user" src={getUserImageURL(obj?.sender_user?.img)} />
               <p className="description">
                 <Button 
                   className="description__sender-user"

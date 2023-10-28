@@ -38,256 +38,30 @@
       "friends": []
     },
     {
-      "name": "Burak",
-      "surname": "Yilmazer",
-      "position": "Backend Developer",
-      "email": "burak.yilmazer@mdpgroup.com",
-      "password": "123",
-      "img": "",
+      "name": "Oznur",
+      "surname": "Sulun",
+      "position": "Math Teacher",
+      "email": "oznur.sulun@hotmail.com",
+      "password": "123456",
+      "img": "öznur.jpeg",
       "id": 3,
-      "friends": []
+      "friends": [
+        {
+          "name": "Oznur",
+          "surname": "Sulun",
+          "position": "Math Teacher",
+          "email": "oznur.sulun@hotmail.com",
+          "img": "öznur.jpeg",
+          "id": 3,
+          "friends": []
+        }
+      ]
     }
   ],
-  "notifications": [
-    {
-      "sender_user": {
-        "id": 2,
-        "name": "Damla Nur",
-        "surname": "Yilmaz",
-        "position": "Frontend Developer",
-        "email": "damlanur.ylmaz@hotmail.com",
-        "img": "damla.jpg",
-        "friends": []
-      },
-      "receiver_user": {
-        "id": 1,
-        "name": "Goktug",
-        "surname": "Sulun",
-        "position": "Frontend Developer",
-        "email": "goktug.sulun@hotmail.com",
-        "img": "goktug.jpeg",
-        "friends": []
-      },
-      "type": 2,
-      "created_at": "Tue Oct 24 2023 18:30:27 GMT+0300 (GMT+03:00)",
-      "read": true,
-      "is_removed": false,
-      "id": 1
-    },
-    {
-      "sender_user": {
-        "id": 2,
-        "name": "Damla Nur",
-        "surname": "Yilmaz",
-        "position": "Frontend Developer",
-        "email": "damlanur.ylmaz@hotmail.com",
-        "img": "damla.jpg",
-        "friends": []
-      },
-      "receiver_user": {
-        "id": 1,
-        "name": "Goktug",
-        "surname": "Sulun",
-        "position": "Frontend Developer",
-        "email": "goktug.sulun@hotmail.com",
-        "img": "goktug.jpeg",
-        "friends": []
-      },
-      "type": 2,
-      "created_at": "Tue Oct 24 2023 18:30:28 GMT+0300 (GMT+03:00)",
-      "read": true,
-      "is_removed": false,
-      "id": 2
-    },
-    {
-      "sender_user": {
-        "id": 2,
-        "name": "Damla Nur",
-        "surname": "Yilmaz",
-        "position": "Frontend Developer",
-        "email": "damlanur.ylmaz@hotmail.com",
-        "img": "damla.jpg",
-        "friends": []
-      },
-      "receiver_user": {
-        "id": 1,
-        "name": "Goktug",
-        "surname": "Sulun",
-        "position": "Frontend Developer",
-        "email": "goktug.sulun@hotmail.com",
-        "img": "goktug.jpeg",
-        "friends": []
-      },
-      "type": 1,
-      "created_at": "Tue Oct 24 2023 18:30:36 GMT+0300 (GMT+03:00)",
-      "read": true,
-      "is_removed": true,
-      "id": 3
-    },
-    {
-      "sender_user": {
-        "id": 1,
-        "name": "Goktug",
-        "surname": "Sulun",
-        "position": "Frontend Developer",
-        "email": "goktug.sulun@hotmail.com",
-        "img": "goktug.jpeg",
-        "friends": []
-      },
-      "receiver_user": {
-        "id": 2,
-        "name": "Damla Nur",
-        "surname": "Yilmaz",
-        "position": "Frontend Developer",
-        "email": "damlanur.ylmaz@hotmail.com",
-        "img": "damla.jpg",
-        "friends": []
-      },
-      "type": 2,
-      "created_at": "Thu Oct 26 2023 15:56:27 GMT+0300 (GMT+03:00)",
-      "read": true,
-      "is_removed": false,
-      "id": 4
-    },
-    {
-      "sender_user": {
-        "id": 2,
-        "name": "Damla Nur",
-        "surname": "Yilmaz",
-        "position": "Frontend Developer",
-        "email": "damlanur.ylmaz@hotmail.com",
-        "img": "damla.jpg",
-        "friends": []
-      },
-      "receiver_user": {
-        "id": 1,
-        "name": "Goktug",
-        "surname": "Sulun",
-        "position": "Frontend Developer",
-        "email": "goktug.sulun@hotmail.com",
-        "img": "goktug.jpeg",
-        "friends": []
-      },
-      "type": 1,
-      "created_at": "Thu Oct 26 2023 16:09:46 GMT+0300 (GMT+03:00)",
-      "read": false,
-      "is_removed": false,
-      "id": 5
-    }
-  ],
+  "notifications": [],
   "posts": [
     {
-      "description": "deneme post",
-      "user": {
-        "id": 1,
-        "name": "Goktug",
-        "surname": "Sulun",
-        "position": "Frontend Developer",
-        "img": "goktug.jpeg"
-      },
-      "likes": [],
-      "comments": [],
-      "saves": [],
-      "files": [],
-      "created_at": "2023-10-14T14:32:29.489Z",
-      "id": 1
-    },
-    {
-      "description": "post denemesi yapıyorum merhaba arkadaşlar nasılsınız iyi misiniz ?",
-      "user": {
-        "id": 1,
-        "name": "Goktug",
-        "surname": "Sulun",
-        "position": "Frontend Developer",
-        "img": "goktug.jpeg"
-      },
-      "likes": [],
-      "comments": [],
-      "saves": [],
-      "files": [],
-      "created_at": "2023-10-15T15:16:19.313Z",
-      "id": 2
-    },
-    {
-      "description": "NYC",
-      "user": {
-        "id": 1,
-        "name": "Goktug",
-        "surname": "Sulun",
-        "position": "Frontend Developer",
-        "img": "goktug.jpeg"
-      },
-      "likes": [
-        1
-      ],
-      "comments": [],
-      "saves": [],
-      "created_at": "Sat Oct 21 2023 23:28:38 GMT+0300 (GMT+03:00)",
-      "files": [
-        "img-2.jpg"
-      ],
-      "id": 3
-    },
-    {
-      "description": "Empire State bro",
-      "user": {
-        "id": 1,
-        "name": "Goktug",
-        "surname": "Sulun",
-        "position": "Frontend Developer",
-        "img": "goktug.jpeg"
-      },
-      "likes": [
-        1
-      ],
-      "comments": [],
-      "saves": [],
-      "created_at": "Sat Oct 21 2023 23:37:36 GMT+0300 (GMT+03:00)",
-      "files": [
-        "img-1.jpg"
-      ],
-      "id": 4
-    },
-    {
-      "description": "Miami Beach!",
-      "user": {
-        "id": 1,
-        "name": "Goktug",
-        "surname": "Sulun",
-        "position": "Frontend Developer",
-        "img": "goktug.jpeg"
-      },
-      "likes": [],
-      "comments": [],
-      "saves": [
-        1
-      ],
-      "created_at": "Sat Oct 21 2023 23:38:03 GMT+0300 (GMT+03:00)",
-      "files": [
-        "img-3.jpg"
-      ],
-      "id": 5
-    },
-    {
-      "description": "tekrardan NYC",
-      "user": {
-        "id": 1,
-        "name": "Goktug",
-        "surname": "Sulun",
-        "position": "Frontend Developer",
-        "img": "goktug.jpeg"
-      },
-      "likes": [],
-      "comments": [],
-      "saves": [],
-      "created_at": "Sat Oct 21 2023 23:38:26 GMT+0300 (GMT+03:00)",
-      "files": [
-        "img-1.jpg"
-      ],
-      "id": 6
-    },
-    {
-      "description": "deneme kanka",
+      "description": "deneme",
       "user": {
         "id": 1,
         "name": "Goktug",
@@ -295,116 +69,31 @@
         "position": "Frontend Developer",
         "email": "goktug.sulun@hotmail.com",
         "img": "goktug.jpeg",
-        "friends": []
-      },
-      "likes": [
-        1,
-        2
-      ],
-      "comments": [],
-      "saves": [
-        2
-      ],
-      "created_at": "Tue Oct 24 2023 18:18:49 GMT+0300 (GMT+03:00)",
-      "files": [],
-      "id": 7
-    },
-    {
-      "description": "aa",
-      "user": {
-        "id": 1,
-        "name": "Goktug",
-        "surname": "Sulun",
-        "position": "Frontend Developer",
-        "email": "goktug.sulun@hotmail.com",
-        "img": "goktug.jpeg",
-        "friends": []
-      },
-      "likes": [
-        1,
-        2
-      ],
-      "comments": [],
-      "saves": [
-        1
-      ],
-      "created_at": "Tue Oct 24 2023 18:21:15 GMT+0300 (GMT+03:00)",
-      "files": [],
-      "id": 8
-    },
-    {
-      "description": "deneme -1",
-      "user": {
-        "id": 1,
-        "name": "Goktug",
-        "surname": "Sulun",
-        "position": "Frontend Developer",
-        "email": "goktug.sulun@hotmail.com",
-        "img": "goktug.jpeg",
+        "town": "Küçükçekmece",
+        "city": "İstanbul",
+        "country": "Türkiye",
+        "company": "MDP Group",
+        "school": "Bahçeşehir Üniversitesi",
+        "social_profiles": [
+          {
+            "id": 1,
+            "name": "Twitter",
+            "url": "https://twitter.com"
+          },
+          {
+            "id": 2,
+            "name": "Linkedin",
+            "url": "https://linkedin.com"
+          }
+        ],
         "friends": []
       },
       "likes": [],
       "comments": [],
       "saves": [],
-      "created_at": "Thu Oct 26 2023 15:42:22 GMT+0300 (GMT+03:00)",
-      "files": [],
-      "id": 9
-    },
-    {
-      "description": "deneme -2 ",
-      "user": {
-        "id": 1,
-        "name": "Goktug",
-        "surname": "Sulun",
-        "position": "Frontend Developer",
-        "email": "goktug.sulun@hotmail.com",
-        "img": "goktug.jpeg",
-        "friends": []
-      },
-      "likes": [],
-      "comments": [],
-      "saves": [],
-      "created_at": "Thu Oct 26 2023 15:42:25 GMT+0300 (GMT+03:00)",
-      "files": [],
-      "id": 10
-    },
-    {
-      "description": "deneme - 3",
-      "user": {
-        "id": 1,
-        "name": "Goktug",
-        "surname": "Sulun",
-        "position": "Frontend Developer",
-        "email": "goktug.sulun@hotmail.com",
-        "img": "goktug.jpeg",
-        "friends": []
-      },
-      "likes": [],
-      "comments": [],
-      "saves": [],
-      "created_at": "Thu Oct 26 2023 15:42:28 GMT+0300 (GMT+03:00)",
-      "files": [],
-      "id": 11
-    },
-    {
-      "description": "deneme - 123",
-      "user": {
-        "id": 2,
-        "name": "Damla Nur",
-        "surname": "Yilmaz",
-        "position": "Frontend Developer",
-        "email": "damlanur.ylmaz@hotmail.com",
-        "img": "damla.jpg",
-        "friends": []
-      },
-      "likes": [
-        1
-      ],
-      "comments": [],
-      "saves": [],
-      "created_at": "Thu Oct 26 2023 15:55:06 GMT+0300 (GMT+03:00)",
-      "files": [],
-      "id": 12
+      "created_at": "Sat Oct 28 2023 21:37:31 GMT+0300 (GMT+03:00)",
+      "files": []
     }
-  ]
+  ],
+  "comments": []
 }

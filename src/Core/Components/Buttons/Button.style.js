@@ -12,6 +12,7 @@ export const Button = styled(MaterialButton, overridedProps)`
    border-radius: ${(props) => props.borderRadius || '10px'};
    border: ${(props) => props.border || 'none'};
    font-weight: ${(props) => props.fontWeight || 500};
+   min-width: ${(props) => props.minWidth || '64px'};
    :hover {
       color: ${(props) => props.hoverColor || props.$color || '#FFFFFF'};
       background: ${(props) => props.hoverBgColor || props.bgColor || '#4A329A'};

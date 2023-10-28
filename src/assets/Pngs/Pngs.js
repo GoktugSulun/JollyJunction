@@ -5,14 +5,24 @@ import img3 from './img-3.jpg';
 //* User Images
 import goktug from './goktug.jpeg';
 import damla from './damla.jpg';
+import oznur from './öznur.jpeg';
 
 export const PostImages =  [
-   img1,
-   img2,
-   img3
+  img1,
+  img2,
+  img3
 ];
 
 export const UserImages = [
-   goktug,
-   damla
+  goktug,
+  damla,
+  oznur
 ];
+
+export const getPostsImageURL = (url) => {
+  return PostImages.find((path) => path.includes(url));
+};
+
+export const getUserImageURL = (url) => {
+  return UserImages.find((path) => path.includes(url));
+};
