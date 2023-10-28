@@ -9,6 +9,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { PostModalSagaActions } from '../Store/PostModal.saga';
 import useHttpResponse from '../../../Core/Hooks/useHttpResponse';
 import { NotificationTypes } from '../../../Core/Constants/Enums';
+import { useLocation } from 'react-router-dom';
 
 const defaultValues = {
   comment: ''
@@ -16,6 +17,7 @@ const defaultValues = {
 
 const CreateComment = () => {
   const dispatch = useDispatch();
+  const location = useLocation();
   const { postData } = useSelector((state) => state.PostModal);
   const { user: authorizedUser } = useSelector((state) => state.Login);
   const { registerHandler, form } = useMaterialForm({
@@ -43,7 +45,8 @@ const CreateComment = () => {
           created_at: new Date().toString(),
           read: false,
           is_removed: false,
-        }
+        },
+      pathname: location.pathname
     };
     dispatch(PostModalSagaActions.createComment(payload));
   };

@@ -12,8 +12,10 @@ import SettingsIcon from '@mui/icons-material/Settings';
 import { IconButton, Tooltip } from '@mui/material';
 import { UserImages } from '../../../assets/Pngs/Pngs';
 import PropTypes from 'prop-types';
+import { useSelector } from 'react-redux';
 
 const Profile = ({ data }) => {
+  const { user: authorizedUser } = useSelector((state) => state.Login);
 
   const getUserSrc = () => {
     return UserImages.find((src) => src.includes(data?.img)) || null;
@@ -27,11 +29,14 @@ const Profile = ({ data }) => {
           position={data?.position || ''}
           src={getUserSrc()}
         />
-        <Tooltip title="Edit My Profile">
-          <IconButton>
-            <SettingsIcon />
-          </IconButton>
-        </Tooltip>
+        {
+          authorizedUser.id === data.id 
+            && (<Tooltip title="Edit My Profile">
+              <IconButton>
+                <SettingsIcon />
+              </IconButton>
+            </Tooltip>)
+        }
       </div>
       <Divider />
       <div className="user-detail">

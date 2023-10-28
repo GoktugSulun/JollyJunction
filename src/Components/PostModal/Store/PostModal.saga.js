@@ -7,7 +7,7 @@ import { ApiUrl } from '../../../Core/Constants/ApiUrl';
 import { PostModalActions } from './PostModal.slice';
 import { snackbar } from '../../../Core/Utils/Snackbar';
 import { DashboardActions } from '../../../Pages/Dashboard/Store/Dashboard.slice';
-import _ from 'lodash';
+import { UserProfileActions } from '../../../Pages/UserProfile/Store/UserProfile.slice';
 
 const mainSagaName = 'PostModal/request';
 
@@ -40,15 +40,20 @@ export default [
     actionType: PostModalSagaActions.createComment.type,
     takeType: SagaTakeTypes.TAKE_LATEST,
     * func({ payload }) {
-      const { data, currentComments, notificationData } = payload;
+      const { data, currentComments, notificationData, pathname } = payload;
       const response = yield call(request, HttpMethodTypes.POST, `${ApiUrl.comments}`, data);
       yield call(request, HttpMethodTypes.PATCH, `${ApiUrl.posts}/${data.post_id}`, { comments: [...currentComments, response.data.id] });
       if (notificationData) {
         yield call(request, HttpMethodTypes.POST, ApiUrl.notifications, notificationData);
       }
       yield put(PostModalActions.setComment(response.data));
-      yield put(DashboardActions.setComments({ post_id: data.post_id, data: [...currentComments, response.data.id] }));
-      yield put(snackbar('Post is created'));
+      if (pathname === '/') {
+        yield put(DashboardActions.setComments({ post_id: data.post_id, data: [...currentComments, response.data.id] }));
+      }
+      if (pathname.includes('profile')) {
+        yield put(UserProfileActions.setComments({ post_id: data.post_id, data: [...currentComments, response.data.id] }));
+      }
+      yield put(snackbar('Comment is created'));
     }
   })
 ];
