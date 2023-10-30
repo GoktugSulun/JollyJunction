@@ -13,6 +13,7 @@ import Loading from '../../Core/Components/Loading/Loading';
 import { NotificationSagaActions } from '../../Components/Header/Components/Notifications/Store/Notification.saga';
 import { DashboardActions } from './Store/Dashboard.slice';
 import PostModal from '../../Components/PostModal/PostModal';
+import { request } from '../../Core/Request/Request';
 
 const Dashboard = () => {
   const dispatch = useDispatch();
@@ -46,9 +47,13 @@ const Dashboard = () => {
   }, DashboardSagaActions.addFriend());
 
   useEffect(() => {
-    fetchMorePost();
-    dispatch(DashboardSagaActions.getNotificationsICreated(authorizedUser.id));
-    dispatch(NotificationSagaActions.getUnreadNotifications(authorizedUser.id));
+    // fetchMorePost();
+    // dispatch(DashboardSagaActions.getNotificationsICreated(authorizedUser.id));
+    // dispatch(NotificationSagaActions.getUnreadNotifications(authorizedUser.id));
+    request('POST', '/Post/create', { name: 'value', user_id: 1, img: null });
+    setTimeout(() => {
+      request('GET', '/Post/get/1');
+    }, 3000);
     return () => {
       dispatch(DashboardActions.setReset());
     };

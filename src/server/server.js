@@ -1,28 +1,25 @@
 import jsonServer from 'json-server';
-const server = jsonServer.create();
-const router = jsonServer.router('db.json');
+import PostRoute from './routes/PostRoute.js';
+
+export const server = jsonServer.create();
 const middlewares = jsonServer.defaults();
 
 server.use(middlewares);
 server.use(jsonServer.bodyParser);
 
-server.get('/echo', (req, res) => {
-  res.jsonp(req.query);
+server.get('/health', (req, res) => {
+  res.json({
+    type: true,
+    message: 'Deployment is running'
+  });
 });
 
-server.post('/createPost', (req, res) => {
-  console.log('CREATE POST !!!!!!!!!!!');
-  const newPost = req.body;
-  console.log(newPost, ' newPost');
-  router.db.get('posts').push(newPost).write();
-  res.jsonp(req.query);
-});
+server.use('/Post', PostRoute);
 
 server.use((req, res, next) => {
   next();
 });
 
-server.use(router);
 server.listen(3000, () => {
   console.log('JSON Server is running');
 });
