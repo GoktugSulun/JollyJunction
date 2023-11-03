@@ -13,25 +13,29 @@ const Post = ({ data }) => {
   const { user: authorizedUser } = useSelector((state) => state.Login);
 
   const likeHandler = () => {
-    const updatedData = {
-      ...data,
-      likes: data.liked 
-        ? data.likes.filter((user_id) => user_id !== authorizedUser.id)
-        : [...data.likes, authorizedUser.id]
-    };
-    const notificationData = {
-      sender_user: { ...authorizedUser },
-      receiver_user: { ...data.user },
-      type: NotificationTypes.LIKED_POST,
-      created_at: new Date().toString(),
-      read: false,
-      is_removed: false,
-    };
+    // const updatedData = {
+    //   ...data,
+    //   likes: data.liked 
+    //     ? data.likes.filter((user_id) => user_id !== authorizedUser.id)
+    //     : [...data.likes, authorizedUser.id]
+    // };
+    // const notificationData = {
+    //   sender_user: { ...authorizedUser },
+    //   receiver_user: { ...data.user },
+    //   type: NotificationTypes.LIKED_POST,
+    //   created_at: new Date().toString(),
+    //   read: false,
+    //   is_removed: false,
+    // };
+    // const payload = {
+    //   post_id: data.id,
+    //   data: updatedData,
+    //   ...(authorizedUser.id === data.user.id ? {} : {notificationData}),
+    //   liked: !data.liked
+    // };
     const payload = {
-      post_id: data.id,
-      data: updatedData,
-      ...(authorizedUser.id === data.user.id ? {} : {notificationData}),
-      liked: !data.liked
+      like: !data.liked,
+      post_id: data.id
     };
     dispatch(DashboardSagaActions.likePost(payload));
   };

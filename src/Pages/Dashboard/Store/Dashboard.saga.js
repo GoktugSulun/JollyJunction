@@ -42,12 +42,12 @@ export default [
     actionType: DashboardSagaActions.likePost.type,
     takeType: SagaTakeTypes.TAKE_LATEST,
     * func({ payload }) {
-      yield call(request, HttpMethodTypes.PUT, `${ApiUrl.posts}/${payload.post_id}`, payload.data);
-      if (payload.notificationData) {
-        yield call(request, HttpMethodTypes.POST, `${ApiUrl.notifications}`, payload.notificationData);
-      }
+      const response = yield call(request, HttpMethodTypes.POST, `${ApiUrl.likeUnlikePost}`, payload);
+      // if (payload.notificationData) {
+      //   yield call(request, HttpMethodTypes.POST, `${ApiUrl.notifications}`, payload.notificationData);
+      // }
       // yield put(DashboardActions.updatePost(payload));
-      yield put(snackbar(payload.liked ? 'Post is liked successfully' : 'Post is unliked successfully'));
+      yield put(snackbar(response.message));
     }
   }),
   createSagaWatcher({

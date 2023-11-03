@@ -7,5 +7,6 @@ server.get('/getAll', PostController.getAll);
 server.get('/getById/:id', PostController.getById);
 server.get('/get', PostController.get);
 server.post('/create', PostController.create);
+server.post('/like', PostController.like);
 
 export default server;

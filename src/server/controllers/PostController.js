@@ -40,6 +40,15 @@ class PostController {
       Helpers.responseMessage(res, ResponseEnums.FAILURE, error.message);
     }
   }
+
+  static async like(req, res) {
+    try {
+      const result = await PostService.like(req, res);
+      Helpers.responseJSON(res, result);
+    } catch (error) {
+      Helpers.responseMessage(res, ResponseEnums.FAILURE, error.message);
+    }
+  }
 }
   
 export default PostController;

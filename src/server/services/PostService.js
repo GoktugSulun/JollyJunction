@@ -1,6 +1,5 @@
-import ResponseEnums from '../constants/Enums/ResponseEnums.js';
 import { commentsDB, likesDB, postsDB, savesDB, usersDB } from '../db/index.js';
-import Helpers from '../helpers/Helpers.js';
+import LikeService from './LikeService.js';
 
 let nextId = 1;
 const { posts } = postsDB.data;
@@ -85,6 +84,21 @@ class PostService {
         type: true,
         message: 'Post is created',
         data
+      };
+    } catch (error) {
+      return {
+        type: false,
+        message: error.message
+      };
+    }
+  }
+
+  static async like(req, res) {
+    try {
+      const result = await LikeService.create(req, res);
+      return {
+        type: result.type,
+        message: result.message
       };
     } catch (error) {
       return {
