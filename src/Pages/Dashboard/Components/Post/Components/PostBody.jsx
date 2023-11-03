@@ -2,13 +2,13 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { PostImages } from '../../../../../assets/Pngs/Pngs';
 
-const PostBody = ({ data, likeHandler, isItLiked }) => {
+const PostBody = ({ data, likeHandler }) => {
   const getImageURL = () => {
     return PostImages.find((path) => path.includes(data.files[0]));
   };
 
   const onDoubleClickHandler = () => {
-    if (!isItLiked()) {
+    if (!data.liked) {
       likeHandler();
     }
   };
@@ -26,5 +26,4 @@ export default PostBody;
 PostBody.propTypes = {
   data: PropTypes.object.isRequired,
   likeHandler: PropTypes.func.isRequired,
-  isItLiked: PropTypes.func.isRequired,
 };

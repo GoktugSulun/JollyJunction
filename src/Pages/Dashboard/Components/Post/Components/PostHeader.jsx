@@ -16,17 +16,17 @@ const PostHeader = ({ data }) => {
 
   const isPersonMyFriend = () => {
     //* Authorized user and post creator same person
-    if (authorizedUser.id === data.user.id) {
+    if (authorizedUser.id === data.user_id) {
       return true;
     }
-    return !!authorizedUser.friends.find((obj) => obj.id === data.user.id);
+    return !!authorizedUser?.friends?.find((obj) => obj.id === data?.user?.id);
   };
 
   const friendCanBeAdded = () => {
     if (isPersonMyFriend()) {
       return false;
     }
-    const didISendRequestForFriendship = !!notificationsICreated.find((obj) => obj.receiver_user.id === data.user.id && obj.type === NotificationTypes.REQUEST_FOR_FRIENDSHIP);
+    const didISendRequestForFriendship = !!notificationsICreated.find((obj) => obj?.receiver_user?.id === data?.user?.id && obj.type === NotificationTypes.REQUEST_FOR_FRIENDSHIP);
     return didISendRequestForFriendship ? false : true;
   };
 

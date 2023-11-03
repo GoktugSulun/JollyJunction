@@ -12,14 +12,10 @@ const Post = ({ data }) => {
   const dispatch = useDispatch();
   const { user: authorizedUser } = useSelector((state) => state.Login);
 
-  const isItLiked = () => {
-    return !!data.likes.find((user_id) => user_id === authorizedUser?.id);
-  };
-
   const likeHandler = () => {
     const updatedData = {
       ...data,
-      likes: isItLiked() 
+      likes: data.liked 
         ? data.likes.filter((user_id) => user_id !== authorizedUser.id)
         : [...data.likes, authorizedUser.id]
     };
@@ -35,7 +31,7 @@ const Post = ({ data }) => {
       post_id: data.id,
       data: updatedData,
       ...(authorizedUser.id === data.user.id ? {} : {notificationData}),
-      liked: !isItLiked()
+      liked: !data.liked
     };
     dispatch(DashboardSagaActions.likePost(payload));
   };
@@ -45,12 +41,10 @@ const Post = ({ data }) => {
       <PostHeader data={data} />
       <PostBody 
         likeHandler={likeHandler} 
-        isItLiked={isItLiked}
         data={data} 
       />
       <PostFooter 
         likeHandler={likeHandler} 
-        isItLiked={isItLiked}
         data={data} 
       />
     </S.Post>
