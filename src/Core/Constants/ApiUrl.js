@@ -1,6 +1,22 @@
 export const ApiUrl = Object.freeze({
-  users: '/users',
-  posts: '/posts',
-  notifications: '/notifications',
-  comments: '/comments',
+  // user: '/User',
+  // post: '/Post',
+  // notification: '/Notification',
+  // comment: '/Comment',
+
+  //* User
+  getAllUsers: '/User/getAll',
+  getUserById: '/User/getById',
+  createUser: 'User/create',
+
+  //* Post
+  getAllPosts: '/Post/getAll',
+  getPostById: '/Post/getById',
+  deletePost: '/Post/delete',
+  createPost: '/Post/create'
+
+  //* Notificaiton
+
+  //* Comment
+
 });

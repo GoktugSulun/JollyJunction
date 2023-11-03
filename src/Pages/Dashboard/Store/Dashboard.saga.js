@@ -25,7 +25,7 @@ export default [
     takeType: SagaTakeTypes.TAKE_LATEST,
     * func({ payload }) {
       const { page, limit } = payload;
-      const response = yield call(request, HttpMethodTypes.GET, `${ApiUrl.posts}?_page=${page}&_limit=${limit}`);
+      const response = yield call(request, HttpMethodTypes.GET, `${ApiUrl.getSpecificPost}?page=${page}&limit=${limit}`);
       yield put(DashboardActions.setPosts(response?.data || []));
     }
   }),

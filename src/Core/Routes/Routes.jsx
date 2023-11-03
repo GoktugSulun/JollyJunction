@@ -18,20 +18,20 @@ const RouteList = () => {
   const dispatch = useDispatch();
   const { user } = useSelector((state) => state.Login);
 
-  // useEffect(() => {
-  //   if (_.isEmpty(user) && token) {
-  //     const user_id = localStorage.getItem('user_id');
-  //     dispatch(LoginSagaActions.getUser({ user_id }));
-  //   }
-  // }, [user, token]);
+  useEffect(() => {
+    if (_.isEmpty(user) && token) {
+      const user_id = localStorage.getItem('user_id');
+      dispatch(LoginSagaActions.getUser({ user_id }));
+    }
+  }, [user, token]);
 
-  // if (!user?.id && token) {
-  //   return (
-  //     <FullSizeLoadingWrapper>
-  //       <Loading size={80} />
-  //     </FullSizeLoadingWrapper>
-  //   );
-  // }
+  if (!user?.id && token) {
+    return (
+      <FullSizeLoadingWrapper>
+        <Loading size={80} />
+      </FullSizeLoadingWrapper>
+    );
+  }
 
   return (
     <Routes>

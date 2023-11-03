@@ -19,7 +19,7 @@ export default [
     actionType: LoginSagaActions.login.type,
     takeType: SagaTakeTypes.TAKE_LATEST,
     * func({ payload }) {
-      const result = yield call(request, HttpMethodTypes.GET, `${ApiUrl.users}?email=${payload.email}&password=${payload.password}`);
+      const result = yield call(request, HttpMethodTypes.GET, `${ApiUrl.user}?email=${payload.email}&password=${payload.password}`);
       if (!result?.data?.length) {
         yield put(snackbar('Email or password are wrong!', { variant: NotifierTypes.ERROR }));
       } else {
@@ -34,16 +34,17 @@ export default [
     actionType: LoginSagaActions.getUser.type,
     takeType: SagaTakeTypes.TAKE_LATEST,
     * func({ payload }) {
-      const result = yield call(request, HttpMethodTypes.GET, `${ApiUrl.users}/${payload.user_id}`);
-      if (!result?.data?.id) {
-        yield put(snackbar('Unauthorized!', { variant: NotifierTypes.ERROR }));
-        localStorage.clear();
-        window.location.href = '/login';
-      } else {
-        const user = { ...result.data };
-        delete user.password;
-        yield put(LoginActions.setUser(user));
-      }
+      const result = yield call(request, HttpMethodTypes.GET, `${ApiUrl.getUserById}/${payload.user_id}`);
+      console.log(result, ' result');
+      // if (!result?.data?.id) {
+      //   yield put(snackbar('Unauthorized!', { variant: NotifierTypes.ERROR }));
+      //   localStorage.clear();
+      //   window.location.href = '/login';
+      // } else {
+      //   const user = { ...result.data };
+      //   delete user.password;
+      //   yield put(LoginActions.setUser(user));
+      // }
     }
   })
 ];

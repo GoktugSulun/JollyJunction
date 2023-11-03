@@ -47,13 +47,9 @@ const Dashboard = () => {
   }, DashboardSagaActions.addFriend());
 
   useEffect(() => {
-    // fetchMorePost();
+    fetchMorePost();
     // dispatch(DashboardSagaActions.getNotificationsICreated(authorizedUser.id));
     // dispatch(NotificationSagaActions.getUnreadNotifications(authorizedUser.id));
-    request('POST', '/Post/create', { name: 'value', user_id: 1, img: null });
-    setTimeout(() => {
-      request('GET', '/Post/get/1');
-    }, 3000);
     return () => {
       dispatch(DashboardActions.setReset());
     };

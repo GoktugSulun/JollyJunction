@@ -1,3 +1,14 @@
 {
-    "users": []
+    "users": [
+        {
+            "id": 1,
+            "name": "Goktug",
+            "surname": "Sulun",
+            "email": "goktug.sulun@hotmail.com",
+            "password": 123456,
+            "location": "Kucukcekmece",
+            "city": "Istanbul",
+            "country": "Turkey"
+        }
+    ]
 }

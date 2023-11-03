@@ -4,7 +4,7 @@ import { handleError } from './HandleError';
 
 const baseURL = 'http://localhost:3000';
 
-export const request = async (method, url, data = null) => {
+export const request = async (method, url, data = undefined) => {
   try {
     // let backendData = null;
     // if (file) {
@@ -19,9 +19,13 @@ export const request = async (method, url, data = null) => {
       method,
       url,
       baseURL,
-      ...(data ? { data } : {})
+      data
     });
-    return handleSuccess(response);
+    if (response?.data?.type) {
+      return handleSuccess(response);
+    } else {
+      throw Error(response?.data?.message || 'error');
+    }
   } catch (error) {
     return handleError(error);
   }
