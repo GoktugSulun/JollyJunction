@@ -25,7 +25,7 @@ export default [
     takeType: SagaTakeTypes.TAKE_LATEST,
     * func({ payload }) {
       const { page, limit } = payload;
-      const response = yield call(request, HttpMethodTypes.GET, `${ApiUrl.getSpecificPost}?page=${page}&limit=${limit}`);
+      const response = yield call(request, HttpMethodTypes.GET, `${ApiUrl.getPosts}?page=${page}&limit=${limit}`);
       yield put(DashboardActions.setPosts(response?.data || []));
     }
   }),
@@ -33,7 +33,7 @@ export default [
     actionType: DashboardSagaActions.createPost.type,
     takeType: SagaTakeTypes.TAKE_LATEST,
     * func({ payload }) {
-      const response = yield call(request, HttpMethodTypes.POST, `${ApiUrl.posts}`, payload);
+      const response = yield call(request, HttpMethodTypes.POST, `${ApiUrl.createPost}`, payload);
       yield put(DashboardActions.setPost(response.data));
       yield put(snackbar('Post is created successfully'));
     }

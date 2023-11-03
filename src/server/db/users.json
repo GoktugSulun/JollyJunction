@@ -8,7 +8,9 @@
             "password": 123456,
             "location": "Kucukcekmece",
             "city": "Istanbul",
-            "country": "Turkey"
+            "country": "Turkey",
+            "img": "goktug.jpeg",
+            "position": "Frontend Developer"
         }
     ]
 }

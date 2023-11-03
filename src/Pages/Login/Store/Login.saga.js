@@ -35,16 +35,15 @@ export default [
     takeType: SagaTakeTypes.TAKE_LATEST,
     * func({ payload }) {
       const result = yield call(request, HttpMethodTypes.GET, `${ApiUrl.getUserById}/${payload.user_id}`);
-      console.log(result, ' result');
-      // if (!result?.data?.id) {
-      //   yield put(snackbar('Unauthorized!', { variant: NotifierTypes.ERROR }));
-      //   localStorage.clear();
-      //   window.location.href = '/login';
-      // } else {
-      //   const user = { ...result.data };
-      //   delete user.password;
-      //   yield put(LoginActions.setUser(user));
-      // }
+      if (!result?.data?.id) {
+        yield put(snackbar('Unauthorized!', { variant: NotifierTypes.ERROR }));
+        localStorage.clear();
+        window.location.href = '/login';
+      } else {
+        const user = { ...result.data };
+        delete user.password;
+        yield put(LoginActions.setUser(user));
+      }
     }
   })
 ];
