@@ -1,34 +1,42 @@
-import ResponseEnums from '../constants/Enums/ResponseEnums.js';
 import { usersDB } from '../db/index.js';
-import Helpers from '../helpers/Helpers.js';
 
 let nextId = 1;
 const { users } = usersDB.data;
 
 class UserService {
-  static async getAll(req, res) {
+  static async getAll() {
     try {
-      Helpers.responseMessage(res, ResponseEnums.SUCCESS, 'Users has been fetched', users);
+      return {
+        type: true,
+        message: 'Users has been fetched',
+        data: users
+      };
     } catch (error) {
-      Helpers.responseMessage(res, ResponseEnums.FAILURE, error.message);
+      return {
+        type: false,
+        message: error.message,
+      };
     }
   }
 
-  static async getById(req, res) {
+  static async getById(req) {
     const { id } = req.params;
     try {
       const data = users.find((obj) => obj.id === parseInt(id));
-      if (data) {
-        Helpers.responseMessage(res, ResponseEnums.SUCCESS, `User with ${id} id has been fetched`, data);
-      } else {
-        Helpers.responseMessage(res, ResponseEnums.SUCCESS, `User with ${id} couldn't find`, {});
-      }
+      return {
+        type: true,
+        message: data ? `User with ${id} id has been fetched` : `User with ${id} couldn't find`,
+        data: data || {}
+      };
     } catch (error) {
-      Helpers.responseMessage(res, ResponseEnums.FAILURE, error.message);
+      return {
+        type: false,
+        message: error.message,
+      };
     }
   }
 
-  static async create(req, res) {
+  static async create(req) {
     try {
       const data = req.body;
       data.id = nextId++;
@@ -36,9 +44,16 @@ class UserService {
       data.updated_at = new Date().toString();
       users.push(data);
       await usersDB.write();
-      Helpers.responseMessage(res, ResponseEnums.SUCCESS, 'User is created', data);
+      return {
+        type: true,
+        message: 'User is created',
+        data
+      };
     } catch (error) {
-      Helpers.responseMessage(res, ResponseEnums.FAILURE, error.message);
+      return {
+        type: false,
+        message: error.message
+      };
     }
   }
 }

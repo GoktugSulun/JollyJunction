@@ -1,10 +1,10 @@
 import jsonServer from 'json-server';
-import UserService from '../services/UserService.js';
+import UserController from '../controllers/UserController.js';
 
 const server = jsonServer.create();
 
-server.get('/getAll', UserService.getAll);
-server.get('/getById/:id', UserService.getById);
-server.post('/create', UserService.create);
+server.get('/getAll', UserController.getAll);
+server.get('/getById/:id', UserController.getById);
+server.post('/create', UserController.create);
 
 export default server;
