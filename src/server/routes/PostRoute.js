@@ -1,10 +1,11 @@
 import jsonServer from 'json-server';
-import PostService from '../services/PostService.js';
+import PostController from '../controllers/PostController.js';
 
 const server = jsonServer.create();
 
-server.get('/getAll', PostService.getAll);
-server.get('/get/:id', PostService.get);
-server.post('/create', PostService.create);
+server.get('/getAll', PostController.getAll);
+server.get('/getById/:id', PostController.getById);
+server.get('/get', PostController.get);
+server.post('/create', PostController.create);
 
 export default server;
