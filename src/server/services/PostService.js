@@ -1,4 +1,4 @@
-import { commentsDB, likesDB, postsDB, savesDB, usersDB } from '../db/index.js';
+import { commentsDB, postsDB, savesDB, likesDB, usersDB } from '../db/index.js';
 import LikeService from './LikeService.js';
 
 let nextId = 1;
@@ -54,8 +54,8 @@ class PostService {
           ...obj, 
           likes_count: likes.filter((likeObj) => likeObj.post_id === obj.id).length,
           comments_count: comments.filter((commentObj) => commentObj.post_id === obj.id).length,
-          liked: !!likes.find((likeObj) => likeObj.user_id === 1), //TODO: 1 => authorizedUser.id olmalı dynamic yap.
-          saved: !!saves.find((saveObj) => saveObj.user_id === 1), //TODO: 1 => authorizedUser.id olmalı dynamic yap.
+          liked: !!likes.find((likeObj) => likeObj.user_id === 1 && likeObj.post_id === obj.id), //TODO: 1 => authorizedUser.id olmalı dynamic yap.
+          saved: !!saves.find((saveObj) => saveObj.user_id === 1 && saveObj.post_id === obj.id), //TODO: 1 => authorizedUser.id olmalı dynamic yap.
           user: users.find((userObj) => userObj.id === obj.user_id)
         }
       ));

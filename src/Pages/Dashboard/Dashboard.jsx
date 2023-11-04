@@ -30,6 +30,7 @@ const Dashboard = () => {
   const sortedPosts = () => {
     const sortedArrays = [...posts];
     sortedArrays.sort((a,b) => new Date(b.created_at).getTime() - new Date(a.created_at).getTime());
+    console.log(sortedArrays, ' sortedArrays');
     return sortedArrays;
   };
 
@@ -47,12 +48,16 @@ const Dashboard = () => {
   }, DashboardSagaActions.addFriend());
 
   useEffect(() => {
+    console.log(posts, ' posts');
+  }, [posts]);
+
+  useEffect(() => {
     fetchMorePost();
     // dispatch(DashboardSagaActions.getNotificationsICreated(authorizedUser.id));
     // dispatch(NotificationSagaActions.getUnreadNotifications(authorizedUser.id));
-    return () => {
-      dispatch(DashboardActions.setReset());
-    };
+    // return () => {
+    //   dispatch(DashboardActions.setReset());
+    // };
   }, []);
 
   return (

@@ -1,17 +1,14 @@
 import { likesDB } from '../db/index.js';
 
-let nextId = 1;
 
 const { likes } = likesDB.data;
+let nextId = Math.max(...likes.map(like => like.id), 0) + 1;
 
 class LikeService {
   static async create(req) {
-    console.log(111);
     try {
-      console.log(req.body,  ' bss');
       const { like, post_id } = req.body;
       if (like) {
-        console.log(555);
         const newData = {
           id: nextId++,
           post_id,
@@ -19,20 +16,24 @@ class LikeService {
           date: new Date().toString()
         };
         likes.push(newData);
-        await likesDB.write();
       } else {
-        const updatedLikes = likes.filter((obj) => obj.post_id === post_id && obj.user_id === 1); // TODO: authorized user id => dynamic yap
-        likesDB.data.likes = updatedLikes;
+        const indexToRemove = likes.findIndex((obj) => obj.post_id === post_id && obj.user_id === 1); // TODO: authorized user id => dynamic yap
+        if (indexToRemove === -1) {
+          return {
+            type: false,
+            message: `Post with ${post_id} couldn't find`
+          };
+        }
+        likes.splice(indexToRemove, 1);
       }
-      // console.log(3333, ' ', likesDB);
-      // await likesDB.write();
-      // console.log(4444);
+      console.log(333);
+      await likesDB.write();
+      console.log(444);
       return {
         type: true,
         message: like ? 'Post beğenildi': 'Beğeni geri çekildi'
       };
     } catch(error){
-      console.log(222);
       return {
         type: false,
         message: error.message
