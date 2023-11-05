@@ -23,9 +23,8 @@ export const request = async (method, url, data = undefined) => {
     });
     if (response?.data?.type) {
       return handleSuccess(response);
-    } else {
-      throw Error(response?.data?.message || 'error');
     }
+    throw Error(response?.data?.message || 'error');
   } catch (error) {
     return handleError(error);
   }

@@ -14,7 +14,11 @@ export const postUpdateReducer = (builder) => {
     );
   });
   builder.addCase(DashboardSagaActions.savePost, (state, action) => {
-    const { post_id, data } = action.payload;
-    state.posts = state.posts.map((obj) => obj.id === post_id ? data : obj);
+    const { post_id, save } = action.payload;
+    state.posts = state.posts.map((obj) => 
+      obj.id === post_id 
+        ? { ...obj, saved: save, } 
+        : obj
+    );
   });
 };

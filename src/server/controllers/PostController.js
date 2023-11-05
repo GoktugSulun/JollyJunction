@@ -44,7 +44,15 @@ class PostController {
   static async like(req, res) {
     try {
       const result = await PostService.like(req, res);
-      console.log(result, ' reuslt');
+      Helpers.responseJSON(res, result);
+    } catch (error) {
+      Helpers.responseMessage(res, ResponseEnums.FAILURE, error.message);
+    }
+  }
+
+  static async save(req, res) {
+    try {
+      const result = await PostService.save(req, res);
       Helpers.responseJSON(res, result);
     } catch (error) {
       Helpers.responseMessage(res, ResponseEnums.FAILURE, error.message);

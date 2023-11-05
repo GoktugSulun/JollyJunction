@@ -1,5 +1,6 @@
 import { commentsDB, postsDB, savesDB, likesDB, usersDB } from '../db/index.js';
 import LikeService from './LikeService.js';
+import SaveService from './SaveService.js';
 
 let nextId = 1;
 const { posts } = postsDB.data;
@@ -10,10 +11,11 @@ const { users } = usersDB.data;
 
 class PostService {
   static async getAll() {
+    // TODO: bir sürü key eksik onları ekle
     try {
       return {
         type: true,
-        message: 'Posts has been fetched',
+        message: 'All Posts has been fetched',
         data: posts
       };
     } catch (error) {
@@ -96,6 +98,21 @@ class PostService {
   static async like(req, res) {
     try {
       const result = await LikeService.create(req, res);
+      return {
+        type: result.type,
+        message: result.message
+      };
+    } catch (error) {
+      return {
+        type: false,
+        message: error.message
+      };
+    }
+  }
+
+  static async save(req, res) {
+    try {
+      const result = await SaveService.create(req, res);
       return {
         type: result.type,
         message: result.message

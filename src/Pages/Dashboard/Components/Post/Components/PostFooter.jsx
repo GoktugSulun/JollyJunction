@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { DashboardSagaActions } from '../../../Store/Dashboard.saga';
 import { IconButton, Tooltip } from '@mui/material';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
@@ -13,19 +13,11 @@ import { ModalTypes } from '../../../../../Core/Constants/Enums';
 
 const PostFooter = ({ data, likeHandler }) => {
   const dispatch = useDispatch();
-  const { user: authorizedUser } = useSelector((state) => state.Login);
 
   const saveHandler = () => {
-    const updatedData = {
-      ...data,
-      saves: data.saved 
-        ? data?.saves?.filter((user_id) => user_id !== authorizedUser.id)
-        : [...data.saves, authorizedUser.id]
-    };
     const payload = {
-      post_id: data.id,
-      data: updatedData,
-      saved: !data.saved
+      save: !data.saved,
+      post_id: data.id
     };
     dispatch(DashboardSagaActions.savePost(payload));
   };

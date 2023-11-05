@@ -15,7 +15,8 @@ export const ApiUrl = Object.freeze({
   getPosts: '/Post/get',
   deletePost: '/Post/delete',
   createPost: '/Post/create',
-  likeUnlikePost: '/Post/like'
+  likeUnlikePost: '/Post/like',
+  saveUnsavePost: '/Post/save'
 
   //* Notificaiton
 

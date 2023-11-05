@@ -1,34 +1,34 @@
-import { likesDB } from '../db/index.js';
+import { savesDB } from '../db/index.js';
 
-const { likes } = likesDB.data;
-const nextId = Math.max(...likes.map(like => like.id), 0) + 1;
+const { saves } = savesDB.data;
+const nextId = Math.max(...saves.map(like => like.id), 0) + 1;
 
-class LikeService {
+class SaveService {
   static async create(req) {
     try {
-      const { like, post_id } = req.body;
-      if (like) {
+      const { save, post_id } = req.body;
+      if (save) {
         const newData = {
           id: nextId,
           post_id,
           user_id: 1, // TODO: dynmaic yap authorzed user id kullan
           created_at: new Date().toString()
         };
-        likes.push(newData);
+        saves.push(newData);
       } else {
-        const indexToRemove = likes.findIndex((obj) => obj.post_id === post_id && obj.user_id === 1); // TODO: authorized user id => dynamic yap
+        const indexToRemove = saves.findIndex((obj) => obj.post_id === post_id && obj.user_id === 1); // TODO: authorized user id => dynamic yap
         if (indexToRemove === -1) {
           return {
             type: false,
             message: `Post with ${post_id} couldn't find`
           };
         }
-        likes.splice(indexToRemove, 1);
+        saves.splice(indexToRemove, 1);
       }
-      await likesDB.write();
+      await savesDB.write();
       return {
         type: true,
-        message: like ? 'Post is liked': 'Post is unliked'
+        message: save ? 'Post is saved': 'Post is unsaved'
       };
     } catch(error){
       return {
@@ -39,4 +39,4 @@ class LikeService {
   }
 }
 
-export default LikeService;
+export default SaveService;

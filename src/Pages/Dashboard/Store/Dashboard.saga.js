@@ -43,10 +43,6 @@ export default [
     takeType: SagaTakeTypes.TAKE_LATEST,
     * func({ payload }) {
       const response = yield call(request, HttpMethodTypes.POST, `${ApiUrl.likeUnlikePost}`, payload);
-      // if (payload.notificationData) {
-      //   yield call(request, HttpMethodTypes.POST, `${ApiUrl.notifications}`, payload.notificationData);
-      // }
-      // yield put(DashboardActions.updatePost(payload));
       yield put(snackbar(response.message));
     }
   }),
@@ -54,9 +50,8 @@ export default [
     actionType: DashboardSagaActions.savePost.type,
     takeType: SagaTakeTypes.TAKE_LATEST,
     * func({ payload }) {
-      yield call(request, HttpMethodTypes.PUT, `${ApiUrl.posts}/${payload.post_id}`, payload.data);
-      // yield put(DashboardActions.updatePost(payload));
-      yield put(snackbar(payload.saved ? 'Post is saved successfully' : 'Post is unsaved successfully'));
+      const response = yield call(request, HttpMethodTypes.POST, `${ApiUrl.saveUnsavePost}`, payload);
+      yield put(snackbar(response.message));
     }
   }),
   createSagaWatcher({
