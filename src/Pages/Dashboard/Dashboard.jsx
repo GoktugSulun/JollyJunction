@@ -10,10 +10,7 @@ import { DashboardSagaActions } from './Store/Dashboard.saga';
 import { Button } from '../../Core/Components/Buttons/Button.style';
 import useHttpResponse from '../../Core/Hooks/useHttpResponse';
 import Loading from '../../Core/Components/Loading/Loading';
-import { NotificationSagaActions } from '../../Components/Header/Components/Notifications/Store/Notification.saga';
-import { DashboardActions } from './Store/Dashboard.slice';
 import PostModal from '../../Components/PostModal/PostModal';
-import { request } from '../../Core/Request/Request';
 
 const Dashboard = () => {
   const dispatch = useDispatch();
@@ -25,13 +22,6 @@ const Dashboard = () => {
     if (canBeMorePost) {
       dispatch(DashboardSagaActions.getPosts({ page, limit }));
     }
-  };
-
-  const sortedPosts = () => {
-    const sortedArrays = [...posts];
-    sortedArrays.sort((a,b) => new Date(b.created_at).getTime() - new Date(a.created_at).getTime());
-    console.log(sortedArrays, ' sortedArrays');
-    return sortedArrays;
   };
 
   useHttpResponse({
@@ -74,7 +64,7 @@ const Dashboard = () => {
             </div>)
         }
         {
-          sortedPosts().map((obj) => (
+          posts.map((obj) => (
             <Post 
               key={obj.id}
               data={obj}
