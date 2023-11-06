@@ -11,6 +11,7 @@ import Dashboard from '../../Pages/Dashboard/Dashboard';
 import Login from '../../Pages/Login/Login';
 import Register from '../../Pages/Register/Register';
 import UserProfile from '../../Pages/UserProfile/UserProfile';
+import Notifications from '../../Pages/Notifications/Notifications';
 
 const RouteList = () => {
   const token = localStorage.getItem('token');
@@ -38,6 +39,7 @@ const RouteList = () => {
       <Route element={<ProtectedRoute isAllowed />}>
         <Route path="/" element={<Dashboard />} />
         <Route path="/profile/:user/:id" element={<UserProfile />} />
+        <Route path="/notifications" element={<Notifications />} />
       </Route>
       <Route path="*" element={<div> Page Not Found! </div>} />
     </Routes>

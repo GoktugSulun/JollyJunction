@@ -5,12 +5,12 @@ export const ApiUrl = Object.freeze({
   // comment: '/Comment',
 
   //* Init
-  getInit: 'Init/get',
+  getInit: '/Init/get',
 
   //* User
   getAllUsers: '/User/getAll',
   getUserById: '/User/getById',
-  createUser: 'User/create',
+  createUser: '/User/create',
 
   //* Post
   getAllPosts: '/Post/getAll',
@@ -19,9 +19,10 @@ export const ApiUrl = Object.freeze({
   deletePost: '/Post/delete',
   createPost: '/Post/create',
   likeUnlikePost: '/Post/like',
-  saveUnsavePost: '/Post/save'
+  saveUnsavePost: '/Post/save',
 
   //* Notificaiton
+  getNotifications: '/Notification/get'
 
   //* Comment
 

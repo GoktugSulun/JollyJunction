@@ -3,11 +3,13 @@ import * as S from '../Style/Header.style';
 import { IconButton } from '@mui/material';
 import NightlightRoundIcon from '@mui/icons-material/NightlightRound';
 import LightModeIcon from '@mui/icons-material/LightMode';
+import NotificationsIcon from '@mui/icons-material/Notifications';
 import HelpIcon from '@mui/icons-material/Help';
 import UserMenu from './UserMenu';
-import Notifications from './Notifications/Notifications';
+import { useNavigate } from 'react-router-dom';
 
 const Tools = () => {
+  const navigate = useNavigate();
 
   const toggleTheme = () => {
 
@@ -18,7 +20,9 @@ const Tools = () => {
       <IconButton onClick={toggleTheme} >
         <NightlightRoundIcon />
       </IconButton>
-      <Notifications />
+      <IconButton onClick={() => navigate('/notifications')}>
+        <NotificationsIcon />
+      </IconButton>
       <IconButton>
         <HelpIcon />
       </IconButton>

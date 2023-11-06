@@ -1,3 +1,125 @@
 {
-    "notifications": []
+    "notifications": [
+        {
+            "id": 1,
+            "receiver_id": 2,
+            "sender_id": 1,
+            "type": 1,
+            "created_at": "Mon Nov 06 2023 13:43:20 GMT+0300 (GMT+03:00)",
+            "updated_at": "Mon Nov 06 2023 13:43:20 GMT+0300 (GMT+03:00)",
+            "seen": false,
+            "read": false,
+            "is_removed": false
+        },
+        {
+            "id": 2,
+            "receiver_id": 2,
+            "sender_id": 1,
+            "type": 2,
+            "created_at": "Mon Nov 06 2023 14:43:20 GMT+0300 (GMT+03:00)",
+            "updated_at": "Mon Nov 06 2023 14:43:20 GMT+0300 (GMT+03:00)",
+            "seen": false,
+            "read": false,
+            "is_removed": false
+        },
+        {
+            "id": 3,
+            "receiver_id": 2,
+            "sender_id": 1,
+            "type": 2,
+            "created_at": "Mon Nov 06 2023 15:43:20 GMT+0300 (GMT+03:00)",
+            "updated_at": "Mon Nov 06 2023 15:43:20 GMT+0300 (GMT+03:00)",
+            "seen": true,
+            "read": false,
+            "is_removed": false
+        },
+        {
+            "id": 4,
+            "receiver_id": 2,
+            "sender_id": 1,
+            "type": 2,
+            "created_at": "Mon Nov 06 2023 15:43:20 GMT+0300 (GMT+03:00)",
+            "updated_at": "Mon Nov 06 2023 15:43:20 GMT+0300 (GMT+03:00)",
+            "seen": true,
+            "read": false,
+            "is_removed": false
+        },
+        {
+            "id": 5,
+            "receiver_id": 2,
+            "sender_id": 1,
+            "type": 2,
+            "created_at": "Mon Nov 06 2023 15:43:20 GMT+0300 (GMT+03:00)",
+            "updated_at": "Mon Nov 06 2023 15:43:20 GMT+0300 (GMT+03:00)",
+            "seen": true,
+            "read": true,
+            "is_removed": false
+        },
+        {
+            "id": 6,
+            "receiver_id": 2,
+            "sender_id": 1,
+            "type": 2,
+            "created_at": "Mon Nov 06 2023 15:43:20 GMT+0300 (GMT+03:00)",
+            "updated_at": "Mon Nov 06 2023 15:43:20 GMT+0300 (GMT+03:00)",
+            "seen": true,
+            "read": false,
+            "is_removed": false
+        },
+        {
+            "id": 7,
+            "receiver_id": 2,
+            "sender_id": 1,
+            "type": 2,
+            "created_at": "Mon Nov 06 2023 15:43:20 GMT+0300 (GMT+03:00)",
+            "updated_at": "Mon Nov 06 2023 15:43:20 GMT+0300 (GMT+03:00)",
+            "seen": true,
+            "read": true,
+            "is_removed": false
+        },
+        {
+            "id": 8,
+            "receiver_id": 2,
+            "sender_id": 1,
+            "type": 2,
+            "created_at": "Mon Nov 06 2023 15:43:20 GMT+0300 (GMT+03:00)",
+            "updated_at": "Mon Nov 06 2023 15:43:20 GMT+0300 (GMT+03:00)",
+            "seen": true,
+            "read": false,
+            "is_removed": false
+        },
+        {
+            "id": 9,
+            "receiver_id": 2,
+            "sender_id": 1,
+            "type": 2,
+            "created_at": "Mon Nov 06 2023 15:43:20 GMT+0300 (GMT+03:00)",
+            "updated_at": "Mon Nov 06 2023 15:43:20 GMT+0300 (GMT+03:00)",
+            "seen": true,
+            "read": false,
+            "is_removed": false
+        },
+        {
+            "id": 10,
+            "receiver_id": 2,
+            "sender_id": 1,
+            "type": 2,
+            "created_at": "Mon Nov 06 2023 15:43:20 GMT+0300 (GMT+03:00)",
+            "updated_at": "Mon Nov 06 2023 15:43:20 GMT+0300 (GMT+03:00)",
+            "seen": true,
+            "read": true,
+            "is_removed": false
+        },
+        {
+            "id": 11,
+            "receiver_id": 2,
+            "sender_id": 1,
+            "type": 2,
+            "created_at": "Mon Nov 06 2023 15:43:20 GMT+0300 (GMT+03:00)",
+            "updated_at": "Mon Nov 06 2023 15:43:20 GMT+0300 (GMT+03:00)",
+            "seen": true,
+            "read": true,
+            "is_removed": false
+        }
+    ]
 }

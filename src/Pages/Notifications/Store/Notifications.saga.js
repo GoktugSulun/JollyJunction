@@ -1,14 +1,12 @@
 import { call, put } from 'redux-saga/effects';
 import { createAction } from '@reduxjs/toolkit';
-import createSagaWatcher from '../../../../../Core/Helper/createSagaWatcher';
-import { HttpMethodTypes, SagaTakeTypes } from '../../../../../Core/Constants/Enums';
-import { request } from '../../../../../Core/Request/Request';
-import { ApiUrl } from '../../../../../Core/Constants/ApiUrl';
-import { NotificationActions } from './Notification.slice';
-import { snackbar } from '../../../../../Core/Utils/Snackbar';
-import { LoginActions } from '../../../../../Pages/Login/Store/Login.slice';
+import createSagaWatcher from '../../../Core/Helper/createSagaWatcher';
+import { HttpMethodTypes, SagaTakeTypes } from '../../../Core/Constants/Enums';
+import { request } from '../../../Core/Request/Request';
+import { ApiUrl } from '../../../Core/Constants/ApiUrl';
+import { NotificationActions } from './Notifications.slice';
 
-const mainSagaName = 'Notification/request';
+const mainSagaName = 'Notifications/request';
 
 export const NotificationSagaActions = {
   updateSeenNotification: createAction(`${mainSagaName}/updateSeenNotification`),
@@ -23,7 +21,7 @@ export default [
     actionType: NotificationSagaActions.getNotifications.type,
     takeType: SagaTakeTypes.TAKE_LATEST,
     * func({ payload }) {
-      const response = yield call(request, HttpMethodTypes.GET, `${ApiUrl.notifications}?receiver_user.id=${payload}&is_removed=false`);
+      const response = yield call(request, HttpMethodTypes.GET, `${ApiUrl.getNotifications}${payload.queries}`);
       yield put(NotificationActions.setNotifications(response?.data || []));
     }
   }),

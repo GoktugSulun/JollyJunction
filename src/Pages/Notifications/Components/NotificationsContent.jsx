@@ -1,22 +1,17 @@
 import React from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { UserImages, getUserImageURL } from '../../../../assets/Pngs/Pngs';
-import { NotificationTypes } from '../../../../Core/Constants/Enums';
-import { MenuItem } from '@mui/material';
-import * as S from '../../Style/Header.style';
-import { Button } from '../../../../Core/Components/Buttons/Button.style';
-import moment from 'moment';
-import { NotificationSagaActions } from './Store/Notification.saga';
-import Loading from '../../../../Core/Components/Loading/Loading';
 import { useNavigate } from 'react-router-dom';
-import PropTypes from 'prop-types';
-import useHttpResponse from '../../../../Core/Hooks/useHttpResponse';
-import { LoginActions } from '../../../../Pages/Login/Store/Login.slice';
+import { useDispatch, useSelector } from 'react-redux';
+import NotificationTypes from '../../../Core/Constants/Enums/NotificationTypes';
+import moment from 'moment';
+import * as S from '../Style/Notifications.style';
+import { Button } from '../../../Core/Components/Buttons/Button.style';
+import { getUserImageURL } from '../../../assets/Pngs/Pngs';
+import Loading from '../../../Core/Components/Loading/Loading';
 
-const NotificationsContent = ({ handleClose }) => {
+const NotificationsContent = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { notifications, loading } = useSelector((state) => state.Notification);
+  const { notifications, loading } = useSelector((state) => state.Notifications);
   const { authorizedUser } = useSelector((state) => state.AppConfig.init);
 
   const getNotificationMessage = (type) => {
@@ -61,7 +56,7 @@ const NotificationsContent = ({ handleClose }) => {
       user_id: authorizedUser.id,
       newUserList: { friends: [sender_user, ...authorizedUser.friends] }
     };
-    dispatch(NotificationSagaActions.acceptFriendshipRequest(payload));
+    // dispatch(NotificationSagaActions.acceptFriendshipRequest(payload));
   };
 
   const deleteHandler = (notification_id) => {
@@ -71,7 +66,7 @@ const NotificationsContent = ({ handleClose }) => {
         is_removed: true
       }
     };
-    dispatch(NotificationSagaActions.rejectFriendshipRequest(payload));
+    // dispatch(NotificationSagaActions.rejectFriendshipRequest(payload));
   };
 
   const notificationHandler = (e) => {
@@ -86,49 +81,32 @@ const NotificationsContent = ({ handleClose }) => {
   };
 
   const navigateToUserProfile = (user) => {
-    handleClose();
-    const url = `profile/${user.name.split(' ').join('')}${user.surname}/${user.id}`;
+    const url = `/profile/${user.name.split(' ').join('')}${user.surname}/${user.id}`;
     navigate(url);
   };
-
-  const sortedNotifications = () => {
-    const sortedArrays = [...notifications];
-    sortedArrays.sort((a,b) => new Date(b.created_at).getTime() - new Date(a.created_at).getTime());
-    return sortedArrays;
-  };
-
-  if (!notifications.length) {
-    return (
-      <MenuItem>
-        There is no notification.
-      </MenuItem>
-    );
-  }
 
   return (
     <S.NotificationsContent>
       {
-        sortedNotifications().map((obj) => (
-          <MenuItem 
-            onClick={notificationHandler} 
-            key={obj.id}
-          >
-            <S.NotificationItem read={obj.read} >
-              <img alt="sender-user" src={getUserImageURL(obj?.sender_user?.img)} />
-              <p className="description">
-                <Button 
-                  className="description__sender-user"
-                  bgColor="transparent"
-                  padding="0"
-                  onClick={() => navigateToUserProfile(obj.sender_user)}
-                >  
-                  { `${obj.sender_user.name} ${obj.sender_user.surname}` } 
-                </Button>
-                <span className="description__text"> {getNotificationMessage(obj.type)} </span>
-                <span className="description__date"> {getDate(obj.created_at)} </span>
-              </p>
-              {
-                obj.type === NotificationTypes.REQUEST_FOR_FRIENDSHIP 
+        notifications.map((obj) => (
+          <S.NotificationItem
+            read={obj.read} 
+            key={obj.id} >
+            <img alt="sender-user" src={getUserImageURL(obj?.sender_user?.img)} />
+            <p className="description">
+              <Button 
+                className="description__sender-user"
+                bgColor="transparent"
+                padding="0"
+                onClick={() => navigateToUserProfile(obj.sender_user)}
+              >  
+                { `${obj.sender_user.name} ${obj.sender_user.surname}` } 
+              </Button>
+              <span className="description__text"> {getNotificationMessage(obj.type)} </span>
+              <span className="description__date"> {getDate(obj.created_at)} </span>
+            </p>
+            {
+              obj.type === NotificationTypes.REQUEST_FOR_FRIENDSHIP 
                   && (
                     <div className="buttons">
                       <Button 
@@ -146,9 +124,8 @@ const NotificationsContent = ({ handleClose }) => {
                       </Button>
                     </div>
                   )
-              }
-            </S.NotificationItem>
-          </MenuItem>
+            }
+          </S.NotificationItem>
         ))
       }
     </S.NotificationsContent>
@@ -156,7 +133,3 @@ const NotificationsContent = ({ handleClose }) => {
 };
 
 export default NotificationsContent;
-
-NotificationsContent.propTypes = {
-  handleClose: PropTypes.func.isRequired
-};
