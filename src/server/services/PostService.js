@@ -1,4 +1,5 @@
-import { commentsDB, postsDB, savesDB, likesDB, usersDB } from '../db/index.js';
+import NotificationTypes from '../../Core/Constants/Enums/NotificationTypes.js';
+import { commentsDB, postsDB, savesDB, likesDB, usersDB, friendsDB, notificationsDB } from '../db/index.js';
 import LikeService from './LikeService.js';
 import SaveService from './SaveService.js';
 
@@ -7,17 +8,33 @@ const { likes } = likesDB.data;
 const { saves } = savesDB.data;
 const { comments } = commentsDB.data;
 const { users } = usersDB.data;
+const { friends } = friendsDB.data;
+const { notifications } = notificationsDB.data;
 const nextId = Math.max(...posts.map(post => post.id), 0) + 1;
 
-// TODO: 1 => authorizedUser.id olmalı dynamic yap
+// TODO: dynamic yap
+const authorizedUserId = 2;
+
+const canBeFriendHandler = (user_id) => {
+  const isMe = authorizedUserId === user_id;
+  const isFriend = !!friends.find((friendObj) => friendObj.user_id === authorizedUserId)?.friends?.find((friendId) => friendId === user_id);
+  const didSendRequestForFriendship = !!notifications.find((notificationObj) => 
+    notificationObj.creator_id === authorizedUserId 
+      && notificationObj.receiver_id === user_id 
+      && notificationObj.type === NotificationTypes.REQUEST_FOR_FRIENDSHIP
+  );
+  return !isMe && !isFriend && !didSendRequestForFriendship;
+};
+
 const getPostDetail = (data) => (
   {
     ...data,
     likes_count: likes.filter((likeObj) => likeObj.post_id === data.id).length,
     comments_count: comments.filter((commentObj) => commentObj.post_id === data.id).length,
-    liked: !!likes.find((likeObj) => likeObj.user_id === 1 && likeObj.post_id === data.id),
-    saved: !!saves.find((saveObj) => saveObj.user_id === 1 && saveObj.post_id === data.id),
-    user: users.find((userObj) => userObj.id === data.user_id)
+    liked: !!likes.find((likeObj) => likeObj.user_id === authorizedUserId && likeObj.post_id === data.id),
+    saved: !!saves.find((saveObj) => saveObj.user_id === authorizedUserId && saveObj.post_id === data.id),
+    user: users.find((userObj) => userObj.id === data.user_id),
+    canBeFriend: canBeFriendHandler(data.user_id)
   }
 );
 class PostService {

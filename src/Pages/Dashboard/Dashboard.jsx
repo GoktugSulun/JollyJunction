@@ -30,20 +30,16 @@ const Dashboard = () => {
     }
   }, DashboardSagaActions.createPost());
 
-  useHttpResponse({
-    success: ({ idleAction }) => {
-      dispatch(DashboardSagaActions.getNotificationsICreated(authorizedUser.id));
-      idleAction();
-    }
-  }, DashboardSagaActions.addFriend());
-
-  useEffect(() => {
-    console.log(posts, ' posts');
-  }, [posts]);
+  // useHttpResponse({
+  //   success: ({ idleAction }) => {
+  //     dispatch(DashboardSagaActions.getNotificationsICreated(authorizedUser.id));
+  //     idleAction();
+  //   }
+  // }, DashboardSagaActions.addFriend());
 
   useEffect(() => {
     fetchMorePost();
-    // dispatch(DashboardSagaActions.getNotificationsICreated(authorizedUser.id));
+    // dispatch(DashboardSagaActions.getNotificationsICreated());
     // dispatch(NotificationSagaActions.getUnreadNotifications(authorizedUser.id));
     // return () => {
     //   dispatch(DashboardActions.setReset());

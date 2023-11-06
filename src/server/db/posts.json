@@ -103,6 +103,24 @@
       "id": 13,
       "created_at": "Mon Nov 06 2023 14:06:05 GMT+0300 (GMT+03:00)",
       "updated_at": "Mon Nov 06 2023 14:06:05 GMT+0300 (GMT+03:00)"
+    },
+    {
+      "description": "deneme - 14 NYC!",
+      "user_id": 1,
+      "files": [
+        "img-1.jpg"
+      ],
+      "id": 14,
+      "created_at": "Mon Nov 06 2023 14:10:25 GMT+0300 (GMT+03:00)",
+      "updated_at": "Mon Nov 06 2023 14:10:25 GMT+0300 (GMT+03:00)"
+    },
+    {
+      "description": "deneme - 15 ( DAMLA )",
+      "user_id": 2,
+      "files": [],
+      "id": 15,
+      "created_at": "Mon Nov 06 2023 14:34:48 GMT+0300 (GMT+03:00)",
+      "updated_at": "Mon Nov 06 2023 14:34:48 GMT+0300 (GMT+03:00)"
     }
   ]
 }

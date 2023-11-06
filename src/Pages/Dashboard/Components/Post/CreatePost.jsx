@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import * as S from '../../Style/Dashboard.style';
-import UserURL from '../../../../assets/Pngs/goktug.jpeg';
 import TextInput from '../../../../Core/Inputs/TextInput';
 import useMaterialForm from '../../../../Core/Hooks/useMaterialForm';
 import { Divider } from '../../../../Components/Divider/Divider.style';
@@ -16,7 +15,7 @@ import { NotifierTypes } from '../../../../Core/Constants/Enums';
 import { DashboardSagaActions } from '../../Store/Dashboard.saga';
 import useHttpResponse from '../../../../Core/Hooks/useHttpResponse';
 import Loading from '../../../../Core/Components/Loading/Loading';
-import { UserImages, getUserImageURL } from '../../../../assets/Pngs/Pngs';
+import { getUserImageURL } from '../../../../assets/Pngs/Pngs';
 import UserProfile from '../../../../Components/UserProfile/UserProfile';
 
 const defaultValues = {

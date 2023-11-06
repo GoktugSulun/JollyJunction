@@ -14,22 +14,6 @@ const PostHeader = ({ data }) => {
   const { user: authorizedUser } = useSelector((state) => state.Login);
   const { notificationsICreated, loading } = useSelector((state) => state.Dashboard);
 
-  const isPersonMyFriend = () => {
-    //* Authorized user and post creator same person
-    if (authorizedUser.id === data.user_id) {
-      return true;
-    }
-    return !!authorizedUser?.friends?.find((obj) => obj.id === data?.user?.id);
-  };
-
-  const friendCanBeAdded = () => {
-    if (isPersonMyFriend()) {
-      return false;
-    }
-    const didISendRequestForFriendship = !!notificationsICreated.find((obj) => obj?.receiver_user?.id === data?.user?.id && obj.type === NotificationTypes.REQUEST_FOR_FRIENDSHIP);
-    return didISendRequestForFriendship ? false : true;
-  };
-
   const addFriend = () => {
     const payload = {
       sender_user: { ...authorizedUser },
@@ -50,9 +34,9 @@ const PostHeader = ({ data }) => {
         src={getUserImageURL(data?.user?.img)}
       />
       {
-        loading?.addFriend || loading?.getNotificationsICreated
+        loading?.addFriend
           ? <div> <Loading color="#FFF" size={25} /> </div>
-          : friendCanBeAdded() &&
+          : data.canBeFriend &&
           (
             <Tooltip 
               title="Add Friend" 
