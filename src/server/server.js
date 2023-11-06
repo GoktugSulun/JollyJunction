@@ -1,7 +1,9 @@
 import jsonServer from 'json-server';
 import PostRoute from './routes/PostRoute.js';
 import UserRoute from './routes/UserRoute.js';
+import InitRoute from './routes/InitRoute.js';
 
+export const authorizedUserId = 2;
 export const server = jsonServer.create();
 const middlewares = jsonServer.defaults();
 
@@ -17,6 +19,7 @@ server.get('/health', (req, res) => {
 
 server.use('/Post', PostRoute);
 server.use('/User', UserRoute);
+server.use('/Init', InitRoute);
 
 server.use((req, res, next) => {
   next();

@@ -6,7 +6,7 @@ import PersonRemoveIcon from '@mui/icons-material/PersonRemove';
 import { useSelector } from 'react-redux';
 
 const FriendList = () => {
-  const { user: authorizedUser } = useSelector((state) => state.Login);
+  const { authorizedUser } = useSelector((state) => state.AppConfig.init);
 
   const removeFriend = () => {
 

@@ -9,18 +9,18 @@ import Notifications from './Notifications/Notifications';
 
 const Tools = () => {
 
-   const toggleTheme = () => {
+  const toggleTheme = () => {
 
-   };
+  };
 
   return (
     <S.Tools>
       <IconButton onClick={toggleTheme} >
-         <NightlightRoundIcon />
+        <NightlightRoundIcon />
       </IconButton>
       <Notifications />
       <IconButton>
-         <HelpIcon />
+        <HelpIcon />
       </IconButton>
       <UserMenu />
     </S.Tools>

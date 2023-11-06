@@ -59,7 +59,7 @@ const StyledMenu = styled((props) => (
 
 const UserMenu = () => {
   const [anchorEl, setAnchorEl] = React.useState(null);
-  const { user } = useSelector((state) => state.Login);
+  const { authorizedUser } = useSelector((state) => state.AppConfig.init);
   const open = Boolean(anchorEl);
 
   const handleClick = (event) => {
@@ -94,7 +94,7 @@ const UserMenu = () => {
         bgColor="#2d2d2d"
         $color="#c7c5c5"
       >
-        {`${user?.name} ${user?.surname}`}
+        {`${authorizedUser?.name} ${authorizedUser?.surname}`}
       </Button>
       <StyledMenu
         id="demo-customized-menu"

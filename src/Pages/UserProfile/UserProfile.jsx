@@ -16,7 +16,7 @@ import { ProfileWrapper } from '../Dashboard/Style/Dashboard.style';
 const UserProfile = () => {
   const dispatch = useDispatch();
   const params = useParams();
-  const { user: authorizedUser } = useSelector((state) => state.Login);
+  const { authorizedUser } = useSelector((state) => state.AppConfig.init);
   const { posts, loading, page, limit, canBeMorePost, user } = useSelector((state) => state.UserProfile);
 
   // TODO: 'More Post' button and the snackbar message are gonna be removed. Instead of this, I am gonna do scroll & fetch combination. 

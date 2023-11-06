@@ -15,7 +15,7 @@ import PostModal from '../../Components/PostModal/PostModal';
 const Dashboard = () => {
   const dispatch = useDispatch();
   const { posts, page, limit, canBeMorePost, loading } = useSelector(state => state.Dashboard);
-  const { user: authorizedUser } = useSelector(state => state.Login);
+  const { authorizedUser } = useSelector(state => state.AppConfig.init);
   
   // TODO: 'More Post' button and the snackbar message are gonna be removed. Instead of this, I am gonna do scroll & fetch combination. 
   const fetchMorePost = () => {

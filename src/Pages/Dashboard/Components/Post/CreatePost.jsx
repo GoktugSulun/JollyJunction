@@ -26,7 +26,7 @@ const CreatePost = () => {
   const dispatch = useDispatch();
   const [imageURL, setImageURL] = useState(null);
   const [files, setFiles] = useState([]);
-  const { user: authorizedUser } = useSelector(state => state.Login);
+  const { authorizedUser } = useSelector(state => state.AppConfig.init);
   const { loading } = useSelector(state => state.Dashboard);
   const { registerHandler, form } = useMaterialForm({ defaultValues });
 

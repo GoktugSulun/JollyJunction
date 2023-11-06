@@ -11,7 +11,7 @@ import { getUserImageURL } from '../../../../../assets/Pngs/Pngs';
 
 const PostHeader = ({ data }) => {
   const dispatch = useDispatch();
-  const { user: authorizedUser } = useSelector((state) => state.Login);
+  const { authorizedUser } = useSelector((state) => state.AppConfig.init);
   const { loading } = useSelector((state) => state.Dashboard);
 
   const addFriend = () => {

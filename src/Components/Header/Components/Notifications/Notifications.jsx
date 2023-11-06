@@ -26,7 +26,7 @@ const menuProps = {
 const Notications = () => {
   const dispatch = useDispatch();
   const { notifications, loading } = useSelector((state) => state.Notification);
-  const { user: authorizedUser } = useSelector((state) => state.Login);
+  const { authorizedUser, unseenNotificationsCount } = useSelector((state) => state.AppConfig.init);
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
 
@@ -35,9 +35,9 @@ const Notications = () => {
   };
 
   const handleClose = () => {
-    if (notifications.length) {
-      dispatch(NotificationSagaActions.getUnreadNotifications(authorizedUser.id));
-    }
+    // if (notifications.length) {
+    //   dispatch(NotificationSagaActions.getUnreadNotifications(authorizedUser.id));
+    // }
     setAnchorEl(null);
   };
 
@@ -45,41 +45,41 @@ const Notications = () => {
     console.log('show all notificaitons');
   };
 
-  const getUnreadNotification= () => {
-    return notifications.filter((obj) => !obj.read);
-  };
+  // const getUnreadNotification= () => {
+  //   return notifications.filter((obj) => !obj.read);
+  // };
 
-  useHttpResponse({
-    success: ({ idleAction }) => {
-      if (open) {
-        const unreadNotifications = getUnreadNotification();
-        if (unreadNotifications.length > 0) {
-          for (let i=0; i<unreadNotifications.length; i++) {
-            const payload = {
-              notification_id: unreadNotifications[i].id,
-              data: { read: true }
-            };
-            dispatch(NotificationSagaActions.updateSeenNotification(payload));
-          }
-        }
-      }
-      idleAction();
-    }
-  }, NotificationSagaActions.getNotifications());
+  // useHttpResponse({
+  //   success: ({ idleAction }) => {
+  //     if (open) {
+  //       const unreadNotifications = getUnreadNotification();
+  //       if (unreadNotifications.length > 0) {
+  //         for (let i=0; i<unreadNotifications.length; i++) {
+  //           const payload = {
+  //             notification_id: unreadNotifications[i].id,
+  //             data: { read: true }
+  //           };
+  //           dispatch(NotificationSagaActions.updateSeenNotification(payload));
+  //         }
+  //       }
+  //     }
+  //     idleAction();
+  //   }
+  // }, NotificationSagaActions.getNotifications());
 
-  useEffect(() => {
-    if (!open) {
-      return;
-    }
-    dispatch(NotificationSagaActions.getNotifications(authorizedUser.id));
-  }, [open]);
+  // useEffect(() => {
+  //   if (!open) {
+  //     return;
+  //   }
+  //   dispatch(NotificationSagaActions.getNotifications(authorizedUser.id));
+  // }, [open]);
 
   return (
     <S.NoticationsMenuWrapper>
       <S.NotificationIconButton 
         open={open} 
         onClick={handleClick}
-        count={getUnreadNotification().length}
+        count={unseenNotificationsCount}
       >
         <NotificationsIcon />
       </S.NotificationIconButton>

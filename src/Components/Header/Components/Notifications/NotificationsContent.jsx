@@ -17,7 +17,7 @@ const NotificationsContent = ({ handleClose }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { notifications, loading } = useSelector((state) => state.Notification);
-  const { user: authorizedUser } = useSelector((state) => state.Login);
+  const { authorizedUser } = useSelector((state) => state.AppConfig.init);
 
   const getNotificationMessage = (type) => {
     switch (type) {

@@ -4,6 +4,9 @@ export const ApiUrl = Object.freeze({
   // notification: '/Notification',
   // comment: '/Comment',
 
+  //* Init
+  getInit: 'Init/get',
+
   //* User
   getAllUsers: '/User/getAll',
   getUserById: '/User/getById',

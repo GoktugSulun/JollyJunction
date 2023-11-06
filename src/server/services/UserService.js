@@ -24,9 +24,9 @@ class UserService {
     try {
       const data = users.find((obj) => obj.id === parseInt(id));
       return {
-        type: true,
+        type: !!data,
         message: data ? `User with ${id} id has been fetched` : `User with ${id} couldn't find`,
-        data: data || {}
+        ...(data ? { data } : {})
       };
     } catch (error) {
       return {
