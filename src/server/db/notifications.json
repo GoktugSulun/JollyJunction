@@ -16,8 +16,8 @@
             "receiver_id": 2,
             "sender_id": 1,
             "type": 2,
-            "created_at": "Mon Nov 06 2023 14:43:20 GMT+0300 (GMT+03:00)",
-            "updated_at": "Mon Nov 06 2023 14:43:20 GMT+0300 (GMT+03:00)",
+            "created_at": "Mon Nov 06 2022 14:43:20 GMT+0300 (GMT+03:00)",
+            "updated_at": "Mon Nov 06 2022 14:43:20 GMT+0300 (GMT+03:00)",
             "seen": false,
             "read": false,
             "is_removed": false
