@@ -1,21 +1,8 @@
 import styled from '@emotion/styled';
 import { ContentWrapper } from '../../../Core/Components/Pages/ContentWrapper.style';
-import { css } from '@emotion/react';
 import Menu from '@mui/material/Menu';
 
-export const Notifications = styled(ContentWrapper)`
-   background-color: #0f0f0f;
-   display: grid;
-   grid-template-columns: 1fr 2fr 1fr;
-   padding: 0 75px;
-   margin: 30px 0;
-   gap: 50px;
-   transition: padding 350ms;
-
-   @media (max-width: 900px) {
-      padding: 0 40px;
-   }
-`;
+export const Notifications = styled(ContentWrapper)``;
 
 export const NotificationsContent = styled.div`
    background-color: #181818;
@@ -90,12 +77,16 @@ export const SettingsWrapper = styled.div`
       height: 40px;
       :hover {
          background-color: #333;
+         svg path {
+            fill: #FFFFFF;
+         }
       }
       svg {
          width: 100%;
          height: 100%;
          path {
-            fill: #FFFFFF;
+            transition: fill 150ms;
+            fill: #9a9a9a
          }
       }
    }

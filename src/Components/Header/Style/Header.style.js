@@ -11,8 +11,11 @@ export const Header = styled.div`
    padding: 0 75px;
    transition: padding 350ms;
 
-   @media (max-width: 900px) {
+   @media (max-width: 1536px) {
       padding: 0 40px;
+   }
+   @media (max-width: 900px) {
+      padding: 0 20px;
    }
 `;
 

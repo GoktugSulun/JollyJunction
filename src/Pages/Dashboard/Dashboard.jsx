@@ -11,11 +11,13 @@ import { Button } from '../../Core/Components/Buttons/Button.style';
 import useHttpResponse from '../../Core/Hooks/useHttpResponse';
 import Loading from '../../Core/Components/Loading/Loading';
 import PostModal from '../../Components/PostModal/PostModal';
+import { useMediaQuery } from '@mui/material';
 
 const Dashboard = () => {
   const dispatch = useDispatch();
   const { posts, page, limit, canBeMorePost, loading } = useSelector(state => state.Dashboard);
   const { authorizedUser } = useSelector(state => state.AppConfig.init);
+  const min1200px = useMediaQuery('(min-width: 1200px)');
   
   // TODO: 'More Post' button and the snackbar message are gonna be removed. Instead of this, I am gonna do scroll & fetch combination. 
   const fetchMorePost = () => {
@@ -42,6 +44,12 @@ const Dashboard = () => {
     <S.Dashboard>
       <S.ProfileWrapper>
         <Profile data={authorizedUser} />
+        {
+          !min1200px && <S.SidebarWrapper>
+            <Advertisement />
+            <FriendList />
+          </S.SidebarWrapper>
+        }
       </S.ProfileWrapper>
       <S.PostWrapper>
         <CreatePost />
@@ -72,10 +80,12 @@ const Dashboard = () => {
             </div>)
         }
       </S.PostWrapper>
-      <S.SidebarWrapper>
-        <Advertisement />
-        <FriendList />
-      </S.SidebarWrapper>
+      {
+        min1200px && <S.SidebarWrapper>
+          <Advertisement />
+          <FriendList />
+        </S.SidebarWrapper>
+      }
       <PostModal />
     </S.Dashboard>
   );
