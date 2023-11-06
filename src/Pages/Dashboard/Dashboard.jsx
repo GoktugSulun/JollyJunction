@@ -30,16 +30,8 @@ const Dashboard = () => {
     }
   }, DashboardSagaActions.createPost());
 
-  // useHttpResponse({
-  //   success: ({ idleAction }) => {
-  //     dispatch(DashboardSagaActions.getNotificationsICreated(authorizedUser.id));
-  //     idleAction();
-  //   }
-  // }, DashboardSagaActions.addFriend());
-
   useEffect(() => {
     fetchMorePost();
-    // dispatch(DashboardSagaActions.getNotificationsICreated());
     // dispatch(NotificationSagaActions.getUnreadNotifications(authorizedUser.id));
     // return () => {
     //   dispatch(DashboardActions.setReset());

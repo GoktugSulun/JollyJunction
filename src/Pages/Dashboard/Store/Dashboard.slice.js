@@ -7,7 +7,6 @@ const NAME = 'Dashboard';
 
 const initialState = {
   posts: [],
-  notificationsICreated: [],
   page: 1,
   limit: 10,
   canBeMorePost: true
@@ -36,9 +35,6 @@ const DashboardSlice = createSlice({
     },
     setPage: (state, action) => {
       state.page = action.payload;
-    },
-    setNotificationsICreated: (state, action) => {
-      state.notificationsICreated = action.payload;
     },
     setComments: (state, action) => {
       const { data, post_id } = action.payload;

@@ -12,7 +12,7 @@ import { getUserImageURL } from '../../../../../assets/Pngs/Pngs';
 const PostHeader = ({ data }) => {
   const dispatch = useDispatch();
   const { user: authorizedUser } = useSelector((state) => state.Login);
-  const { notificationsICreated, loading } = useSelector((state) => state.Dashboard);
+  const { loading } = useSelector((state) => state.Dashboard);
 
   const addFriend = () => {
     const payload = {

@@ -16,7 +16,6 @@ export const DashboardSagaActions = {
   savePost: createAction(`${mainSagaName}/savePost`),
   addFriend: createAction(`${mainSagaName}/addFriend`),
   removeFriend: createAction(`${mainSagaName}/removeFriend`),
-  getNotificationsICreated: createAction(`${mainSagaName}/getNotificationsICreated`),
 };
 
 export default [
@@ -60,14 +59,6 @@ export default [
     * func({ payload }) {
       yield call(request, HttpMethodTypes.POST, `${ApiUrl.notifications}`, payload);
       yield put(snackbar('Friendship request are sent successfully'));
-    }
-  }),
-  createSagaWatcher({
-    actionType: DashboardSagaActions.getNotificationsICreated.type,
-    takeType: SagaTakeTypes.TAKE_LATEST,
-    * func({ payload }) {
-      const response = yield call(request, HttpMethodTypes.GET, `${ApiUrl.notifications}?is_removed=false`);
-      yield put(DashboardActions.setNotificationsICreated(response?.data || []));
     }
   })
 ];
