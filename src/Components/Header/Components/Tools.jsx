@@ -20,9 +20,9 @@ const Tools = () => {
       <IconButton onClick={toggleTheme} >
         <NightlightRoundIcon />
       </IconButton>
-      <IconButton onClick={() => navigate('/notifications')}>
+      <S.NotificationIconButton onClick={() => navigate('/notifications')}>
         <NotificationsIcon />
-      </IconButton>
+      </S.NotificationIconButton>
       <IconButton>
         <HelpIcon />
       </IconButton>
