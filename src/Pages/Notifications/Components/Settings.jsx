@@ -33,7 +33,7 @@ const Settings = ({ data }) => {
   const dispatch = useDispatch();
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
-  const { loading, targetNotificationIds } = useSelector((state) => state.Notifications);
+  const { loading, targetNotificationIds, targetRemovedNotificationsIds } = useSelector((state) => state.Notifications);
   
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -50,6 +50,13 @@ const Settings = ({ data }) => {
     dispatch(NotificationSagaActions.markNotificationsRead(payload));
   };
 
+  const deleteNotification = () => {
+    const payload = {
+      notification_ids: [data.id]
+    };
+    dispatch(NotificationSagaActions.deleteNotifications(payload));
+  };
+
   useHttpResponse({
     success: ({ idleAction }) => {
       idleAction();
@@ -59,6 +66,15 @@ const Settings = ({ data }) => {
       }
     }
   }, NotificationSagaActions.markNotificationsRead());
+
+  useHttpResponse({
+    success: ({ idleAction }) => {
+      idleAction();
+      if (targetRemovedNotificationsIds.includes(data.id)) {
+        dispatch(NotificationActions.setTargetRemovedNotificationIds([]));
+      }
+    }
+  }, NotificationSagaActions.deleteNotifications());
 
   return (
     <S.SettingsWrapper>
@@ -77,16 +93,20 @@ const Settings = ({ data }) => {
         onClose={handleClose}
         {...menuProps}
       >
-        <MenuItem onClick={handleClose}>
-          <DeleteIcon /> Delete This Notification
-        </MenuItem>
-        <Divider margin="0" />
         <MenuItem onClick={markAsRead} disabled={(targetNotificationIds.includes(data.id) && loading?.markNotificationsRead) || data.read} >
           {
             (loading?.markNotificationsRead && targetNotificationIds.includes(data.id))
               ? <Loading fullWidth={false} color="#FFFFFF" size={18} />
               : <LibraryBooksIcon />
           } Mark as Read
+        </MenuItem>
+        <Divider margin="0" />
+        <MenuItem onClick={deleteNotification} disabled={(targetRemovedNotificationsIds.includes(data.id) && loading?.deleteNotifications)}>
+          {
+            (loading?.deleteNotifications && targetRemovedNotificationsIds.includes(data.id))
+              ? <Loading fullWidth={false} color="#FFFFFF" size={18} />
+              : <DeleteIcon />
+          } Delete This Notification
         </MenuItem>
       </S.SettingsMenu>
     </S.SettingsWrapper>

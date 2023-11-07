@@ -25,6 +25,7 @@ export const ApiUrl = Object.freeze({
   getNotifications: '/Notification/get',
   markNotificationsSeen: '/Notification/seen',
   markNotificationsRead: '/Notification/read',
+  deleteNotifications: '/Notification/delete',
 
   //* Comment
 

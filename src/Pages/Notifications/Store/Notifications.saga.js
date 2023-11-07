@@ -11,13 +11,10 @@ import { AppConfigActions } from '../../../Core/Store/AppConfig.slice';
 const mainSagaName = 'Notifications/request';
 
 export const NotificationSagaActions = {
-  updateSeenNotification: createAction(`${mainSagaName}/updateSeenNotification`),
   getNotifications: createAction(`${mainSagaName}/getNotifications`),
-  getUnreadNotifications: createAction(`${mainSagaName}/getUnreadNotifications`),
-  acceptFriendshipRequest: createAction(`${mainSagaName}/acceptFriendshipRequest`),
-  rejectFriendshipRequest: createAction(`${mainSagaName}/rejectFriendshipRequest`),
   markNotificationsSeen: createAction(`${mainSagaName}/markNotificationsSeen`),
   markNotificationsRead: createAction(`${mainSagaName}/markNotificationsRead`),
+  deleteNotifications: createAction(`${mainSagaName}/deleteNotifications`),
 };
 
 export default [
@@ -27,45 +24,6 @@ export default [
     * func({ payload }) {
       const response = yield call(request, HttpMethodTypes.GET, `${ApiUrl.getNotifications}${payload.queries}`);
       yield put(NotificationActions.setNotifications(response?.data || []));
-    }
-  }),
-  createSagaWatcher({
-    actionType: NotificationSagaActions.getUnreadNotifications.type,
-    takeType: SagaTakeTypes.TAKE_LATEST,
-    * func({ payload }) {
-      const response = yield call(request, HttpMethodTypes.GET, `${ApiUrl.notifications}?receiver_user.id=${payload}&read=false&is_removed=false`);
-      yield put(NotificationActions.setNotifications(response?.data || []));
-    }
-  }),
-  createSagaWatcher({
-    actionType: NotificationSagaActions.updateSeenNotification.type,
-    takeType: SagaTakeTypes.TAKE_LATEST,
-    * func({ payload }) {
-      yield call(request, HttpMethodTypes.PATCH, `${ApiUrl.notifications}/${payload.notification_id}`, payload.data);
-    }
-  }),
-  // createSagaWatcher({
-  //   actionType: NotificationSagaActions.acceptFriendshipRequest.type,
-  //   takeType: SagaTakeTypes.TAKE_EVERY,
-  //   * func({ payload }) {
-  //     yield call(request, HttpMethodTypes.PATCH, `${ApiUrl.users}/${payload.user_id}`, payload.newUserList);
-  //     // yield call(request, HttpMethodTypes.PATCH, `${ApiUrl.users}/${payload.user_id}`, payload.newUserList);
-  //     yield call(request, HttpMethodTypes.PATCH, `${ApiUrl.notifications}/${payload.notification_id}`, payload.dataForNotificationWillBeRemoved);
-  //     yield call(request, HttpMethodTypes.POST, `${ApiUrl.notifications}`, payload.dataForSenderUser);
-  //     const response = yield call(request, HttpMethodTypes.POST, `${ApiUrl.notifications}`, payload.dataForReceiverUser);
-  //     yield put(snackbar('Friendship request is accepted'));
-  //     yield put(NotificationActions.filterNotifications({ notification_id: payload.notification_id }));
-  //     yield put(NotificationActions.unshiftNotification(response.data));
-  //     yield put(LoginActions.updateUserFriends(payload.newUserList));
-  //   }
-  // }),
-  createSagaWatcher({
-    actionType: NotificationSagaActions.rejectFriendshipRequest.type,
-    takeType: SagaTakeTypes.TAKE_LATEST,
-    * func({ payload }) {
-      yield call(request, HttpMethodTypes.PATCH, `${ApiUrl.notifications}/${payload.notification_id}`, payload.data);
-      yield put(snackbar('Friendship request is rejected'));
-      yield put(NotificationActions.filterNotifications({ notification_id: payload.notification_id }));
     }
   }),
   createSagaWatcher({
@@ -85,6 +43,16 @@ export default [
       yield call(request, HttpMethodTypes.PUT, `${ApiUrl.markNotificationsRead}`, payload);
       yield put(snackbar('Marked as read'));
       yield put(NotificationActions.markNotificationsRead(payload));
+    }
+  }),
+  createSagaWatcher({
+    actionType: NotificationSagaActions.deleteNotifications.type,
+    takeType: SagaTakeTypes.TAKE_LATEST,
+    * func({ payload }) {
+      yield put(NotificationActions.setTargetRemovedNotificationIds(payload.notification_ids));
+      yield call(request, HttpMethodTypes.DELETE, `${ApiUrl.deleteNotifications}`, payload);
+      yield put(snackbar('Notifications is deleted'));
+      yield put(NotificationActions.filterNotifications(payload));
     }
   })
 ];

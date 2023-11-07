@@ -32,6 +32,28 @@
       "seen": true,
       "read": false,
       "is_removed": false
+    },
+    {
+      "id": 4,
+      "type": 5,
+      "receiver_id": 1,
+      "sender_id": 2,
+      "created_at": "Tue Nov 04 2023 18:49:59 GMT+0300 (GMT+03:00)",
+      "updated_at": "Tue Nov 04 2023 18:49:59 GMT+0300 (GMT+03:00)",
+      "seen": true,
+      "read": true,
+      "is_removed": false
+    },
+    {
+      "id": 5,
+      "type": 5,
+      "receiver_id": 1,
+      "sender_id": 2,
+      "created_at": "Tue Nov 04 2023 18:49:59 GMT+0300 (GMT+03:00)",
+      "updated_at": "Tue Nov 04 2023 18:49:59 GMT+0300 (GMT+03:00)",
+      "seen": true,
+      "read": false,
+      "is_removed": false
     }
   ]
 }

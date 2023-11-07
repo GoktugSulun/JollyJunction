@@ -6,7 +6,8 @@ const NAME = 'Notifications';
 
 const initialState = {
   notifications: [],
-  targetNotificationIds: []
+  targetNotificationIds: [],
+  targetRemovedNotificationsIds: []
 };
 
 const NotificationSlice = createSlice({
@@ -17,8 +18,8 @@ const NotificationSlice = createSlice({
       state.notifications = action.payload;
     },
     filterNotifications: (state, action) => {
-      const { notification_id } = action.payload;
-      state.notifications = state.notifications.filter((obj) => obj.id !== notification_id);
+      const { notification_ids } = action.payload;
+      state.notifications = state.notifications.filter((obj) => !notification_ids.includes(obj.id));
     },
     unshiftNotification: (state, action) => {
       state.notifications.unshift(action.payload);
@@ -37,6 +38,9 @@ const NotificationSlice = createSlice({
     },
     setTargetNotificationIds: (state, action) => {
       state.targetNotificationIds = action.payload;
+    },
+    setTargetRemovedNotificationIds: (state, action) => {
+      state.targetRemovedNotificationsIds = action.payload;
     }
   },
   extraReducers: (builder) => requestStatusReducer(builder, NotificationSagaActions)

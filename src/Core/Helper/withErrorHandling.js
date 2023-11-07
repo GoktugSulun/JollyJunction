@@ -14,6 +14,7 @@ const withErrorHandling = (func) => function* (action) {
       yield put(requestStatusAction.failure(action.type));
       yield put(snackbar('Sunucu ile bağlantı kesildi', { variant: NotifierTypes.ERROR }));
     }
+    console.log('alo ? ', error);
     yield put(snackbar(error?.message || 'ERROR', { variant: NotifierTypes.ERROR }));
   }
 };

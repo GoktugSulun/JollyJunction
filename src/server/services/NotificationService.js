@@ -145,6 +145,31 @@ class NotificationService {
       };
     }
   }
+
+  static async delete(req, res) {
+    try {
+      const { notifications } = notificationsDB.data;
+      const { notification_ids } = req.body;
+      const newNotifications = notifications.map((obj) => {
+        if (notification_ids.includes(obj.id)) {
+          return { ...obj, is_removed: true };
+        }
+        return obj;
+      });
+
+      notificationsDB.data = { notifications: newNotifications };
+      await notificationsDB.write();
+      return {
+        type: true,
+        message: 'target notifications are removed'
+      };
+    } catch (error) {
+      return {
+        type: false,
+        message: error.message
+      };
+    }
+  }
 }
 
 export default NotificationService;
