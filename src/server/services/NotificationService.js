@@ -1,7 +1,10 @@
 import {  notificationsDB } from '../db/index.js';
+import { authorizedUserId } from '../server.js';
+import PostService from './PostService.js';
 import UserService from './UserService.js';
 
 const { notifications } = notificationsDB.data;
+const nextId = Math.max(...notifications.map(like => like.id), 0) + 1;
 
 const getUser = async (id) => {
   const user = await UserService.getById({ params: { id }});
@@ -54,6 +57,36 @@ class NotificationService {
         data: result
       };
     } catch(error){
+      return {
+        type: false,
+        message: error.message
+      };
+    }
+  }
+
+  static async create(req) {
+    try {
+      const { post_id, type } = req.body;
+      const post = await PostService.getById({ params: { id: post_id }});
+      const receiver_id = post.data.user.id;
+      const newNotification = {
+        id: nextId,
+        type,
+        receiver_id,
+        sender_id: authorizedUserId,
+        created_at: new Date().toString(),
+        updated_at: new Date().toString(),
+        seen: false,
+        read: false,
+        is_removed: false
+      };
+      notifications.push(newNotification);
+      await notificationsDB.write();
+      return {
+        type: true,
+        message: 'Created new notification'
+      };
+    } catch (error) {
       return {
         type: false,
         message: error.message

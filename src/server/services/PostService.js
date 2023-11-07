@@ -1,6 +1,7 @@
 import NotificationTypes from '../../Core/Constants/Enums/NotificationTypes.js';
 import { commentsDB, postsDB, savesDB, likesDB, usersDB, friendsDB, notificationsDB } from '../db/index.js';
 import LikeService from './LikeService.js';
+import NotificationService from './NotificationService.js';
 import SaveService from './SaveService.js';
 
 const { posts } = postsDB.data;
@@ -136,10 +137,30 @@ class PostService {
 
   static async like(req, res) {
     try {
-      const result = await LikeService.create(req, res);
+      const currentState = [...likes];
+      const likeResult = await LikeService.create(req, res);
+
+      const { like } = req.body;
+      if (!like) {
+        return {
+          type: likeResult.type,
+          message: likeResult.message
+        };
+      }
+
+      const notificationResult = await NotificationService.create({ body: { post_id: req.body.post_id, type: NotificationTypes.LIKED_POST } }, res);
+      if (!notificationResult.type) {
+        likesDB.data = { likes: currentState }; //* reset likes data
+        await likesDB.write();
+        return {
+          type: false,
+          message: notificationResult.message
+        };
+      }
+
       return {
-        type: result.type,
-        message: result.message
+        type: true,
+        message: likeResult.message
       };
     } catch (error) {
       return {

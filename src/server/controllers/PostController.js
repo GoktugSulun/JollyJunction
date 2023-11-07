@@ -1,6 +1,10 @@
 import ResponseEnums from '../constants/Enums/ResponseEnums.js';
+import { likesDB } from '../db/index.js';
 import Helpers from '../helpers/Helpers.js';
+import NotificationService from '../services/NotificationService.js';
 import PostService from '../services/PostService.js';
+
+const { likes } = likesDB.data;
 
 class PostController {
   static async getAll(req, res) {
@@ -43,8 +47,8 @@ class PostController {
 
   static async like(req, res) {
     try {
-      const result = await PostService.like(req, res);
-      Helpers.responseJSON(res, result);
+      const likeResult = await PostService.like(req, res);
+      Helpers.responseJSON(res, likeResult);
     } catch (error) {
       Helpers.responseMessage(res, ResponseEnums.FAILURE, error.message);
     }

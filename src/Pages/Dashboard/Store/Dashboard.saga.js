@@ -42,6 +42,7 @@ export default [
     takeType: SagaTakeTypes.TAKE_LATEST,
     * func({ payload }) {
       const response = yield call(request, HttpMethodTypes.POST, `${ApiUrl.likeUnlikePost}`, payload);
+      yield put(DashboardActions.likePost(payload));
       yield put(snackbar(response.message));
     }
   }),
@@ -50,6 +51,7 @@ export default [
     takeType: SagaTakeTypes.TAKE_LATEST,
     * func({ payload }) {
       const response = yield call(request, HttpMethodTypes.POST, `${ApiUrl.saveUnsavePost}`, payload);
+      yield put(DashboardActions.savePost(payload));
       yield put(snackbar(response.message));
     }
   }),

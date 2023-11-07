@@ -1,4 +1,5 @@
 import { likesDB } from '../db/index.js';
+import { authorizedUserId } from '../server.js';
 
 const { likes } = likesDB.data;
 const nextId = Math.max(...likes.map(like => like.id), 0) + 1;
@@ -11,12 +12,12 @@ class LikeService {
         const newData = {
           id: nextId,
           post_id,
-          user_id: 1, // TODO: dynmaic yap authorzed user id kullan
+          user_id: authorizedUserId,
           created_at: new Date().toString()
         };
         likes.push(newData);
       } else {
-        const indexToRemove = likes.findIndex((obj) => obj.post_id === post_id && obj.user_id === 1); // TODO: authorized user id => dynamic yap
+        const indexToRemove = likes.findIndex((obj) => obj.post_id === post_id && obj.user_id ===  authorizedUserId,);
         if (indexToRemove === -1) {
           return {
             type: false,
