@@ -3,8 +3,7 @@ import { authorizedUserId } from '../server.js';
 import PostService from './PostService.js';
 import UserService from './UserService.js';
 
-const { notifications } = notificationsDB.data;
-const nextId = Math.max(...notifications.map(like => like.id), 0) + 1;
+// const { notifications } = notificationsDB.data;
 
 const getUser = async (id) => {
   const user = await UserService.getById({ params: { id }});
@@ -17,6 +16,7 @@ const getUser = async (id) => {
 class NotificationService {
   static async get(req) {
     try {
+      const { notifications } = notificationsDB.data;
       const { receiver_id, is_removed, seen, read } = req.query;
       const condition = (data) => ({
         ...(is_removed !== undefined ? { is_removed: data.is_removed === JSON.parse(is_removed) } : {}),
@@ -65,6 +65,8 @@ class NotificationService {
   }
 
   static async create(req) {
+    const { notifications } = notificationsDB.data;
+    const nextId = Math.max(...notifications.map(like => like.id), 0) + 1;
     try {
       const { post_id, type } = req.body;
       const post = await PostService.getById({ params: { id: post_id }});
@@ -85,6 +87,56 @@ class NotificationService {
       return {
         type: true,
         message: 'Created new notification'
+      };
+    } catch (error) {
+      return {
+        type: false,
+        message: error.message
+      };
+    }
+  }
+
+  static async seen(req, res) {
+    try {
+      const { notifications } = notificationsDB.data;
+      const { notification_ids } = req.body;
+      const newNotifications = notifications.map((obj) => {
+        if (notification_ids.includes(obj.id)) {
+          return { ...obj, seen: true };
+        }
+        return obj;
+      });
+
+      notificationsDB.data = { notifications: newNotifications };
+      await notificationsDB.write();
+      return {
+        type: true,
+        message: 'seen attributes of target notifications are updated'
+      };
+    } catch (error) {
+      return {
+        type: false,
+        message: error.message
+      };
+    }
+  }
+
+  static async read(req, res) {
+    try {
+      const { notifications } = notificationsDB.data;
+      const { notification_ids } = req.body;
+      const newNotifications = notifications.map((obj) => {
+        if (notification_ids.includes(obj.id)) {
+          return { ...obj, read: true };
+        }
+        return obj;
+      });
+
+      notificationsDB.data = { notifications: newNotifications };
+      await notificationsDB.write();
+      return {
+        type: true,
+        message: 'read attributes of target notifications are updated'
       };
     } catch (error) {
       return {

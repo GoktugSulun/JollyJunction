@@ -30,7 +30,7 @@ export const Content = styled.div`
       min-width: 10px;
       height: 10px;
       border-radius: 50%;
-      background-color: ${(props) => props.seen ? 'inherit' : 'red'};
+      background-color: ${(props) => props.read ? 'inherit' : 'red'};
    }
    .content {
       display: flex;

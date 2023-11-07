@@ -4,7 +4,7 @@ import UserRoute from './routes/UserRoute.js';
 import InitRoute from './routes/InitRoute.js';
 import NotificationRoute from './routes/NotificationRoute.js';
 
-export const authorizedUserId = 2;
+export const authorizedUserId = 1;
 export const server = jsonServer.create();
 const middlewares = jsonServer.defaults();
 

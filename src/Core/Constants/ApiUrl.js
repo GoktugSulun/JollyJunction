@@ -22,7 +22,9 @@ export const ApiUrl = Object.freeze({
   saveUnsavePost: '/Post/save',
 
   //* Notificaiton
-  getNotifications: '/Notification/get'
+  getNotifications: '/Notification/get',
+  markNotificationsSeen: '/Notification/seen',
+  markNotificationsRead: '/Notification/read',
 
   //* Comment
 

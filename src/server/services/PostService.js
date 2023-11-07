@@ -1,5 +1,6 @@
 import NotificationTypes from '../../Core/Constants/Enums/NotificationTypes.js';
 import { commentsDB, postsDB, savesDB, likesDB, usersDB, friendsDB, notificationsDB } from '../db/index.js';
+import { authorizedUserId } from '../server.js';
 import LikeService from './LikeService.js';
 import NotificationService from './NotificationService.js';
 import SaveService from './SaveService.js';
@@ -12,9 +13,6 @@ const { users } = usersDB.data;
 const { friends } = friendsDB.data;
 const { notifications } = notificationsDB.data;
 const nextId = Math.max(...posts.map(post => post.id), 0) + 1;
-
-// TODO: dynamic yap
-const authorizedUserId = 2;
 
 const canBeFriendHandler = (user_id) => {
   const isMe = authorizedUserId === user_id;

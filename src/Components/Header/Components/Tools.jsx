@@ -7,9 +7,11 @@ import NotificationsIcon from '@mui/icons-material/Notifications';
 import HelpIcon from '@mui/icons-material/Help';
 import UserMenu from './UserMenu';
 import { useNavigate } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
 const Tools = () => {
   const navigate = useNavigate();
+  const { unseenNotificationsCount } = useSelector((state) => state.AppConfig.init);
 
   const toggleTheme = () => {
 
@@ -20,7 +22,7 @@ const Tools = () => {
       <IconButton onClick={toggleTheme} >
         <NightlightRoundIcon />
       </IconButton>
-      <S.NotificationIconButton onClick={() => navigate('/notifications')}>
+      <S.NotificationIconButton count={unseenNotificationsCount} onClick={() => navigate('/notifications')}>
         <NotificationsIcon />
       </S.NotificationIconButton>
       <IconButton>

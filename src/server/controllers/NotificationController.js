@@ -11,6 +11,24 @@ class NotificationController {
       Helpers.responseMessage(res, ResponseEnums.FAILURE, error.message);
     }
   }
+
+  static async seen(req, res) {
+    try {
+      const result = await NotificationService.seen(req, res);
+      Helpers.responseJSON(res, result);
+    } catch (error) {
+      Helpers.responseMessage(res, ResponseEnums.FAILURE, error.message);
+    }
+  }
+
+  static async read(req, res) {
+    try {
+      const result = await NotificationService.read(req, res);
+      Helpers.responseJSON(res, result);
+    } catch (error) {
+      Helpers.responseMessage(res, ResponseEnums.FAILURE, error.message);
+    }
+  }
 }
   
 export default NotificationController;

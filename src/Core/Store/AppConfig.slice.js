@@ -31,6 +31,9 @@ const AppConfigSlice = createSlice({
     },
     setInit: (state, action) => {
       state.init = action.payload;
+    },
+    setUnseenNotificationsCount: (state, action) => {
+      state.init.unseenNotificationsCount = action.payload;
     }
   }
 });

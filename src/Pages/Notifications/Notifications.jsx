@@ -9,11 +9,28 @@ import Profile from '../Dashboard/Components/Profile';
 import Advertisement from '../Dashboard/Components/Advertisement';
 import FriendList from '../Dashboard/Components/FriendList';
 import * as SDash from '../../Pages/Dashboard/Style/Dashboard.style';
+import useHttpResponse from '../../Core/Hooks/useHttpResponse';
 
 const Notifications = () => {
   const dispatch = useDispatch();
   const { loading, notifications } = useSelector((state) => state.Notifications);
   const { authorizedUser } = useSelector((state) => state.AppConfig.init);
+
+  useHttpResponse({
+    success: ({ idleAction }) => {
+      idleAction();
+      const unseenNotificationIds = notifications
+        .filter((obj) => !obj.seen)
+        .map((obj) => obj.id);
+      if (!unseenNotificationIds.length) {
+        return;
+      }
+      const payload = {
+        notification_ids: unseenNotificationIds
+      };
+      dispatch(NotificationSagaActions.markNotificationsSeen(payload));
+    }
+  }, NotificationSagaActions.getNotifications());
 
   useEffect(() => {
     const payload = {

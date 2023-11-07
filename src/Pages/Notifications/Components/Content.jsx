@@ -34,7 +34,7 @@ const Content = ({ data }) => {
   };
 
   return (
-    <S.Content read={data.seen}>
+    <S.Content read={data.read}>
       <div className="dot"> </div>
       <div className="content">
         <img alt="sender-user" src={getUserImageURL(data?.sender_user?.img)} />

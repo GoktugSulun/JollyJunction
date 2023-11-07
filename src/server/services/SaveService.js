@@ -1,4 +1,5 @@
 import { savesDB } from '../db/index.js';
+import { authorizedUserId } from '../server.js';
 
 const { saves } = savesDB.data;
 const nextId = Math.max(...saves.map(like => like.id), 0) + 1;
@@ -11,12 +12,12 @@ class SaveService {
         const newData = {
           id: nextId,
           post_id,
-          user_id: 1, // TODO: dynmaic yap authorzed user id kullan
+          user_id: authorizedUserId,
           created_at: new Date().toString()
         };
         saves.push(newData);
       } else {
-        const indexToRemove = saves.findIndex((obj) => obj.post_id === post_id && obj.user_id === 1); // TODO: authorized user id => dynamic yap
+        const indexToRemove = saves.findIndex((obj) => obj.post_id === post_id && obj.user_id === authorizedUserId); 
         if (indexToRemove === -1) {
           return {
             type: false,

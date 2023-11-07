@@ -5,7 +5,7 @@ export const Loading = styled.div`
    display: flex;
    justify-content: center;
    align-items: center;
-   width: 100%;
+   width: ${(props) => props.fullWidth || 'auto'};
    height: auto;
    margin: ${(props) => props.margin};
    ${(props) => props.blur && css`
