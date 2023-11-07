@@ -142,4 +142,14 @@ export const NotificationItem = styled.div`
    :hover {
       background-color: #222;
    }
+   position: relative;
+   :not(:last-child)::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 1px;
+      background: #555; 
+   }
  `;
