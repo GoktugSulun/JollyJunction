@@ -15,7 +15,7 @@ import { DashboardSagaActions } from '../../../Pages/Dashboard/Store/Dashboard.s
 const CommentsSectionFooter = () => {
   const dispatch = useDispatch();
   const { postData } = useSelector((state) => state.PostModal);
-  const { user: authorizedUser } = useSelector((state) => state.Login);
+  const { authorizedUser } = useSelector((state) => state.AppConfig.init);
 
   const getDate = () => {
     const diff = moment.duration(moment().diff(postData?.created_at)).humanize();

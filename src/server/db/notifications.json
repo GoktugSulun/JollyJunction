@@ -1,0 +1,125 @@
+{
+  "notifications": [
+    {
+      "id": 1,
+      "type": 2,
+      "receiver_id": 1,
+      "sender_id": 2,
+      "created_at": "Tue Nov 07 2023 18:49:59 GMT+0300 (GMT+03:00)",
+      "updated_at": "Tue Nov 07 2023 18:49:59 GMT+0300 (GMT+03:00)",
+      "seen": true,
+      "read": true,
+      "is_removed": false
+    },
+    {
+      "id": 2,
+      "type": 3,
+      "receiver_id": 1,
+      "sender_id": 2,
+      "created_at": "Tue Nov 05 2023 18:49:59 GMT+0300 (GMT+03:00)",
+      "updated_at": "Tue Nov 05 2023 18:49:59 GMT+0300 (GMT+03:00)",
+      "seen": true,
+      "read": true,
+      "is_removed": false
+    },
+    {
+      "id": 3,
+      "type": 5,
+      "receiver_id": 1,
+      "sender_id": 2,
+      "created_at": "Tue Nov 04 2023 18:49:59 GMT+0300 (GMT+03:00)",
+      "updated_at": "Tue Nov 04 2023 18:49:59 GMT+0300 (GMT+03:00)",
+      "seen": true,
+      "read": false,
+      "is_removed": false
+    },
+    {
+      "id": 4,
+      "type": 5,
+      "receiver_id": 1,
+      "sender_id": 2,
+      "created_at": "Tue Nov 04 2023 18:49:59 GMT+0300 (GMT+03:00)",
+      "updated_at": "Tue Nov 04 2023 18:49:59 GMT+0300 (GMT+03:00)",
+      "seen": true,
+      "read": true,
+      "is_removed": false
+    },
+    {
+      "id": 5,
+      "type": 5,
+      "receiver_id": 1,
+      "sender_id": 2,
+      "created_at": "Tue Nov 04 2023 18:49:59 GMT+0300 (GMT+03:00)",
+      "updated_at": "Tue Nov 04 2023 18:49:59 GMT+0300 (GMT+03:00)",
+      "seen": true,
+      "read": true,
+      "is_removed": false
+    },
+    {
+      "id": 6,
+      "type": 5,
+      "receiver_id": 1,
+      "sender_id": 2,
+      "created_at": "Tue Nov 04 2023 18:49:59 GMT+0300 (GMT+03:00)",
+      "updated_at": "Tue Nov 04 2023 18:49:59 GMT+0300 (GMT+03:00)",
+      "seen": true,
+      "read": false,
+      "is_removed": false
+    },
+    {
+      "id": 7,
+      "type": 5,
+      "receiver_id": 1,
+      "sender_id": 2,
+      "created_at": "Tue Nov 04 2023 18:49:59 GMT+0300 (GMT+03:00)",
+      "updated_at": "Tue Nov 04 2023 18:49:59 GMT+0300 (GMT+03:00)",
+      "seen": true,
+      "read": false,
+      "is_removed": false
+    },
+    {
+      "id": 8,
+      "type": 5,
+      "receiver_id": 1,
+      "sender_id": 2,
+      "created_at": "Tue Nov 04 2023 18:49:59 GMT+0300 (GMT+03:00)",
+      "updated_at": "Tue Nov 04 2023 18:49:59 GMT+0300 (GMT+03:00)",
+      "seen": true,
+      "read": false,
+      "is_removed": false
+    },
+    {
+      "id": 9,
+      "type": 5,
+      "receiver_id": 1,
+      "sender_id": 2,
+      "created_at": "Tue Nov 04 2023 18:49:59 GMT+0300 (GMT+03:00)",
+      "updated_at": "Tue Nov 04 2023 18:49:59 GMT+0300 (GMT+03:00)",
+      "seen": true,
+      "read": false,
+      "is_removed": false
+    },
+    {
+      "id": 10,
+      "type": 5,
+      "receiver_id": 1,
+      "sender_id": 2,
+      "created_at": "Tue Nov 04 2023 18:49:59 GMT+0300 (GMT+03:00)",
+      "updated_at": "Tue Nov 04 2023 18:49:59 GMT+0300 (GMT+03:00)",
+      "seen": true,
+      "read": false,
+      "is_removed": false
+    },
+    {
+      "id": 11,
+      "type": 5,
+      "receiver_id": 1,
+      "sender_id": 2,
+      "created_at": "Tue Nov 04 2023 18:49:59 GMT+0300 (GMT+03:00)",
+      "updated_at": "Tue Nov 04 2023 18:49:59 GMT+0300 (GMT+03:00)",
+      "seen": true,
+      "read": false,
+      "is_removed": false
+    }
+  ]
+}

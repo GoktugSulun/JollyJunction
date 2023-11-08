@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { DashboardSagaActions } from '../../../Store/Dashboard.saga';
 import { IconButton, Tooltip } from '@mui/material';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
@@ -11,25 +11,13 @@ import BookmarkIcon from '@mui/icons-material/Bookmark';
 import { PostModalActions } from '../../../../../Components/PostModal/Store/PostModal.slice';
 import { ModalTypes } from '../../../../../Core/Constants/Enums';
 
-const PostFooter = ({ data, isItLiked, likeHandler }) => {
+const PostFooter = ({ data, likeHandler }) => {
   const dispatch = useDispatch();
-  const { user: authorizedUser } = useSelector((state) => state.Login);
-
-  const isItSaved = () => {
-    return !!data.saves.find((user_id) => user_id === authorizedUser?.id);
-  };
 
   const saveHandler = () => {
-    const updatedData = {
-      ...data,
-      saves: isItSaved() 
-        ? data.saves.filter((user_id) => user_id !== authorizedUser.id)
-        : [...data.saves, authorizedUser.id]
-    };
     const payload = {
-      post_id: data.id,
-      data: updatedData,
-      saved: !isItSaved()
+      save: !data.saved,
+      post_id: data.id
     };
     dispatch(DashboardSagaActions.savePost(payload));
   };
@@ -42,27 +30,27 @@ const PostFooter = ({ data, isItLiked, likeHandler }) => {
   return (
     <div className="buttons">
       <div className="buttons__group">
-        <Tooltip title={isItLiked() ? 'Unlike' : 'Like'} >
+        <Tooltip title={data.liked ? 'Unlike' : 'Like'} >
           <IconButton onClick={likeHandler} >
             { 
-              isItLiked() 
+              data.liked 
                 ? <FavoriteIcon /> 
                 : <FavoriteBorderIcon /> 
             } 
           </IconButton>
         </Tooltip>
-        <span className="count"> { data.likes.length } </span>
+        <span className="count"> { data.likes_count } </span>
         <Tooltip title="Comment" >
           <IconButton onClick={openPostModal} className="comment" >
             <ChatBubbleOutlineIcon /> 
           </IconButton>
         </Tooltip>
-        <span className="count"> { data.comments.length } </span>
+        <span className="count"> { data.comments_count} </span>
       </div>
-      <Tooltip title={isItSaved() ? 'Unsave' : 'Save'} >
+      <Tooltip title={data.saved ? 'Unsave' : 'Save'} >
         <IconButton onClick={saveHandler}>
           { 
-            isItSaved() 
+            data.saved
               ? <BookmarkIcon /> 
               : <BookmarkBorderIcon /> 
           } 
@@ -76,6 +64,5 @@ export default PostFooter;
 
 PostFooter.propTypes = {
   data: PropTypes.object.isRequired,
-  isItLiked: PropTypes.func.isRequired,
   likeHandler: PropTypes.func.isRequired,
 };

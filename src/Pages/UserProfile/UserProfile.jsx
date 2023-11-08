@@ -10,14 +10,13 @@ import { UserProfileSagaActions } from './Store/UserProfile.saga';
 import { Button } from '../../Core/Components/Buttons/Button.style';
 import { UserProfileActions } from './Store/UserProfile.slice';
 import { DashboardSagaActions } from '../Dashboard/Store/Dashboard.saga';
-import useHttpResponse from '../../Core/Hooks/useHttpResponse';
 import PostModal from '../../Components/PostModal/PostModal';
 import { ProfileWrapper } from '../Dashboard/Style/Dashboard.style';
 
 const UserProfile = () => {
   const dispatch = useDispatch();
   const params = useParams();
-  const { user: authorizedUser } = useSelector((state) => state.Login);
+  const { authorizedUser } = useSelector((state) => state.AppConfig.init);
   const { posts, loading, page, limit, canBeMorePost, user } = useSelector((state) => state.UserProfile);
 
   // TODO: 'More Post' button and the snackbar message are gonna be removed. Instead of this, I am gonna do scroll & fetch combination. 
@@ -33,16 +32,8 @@ const UserProfile = () => {
     return sortedArrays;
   };
 
-  useHttpResponse({
-    success: ({ idleAction }) => {
-      dispatch(DashboardSagaActions.getNotificationsICreated(authorizedUser.id));
-      idleAction();
-    }
-  }, DashboardSagaActions.addFriend());
-
   useEffect(() => {
     dispatch(UserProfileSagaActions.getPosts({ page, limit, user_id: Number(params.id) }));
-    dispatch(DashboardSagaActions.getNotificationsICreated(authorizedUser.id));
     if (Number(params.id) !== authorizedUser?.id) {
       dispatch(UserProfileSagaActions.getSpecificUser({ user_id: Number(params.id) }));
     }

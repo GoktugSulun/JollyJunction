@@ -1,25 +1,12 @@
 import styled from '@emotion/styled';
 import { ContentWrapper } from '../../../Core/Components/Pages/ContentWrapper.style';
 
-export const Dashboard = styled(ContentWrapper)`
-   background-color: #0f0f0f;
-   display: grid;
-   grid-template-columns: 1fr 2fr 1fr;
-   padding: 0 75px;
-   margin-top: 30px;
-   gap: 50px;
-   transition: padding 350ms;
-
-   @media (max-width: 900px) {
-      grid-template-columns: 1fr;
-      padding: 0 40px;
-   }
-`;
+export const Dashboard = styled(ContentWrapper)``;
 
 export const ProfileWrapper = styled.div`
-   @media (max-width: 900px) {
-      display: none;
-   }
+   display: flex;
+   flex-direction: column;
+   gap: 25px;
 `;
 
 export const PostWrapper = styled.div`
@@ -54,7 +41,9 @@ export const Profile = styled.div`
    border-radius: 10px;
    padding: 25px;
    place-self: flex-start;
-   flex: 1;
+   align-self: flex-start;
+   /* flex: 1; */
+   width: 100%;
    transition: width 350ms;
    .user {
       display: flex;
@@ -158,7 +147,7 @@ export const Profile = styled.div`
       }
    }
    @media (max-width: 900px) {
-      width: 100%;
+      display: none;
    }
 `;
 

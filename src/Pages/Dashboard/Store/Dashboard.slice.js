@@ -1,13 +1,12 @@
 import { createSlice } from '@reduxjs/toolkit';
 import requestStatusReducer from '../../../Core/Helper/requestStatusReducer';
 import { DashboardSagaActions } from './Dashboard.saga';
-import { postUpdateReducer } from '../../../Core/Helper/postUpdateReducer';
+import { likePostHandler, savePostHandler } from '../../../Core/Helper/commonSliceActions';
 
 const NAME = 'Dashboard';
 
 const initialState = {
   posts: [],
-  notificationsICreated: [],
   page: 1,
   limit: 10,
   canBeMorePost: true
@@ -37,18 +36,14 @@ const DashboardSlice = createSlice({
     setPage: (state, action) => {
       state.page = action.payload;
     },
-    setNotificationsICreated: (state, action) => {
-      state.notificationsICreated = action.payload;
-    },
     setComments: (state, action) => {
       const { data, post_id } = action.payload;
       state.posts = state.posts.map((obj) => obj.id === post_id ? { ...obj, comments: data } : obj);
-    }
+    },
+    likePost: likePostHandler,
+    savePost: savePostHandler
   },
-  extraReducers: (builder) => {
-    postUpdateReducer(builder);
-    requestStatusReducer(builder, DashboardSagaActions);
-  }
+  extraReducers: (builder) => requestStatusReducer(builder, DashboardSagaActions)
 });
 
 const { reducer, actions } = DashboardSlice;

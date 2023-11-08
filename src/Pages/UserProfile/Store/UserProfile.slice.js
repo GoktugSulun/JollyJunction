@@ -1,7 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 import requestStatusReducer from '../../../Core/Helper/requestStatusReducer';
 import { UserProfileSagaActions } from './UserProfile.saga';
-import { postUpdateReducer } from '../../../Core/Helper/postUpdateReducer';
+import { likePostHandler, savePostHandler } from '../../../Core/Helper/commonSliceActions';
 
 const NAME = 'UserProfile';
 
@@ -13,7 +13,7 @@ const initialState = {
   canBeMorePost: true
 };
 
-const DashboardSlice = createSlice({
+const UserProfileSlice = createSlice({
   name: NAME,
   initialState,
   reducers: {
@@ -33,15 +33,14 @@ const DashboardSlice = createSlice({
     setComments: (state, action) => {
       const { data, post_id } = action.payload;
       state.posts = state.posts.map((obj) => obj.id === post_id ? { ...obj, comments: data } : obj);
-    }
+    },
+    likePost: likePostHandler,
+    savePost: savePostHandler
   },
-  extraReducers: (builder) => {
-    postUpdateReducer(builder);
-    requestStatusReducer(builder, UserProfileSagaActions);
-  }
+  extraReducers: (builder) => { requestStatusReducer(builder, UserProfileSagaActions); }
 });
 
-const { reducer, actions } = DashboardSlice;
+const { reducer, actions } = UserProfileSlice;
 
 export const UserProfileActions = actions;
 export default reducer;

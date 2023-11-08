@@ -19,7 +19,7 @@ const CreateComment = () => {
   const dispatch = useDispatch();
   const location = useLocation();
   const { postData } = useSelector((state) => state.PostModal);
-  const { user: authorizedUser } = useSelector((state) => state.Login);
+  const { authorizedUser } = useSelector((state) => state.AppConfig.init);
   const { registerHandler, form } = useMaterialForm({
     defaultValues
   });

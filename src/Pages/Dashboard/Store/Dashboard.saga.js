@@ -16,7 +16,6 @@ export const DashboardSagaActions = {
   savePost: createAction(`${mainSagaName}/savePost`),
   addFriend: createAction(`${mainSagaName}/addFriend`),
   removeFriend: createAction(`${mainSagaName}/removeFriend`),
-  getNotificationsICreated: createAction(`${mainSagaName}/getNotificationsICreated`),
 };
 
 export default [
@@ -25,7 +24,7 @@ export default [
     takeType: SagaTakeTypes.TAKE_LATEST,
     * func({ payload }) {
       const { page, limit } = payload;
-      const response = yield call(request, HttpMethodTypes.GET, `${ApiUrl.posts}?_page=${page}&_limit=${limit}`);
+      const response = yield call(request, HttpMethodTypes.GET, `${ApiUrl.getPosts}?page=${page}&limit=${limit}`);
       yield put(DashboardActions.setPosts(response?.data || []));
     }
   }),
@@ -33,7 +32,7 @@ export default [
     actionType: DashboardSagaActions.createPost.type,
     takeType: SagaTakeTypes.TAKE_LATEST,
     * func({ payload }) {
-      const response = yield call(request, HttpMethodTypes.POST, `${ApiUrl.posts}`, payload);
+      const response = yield call(request, HttpMethodTypes.POST, `${ApiUrl.createPost}`, payload);
       yield put(DashboardActions.setPost(response.data));
       yield put(snackbar('Post is created successfully'));
     }
@@ -42,21 +41,18 @@ export default [
     actionType: DashboardSagaActions.likePost.type,
     takeType: SagaTakeTypes.TAKE_LATEST,
     * func({ payload }) {
-      yield call(request, HttpMethodTypes.PUT, `${ApiUrl.posts}/${payload.post_id}`, payload.data);
-      if (payload.notificationData) {
-        yield call(request, HttpMethodTypes.POST, `${ApiUrl.notifications}`, payload.notificationData);
-      }
-      // yield put(DashboardActions.updatePost(payload));
-      yield put(snackbar(payload.liked ? 'Post is liked successfully' : 'Post is unliked successfully'));
+      const response = yield call(request, HttpMethodTypes.POST, `${ApiUrl.likeUnlikePost}`, payload);
+      yield put(DashboardActions.likePost(payload));
+      yield put(snackbar(response.message));
     }
   }),
   createSagaWatcher({
     actionType: DashboardSagaActions.savePost.type,
     takeType: SagaTakeTypes.TAKE_LATEST,
     * func({ payload }) {
-      yield call(request, HttpMethodTypes.PUT, `${ApiUrl.posts}/${payload.post_id}`, payload.data);
-      // yield put(DashboardActions.updatePost(payload));
-      yield put(snackbar(payload.saved ? 'Post is saved successfully' : 'Post is unsaved successfully'));
+      const response = yield call(request, HttpMethodTypes.POST, `${ApiUrl.saveUnsavePost}`, payload);
+      yield put(DashboardActions.savePost(payload));
+      yield put(snackbar(response.message));
     }
   }),
   createSagaWatcher({
@@ -65,14 +61,6 @@ export default [
     * func({ payload }) {
       yield call(request, HttpMethodTypes.POST, `${ApiUrl.notifications}`, payload);
       yield put(snackbar('Friendship request are sent successfully'));
-    }
-  }),
-  createSagaWatcher({
-    actionType: DashboardSagaActions.getNotificationsICreated.type,
-    takeType: SagaTakeTypes.TAKE_LATEST,
-    * func({ payload }) {
-      const response = yield call(request, HttpMethodTypes.GET, `${ApiUrl.notifications}?sender_user.id=${payload}&is_removed=false`);
-      yield put(DashboardActions.setNotificationsICreated(response?.data || []));
     }
   })
 ];

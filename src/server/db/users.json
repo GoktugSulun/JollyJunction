@@ -1,0 +1,28 @@
+{
+    "users": [
+        {
+            "id": 1,
+            "name": "Goktug",
+            "surname": "Sulun",
+            "email": "goktug.sulun@hotmail.com",
+            "password": 123456,
+            "location": "Kucukcekmece",
+            "city": "Istanbul",
+            "country": "Turkey",
+            "img": "goktug.jpeg",
+            "position": "Fullstack Developer"
+        },
+        {
+            "id": 2,
+            "name": "Damla Nur",
+            "surname": "Yilmaz",
+            "email": "damlanur.ylmaz@hotmail.com",
+            "password": 123456,
+            "location": "Esenyurt",
+            "city": "Istanbul",
+            "country": "Turkey",
+            "img": "damla.jpg",
+            "position": "Frontend Developer"
+        }
+    ]
+}

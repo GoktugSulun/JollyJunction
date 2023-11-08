@@ -15,7 +15,7 @@ import PropTypes from 'prop-types';
 import { useSelector } from 'react-redux';
 
 const Profile = ({ data }) => {
-  const { user: authorizedUser } = useSelector((state) => state.Login);
+  const { authorizedUser } = useSelector((state) => state.AppConfig.init);
 
   const getUserSrc = () => {
     return UserImages.find((src) => src.includes(data?.img)) || null;

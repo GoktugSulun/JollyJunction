@@ -10,14 +10,14 @@ import { DashboardSagaActions } from './Store/Dashboard.saga';
 import { Button } from '../../Core/Components/Buttons/Button.style';
 import useHttpResponse from '../../Core/Hooks/useHttpResponse';
 import Loading from '../../Core/Components/Loading/Loading';
-import { NotificationSagaActions } from '../../Components/Header/Components/Notifications/Store/Notification.saga';
-import { DashboardActions } from './Store/Dashboard.slice';
 import PostModal from '../../Components/PostModal/PostModal';
+import { useMediaQuery } from '@mui/material';
 
 const Dashboard = () => {
   const dispatch = useDispatch();
   const { posts, page, limit, canBeMorePost, loading } = useSelector(state => state.Dashboard);
-  const { user: authorizedUser } = useSelector(state => state.Login);
+  const { authorizedUser } = useSelector(state => state.AppConfig.init);
+  const min1200px = useMediaQuery('(min-width: 1200px)');
   
   // TODO: 'More Post' button and the snackbar message are gonna be removed. Instead of this, I am gonna do scroll & fetch combination. 
   const fetchMorePost = () => {
@@ -26,38 +26,30 @@ const Dashboard = () => {
     }
   };
 
-  const sortedPosts = () => {
-    const sortedArrays = [...posts];
-    sortedArrays.sort((a,b) => new Date(b.created_at).getTime() - new Date(a.created_at).getTime());
-    return sortedArrays;
-  };
-
   useHttpResponse({
     success: ({ idleAction }) => {
       idleAction();
     }
   }, DashboardSagaActions.createPost());
 
-  useHttpResponse({
-    success: ({ idleAction }) => {
-      dispatch(DashboardSagaActions.getNotificationsICreated(authorizedUser.id));
-      idleAction();
-    }
-  }, DashboardSagaActions.addFriend());
-
   useEffect(() => {
     fetchMorePost();
-    dispatch(DashboardSagaActions.getNotificationsICreated(authorizedUser.id));
-    dispatch(NotificationSagaActions.getUnreadNotifications(authorizedUser.id));
-    return () => {
-      dispatch(DashboardActions.setReset());
-    };
+    // dispatch(NotificationSagaActions.getUnreadNotifications(authorizedUser.id));
+    // return () => {
+    //   dispatch(DashboardActions.setReset());
+    // };
   }, []);
 
   return (
     <S.Dashboard>
       <S.ProfileWrapper>
         <Profile data={authorizedUser} />
+        {
+          !min1200px && <S.SidebarWrapper>
+            <Advertisement />
+            <FriendList />
+          </S.SidebarWrapper>
+        }
       </S.ProfileWrapper>
       <S.PostWrapper>
         <CreatePost />
@@ -68,7 +60,7 @@ const Dashboard = () => {
             </div>)
         }
         {
-          sortedPosts().map((obj) => (
+          posts.map((obj) => (
             <Post 
               key={obj.id}
               data={obj}
@@ -88,10 +80,12 @@ const Dashboard = () => {
             </div>)
         }
       </S.PostWrapper>
-      <S.SidebarWrapper>
-        <Advertisement />
-        <FriendList />
-      </S.SidebarWrapper>
+      {
+        min1200px && <S.SidebarWrapper>
+          <Advertisement />
+          <FriendList />
+        </S.SidebarWrapper>
+      }
       <PostModal />
     </S.Dashboard>
   );

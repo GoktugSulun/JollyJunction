@@ -3,24 +3,30 @@ import * as S from '../Style/Header.style';
 import { IconButton } from '@mui/material';
 import NightlightRoundIcon from '@mui/icons-material/NightlightRound';
 import LightModeIcon from '@mui/icons-material/LightMode';
+import NotificationsIcon from '@mui/icons-material/Notifications';
 import HelpIcon from '@mui/icons-material/Help';
 import UserMenu from './UserMenu';
-import Notifications from './Notifications/Notifications';
+import { useNavigate } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
 const Tools = () => {
+  const navigate = useNavigate();
+  const { unseenNotificationsCount } = useSelector((state) => state.AppConfig.init);
 
-   const toggleTheme = () => {
+  const toggleTheme = () => {
 
-   };
+  };
 
   return (
     <S.Tools>
       <IconButton onClick={toggleTheme} >
-         <NightlightRoundIcon />
+        <NightlightRoundIcon />
       </IconButton>
-      <Notifications />
+      <S.NotificationIconButton count={unseenNotificationsCount} onClick={() => navigate('/notifications')}>
+        <NotificationsIcon />
+      </S.NotificationIconButton>
       <IconButton>
-         <HelpIcon />
+        <HelpIcon />
       </IconButton>
       <UserMenu />
     </S.Tools>

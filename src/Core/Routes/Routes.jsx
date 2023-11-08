@@ -2,30 +2,29 @@ import { Route, Routes } from 'react-router-dom';
 import ProtectedRoute from './ProtectedRoute';
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
-import { LoginSagaActions } from '../../Pages/Login/Store/Login.saga';
-import _ from 'lodash';
 import Loading from '../Components/Loading/Loading';
 import { FullSizeLoadingWrapper } from '../Components/Pages/FullSizeLoadingWrapper.style';
+import { AppConfigSagaActions } from '../Store/AppConfig.saga';
 
 // PAGES
 import Dashboard from '../../Pages/Dashboard/Dashboard';
 import Login from '../../Pages/Login/Login';
 import Register from '../../Pages/Register/Register';
 import UserProfile from '../../Pages/UserProfile/UserProfile';
+import Notifications from '../../Pages/Notifications/Notifications';
 
 const RouteList = () => {
   const token = localStorage.getItem('token');
   const dispatch = useDispatch();
-  const { user } = useSelector((state) => state.Login);
+  const { authorizedUser } = useSelector((state) => state.AppConfig.init);
 
   useEffect(() => {
-    if (_.isEmpty(user) && token) {
-      const user_id = localStorage.getItem('user_id');
-      dispatch(LoginSagaActions.getUser({ user_id }));
+    if (!authorizedUser?.id && token) {
+      dispatch(AppConfigSagaActions.getInit());
     }
-  }, [user, token]);
+  }, [authorizedUser?.id, token]);
 
-  if (!user?.id && token) {
+  if (!authorizedUser?.id && token) {
     return (
       <FullSizeLoadingWrapper>
         <Loading size={80} />
@@ -40,6 +39,7 @@ const RouteList = () => {
       <Route element={<ProtectedRoute isAllowed />}>
         <Route path="/" element={<Dashboard />} />
         <Route path="/profile/:user/:id" element={<UserProfile />} />
+        <Route path="/notifications" element={<Notifications />} />
       </Route>
       <Route path="*" element={<div> Page Not Found! </div>} />
     </Routes>

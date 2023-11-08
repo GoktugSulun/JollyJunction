@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import * as S from '../../Style/Dashboard.style';
-import UserURL from '../../../../assets/Pngs/goktug.jpeg';
 import TextInput from '../../../../Core/Inputs/TextInput';
 import useMaterialForm from '../../../../Core/Hooks/useMaterialForm';
 import { Divider } from '../../../../Components/Divider/Divider.style';
@@ -16,7 +15,7 @@ import { NotifierTypes } from '../../../../Core/Constants/Enums';
 import { DashboardSagaActions } from '../../Store/Dashboard.saga';
 import useHttpResponse from '../../../../Core/Hooks/useHttpResponse';
 import Loading from '../../../../Core/Components/Loading/Loading';
-import { UserImages, getUserImageURL } from '../../../../assets/Pngs/Pngs';
+import { getUserImageURL } from '../../../../assets/Pngs/Pngs';
 import UserProfile from '../../../../Components/UserProfile/UserProfile';
 
 const defaultValues = {
@@ -27,7 +26,7 @@ const CreatePost = () => {
   const dispatch = useDispatch();
   const [imageURL, setImageURL] = useState(null);
   const [files, setFiles] = useState([]);
-  const { user: authorizedUser } = useSelector(state => state.Login);
+  const { authorizedUser } = useSelector(state => state.AppConfig.init);
   const { loading } = useSelector(state => state.Dashboard);
   const { registerHandler, form } = useMaterialForm({ defaultValues });
 
@@ -38,11 +37,7 @@ const CreatePost = () => {
     }
     const payload = {
       description: form.getValues('value'),
-      user: { ...authorizedUser },
-      likes: [],
-      comments: [],
-      saves: [],
-      created_at: new Date().toString(),
+      user_id: authorizedUser.id,
       files: files.map((file) => file.name)
     };
     dispatch(DashboardSagaActions.createPost(payload));

@@ -1,7 +1,6 @@
 import styled from '@emotion/styled';
 import { Divider, IconButton, Menu } from '@mui/material';
 import { styled as muiStyled, alpha, css } from '@mui/material/styles';
-import { Button } from '../../../Core/Components/Buttons/Button.style';
 
 export const Header = styled.div`
    width: 100vw;
@@ -12,8 +11,11 @@ export const Header = styled.div`
    padding: 0 75px;
    transition: padding 350ms;
 
-   @media (max-width: 900px) {
+   @media (max-width: 1536px) {
       padding: 0 40px;
+   }
+   @media (max-width: 900px) {
+      padding: 0 20px;
    }
 `;
 
@@ -124,21 +126,6 @@ export const NotificationIconButton = styled(IconButton)`
    }
 `;
 
-export const NoticationsMenuWrapper = styled.div`
-   .MuiIconButton-root {
-      width: 40px;
-      height: 40px;
-   }
-   @media (max-width: 600px) {
-      .menu-button {
-         display: block;
-      }
-      .profile-button {
-         display: none;
-      }
-   }
-`;
-
 export const CustomDivider = styled(Divider)`
    margin: ${(props) => props.margin || '5px 0'};
    border-color: #444;
@@ -184,90 +171,3 @@ export const StyledMenu = muiStyled(Menu)(({ theme }) => ({
     },
   },
 }));
-
-export const NotificationItem = styled.div`
-   display: flex;
-   align-items: center;
-   gap: 15px;
-   ${(props) => !props.read && css`
-      ::before {
-         content: "";
-         transition: scale 350ms;
-         min-width: 10px;
-         height: 10px;
-         background-color: red;
-         border-radius: 50%;
-      }
-   `}
-   img {
-      width: 60px;
-      height: 60px;
-      border-radius: 50%;
-   }
-   .description {
-      font-size: 16px;
-      /* display: flex;
-      align-items: center;
-      gap: 5px; */
-      span {
-         white-space: normal;
-      }
-      &__sender-user {
-         font-weight: 600;
-         color: #c7c5c5;
-         text-decoration: none;
-         :hover {
-            text-decoration: underline;
-         }
-      }
-      &__date {
-         font-size: 14px;
-         color: #9f9d9d;
-      }
-   }
-   .buttons {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      button {
-         padding: 5px 10px;
-         font-size: 14px;
-      }
-   }
- `;
-
-export const ShowAllButton = styled(Button)`
-   width: 100%;
-   background-color: transparent;
-   padding: 10px 0;
-   border-radius: 0;
-   background-color: #444;
-   border-top: 1px solid #555;
-   box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
-   :hover {
-      background-color: #555;
-   }
-   .more-count {
-      font-size: 14px;
-      display: inline-block;
-      margin-left: 10px;
-      color: #9f9d9d;
-   }
- `;
-
-export const NotificationsContent = styled.div`
-   max-height: 400px;
-   overflow-y: auto;
-   overflow-x: hidden;
-   position: relative;
-   ::-webkit-scrollbar {
-      width: 5px;
-   }
-   ::-webkit-scrollbar-track {
-      background: inherit; 
-   }
-   ::-webkit-scrollbar-thumb {
-      background: #555; 
-      border-radius: 10px;
-   }
-`;
