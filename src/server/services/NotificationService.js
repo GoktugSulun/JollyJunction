@@ -17,7 +17,7 @@ class NotificationService {
   static async get(req) {
     try {
       const { notifications } = notificationsDB.data;
-      const { receiver_id, is_removed, seen, read } = req.query;
+      const { receiver_id, is_removed, seen, read, page, limit } = req.query;
       const condition = (data) => ({
         ...(is_removed !== undefined ? { is_removed: data.is_removed === JSON.parse(is_removed) } : {}),
         ...(seen !== undefined ? { seen: data.seen === JSON.parse(seen) } : {}),
@@ -25,9 +25,12 @@ class NotificationService {
         ...(receiver_id !== undefined ? { read: data.receiver_id === parseInt(receiver_id) } : {})
       });
       const data = notifications.filter((obj) => Object.values(condition(obj)).every(Boolean));
-      const sortedData = [...data].sort((a,b) => new Date(b.created_at).getTime() - new Date(a.created_at).getTime());
+      const sortedData = [...data].sort((a,b) => new Date(b.created_at).getTime() - new Date(a.created_at).getTime()); 
+      const startIndex = (page - 1) * limit;
+      const endIndex = page * limit; 
+      const dataSlice = sortedData.slice(startIndex, endIndex);
 
-      const result = await Promise.all(sortedData.map(async (obj) => {
+      const result = await Promise.all(dataSlice.map(async (obj) => {
         try {
           const receiver_user = await getUser(obj.receiver_id);
           const sender_user = await getUser(obj.sender_id);
@@ -54,7 +57,10 @@ class NotificationService {
       return {
         type: true,
         message: 'Fetched notifications',
-        data: result
+        data: {
+          notifications: result,
+          more: data.length > page * limit
+        }
       };
     } catch(error){
       return {

@@ -7,7 +7,10 @@ const NAME = 'Notifications';
 const initialState = {
   notifications: [],
   targetNotificationIds: [],
-  targetRemovedNotificationsIds: []
+  targetRemovedNotificationsIds: [],
+  page: 1,
+  limit: 10,
+  more: true
 };
 
 const NotificationSlice = createSlice({
@@ -15,7 +18,7 @@ const NotificationSlice = createSlice({
   initialState,
   reducers: {
     setNotifications: (state, action) => {
-      state.notifications = action.payload;
+      state.notifications = [...state.notifications, ...action.payload];
     },
     filterNotifications: (state, action) => {
       const { notification_ids } = action.payload;
@@ -41,6 +44,15 @@ const NotificationSlice = createSlice({
     },
     setTargetRemovedNotificationIds: (state, action) => {
       state.targetRemovedNotificationsIds = action.payload;
+    },
+    setPage: (state, action) => {
+      state.page = action.payload;
+    },
+    setMore: (state, action) => {
+      if (action.payload) {
+        state.page += 1;
+      }
+      state.more = action.payload;
     }
   },
   extraReducers: (builder) => requestStatusReducer(builder, NotificationSagaActions)

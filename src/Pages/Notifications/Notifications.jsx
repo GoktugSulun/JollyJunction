@@ -10,11 +10,19 @@ import Advertisement from '../Dashboard/Components/Advertisement';
 import FriendList from '../Dashboard/Components/FriendList';
 import * as SDash from '../../Pages/Dashboard/Style/Dashboard.style';
 import useHttpResponse from '../../Core/Hooks/useHttpResponse';
+import { Button } from '../../Core/Components/Buttons/Button.style';
 
 const Notifications = () => {
   const dispatch = useDispatch();
-  const { loading, notifications } = useSelector((state) => state.Notifications);
+  const { loading, notifications, page, limit, more } = useSelector((state) => state.Notifications);
   const { authorizedUser } = useSelector((state) => state.AppConfig.init);
+
+  const fetchNotifications = () => {
+    const payload = {
+      queries: `?page=${page}&limit=${limit}&receiver_id=${authorizedUser.id}&is_removed=${false}`
+    };
+    dispatch(NotificationSagaActions.getNotifications(payload));
+  };
 
   useHttpResponse({
     success: ({ idleAction }) => {
@@ -33,10 +41,7 @@ const Notifications = () => {
   }, NotificationSagaActions.getNotifications());
 
   useEffect(() => {
-    const payload = {
-      queries: `?receiver_id=${authorizedUser.id}&is_removed=false`
-    };
-    dispatch(NotificationSagaActions.getNotifications(payload));
+    fetchNotifications();
   }, []);
 
   return (
@@ -52,6 +57,7 @@ const Notifications = () => {
             </S.NotificationItem>
           ))
         }
+        { more && <Button style={{ marginTop: 20}} onClick={fetchNotifications}> Fetch More </Button> }
       </S.NotificationsContent>
       <SDash.SidebarWrapper>
         <Advertisement />

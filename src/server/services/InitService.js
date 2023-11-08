@@ -17,7 +17,7 @@ class InitService {
       
       const data = {
         authorizedUser: authorizedUser.data,
-        unseenNotificationsCount: unseenNotifications.data.length
+        unseenNotificationsCount: unseenNotifications.data.notifications.length
       };
 
       return {

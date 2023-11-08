@@ -2,13 +2,15 @@ import styled from '@emotion/styled';
 import { ContentWrapper } from '../../../Core/Components/Pages/ContentWrapper.style';
 import Menu from '@mui/material/Menu';
 
-export const Notifications = styled(ContentWrapper)``;
+export const Notifications = styled(ContentWrapper)`
+   min-height: calc(100vh - 150px);
+`;
 
 export const NotificationsContent = styled.div`
-   background-color: #181818;
    border-radius: 10px;
    display: flex;
    flex-direction: column;
+   height: max-content;
    ::-webkit-scrollbar {
       width: 5px;
    }
@@ -129,6 +131,7 @@ export const NotificationItem = styled.div`
    align-items: center;
    gap: 15px;
    padding: 15px 20px;
+   background-color: #181818;
    cursor: pointer;
    transition: background-color 150ms;
    :first-child {
