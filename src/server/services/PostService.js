@@ -17,12 +17,31 @@ const nextId = Math.max(...posts.map(post => post.id), 0) + 1;
 const canBeFriendHandler = (user_id) => {
   const isMe = authorizedUserId === user_id;
   const isFriend = !!friends.find((friendObj) => friendObj.user_id === authorizedUserId)?.friends?.find((friendId) => friendId === user_id);
+  if (isMe || isFriend) {
+    return false;
+  }
+
   const didSendRequestForFriendship = !!notifications.find((notificationObj) => 
-    notificationObj.creator_id === authorizedUserId 
+    notificationObj.sender_id === authorizedUserId 
       && notificationObj.receiver_id === user_id 
       && notificationObj.type === NotificationTypes.REQUEST_FOR_FRIENDSHIP
+      && !notificationObj.is_removed
   );
-  return !isMe && !isFriend && !didSendRequestForFriendship;
+  if (didSendRequestForFriendship) {
+    return { sender_id: authorizedUserId };
+  }
+
+  const didGetRequestForFriendship = !!notifications.find((notificationObj) => 
+    notificationObj.sender_id === user_id 
+      && notificationObj.receiver_id === authorizedUserId 
+      && notificationObj.type === NotificationTypes.REQUEST_FOR_FRIENDSHIP
+      && !notificationObj.is_removed
+  );
+  if (didGetRequestForFriendship) {
+    return { sender_id: user_id };
+  }
+
+  return true;
 };
 
 const getPostDetail = (data) => (
@@ -60,7 +79,7 @@ class PostService {
       if (!data) {
         return {
           type: false,
-          message: `Post with ${id} couldn't find`,
+          message: `Post with id ${id} couldn't find`,
           data: result
         };
       }
@@ -68,7 +87,7 @@ class PostService {
       const result = getPostDetail(data);
       return {
         type: true,
-        message: `Post with ${id} id has been fetched`,
+        message: `Post with id ${id} has been fetched`,
         data: result
       };
     } catch (error) {
@@ -138,7 +157,7 @@ class PostService {
       const currentState = [...likes];
       const likeResult = await LikeService.create(req, res);
 
-      const { like } = req.body;
+      const { like, post_id } = req.body;
       if (!like) {
         return {
           type: likeResult.type,
@@ -146,14 +165,26 @@ class PostService {
         };
       }
 
-      const notificationResult = await NotificationService.create({ body: { post_id: req.body.post_id, type: NotificationTypes.LIKED_POST } }, res);
-      if (!notificationResult.type) {
-        likesDB.data = { likes: currentState }; //* reset likes data
-        await likesDB.write();
+      const postResult = await PostService.getById({ params: { id: post_id }});
+      if (!postResult.type) {
         return {
           type: false,
-          message: notificationResult.message
+          message: postResult.message
         };
+      }
+      
+      const receiver_id = postResult.data.user.id;
+
+      if (receiver_id !== authorizedUserId) {
+        const notificationResult = await NotificationService.create({ body: { receiver_id, type: NotificationTypes.LIKED_POST } }, res);
+        if (!notificationResult.type) {
+          likesDB.data = { likes: currentState }; //* reset likes data
+          await likesDB.write();
+          return {
+            type: false,
+            message: notificationResult.message
+          };
+        }
       }
 
       return {

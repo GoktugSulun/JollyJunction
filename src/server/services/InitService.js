@@ -14,6 +14,8 @@ class InitService {
           message: "Couldn't fetch init datas"
         };
       }
+
+      console.log(unseenNotifications, ' unseenNotifications');
       
       const data = {
         authorizedUser: authorizedUser.data,

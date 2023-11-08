@@ -51,7 +51,7 @@ const Content = ({ data }) => {
             <span className="description__text"> {getNotificationMessage()} </span>
             <span className="description__date"> {moment(data.created_at).fromNow()} </span>
           </p>
-          { data.type === NotificationTypes.REQUEST_FOR_FRIENDSHIP && <Buttons /> }
+          { data.type === NotificationTypes.REQUEST_FOR_FRIENDSHIP && <Buttons data={data} /> }
         </div>
       </div>
     </S.Content>

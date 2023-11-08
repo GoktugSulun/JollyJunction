@@ -59,8 +59,9 @@ export default [
     actionType: DashboardSagaActions.addFriend.type,
     takeType: SagaTakeTypes.TAKE_LATEST,
     * func({ payload }) {
-      yield call(request, HttpMethodTypes.POST, `${ApiUrl.notifications}`, payload);
-      yield put(snackbar('Friendship request are sent successfully'));
+      const response = yield call(request, HttpMethodTypes.POST, `${ApiUrl.addFriend}`, payload);
+      yield put(DashboardActions.editFriendAttribute(payload));
+      yield put(snackbar(response.message));
     }
   })
 ];

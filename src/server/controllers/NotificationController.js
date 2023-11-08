@@ -38,6 +38,24 @@ class NotificationController {
       Helpers.responseMessage(res, ResponseEnums.FAILURE, error.message);
     }
   }
+
+  static async friendship(req, res) {
+    try {
+      const result = await NotificationService.friendship(req, res);
+      Helpers.responseJSON(res, result);
+    } catch (error) {
+      Helpers.responseMessage(res, ResponseEnums.FAILURE, error.message);
+    }
+  }
+
+  static async addFriend(req, res) {
+    try {
+      const result = await NotificationService.addFriend(req, res);
+      Helpers.responseJSON(res, result);
+    } catch (error) {
+      Helpers.responseMessage(res, ResponseEnums.FAILURE, error.message);
+    }
+  }
 }
   
 export default NotificationController;

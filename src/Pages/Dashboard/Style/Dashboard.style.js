@@ -337,3 +337,19 @@ export const Post = styled.div`
       }
    }
 `;
+
+export const RespondRequest = styled.div`
+   .text {
+      color: #c9c9c9;
+      font-size: 14px;
+   }
+   .buttons {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-top: 5px;
+      button {
+         flex: 1;
+      }
+   }
+`;

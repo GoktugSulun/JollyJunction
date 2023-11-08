@@ -11,6 +11,7 @@ import FriendList from '../Dashboard/Components/FriendList';
 import * as SDash from '../../Pages/Dashboard/Style/Dashboard.style';
 import useHttpResponse from '../../Core/Hooks/useHttpResponse';
 import { Button } from '../../Core/Components/Buttons/Button.style';
+import { NotificationActions } from './Store/Notifications.slice';
 
 const Notifications = () => {
   const dispatch = useDispatch();
@@ -42,6 +43,9 @@ const Notifications = () => {
 
   useEffect(() => {
     fetchNotifications();
+    return () => {
+      dispatch(NotificationActions.setReset());
+    };
   }, []);
 
   return (

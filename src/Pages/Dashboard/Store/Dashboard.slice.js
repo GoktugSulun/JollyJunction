@@ -40,6 +40,15 @@ const DashboardSlice = createSlice({
       const { data, post_id } = action.payload;
       state.posts = state.posts.map((obj) => obj.id === post_id ? { ...obj, comments: data } : obj);
     },
+    editFriendAttribute: (state, action) => {
+      const { receiver_id } = action.payload;
+      state.posts = state.posts.map((obj) => {
+        if (obj.user.id === receiver_id) {
+          return { ...obj, canBeFriend: false };
+        }
+        return obj;
+      });
+    },
     likePost: likePostHandler,
     savePost: savePostHandler
   },
