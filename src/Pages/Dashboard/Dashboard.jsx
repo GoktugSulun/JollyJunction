@@ -12,6 +12,8 @@ import useHttpResponse from '../../Core/Hooks/useHttpResponse';
 import Loading from '../../Core/Components/Loading/Loading';
 import PostModal from '../../Components/PostModal/PostModal';
 import { useMediaQuery } from '@mui/material';
+import { DashboardActions } from './Store/Dashboard.slice';
+import { AppConfigSagaActions } from '../../Core/Store/AppConfig.saga';
 
 const Dashboard = () => {
   const dispatch = useDispatch();
@@ -32,12 +34,22 @@ const Dashboard = () => {
     }
   }, DashboardSagaActions.createPost());
 
+  useHttpResponse({
+    success: ({ idleAction }) => {
+      idleAction();
+      const payload = {
+        query: `?is_removed=false&seen=false&receiver_id=${authorizedUser.id}`
+      };
+      dispatch(AppConfigSagaActions.getUnseenNotifications(payload));
+    }
+  }, DashboardSagaActions.acceptFriendship());
+
   useEffect(() => {
     fetchMorePost();
     // dispatch(NotificationSagaActions.getUnreadNotifications(authorizedUser.id));
-    // return () => {
-    //   dispatch(DashboardActions.setReset());
-    // };
+    return () => {
+      dispatch(DashboardActions.setReset());
+    };
   }, []);
 
   return (

@@ -20,7 +20,7 @@ const PostHeader = ({ data }) => {
     }
 
     if (data?.canBeFriend?.sender_id === data.user.id) {
-      return <RespondRequest />;
+      return <RespondRequest sender_id={data.user.id} />;
     }
 
     if (data?.canBeFriend) {
@@ -38,7 +38,7 @@ const PostHeader = ({ data }) => {
         src={getUserImageURL(data?.user?.img)}
       />
       {
-        (loading?.addFriend || notificationLoading?.cancelFriendshipRequest)
+        (loading?.addFriend || notificationLoading?.cancelFriendshipRequest || loading?.acceptFriendship)
           ? <div> <Loading color="#FFF" size={25} /> </div>
           : getComponent()
       }

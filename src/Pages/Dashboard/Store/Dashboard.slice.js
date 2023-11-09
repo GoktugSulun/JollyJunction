@@ -41,7 +41,6 @@ const DashboardSlice = createSlice({
       state.posts = state.posts.map((obj) => obj.id === post_id ? { ...obj, comments: data } : obj);
     },
     editFriendAttribute: (state, action) => {
-      console.log(action.payload, ' alo');
       const { receiver_id, canBeFriend } = action.payload;
       state.posts = state.posts.map((obj) => {
         if (obj.user.id === receiver_id) {

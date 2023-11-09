@@ -223,7 +223,7 @@ class NotificationService {
   static async friendship(req, res) {
     try {
       const { notifications } = notificationsDB.data;
-      const { type, notification_id } = req.body;
+      const { type, notification_id, seen=true } = req.body;
       
       const targetNotificationIndex = notifications.findIndex((obj) => obj.id === notification_id);
       if (targetNotificationIndex === -1) {
@@ -233,11 +233,20 @@ class NotificationService {
         };
       }
 
+      //* remove notification with id notification_id if it is accepted or rejected
+      const deletingResult = await this.delete({ body: { notification_ids: [notification_id] } });
+      if (!deletingResult.type) {
+        return {
+          type: false,
+          message: deletingResult.message
+        };
+      }
+
       //* accept friendship request
       if (type === FriendshipEnums.ACCEPT) {
         const receiver_id = notifications[targetNotificationIndex].sender_id;
         const resultForReceiverUser = await this.create({ body: { receiver_id, type: NotificationTypes.ACCEPTED_FRIENDSHIP_REQUEST } });
-        const resultForSenderUser = await this.create({ body: { receiver_id: authorizedUserId, sender_id: receiver_id, seen: true, type: NotificationTypes.YOU_ARE_FRIEND_NOW } });
+        const resultForSenderUser = await this.create({ body: { receiver_id: authorizedUserId, sender_id: receiver_id, seen, type: NotificationTypes.YOU_ARE_FRIEND_NOW } });
         if (!resultForReceiverUser.type || !resultForSenderUser.type) {
           return {
             type: false,
@@ -259,16 +268,8 @@ class NotificationService {
           data: newNotificationResult.data 
         };
       }
-
-      //* remove notification with id notification_id if it is accepted or rejected
-      const deletingResult = await this.delete({ body: { notification_ids: [notification_id] } });
-      if (!deletingResult.type) {
-        return {
-          type: false,
-          message: deletingResult.message
-        };
-      }
       
+      console.log(5);
       return {
         type: true,
         message: 'Friendship request is rejected'
@@ -327,6 +328,37 @@ class NotificationService {
       return {
         type: true,
         message: 'Friendship request has cancelled'
+      };
+    } catch (error) {
+      return {
+        type: false,
+        message: error.message
+      };
+    }
+  }
+
+  static async acceptFriendship(req, res) {
+    try {
+      const { sender_id } = req.body;
+      const targetNotification = await this.get({ query: { sender_id, receiver_id: authorizedUserId, type: NotificationTypes.REQUEST_FOR_FRIENDSHIP, is_removed: false } });
+      if (!targetNotification.type) {
+        return {
+          type: false,
+          message: targetNotification.message
+        };
+      }
+
+      const friendshipResult = await this.friendship({ body: { type: FriendshipEnums.ACCEPT, notification_id: targetNotification.data.notifications[0].id, seen: false } });
+      if (!friendshipResult.type) {
+        return {
+          type: false,
+          message: friendshipResult.message
+        };
+      }
+      
+      return {
+        type: true,
+        message: 'Friendship request is accepted'
       };
     } catch (error) {
       return {

@@ -2,12 +2,17 @@ import React from 'react';
 import { Button } from '../../../../../Core/Components/Buttons/Button.style';
 import { useDispatch } from 'react-redux';
 import * as S from '../../../Style/Dashboard.style';
+import PropTypes from 'prop-types';
+import { DashboardSagaActions } from '../../../Store/Dashboard.saga';
 
-const RespondRequest = () => {
+const RespondRequest = ({ sender_id }) => {
   const dispatch = useDispatch();
 
   const accept = () => {
-    console.log('accept');
+    const payload = {
+      sender_id
+    };
+    dispatch(DashboardSagaActions.acceptFriendship(payload));
   };
 
   const reject = () => {
@@ -39,3 +44,7 @@ const RespondRequest = () => {
 };
 
 export default RespondRequest;
+
+RespondRequest.propTypes = {
+  sender_id: PropTypes.number.isRequired
+};

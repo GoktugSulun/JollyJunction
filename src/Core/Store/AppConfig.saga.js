@@ -9,7 +9,8 @@ import { createAction } from '@reduxjs/toolkit';
 const mainSagaName = 'AppConfig/request';
 
 export const AppConfigSagaActions = {
-  getInit: createAction(`${mainSagaName}/getInit`)
+  getInit: createAction(`${mainSagaName}/getInit`),
+  getUnseenNotifications: createAction(`${mainSagaName}/getUnseenNotifications`)
 };
 
 export default [
@@ -19,6 +20,15 @@ export default [
     * func() {
       const response = yield call(request, HttpMethodTypes.GET, ApiUrl.getInit);
       yield put(AppConfigActions.setInit(response.data));
+    }
+  }),
+  createSagaWatcher({
+    actionType: AppConfigSagaActions.getUnseenNotifications.type,
+    takeType: SagaTakeTypes.TAKE_LATEST,
+    * func({ payload }) {
+      const { query } = payload;
+      const response = yield call(request, HttpMethodTypes.GET, `${ApiUrl.getNotifications}${query}`);
+      yield put(AppConfigActions.setUnseenNotificationsCount(response.data.notifications.length));
     }
   })
 ];

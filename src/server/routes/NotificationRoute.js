@@ -9,6 +9,7 @@ server.post('/addFriend', NotificationController.addFriend);
 server.put('/seen', NotificationController.seen);
 server.put('/read', NotificationController.read);
 server.put('/cancel', NotificationController.cancel);
+server.put('/acceptFriendship', NotificationController.acceptFriendship);
 server.delete('/delete', NotificationController.delete);
 
 export default server;
