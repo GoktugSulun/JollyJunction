@@ -46,7 +46,8 @@ const Dashboard = () => {
 
   useEffect(() => {
     fetchMorePost();
-    // dispatch(NotificationSagaActions.getUnreadNotifications(authorizedUser.id));
+    const payload = { query: `?user_id=${authorizedUser.id}` };
+    dispatch(DashboardSagaActions.getFriends(payload));
     return () => {
       dispatch(DashboardActions.setReset());
     };

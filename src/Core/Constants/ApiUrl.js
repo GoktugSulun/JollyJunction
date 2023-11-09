@@ -31,6 +31,10 @@ export const ApiUrl = Object.freeze({
   cancelFriendshipRequest: '/Notification/cancel',
   acceptFriendship: '/Notification/acceptFriendship',
 
+  //* Friend
+  getFriends: '/Friend/get',
+  deleteFriend: '/Friend/delete',
+
   //* Comment
 
 });

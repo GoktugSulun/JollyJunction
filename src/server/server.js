@@ -3,8 +3,9 @@ import PostRoute from './routes/PostRoute.js';
 import UserRoute from './routes/UserRoute.js';
 import InitRoute from './routes/InitRoute.js';
 import NotificationRoute from './routes/NotificationRoute.js';
+import FriendRoute from './routes/FriendRoute.js';
 
-export const authorizedUserId = 1;
+export const authorizedUserId = 2;
 export const server = jsonServer.create();
 const middlewares = jsonServer.defaults();
 
@@ -22,6 +23,7 @@ server.use('/Post', PostRoute);
 server.use('/User', UserRoute);
 server.use('/Init', InitRoute);
 server.use('/Notification', NotificationRoute);
+server.use('/Friend', FriendRoute);
 
 server.use((req, res, next) => {
   next();

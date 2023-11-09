@@ -18,7 +18,7 @@
       "sender_id": 1,
       "created_at": "Thu Nov 09 2023 23:32:26 GMT+0300 (GMT+03:00)",
       "updated_at": "Thu Nov 09 2023 23:32:26 GMT+0300 (GMT+03:00)",
-      "seen": false,
+      "seen": true,
       "read": false,
       "is_removed": false
     },
@@ -29,6 +29,61 @@
       "sender_id": 2,
       "created_at": "Thu Nov 09 2023 23:32:26 GMT+0300 (GMT+03:00)",
       "updated_at": "Thu Nov 09 2023 23:32:26 GMT+0300 (GMT+03:00)",
+      "seen": true,
+      "read": false,
+      "is_removed": false
+    },
+    {
+      "id": 4,
+      "type": 2,
+      "receiver_id": 2,
+      "sender_id": 1,
+      "created_at": "Fri Nov 10 2023 00:17:28 GMT+0300 (GMT+03:00)",
+      "updated_at": "Fri Nov 10 2023 00:17:28 GMT+0300 (GMT+03:00)",
+      "seen": true,
+      "read": false,
+      "is_removed": false
+    },
+    {
+      "id": 5,
+      "type": 1,
+      "receiver_id": 2,
+      "sender_id": 1,
+      "created_at": "Fri Nov 10 2023 00:19:07 GMT+0300 (GMT+03:00)",
+      "updated_at": "Fri Nov 10 2023 00:19:12 GMT+0300 (GMT+03:00)",
+      "seen": false,
+      "read": false,
+      "is_removed": true
+    },
+    {
+      "id": 6,
+      "type": 1,
+      "receiver_id": 2,
+      "sender_id": 1,
+      "created_at": "Fri Nov 10 2023 00:19:14 GMT+0300 (GMT+03:00)",
+      "updated_at": "Fri Nov 10 2023 00:19:30 GMT+0300 (GMT+03:00)",
+      "seen": true,
+      "read": false,
+      "is_removed": true
+    },
+    {
+      "id": 7,
+      "type": 5,
+      "receiver_id": 1,
+      "sender_id": 2,
+      "created_at": "Fri Nov 10 2023 00:19:30 GMT+0300 (GMT+03:00)",
+      "updated_at": "Fri Nov 10 2023 00:19:30 GMT+0300 (GMT+03:00)",
+      "seen": false,
+      "read": false,
+      "is_removed": false
+    },
+    {
+      "id": 8,
+      "type": 4,
+      "receiver_id": 2,
+      "sender_id": 1,
+      "created_at": "Fri Nov 10 2023 00:19:30 GMT+0300 (GMT+03:00)",
+      "updated_at": "Fri Nov 10 2023 00:19:30 GMT+0300 (GMT+03:00)",
       "seen": true,
       "read": false,
       "is_removed": false

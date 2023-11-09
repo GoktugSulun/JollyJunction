@@ -3,21 +3,29 @@ import * as S from '../Style/Dashboard.style';
 import UserProfile from '../../../Components/UserProfile/UserProfile';
 import { IconButton, Tooltip } from '@mui/material';
 import PersonRemoveIcon from '@mui/icons-material/PersonRemove';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { DashboardSagaActions } from '../Store/Dashboard.saga';
+import { getUserImageURL } from '../../../assets/Pngs/Pngs';
 
 const FriendList = () => {
+  const dispatch = useDispatch();
+  const { friends } = useSelector((state) => state.Dashboard);
   const { authorizedUser } = useSelector((state) => state.AppConfig.init);
 
-  const removeFriend = () => {
-
+  const removeFriend = (friend_id) => {
+    const payload = {
+      user_id: authorizedUser.id,
+      friend_id
+    };
+    dispatch(DashboardSagaActions.deleteFriend(payload));
   };
 
   return (
     <S.FriendList>
       <div className="title"> Friend List </div>
       {
-        authorizedUser?.friends?.length
-          ? authorizedUser?.friends?.map((obj) => (
+        friends.length
+          ? friends.map((obj) => (
             <div 
               key={obj.id} 
               className="friend"
@@ -27,9 +35,10 @@ const FriendList = () => {
                 position={obj?.position || ''}
                 fontSize="25px"
                 small
+                src={getUserImageURL(obj.img)}
               />
               <Tooltip title="Remove Friend" placement="top" >
-                <IconButton onClick={removeFriend}>
+                <IconButton onClick={() => removeFriend(obj.id)}>
                   <PersonRemoveIcon />
                 </IconButton>
               </Tooltip>

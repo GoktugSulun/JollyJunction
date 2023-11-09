@@ -9,7 +9,8 @@ const initialState = {
   posts: [],
   page: 1,
   limit: 10,
-  canBeMorePost: true
+  canBeMorePost: true,
+  friends: []
 };
 
 const DashboardSlice = createSlice({
@@ -48,6 +49,13 @@ const DashboardSlice = createSlice({
         }
         return obj;
       });
+    },
+    setFriends: (state, action) => {
+      state.friends = action.payload;
+    },
+    filterFriends: (state, action) => {
+      const { friend_id } = action.payload;
+      state.friends = state.friends.filter((obj) => obj.id !== friend_id);
     },
     likePost: likePostHandler,
     savePost: savePostHandler

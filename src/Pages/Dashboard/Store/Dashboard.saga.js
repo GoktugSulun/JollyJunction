@@ -6,7 +6,6 @@ import createSagaWatcher from '../../../Core/Helper/createSagaWatcher';
 import { DashboardActions } from './Dashboard.slice';
 import { ApiUrl } from '../../../Core/Constants/ApiUrl';
 import { snackbar } from '../../../Core/Utils/Snackbar';
-import { AppConfigSagaActions } from '../../../Core/Store/AppConfig.saga';
 
 const mainSagaName = 'Dashboard/request';
 
@@ -18,6 +17,8 @@ export const DashboardSagaActions = {
   addFriend: createAction(`${mainSagaName}/addFriend`),
   removeFriend: createAction(`${mainSagaName}/removeFriend`),
   acceptFriendship: createAction(`${mainSagaName}/acceptFriendship`),
+  getFriends: createAction(`${mainSagaName}/getFriends`),
+  deleteFriend: createAction(`${mainSagaName}/deleteFriend`),
 };
 
 export default [
@@ -74,6 +75,26 @@ export default [
       const response = yield call(request, HttpMethodTypes.PUT, `${ApiUrl.acceptFriendship}`, payload);
       yield put(DashboardActions.editFriendAttribute({ receiver_id: payload.sender_id, canBeFriend: false }));
       yield put(snackbar(response.message));
+    }
+  }),
+  createSagaWatcher({
+    actionType: DashboardSagaActions.getFriends.type,
+    takeType: SagaTakeTypes.TAKE_LATEST,
+    * func({ payload }) {
+      const { query } = payload;
+      const response = yield call(request, HttpMethodTypes.GET, `${ApiUrl.getFriends}${query}`);
+      yield put(DashboardActions.setFriends(response.data));
+    }
+  }),
+  createSagaWatcher({
+    actionType: DashboardSagaActions.deleteFriend.type,
+    takeType: SagaTakeTypes.TAKE_LATEST,
+    * func({ payload }) {
+      const { user_id, friend_id } = payload;
+      const response = yield call(request, HttpMethodTypes.DELETE, `${ApiUrl.deleteFriend}?user_id=${user_id}&friend_id=${friend_id}`);
+      yield put(snackbar(response.message));
+      yield put(DashboardActions.filterFriends(payload));
+      yield put(DashboardActions.editFriendAttribute({ receiver_id: friend_id, canBeFriend: true }));
     }
   })
 ];
