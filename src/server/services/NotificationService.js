@@ -16,12 +16,14 @@ class NotificationService {
   static async get(req) {
     try {
       const { notifications } = notificationsDB.data;
-      const { receiver_id, is_removed, seen, read, page, limit } = req.query;
+      const { sender_id, receiver_id, type, is_removed, seen, read, page, limit } = req.query;
       const condition = (data) => ({
         ...(is_removed !== undefined ? { is_removed: data.is_removed === JSON.parse(is_removed) } : {}),
         ...(seen !== undefined ? { seen: data.seen === JSON.parse(seen) } : {}),
         ...(read !== undefined ? { read: data.read === JSON.parse(read) } : {}),
-        ...(receiver_id !== undefined ? { read: data.receiver_id === parseInt(receiver_id) } : {})
+        ...(receiver_id !== undefined ? { receiver_id: data.receiver_id === parseInt(receiver_id) } : {}),
+        ...(sender_id !== undefined ? { sender_id: data.sender_id === parseInt(sender_id) } : {}),
+        ...(type !== undefined ? { type: data.type === parseInt(type) } : {})
       });
       const data = notifications.filter((obj) => Object.values(condition(obj)).every(Boolean));
       const sortedData = [...data];
@@ -74,7 +76,6 @@ class NotificationService {
     try {
       const { notifications } = notificationsDB.data;
       const { id } = req.params;
-      console.log(id, ' get by id si');
       const data = notifications.find((obj) => obj.id === id);
 
       if (!data) {
@@ -294,6 +295,38 @@ class NotificationService {
       return {
         type: true,
         message: 'Friendship request has send'
+      };
+    } catch (error) {
+      return {
+        type: false,
+        message: error.message
+      };
+    }
+  }
+
+  static async cancel(req, res) {
+    try {
+      const { receiver_id, type } = req.body;
+      const targetNotification = await this.get({ query: { receiver_id, sender_id: authorizedUserId, type, is_removed: false } });
+
+      if (!targetNotification.type) {
+        return {
+          type: false,
+          message: "Couldn't find notification in cancel service"
+        };
+      }
+
+      const deletingResult = await this.delete({ body: { notification_ids: [targetNotification.data.notifications[0].id] } });
+      if (!deletingResult.type) {
+        return {
+          type: false,
+          message: deletingResult.message
+        };
+      }
+
+      return {
+        type: true,
+        message: 'Friendship request has cancelled'
       };
     } catch (error) {
       return {

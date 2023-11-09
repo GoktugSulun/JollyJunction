@@ -8,6 +8,7 @@ import { NotificationActions } from './Notifications.slice';
 import { snackbar } from '../../../Core/Utils/Snackbar';
 import { AppConfigActions } from '../../../Core/Store/AppConfig.slice';
 import FriendshipEnums from '../../../server/constants/Enums/FriendshipEnums';
+import { DashboardActions } from '../../Dashboard/Store/Dashboard.slice';
 
 const mainSagaName = 'Notifications/request';
 
@@ -17,6 +18,7 @@ export const NotificationSagaActions = {
   markNotificationsRead: createAction(`${mainSagaName}/markNotificationsRead`),
   deleteNotifications: createAction(`${mainSagaName}/deleteNotifications`),
   friendship: createAction(`${mainSagaName}/friendship`),
+  cancelFriendshipRequest: createAction(`${mainSagaName}/cancelFriendshipRequest`),
 };
 
 export default [
@@ -69,6 +71,16 @@ export default [
       if (payload.type === FriendshipEnums.ACCEPT) {
         yield put(NotificationActions.setNotification(response.data));
       }
+    }
+  }),
+  createSagaWatcher({
+    actionType: NotificationSagaActions.cancelFriendshipRequest.type,
+    takeType: SagaTakeTypes.TAKE_LATEST,
+    * func({ payload }) {
+      const { receiver_id } = payload;
+      const response = yield call(request, HttpMethodTypes.PUT, `${ApiUrl.cancelFriendshipRequest}`, payload);
+      yield put(snackbar(response.message));
+      yield put(DashboardActions.editFriendAttribute({ receiver_id, canBeFriend: true }));
     }
   })
 ];

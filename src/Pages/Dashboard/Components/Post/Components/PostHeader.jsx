@@ -11,11 +11,12 @@ import Cancel from './Cancel';
 const PostHeader = ({ data }) => {
   const { authorizedUser } = useSelector((state) => state.AppConfig.init);
   const { loading } = useSelector((state) => state.Dashboard);
+  const { loading: notificationLoading } = useSelector((state) => state.Notifications);
 
 
   const getComponent = () => {
     if (data?.canBeFriend?.sender_id === authorizedUser.id) {
-      return <Cancel />;
+      return <Cancel receiver_id={data.user.id} />;
     }
 
     if (data?.canBeFriend?.sender_id === data.user.id) {
@@ -23,7 +24,7 @@ const PostHeader = ({ data }) => {
     }
 
     if (data?.canBeFriend) {
-      return <AddFriend />;
+      return <AddFriend id={data.user.id} />;
     }
 
     return null;
@@ -37,7 +38,7 @@ const PostHeader = ({ data }) => {
         src={getUserImageURL(data?.user?.img)}
       />
       {
-        loading?.addFriend
+        (loading?.addFriend || notificationLoading?.cancelFriendshipRequest)
           ? <div> <Loading color="#FFF" size={25} /> </div>
           : getComponent()
       }

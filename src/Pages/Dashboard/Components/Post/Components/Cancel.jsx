@@ -1,12 +1,19 @@
 import React from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Button } from '../../../../../Core/Components/Buttons/Button.style';
+import PropTypes from 'prop-types';
+import { NotificationTypes } from '../../../../../Core/Constants/Enums';
+import { NotificationSagaActions } from '../../../../Notifications/Store/Notifications.saga';
 
-const Cancel = () => {
+const Cancel = ({ receiver_id }) => {
   const dispatch = useDispatch();
 
   const cancel = () => {
-    console.log('cancel friendship request');
+    const payload = {
+      receiver_id,
+      type: NotificationTypes.REQUEST_FOR_FRIENDSHIP,
+    };
+    dispatch(NotificationSagaActions.cancelFriendshipRequest(payload));
   };
 
   return (
@@ -21,3 +28,7 @@ const Cancel = () => {
 };
 
 export default Cancel;
+
+Cancel.propTypes = {
+  receiver_id: PropTypes.number.isRequired
+};
