@@ -2,6 +2,7 @@ import NotificationTypes from '../../Core/Constants/Enums/NotificationTypes.js';
 import FriendshipEnums from '../constants/Enums/FriendshipEnums.js';
 import {  notificationsDB } from '../db/index.js';
 import { authorizedUserId } from '../server.js';
+import FriendService from './FriendService.js';
 import UserService from './UserService.js';
 
 const getUser = async (id) => {
@@ -254,6 +255,17 @@ class NotificationService {
           };
         }
 
+        const friendResults = await Promise.all([
+          FriendService.create({ body: { user_id: receiver_id, friend_id: authorizedUserId } }), 
+          FriendService.create({ body: { user_id: authorizedUserId, friend_id: receiver_id  } })
+        ]);
+        if (friendResults.some((i) => !i)) {
+          return {
+            type: false,
+            message: friendResults.message,
+          };
+        }
+
         const newNotificationResult = await this.getById({ params: { id: resultForSenderUser.data.id }});
         if (!newNotificationResult.type) {
           return {
@@ -261,7 +273,7 @@ class NotificationService {
             message: newNotificationResult.message,
           };
         }
-        
+
         return {
           type: true,
           message: 'Friendship request is accepted',
@@ -269,7 +281,6 @@ class NotificationService {
         };
       }
       
-      console.log(5);
       return {
         type: true,
         message: 'Friendship request is rejected'
