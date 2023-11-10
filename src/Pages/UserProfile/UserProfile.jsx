@@ -9,7 +9,6 @@ import { useParams } from 'react-router-dom';
 import { UserProfileSagaActions } from './Store/UserProfile.saga';
 import { Button } from '../../Core/Components/Buttons/Button.style';
 import { UserProfileActions } from './Store/UserProfile.slice';
-import { DashboardSagaActions } from '../Dashboard/Store/Dashboard.saga';
 import PostModal from '../../Components/PostModal/PostModal';
 import { ProfileWrapper } from '../Dashboard/Style/Dashboard.style';
 
@@ -35,7 +34,7 @@ const UserProfile = () => {
   useEffect(() => {
     dispatch(UserProfileSagaActions.getPosts({ page, limit, user_id: Number(params.id) }));
     if (Number(params.id) !== authorizedUser?.id) {
-      dispatch(UserProfileSagaActions.getSpecificUser({ user_id: Number(params.id) }));
+      dispatch(UserProfileSagaActions.getUserById({ user_id: Number(params.id) }));
     }
   }, [params.id, authorizedUser]);
 

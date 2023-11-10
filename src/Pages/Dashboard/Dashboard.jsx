@@ -37,10 +37,8 @@ const Dashboard = () => {
   useHttpResponse({
     success: ({ idleAction }) => {
       idleAction();
-      const payload = {
-        query: `?is_removed=false&seen=false&receiver_id=${authorizedUser.id}`
-      };
-      dispatch(AppConfigSagaActions.getUnseenNotifications(payload));
+      dispatch(AppConfigSagaActions.getUnseenNotifications({ query: `?is_removed=false&seen=false&receiver_id=${authorizedUser.id}`}));
+      dispatch(DashboardSagaActions.getFriends({ query: `?user_id=${authorizedUser.id}` }));
     }
   }, DashboardSagaActions.acceptFriendship());
 

@@ -7,6 +7,10 @@ export const ProfileWrapper = styled.div`
    display: flex;
    flex-direction: column;
    gap: 25px;
+
+   @media (max-width: 900px) {
+      margin-bottom: 25px;
+   }
 `;
 
 export const PostWrapper = styled.div`
@@ -145,9 +149,6 @@ export const Profile = styled.div`
             color: #7a7a7a;
          }
       }
-   }
-   @media (max-width: 900px) {
-      display: none;
    }
 `;
 

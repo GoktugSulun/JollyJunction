@@ -11,10 +11,10 @@ const { saves } = savesDB.data;
 const { comments } = commentsDB.data;
 const { users } = usersDB.data;
 const { friends } = friendsDB.data;
-const { notifications } = notificationsDB.data;
 const nextId = Math.max(...posts.map(post => post.id), 0) + 1;
 
 const canBeFriendHandler = (user_id) => {
+  const { notifications } = notificationsDB.data;
   const isMe = authorizedUserId === user_id;
   const isFriend = !!friends.find((friendObj) => friendObj.user_id === authorizedUserId)?.friends?.find((friendId) => friendId === user_id);
   if (isMe || isFriend) {
@@ -102,10 +102,11 @@ class PostService {
   */
   static async get(req, res) {
     try {
-      const { page, limit } = req.query;
+      const { page, limit, user_id } = req.query;
       const startIndex = (page - 1) * limit;
       const endIndex = page * limit; 
-      const sortedData = [...posts].sort((a,b) => new Date(b.created_at).getTime() - new Date(a.created_at).getTime());
+      const filteredData = user_id ? posts.filter((obj) => obj.user_id === parseInt(user_id)) : [...posts];
+      const sortedData = [...filteredData].sort((a,b) => new Date(b.created_at).getTime() - new Date(a.created_at).getTime());
       const data = sortedData.slice(startIndex, endIndex);
       const result = data.map((obj) => ( getPostDetail(obj) ));
       return {
