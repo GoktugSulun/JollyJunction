@@ -23,7 +23,7 @@ export default [
     takeType: SagaTakeTypes.TAKE_LATEST,
     * func({ payload }) {
       const { post_id } = payload;
-      const response = yield call(request, HttpMethodTypes.GET, `${ApiUrl.posts}/${post_id}`);
+      const response = yield call(request, HttpMethodTypes.GET, `${ApiUrl.getPostById}/${post_id}`);
       yield put(PostModalActions.setPostData(response?.data || {}));
     }
   }), 
