@@ -9,20 +9,10 @@ import { UserProfileActions } from './UserProfile.slice';
 const mainSagaName = 'UserProfile/request';
 
 export const UserProfileSagaActions = {
-  getPosts: createAction(`${mainSagaName}/getPosts`),
   getUserById: createAction(`${mainSagaName}/getUserById`),
 };
 
 export default [
-  createSagaWatcher({
-    actionType: UserProfileSagaActions.getPosts.type,
-    takeType: SagaTakeTypes.TAKE_LATEST,
-    * func({ payload }) {
-      const { page, limit, user_id } = payload;
-      const response = yield call(request, HttpMethodTypes.GET, `${ApiUrl.getPosts}?page=${page}&limit=${limit}&user_id=${user_id}`);
-      yield put(UserProfileActions.setPosts(response?.data || []));
-    }
-  }),
   createSagaWatcher({
     actionType: UserProfileSagaActions.getUserById.type,
     takeType: SagaTakeTypes.TAKE_LATEST,

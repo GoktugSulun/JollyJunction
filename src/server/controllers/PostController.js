@@ -1,10 +1,6 @@
 import ResponseEnums from '../constants/Enums/ResponseEnums.js';
-import { likesDB } from '../db/index.js';
 import Helpers from '../helpers/Helpers.js';
-import NotificationService from '../services/NotificationService.js';
 import PostService from '../services/PostService.js';
-
-const { likes } = likesDB.data;
 
 class PostController {
   static async getAll(req, res) {

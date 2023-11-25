@@ -17,7 +17,7 @@ export const handleError = (error) => {
     throw new ResponseError(error);
   }
   
-  // console.log(error , ' err');
+  console.error(error);
 
   throw Error(error);
 };

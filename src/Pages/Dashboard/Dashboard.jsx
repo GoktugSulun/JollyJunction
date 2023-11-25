@@ -1,8 +1,5 @@
 import React, { useEffect } from 'react';
 import * as S from './Style/Dashboard.style';
-import Profile from './Components/Profile';
-import Advertisement from './Components/Advertisement';
-import FriendList from './Components/FriendList';
 import CreatePost from './Components/Post/CreatePost';
 import Post from './Components/Post/Post';
 import { useDispatch, useSelector } from 'react-redux';
@@ -11,15 +8,13 @@ import { Button } from '../../Core/Components/Buttons/Button.style';
 import useHttpResponse from '../../Core/Hooks/useHttpResponse';
 import Loading from '../../Core/Components/Loading/Loading';
 import PostModal from '../../Components/PostModal/PostModal';
-import { useMediaQuery } from '@mui/material';
 import { DashboardActions } from './Store/Dashboard.slice';
 import { AppConfigSagaActions } from '../../Core/Store/AppConfig.saga';
 
 const Dashboard = () => {
   const dispatch = useDispatch();
-  const { posts, page, limit, canBeMorePost, loading, reseted } = useSelector(state => state.Dashboard);
+  const { posts, page, limit, canBeMorePost, loading } = useSelector(state => state.Dashboard);
   const { authorizedUser } = useSelector(state => state.AppConfig.init);
-  const min1200px = useMediaQuery('(min-width: 1200px)');
   
   // TODO: 'More Post' button and the snackbar message are gonna be removed. Instead of this, I am gonna do scroll & fetch combination. 
   const fetchMorePost = () => {
@@ -43,18 +38,9 @@ const Dashboard = () => {
   }, DashboardSagaActions.acceptFriendship());
 
   useEffect(() => {
-    if (reseted) {
-      dispatch(DashboardActions.setReseted());
-      fetchMorePost();
-      const payload = { query: `?user_id=${authorizedUser.id}` };
-      dispatch(DashboardSagaActions.getFriends(payload));
-    }
-  }, [reseted]);
-
-  useEffect(() => {
-    if (!reseted) {
-      dispatch(DashboardActions.setReset());
-    }
+    dispatch(DashboardSagaActions.getPosts({ page: 1, limit: 10 }));
+    const payload = { query: `?user_id=${authorizedUser.id}` };
+    dispatch(DashboardSagaActions.getFriends(payload));
     return () => {
       dispatch(DashboardActions.setReset());
     };
@@ -65,9 +51,9 @@ const Dashboard = () => {
       <CreatePost />
       {
         loading?.createPost &&
-            (<div className="loading-container">
-              <Loading size={50} />
-            </div>)
+          (<div className="loading-container">
+            <Loading size={50} />
+          </div>)
       }
       {
         posts.map((obj) => (
@@ -79,15 +65,15 @@ const Dashboard = () => {
       }
       {
         loading?.getPosts &&
-            (<div className="loading-container">
-              <Loading size={50} />
-            </div>)
+          (<div className="loading-container">
+            <Loading size={50} />
+          </div>)
       }
       {
         !!posts.length && canBeMorePost
-            && (<div className="more-button-container">
-              <Button onClick={fetchMorePost}> More Post </Button>
-            </div>)
+          && (<div className="more-button-container">
+            <Button onClick={fetchMorePost}> More Post </Button>
+          </div>)
       }
     </S.PostWrapper>
   );
