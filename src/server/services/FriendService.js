@@ -27,7 +27,7 @@ class FriendService {
 
       return {
         type: true,
-        message: 'Friend is created',
+        message: 'Fetch friend',
         data: results
       };
     } catch(error){

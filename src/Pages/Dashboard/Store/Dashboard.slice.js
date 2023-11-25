@@ -10,7 +10,8 @@ const initialState = {
   page: 1,
   limit: 10,
   canBeMorePost: true,
-  friends: []
+  friends: [],
+  reseted: true
 };
 
 const DashboardSlice = createSlice({
@@ -18,6 +19,9 @@ const DashboardSlice = createSlice({
   initialState,
   reducers: {
     setReset: () => initialState,
+    setReseted: (state) => {
+      state.reseted = false;
+    },
     setPosts: (state, action) => {
       state.posts = [...state.posts, ...action.payload];
       if ((state.posts.length + action.payload.length) >= state.limit * state.page) {

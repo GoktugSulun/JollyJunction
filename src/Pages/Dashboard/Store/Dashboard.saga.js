@@ -26,8 +26,9 @@ export default [
     actionType: DashboardSagaActions.getPosts.type,
     takeType: SagaTakeTypes.TAKE_LATEST,
     * func({ payload }) {
-      const { page, limit } = payload;
-      const response = yield call(request, HttpMethodTypes.GET, `${ApiUrl.getPosts}?page=${page}&limit=${limit}`);
+      const { page, limit, user_id } = payload;
+      const query = `?page=${page}&limit=${limit}${user_id ? `&user_id=${user_id}` : ''}`;
+      const response = yield call(request, HttpMethodTypes.GET, `${ApiUrl.getPosts}${query}`);
       yield put(DashboardActions.setPosts(response?.data || []));
     }
   }),

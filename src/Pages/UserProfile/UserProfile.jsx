@@ -11,17 +11,20 @@ import { Button } from '../../Core/Components/Buttons/Button.style';
 import { UserProfileActions } from './Store/UserProfile.slice';
 import PostModal from '../../Components/PostModal/PostModal';
 import { ProfileWrapper } from '../Dashboard/Style/Dashboard.style';
+import { DashboardActions } from '../Dashboard/Store/Dashboard.slice';
+import { DashboardSagaActions } from '../Dashboard/Store/Dashboard.saga';
 
 const UserProfile = () => {
   const dispatch = useDispatch();
   const params = useParams();
   const { authorizedUser } = useSelector((state) => state.AppConfig.init);
-  const { posts, loading, page, limit, canBeMorePost, user } = useSelector((state) => state.UserProfile);
+  // const { posts, loading, page, limit, canBeMorePost, user } = useSelector((state) => state.UserProfile);
+  const { posts, loading, page, limit, canBeMorePost, reseted } = useSelector((state) => state.Dashboard);
 
   // TODO: 'More Post' button and the snackbar message are gonna be removed. Instead of this, I am gonna do scroll & fetch combination. 
   const fetchMorePost = () => {
     if (canBeMorePost) {
-      dispatch(UserProfileSagaActions.getPosts({ page, limit, user_id: params.id }));
+      dispatch(DashboardSagaActions.getPosts({ page, limit, user_id: params.id }));
     }
   };
 
@@ -32,13 +35,19 @@ const UserProfile = () => {
   };
 
   useEffect(() => {
-    dispatch(UserProfileSagaActions.getPosts({ page, limit, user_id: Number(params.id) }));
-    if (Number(params.id) !== authorizedUser?.id) {
-      dispatch(UserProfileSagaActions.getUserById({ user_id: Number(params.id) }));
+    if (reseted) {
+      dispatch(DashboardActions.setReseted());
+      dispatch(DashboardSagaActions.getPosts({ page, limit, user_id: Number(params.id) }));
+      if (Number(params.id) !== authorizedUser?.id) {
+        dispatch(UserProfileSagaActions.getUserById({ user_id: Number(params.id) }));
+      }
     }
-  }, [params.id, authorizedUser]);
+  }, [params.id, authorizedUser, reseted]);
 
   useEffect(() => {
+    if (!reseted) {
+      dispatch(DashboardActions.setReset());
+    }
     return () => {
       dispatch(UserProfileActions.setReset());
     };

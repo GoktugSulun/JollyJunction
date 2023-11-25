@@ -94,7 +94,51 @@
       "receiver_id": 2,
       "sender_id": 1,
       "created_at": "Fri Nov 10 2023 21:42:08 GMT+0300 (GMT+03:00)",
-      "updated_at": "Fri Nov 10 2023 21:42:08 GMT+0300 (GMT+03:00)",
+      "updated_at": "Sat Nov 25 2023 12:43:47 GMT+0300 (GMT+03:00)",
+      "seen": false,
+      "read": false,
+      "is_removed": true
+    },
+    {
+      "id": 10,
+      "type": 2,
+      "receiver_id": 2,
+      "sender_id": 1,
+      "created_at": "Sat Nov 25 2023 11:51:17 GMT+0300 (GMT+03:00)",
+      "updated_at": "Sat Nov 25 2023 11:51:17 GMT+0300 (GMT+03:00)",
+      "seen": false,
+      "read": false,
+      "is_removed": false
+    },
+    {
+      "id": 11,
+      "type": 2,
+      "receiver_id": 2,
+      "sender_id": 1,
+      "created_at": "Sat Nov 25 2023 12:28:31 GMT+0300 (GMT+03:00)",
+      "updated_at": "Sat Nov 25 2023 12:28:31 GMT+0300 (GMT+03:00)",
+      "seen": false,
+      "read": false,
+      "is_removed": false
+    },
+    {
+      "id": 12,
+      "type": 2,
+      "receiver_id": 2,
+      "sender_id": 1,
+      "created_at": "Sat Nov 25 2023 12:42:17 GMT+0300 (GMT+03:00)",
+      "updated_at": "Sat Nov 25 2023 12:42:17 GMT+0300 (GMT+03:00)",
+      "seen": false,
+      "read": false,
+      "is_removed": false
+    },
+    {
+      "id": 13,
+      "type": 1,
+      "receiver_id": 2,
+      "sender_id": 1,
+      "created_at": "Sat Nov 25 2023 12:43:50 GMT+0300 (GMT+03:00)",
+      "updated_at": "Sat Nov 25 2023 12:43:50 GMT+0300 (GMT+03:00)",
       "seen": false,
       "read": false,
       "is_removed": false

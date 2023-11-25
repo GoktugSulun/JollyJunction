@@ -17,7 +17,7 @@ import { AppConfigSagaActions } from '../../Core/Store/AppConfig.saga';
 
 const Dashboard = () => {
   const dispatch = useDispatch();
-  const { posts, page, limit, canBeMorePost, loading } = useSelector(state => state.Dashboard);
+  const { posts, page, limit, canBeMorePost, loading, reseted } = useSelector(state => state.Dashboard);
   const { authorizedUser } = useSelector(state => state.AppConfig.init);
   const min1200px = useMediaQuery('(min-width: 1200px)');
   
@@ -43,9 +43,18 @@ const Dashboard = () => {
   }, DashboardSagaActions.acceptFriendship());
 
   useEffect(() => {
-    fetchMorePost();
-    const payload = { query: `?user_id=${authorizedUser.id}` };
-    dispatch(DashboardSagaActions.getFriends(payload));
+    if (reseted) {
+      dispatch(DashboardActions.setReseted());
+      fetchMorePost();
+      const payload = { query: `?user_id=${authorizedUser.id}` };
+      dispatch(DashboardSagaActions.getFriends(payload));
+    }
+  }, [reseted]);
+
+  useEffect(() => {
+    if (!reseted) {
+      dispatch(DashboardActions.setReset());
+    }
     return () => {
       dispatch(DashboardActions.setReset());
     };
