@@ -36,7 +36,7 @@ const PostModal = () => {
 
   useEffect(() => {
     if (isOpen) {
-      dispatch(PostModalSagaActions.getComments({ post_id: postData.id }));
+      // dispatch(PostModalSagaActions.getComments({ post_id: postData.id }));
     }
   }, [isOpen]);
 
