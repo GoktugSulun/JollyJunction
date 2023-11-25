@@ -233,6 +233,7 @@ export const CreatePost = styled.div`
    background: #181818;
    border-radius: 10px;
    padding: 25px 25px 15px 25px;
+   margin-bottom: 25px;
    .header {
       display: flex;
       align-items: center;
@@ -282,10 +283,7 @@ export const CreatePost = styled.div`
 export const Post = styled.div`
    background-color: #181818;
    border-radius: 10px;
-   margin-top: 25px;
-   :last-child {
-      margin-bottom: 25px;
-   }
+   margin-bottom: 25px;
    padding: 25px 25px 15px 25px;
    display: flex;
    flex-direction: column;

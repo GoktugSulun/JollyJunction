@@ -45,31 +45,26 @@ const UserProfile = () => {
   }, []);
 
   return (
-    <S.UserProfile>
-      <ProfileWrapper>      
-        <Profile data={authorizedUser.id === Number(params.id) ? authorizedUser : user} />
-      </ProfileWrapper>
-      <div className="post-wrapper">
-        {
-          !posts.length && loading?.getPosts === false
-            ? <NoData />
-            : sortedPosts().map((obj) => (
-              <Post 
-                key={obj.id}
-                data={obj}
-              />
-            ))
-        }
-        { loading?.getPosts && !posts.length && <div className="loading-container"> <Loading /> </div> }
-        {
-          !!posts.length && canBeMorePost
+    <div>
+      {
+        !posts.length && loading?.getPosts === false
+          ? <NoData />
+          : sortedPosts().map((obj) => (
+            <Post 
+              key={obj.id}
+              data={obj}
+            />
+          ))
+      }
+      { loading?.getPosts && !posts.length && <div className="loading-container"> <Loading /> </div> }
+      {
+        !!posts.length && canBeMorePost
             && (<div className="more-button-container">
               <Button onClick={fetchMorePost}> More Post </Button>
             </div>)
-        }
-      </div>
+      }
       <PostModal />
-    </S.UserProfile>
+    </div>
   );
 };
 

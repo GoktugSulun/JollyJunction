@@ -25,12 +25,6 @@
       "created_at": "Wed Nov 08 2023 15:10:46 GMT+0300 (GMT+03:00)"
     },
     {
-      "id": 5,
-      "post_id": 15,
-      "user_id": 1,
-      "created_at": "Wed Nov 08 2023 16:05:10 GMT+0300 (GMT+03:00)"
-    },
-    {
       "id": 7,
       "post_id": 15,
       "user_id": 2,
@@ -53,6 +47,12 @@
       "post_id": 16,
       "user_id": 1,
       "created_at": "Fri Nov 10 2023 00:17:28 GMT+0300 (GMT+03:00)"
+    },
+    {
+      "id": 10,
+      "post_id": 15,
+      "user_id": 1,
+      "created_at": "Fri Nov 10 2023 21:37:16 GMT+0300 (GMT+03:00)"
     }
   ]
 }

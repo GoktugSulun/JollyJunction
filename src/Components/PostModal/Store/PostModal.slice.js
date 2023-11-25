@@ -1,6 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 import requestStatusReducer from '../../../Core/Helper/requestStatusReducer';
 import { PostModalSagaActions } from './PostModal.saga';
+import { likePostHandler, savePostHandler } from '../../../Core/Helper/commonSliceActions';
 
 const NAME = 'PostModal';
 
@@ -27,7 +28,9 @@ const PostModalSlice = createSlice({
     setComment: (state, action) => {
       state.comments = [action.payload, ...state.comments];
       state.postData.comments = [action.payload, ...state.postData.comments];
-    }
+    },
+    likePost: likePostHandler,
+    savePost: savePostHandler
   },
   extraReducers: (builder) => requestStatusReducer(builder, PostModalSagaActions)
 });

@@ -52,53 +52,35 @@ const Dashboard = () => {
   }, []);
 
   return (
-    <S.Dashboard>
-      <S.ProfileWrapper>
-        <Profile data={authorizedUser} />
-        {
-          !min1200px && <S.SidebarWrapper>
-            <Advertisement />
-            <FriendList />
-          </S.SidebarWrapper>
-        }
-      </S.ProfileWrapper>
-      <S.PostWrapper>
-        <CreatePost />
-        {
-          loading?.createPost &&
+    <S.PostWrapper>
+      <CreatePost />
+      {
+        loading?.createPost &&
             (<div className="loading-container">
               <Loading size={50} />
             </div>)
-        }
-        {
-          posts.map((obj) => (
-            <Post 
-              key={obj.id}
-              data={obj}
-            />
-          ))
-        }
-        {
-          loading?.getPosts &&
+      }
+      {
+        posts.map((obj) => (
+          <Post 
+            key={obj.id}
+            data={obj}
+          />
+        ))
+      }
+      {
+        loading?.getPosts &&
             (<div className="loading-container">
               <Loading size={50} />
             </div>)
-        }
-        {
-          !!posts.length && canBeMorePost
+      }
+      {
+        !!posts.length && canBeMorePost
             && (<div className="more-button-container">
               <Button onClick={fetchMorePost}> More Post </Button>
             </div>)
-        }
-      </S.PostWrapper>
-      {
-        min1200px && <S.SidebarWrapper>
-          <Advertisement />
-          <FriendList />
-        </S.SidebarWrapper>
       }
-      <PostModal />
-    </S.Dashboard>
+    </S.PostWrapper>
   );
 };
 

@@ -49,25 +49,18 @@ const Notifications = () => {
   }, []);
 
   return (
-    <S.Notifications>
-      <Profile data={authorizedUser} />
-      <S.NotificationsContent>
-        { loading?.getNotifications && <Loading /> }
-        {
-          notifications.map((obj) => (
-            <S.NotificationItem key={obj.id}>
-              <Content data={obj} />
-              <Settings data={obj} />
-            </S.NotificationItem>
-          ))
-        }
-        { more && <Button style={{ marginTop: 20}} onClick={fetchNotifications}> Fetch More </Button> }
-      </S.NotificationsContent>
-      <SDash.SidebarWrapper>
-        <Advertisement />
-        <FriendList />
-      </SDash.SidebarWrapper>
-    </S.Notifications>
+    <S.NotificationsContent>
+      { loading?.getNotifications && <Loading /> }
+      {
+        notifications.map((obj) => (
+          <S.NotificationItem key={obj.id}>
+            <Content data={obj} />
+            <Settings data={obj} />
+          </S.NotificationItem>
+        ))
+      }
+      { more && <Button style={{ marginTop: 20}} onClick={fetchNotifications}> Fetch More </Button> }
+    </S.NotificationsContent>
   );
 };
 
