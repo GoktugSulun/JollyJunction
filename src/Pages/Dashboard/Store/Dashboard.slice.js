@@ -42,9 +42,9 @@ const DashboardSlice = createSlice({
     setPage: (state, action) => {
       state.page = action.payload;
     },
-    setComments: (state, action) => {
-      const { data, post_id } = action.payload;
-      state.posts = state.posts.map((obj) => obj.id === post_id ? { ...obj, comments: data } : obj);
+    setCommentCount: (state, action) => {
+      const { post_id, comments_count } = action.payload;
+      state.posts = state.posts.map((obj) => obj.id === post_id ? { ...obj, comments_count } : obj);
     },
     editFriendAttribute: (state, action) => {
       const { receiver_id, canBeFriend } = action.payload;
