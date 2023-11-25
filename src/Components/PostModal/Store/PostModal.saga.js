@@ -6,8 +6,6 @@ import createSagaWatcher from '../../../Core/Helper/createSagaWatcher';
 import { ApiUrl } from '../../../Core/Constants/ApiUrl';
 import { PostModalActions } from './PostModal.slice';
 import { snackbar } from '../../../Core/Utils/Snackbar';
-import { DashboardActions } from '../../../Pages/Dashboard/Store/Dashboard.slice';
-import { UserProfileActions } from '../../../Pages/UserProfile/Store/UserProfile.slice';
 
 const mainSagaName = 'PostModal/request';
 
@@ -31,8 +29,9 @@ export default [
     actionType: PostModalSagaActions.getComments.type,
     takeType: SagaTakeTypes.TAKE_LATEST,
     * func({ payload }) {
-      const { post_id } = payload;
-      const response = yield call(request, HttpMethodTypes.GET, `${ApiUrl.comments}?post_id=${post_id}&is_removed=false`);
+      const { page, limit, post_id } = payload;
+      const query = `?post_id=${post_id}&page=${page}&limit=${limit}&is_removed=false`;
+      const response = yield call(request, HttpMethodTypes.GET, `${ApiUrl.getComments}${query}`);
       yield put(PostModalActions.setComments(response?.data || []));
     }
   }),
@@ -40,20 +39,9 @@ export default [
     actionType: PostModalSagaActions.createComment.type,
     takeType: SagaTakeTypes.TAKE_LATEST,
     * func({ payload }) {
-      const { data, currentComments, notificationData, pathname } = payload;
-      const response = yield call(request, HttpMethodTypes.POST, `${ApiUrl.comments}`, data);
-      yield call(request, HttpMethodTypes.PATCH, `${ApiUrl.posts}/${data.post_id}`, { comments: [...currentComments, response.data.id] });
-      if (notificationData) {
-        yield call(request, HttpMethodTypes.POST, ApiUrl.notifications, notificationData);
-      }
+      const response = yield call(request, HttpMethodTypes.POST, `${ApiUrl.createComment}`, payload);
       yield put(PostModalActions.setComment(response.data));
-      if (pathname === '/') {
-        yield put(DashboardActions.setComments({ post_id: data.post_id, data: [...currentComments, response.data.id] }));
-      }
-      if (pathname.includes('profile')) {
-        yield put(UserProfileActions.setComments({ post_id: data.post_id, data: [...currentComments, response.data.id] }));
-      }
-      yield put(snackbar('Comment is created'));
+      yield put(snackbar(response.message));
     }
   })
 ];

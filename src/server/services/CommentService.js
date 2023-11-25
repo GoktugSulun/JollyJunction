@@ -1,5 +1,6 @@
 import { commentsDB } from '../db/index.js';
 import { authorizedUserId } from '../server.js';
+import UserService from './UserService.js';
 
 class CommentService {
   static async getAll() {
@@ -45,22 +46,33 @@ class CommentService {
     }
   }
   /**
-   * @query = page, limit
+   * @query = page, limit, post_id, is_removed
   */
   static async get(req, res) {
     try {
       const { comments } = commentsDB.data;
-      const { page, limit, post_id } = req.query;
+      const { page, limit, ...queries } = req.query;
+
+      const filteredData = comments.filter((obj) => {
+        return Object.entries(queries).every(([key, value]) => {
+          return value !== undefined ? String(obj[key]) === value : true;
+        });
+      });
+      const sortedData = [...filteredData].sort((a,b) => new Date(b.created_at).getTime() - new Date(a.created_at).getTime());
+
       const startIndex = (page - 1) * limit;
       const endIndex = page * limit; 
-      const filteredData = comments.filter((obj) => obj.post_id === parseInt(post_id));
-      const sortedData = [...filteredData].sort((a,b) => new Date(b.created_at).getTime() - new Date(a.created_at).getTime());
-      const data = sortedData.slice(startIndex, endIndex);
-      const result = data;
+      const slicedData = sortedData.slice(startIndex, endIndex);
+
+      const data = await Promise.all(slicedData.map(async(obj) => {
+        const userDetail = await UserService.getById({ params: { id: obj.user_id }});
+        return { ...obj, user: userDetail?.data };
+      }));
+
       return {
         type: true,
-        message: `Comments has been fetched for post with id ${post_id}`,
-        data: result
+        message: 'Comments has been fetched',
+        data
       };
     } catch (error) {
       return {
@@ -79,6 +91,7 @@ class CommentService {
       data.user_id = authorizedUserId;
       data.created_at = new Date().toString();
       data.updated_at = new Date().toString();
+      data.is_removed = false;
       comments.push(data);
       await commentsDB.write();
 
@@ -90,10 +103,14 @@ class CommentService {
           message: "Couldn't fetch created data"
         };
       }
+
+      const user = await UserService.getById({ params: { id: data.user_id }});
+      const result = { ...createdData.data, user: user.data };
+      
       return {
         type: true,
-        message: 'Post is created',
-        data: createdData.data
+        message: 'Comment is created',
+        data: result
       };
     } catch (error) {
       return {

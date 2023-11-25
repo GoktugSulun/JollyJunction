@@ -28,25 +28,8 @@ const CreateComment = () => {
 
   const createCommentHandler = () => {
     const payload = {
-      data: {
-        comment: form.getValues('comment'),
-        created_at: new Date().toString(),
-        user: authorizedUser,
-        post_id: postData.id,
-        is_removed: false
-      },
-      currentComments: postData.comments,
-      notificationData: authorizedUser.id === postData.user.id 
-        ? null
-        : {
-          sender_user: { ...authorizedUser },
-          receiver_user: { ...postData.user },
-          type: NotificationTypes.COMMENTED_POST,
-          created_at: new Date().toString(),
-          read: false,
-          is_removed: false,
-        },
-      pathname: location.pathname
+      comment: form.getValues('comment'),
+      post_id: postData.id
     };
     dispatch(PostModalSagaActions.createComment(payload));
   };

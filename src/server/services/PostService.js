@@ -129,6 +129,7 @@ class PostService {
       data.id = nextId;
       data.created_at = new Date().toString();
       data.updated_at = new Date().toString();
+      data.is_removed = false;
       posts.push(data);
       await postsDB.write();
 
