@@ -1,11 +1,11 @@
 import ResponseEnums from '../constants/Enums/ResponseEnums.js';
 import Helpers from '../helpers/Helpers.js';
-import PostService from '../services/PostService.js';
+import CommentService from '../services/CommentService.js';
 
-class PostController {
+class CommentController {
   static async getAll(req, res) {
     try {
-      const result = await PostService.getAll();
+      const result = await CommentService.getAll();
       Helpers.responseJSON(res, result);
     } catch (error) {
       Helpers.responseMessage(res, ResponseEnums.FAILURE, error.message);
@@ -14,7 +14,7 @@ class PostController {
 
   static async getById(req, res) {
     try {
-      const result = await PostService.getById(req, res);
+      const result = await CommentService.getById(req, res);
       Helpers.responseJSON(res, result);
     } catch (error) {
       Helpers.responseMessage(res, ResponseEnums.FAILURE, error.message);
@@ -25,7 +25,7 @@ class PostController {
   */
   static async get(req, res) {
     try {
-      const result = await PostService.get(req, res);
+      const result = await CommentService.get(req, res);
       Helpers.responseJSON(res, result);
     } catch (error) {
       Helpers.responseMessage(res, ResponseEnums.FAILURE, error.message);
@@ -34,25 +34,7 @@ class PostController {
 
   static async create(req, res) {
     try {
-      const result = await PostService.create(req, res);
-      Helpers.responseJSON(res, result);
-    } catch (error) {
-      Helpers.responseMessage(res, ResponseEnums.FAILURE, error.message);
-    }
-  }
-
-  static async like(req, res) {
-    try {
-      const likeResult = await PostService.like(req, res);
-      Helpers.responseJSON(res, likeResult);
-    } catch (error) {
-      Helpers.responseMessage(res, ResponseEnums.FAILURE, error.message);
-    }
-  }
-
-  static async save(req, res) {
-    try {
-      const result = await PostService.save(req, res);
+      const result = await CommentService.create(req, res);
       Helpers.responseJSON(res, result);
     } catch (error) {
       Helpers.responseMessage(res, ResponseEnums.FAILURE, error.message);
@@ -60,4 +42,4 @@ class PostController {
   }
 }
   
-export default PostController;
+export default CommentController;

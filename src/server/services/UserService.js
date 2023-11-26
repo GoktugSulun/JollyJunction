@@ -22,11 +22,18 @@ class UserService {
   static async getById(req) {
     const { id } = req.params;
     try {
-      const data = users.find((obj) => obj.id === parseInt(id));
+      const user = users.find((obj) => obj.id === parseInt(id));
+      if (!user) {
+        return {
+          type: false,
+          message: `User with ${id} couldn't find`
+        };
+      }
+      const { password, ...data } = user;
       return {
-        type: !!data,
-        message: data ? `User with ${id} id has been fetched` : `User with ${id} couldn't find`,
-        ...(data ? { data } : {})
+        type: true,
+        message: `User with ${id} id has been fetched`,
+        data
       };
     } catch (error) {
       return {

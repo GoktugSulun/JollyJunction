@@ -9,7 +9,8 @@ const initialState = {
   posts: [],
   page: 1,
   limit: 10,
-  canBeMorePost: true
+  canBeMorePost: true,
+  friends: [],
 };
 
 const DashboardSlice = createSlice({
@@ -18,7 +19,12 @@ const DashboardSlice = createSlice({
   reducers: {
     setReset: () => initialState,
     setPosts: (state, action) => {
-      state.posts = [...state.posts, ...action.payload];
+      if (state.page === 1) {
+        state.posts = action.payload;
+      } else {
+        state.posts = [...state.posts, ...action.payload];
+      }
+
       if ((state.posts.length + action.payload.length) >= state.limit * state.page) {
         state.page += 1;
       }
@@ -36,9 +42,25 @@ const DashboardSlice = createSlice({
     setPage: (state, action) => {
       state.page = action.payload;
     },
-    setComments: (state, action) => {
-      const { data, post_id } = action.payload;
-      state.posts = state.posts.map((obj) => obj.id === post_id ? { ...obj, comments: data } : obj);
+    setCommentCount: (state, action) => {
+      const { post_id, comments_count } = action.payload;
+      state.posts = state.posts.map((obj) => obj.id === post_id ? { ...obj, comments_count } : obj);
+    },
+    editFriendAttribute: (state, action) => {
+      const { receiver_id, canBeFriend } = action.payload;
+      state.posts = state.posts.map((obj) => {
+        if (obj.user.id === receiver_id) {
+          return { ...obj, canBeFriend };
+        }
+        return obj;
+      });
+    },
+    setFriends: (state, action) => {
+      state.friends = action.payload;
+    },
+    filterFriends: (state, action) => {
+      const { friend_id } = action.payload;
+      state.friends = state.friends.filter((obj) => obj.id !== friend_id);
     },
     likePost: likePostHandler,
     savePost: savePostHandler

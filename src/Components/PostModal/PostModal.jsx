@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import Modal from '@mui/material/Modal';
 import * as S from './Style/PostModal.style';
 import { useDispatch, useSelector } from 'react-redux';
@@ -12,7 +12,7 @@ import { DashboardSagaActions } from '../../Pages/Dashboard/Store/Dashboard.saga
 
 const PostModal = () => {
   const dispatch = useDispatch();
-  const { isOpen, postData } = useSelector((state) => state.PostModal); 
+  const { isOpen, postData, limit } = useSelector((state) => state.PostModal); 
 
   const handleClose = () => dispatch(PostModalActions.handleModal(ModalTypes.CLOSE));
 
@@ -36,7 +36,7 @@ const PostModal = () => {
 
   useEffect(() => {
     if (isOpen) {
-      dispatch(PostModalSagaActions.getComments({ post_id: postData.id }));
+      dispatch(PostModalSagaActions.getComments({ post_id: postData.id, page: 1, limit }));
     }
   }, [isOpen]);
 

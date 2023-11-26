@@ -8,8 +8,7 @@ import { useWatch } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
 import { PostModalSagaActions } from '../Store/PostModal.saga';
 import useHttpResponse from '../../../Core/Hooks/useHttpResponse';
-import { NotificationTypes } from '../../../Core/Constants/Enums';
-import { useLocation } from 'react-router-dom';
+import { DashboardActions } from '../../../Pages/Dashboard/Store/Dashboard.slice';
 
 const defaultValues = {
   comment: ''
@@ -17,9 +16,7 @@ const defaultValues = {
 
 const CreateComment = () => {
   const dispatch = useDispatch();
-  const location = useLocation();
   const { postData } = useSelector((state) => state.PostModal);
-  const { authorizedUser } = useSelector((state) => state.AppConfig.init);
   const { registerHandler, form } = useMaterialForm({
     defaultValues
   });
@@ -28,25 +25,8 @@ const CreateComment = () => {
 
   const createCommentHandler = () => {
     const payload = {
-      data: {
-        comment: form.getValues('comment'),
-        created_at: new Date().toString(),
-        user: authorizedUser,
-        post_id: postData.id,
-        is_removed: false
-      },
-      currentComments: postData.comments,
-      notificationData: authorizedUser.id === postData.user.id 
-        ? null
-        : {
-          sender_user: { ...authorizedUser },
-          receiver_user: { ...postData.user },
-          type: NotificationTypes.COMMENTED_POST,
-          created_at: new Date().toString(),
-          read: false,
-          is_removed: false,
-        },
-      pathname: location.pathname
+      comment: form.getValues('comment'),
+      post_id: postData.id
     };
     dispatch(PostModalSagaActions.createComment(payload));
   };
@@ -60,6 +40,7 @@ const CreateComment = () => {
   useHttpResponse({
     success: ({ idleAction }) => {
       idleAction();
+      dispatch(DashboardActions.setCommentCount({ post_id: postData.id, comments_count: postData.comments_count }));
       form.reset(defaultValues);
     }
   }, PostModalSagaActions.createComment());

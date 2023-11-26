@@ -9,29 +9,16 @@ import { UserProfileActions } from './UserProfile.slice';
 const mainSagaName = 'UserProfile/request';
 
 export const UserProfileSagaActions = {
-  getPosts: createAction(`${mainSagaName}/getPosts`),
-  getSpecificUser: createAction(`${mainSagaName}/getSpecificUser`),
+  getUserById: createAction(`${mainSagaName}/getUserById`),
 };
 
 export default [
   createSagaWatcher({
-    actionType: UserProfileSagaActions.getPosts.type,
-    takeType: SagaTakeTypes.TAKE_LATEST,
-    * func({ payload }) {
-      const { page, limit, user_id } = payload;
-      const query = `?_page=${page}&_limit=${limit}&user.id=${user_id}`;
-      const response = yield call(request, HttpMethodTypes.GET, `${ApiUrl.posts}${query}`);
-      yield put(UserProfileActions.setPosts(response?.data || []));
-    }
-  }),
-  createSagaWatcher({
-    actionType: UserProfileSagaActions.getSpecificUser.type,
+    actionType: UserProfileSagaActions.getUserById.type,
     takeType: SagaTakeTypes.TAKE_LATEST,
     * func({ payload }) {
       const { user_id } = payload;
-      const response = yield call(request, HttpMethodTypes.GET, `${ApiUrl.users}/${user_id}`);
-      const user = { ...response.data };
-      delete user.password;
+      const response = yield call(request, HttpMethodTypes.GET, `${ApiUrl.getUserById}/${user_id}`);
       yield put(UserProfileActions.setUser(response?.data || {}));
     }
   })

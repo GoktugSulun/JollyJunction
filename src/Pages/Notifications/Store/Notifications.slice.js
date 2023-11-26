@@ -17,8 +17,12 @@ const NotificationSlice = createSlice({
   name: NAME,
   initialState,
   reducers: {
+    setReset: () => initialState,
     setNotifications: (state, action) => {
       state.notifications = [...state.notifications, ...action.payload];
+    },
+    setNotification: (state, action) => {
+      state.notifications.unshift(action.payload);
     },
     filterNotifications: (state, action) => {
       const { notification_ids } = action.payload;

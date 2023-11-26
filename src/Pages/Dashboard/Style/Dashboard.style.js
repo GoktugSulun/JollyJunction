@@ -7,6 +7,10 @@ export const ProfileWrapper = styled.div`
    display: flex;
    flex-direction: column;
    gap: 25px;
+
+   @media (max-width: 900px) {
+      margin-bottom: 25px;
+   }
 `;
 
 export const PostWrapper = styled.div`
@@ -146,9 +150,6 @@ export const Profile = styled.div`
          }
       }
    }
-   @media (max-width: 900px) {
-      display: none;
-   }
 `;
 
 export const Advertisement = styled.div`
@@ -232,6 +233,7 @@ export const CreatePost = styled.div`
    background: #181818;
    border-radius: 10px;
    padding: 25px 25px 15px 25px;
+   margin-bottom: 25px;
    .header {
       display: flex;
       align-items: center;
@@ -281,10 +283,7 @@ export const CreatePost = styled.div`
 export const Post = styled.div`
    background-color: #181818;
    border-radius: 10px;
-   margin-top: 25px;
-   :last-child {
-      margin-bottom: 25px;
-   }
+   margin-bottom: 25px;
    padding: 25px 25px 15px 25px;
    display: flex;
    flex-direction: column;
@@ -334,6 +333,22 @@ export const Post = styled.div`
       }
       .count {
          color: #927CD9;
+      }
+   }
+`;
+
+export const RespondRequest = styled.div`
+   .text {
+      color: #c9c9c9;
+      font-size: 14px;
+   }
+   .buttons {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-top: 5px;
+      button {
+         flex: 1;
       }
    }
 `;
