@@ -36,5 +36,6 @@ export const ApiUrl = Object.freeze({
   getComments: '/Comment/get',
   createComment: '/Comment/create',
   likeComment: '/Comment/like',
+  deleteComment: '/Comment/delete',
 
 });

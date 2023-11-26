@@ -8,7 +8,7 @@
       "likes": [],
       "created_at": "Sun Nov 26 2023 15:19:21 GMT+0300 (GMT+03:00)",
       "updated_at": "Sun Nov 26 2023 15:19:21 GMT+0300 (GMT+03:00)",
-      "is_removed": false,
+      "is_removed": true,
       "user": {
         "id": 1,
         "name": "Goktug",
@@ -31,7 +31,7 @@
       ],
       "created_at": "Sun Nov 26 2023 15:23:19 GMT+0300 (GMT+03:00)",
       "updated_at": "Sun Nov 26 2023 15:23:19 GMT+0300 (GMT+03:00)",
-      "is_removed": false,
+      "is_removed": true,
       "user": {
         "id": 1,
         "name": "Goktug",
@@ -49,7 +49,9 @@
       "post_id": 14,
       "id": 3,
       "user_id": 2,
-      "likes": [],
+      "likes": [
+        1
+      ],
       "created_at": "Sun Nov 26 2023 15:55:19 GMT+0300 (GMT+03:00)",
       "updated_at": "Sun Nov 26 2023 15:55:19 GMT+0300 (GMT+03:00)",
       "is_removed": false,
@@ -64,6 +66,16 @@
         "img": "damla.jpg",
         "position": "Frontend Developer"
       }
+    },
+    {
+      "comment": "aaloo",
+      "post_id": 14,
+      "id": 4,
+      "user_id": 1,
+      "likes": [],
+      "created_at": "Sun Nov 26 2023 16:50:17 GMT+0300 (GMT+03:00)",
+      "updated_at": "Sun Nov 26 2023 16:50:17 GMT+0300 (GMT+03:00)",
+      "is_removed": true
     }
   ]
 }

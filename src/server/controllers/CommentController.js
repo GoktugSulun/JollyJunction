@@ -49,6 +49,17 @@ class CommentController {
       Helpers.responseMessage(res, ResponseEnums.FAILURE, error.message);
     }
   }
+
+  static async delete(req, res) {
+    setTimeout(async () => {
+      try {
+        const result = await CommentService.delete(req, res);
+        Helpers.responseJSON(res, result);
+      } catch (error) {
+        Helpers.responseMessage(res, ResponseEnums.FAILURE, error.message);
+      }
+    }, 10000);
+  }
 }
   
 export default CommentController;

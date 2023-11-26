@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import * as S from '../Style/PostModal.style';
 import { useDispatch, useSelector } from 'react-redux';
 import { getUserImageURL } from '../../../assets/Pngs/Pngs';
@@ -14,6 +14,7 @@ import CommentsSettings from './CommentsSettings';
 
 const CommentsSectionBody = () => {
   const dispatch = useDispatch();
+  const [commentIds, setCommentIds] = useState([]);
   const  { postData, comments, loading } = useSelector((state) => state.PostModal);
   const  { authorizedUser } = useSelector((state) => state.AppConfig.init);
 
@@ -55,7 +56,10 @@ const CommentsSectionBody = () => {
                       <span className="user__position"> {obj?.user?.position} </span>
                     </div>
                     <Tooltip title={isLiked(obj.likes) ? 'Unlike' : 'Like'}>
-                      <IconButton onClick={() => likeCommentHandler(obj.id, obj.likes)} fontSize={20}>
+                      <IconButton 
+                        disabled={commentIds.includes(obj.id)} 
+                        onClick={() => likeCommentHandler(obj.id, obj.likes)}
+                      >
                         {
                           isLiked(obj.likes)
                             ? <FavoriteIcon />
@@ -76,7 +80,7 @@ const CommentsSectionBody = () => {
                     >
                     0 likes
                     </Button>
-                    { authorizedUser.id === obj.user_id && <CommentsSettings /> }
+                    { authorizedUser.id === obj.user_id && <CommentsSettings commentIdsState={[commentIds, setCommentIds]} data={obj} /> }
                   </div>
                 </S.Comment>
               </div>

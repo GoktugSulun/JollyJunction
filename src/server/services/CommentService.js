@@ -145,6 +145,35 @@ class CommentService {
       };
     }
   }
+
+  static async delete(req, res) {
+    try {
+      const { id } = req.params;
+      const { comments } = commentsDB.data;
+      
+      const index = comments.findIndex((obj) => obj.id === parseInt(id));
+      if (index === -1) {
+        return {
+          type: false,
+          message: `Comment with id ${id} couldn't find`
+        };
+      }
+      
+      const commentData = { ...comments[index], is_removed: true };
+      comments.splice(index, 1, commentData);
+      await commentsDB.write();
+
+      return {
+        type: true,
+        message: 'Comment is removed'
+      };
+    } catch (error) {
+      return {
+        type: false,
+        message: error.message
+      };
+    }
+  }
 }
   
 export default CommentService;

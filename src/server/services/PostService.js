@@ -48,7 +48,7 @@ const getPostDetail = (data) => (
   {
     ...data,
     likes_count: likes.filter((likeObj) => likeObj.post_id === data.id).length,
-    comments_count: comments.filter((commentObj) => commentObj.post_id === data.id).length,
+    comments_count: comments.filter((commentObj) => commentObj.post_id === data.id && !commentObj.is_removed).length,
     liked: !!likes.find((likeObj) => likeObj.user_id === authorizedUserId && likeObj.post_id === data.id),
     saved: !!saves.find((saveObj) => saveObj.user_id === authorizedUserId && saveObj.post_id === data.id),
     user: users.find((userObj) => userObj.id === data.user_id),
