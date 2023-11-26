@@ -7,10 +7,10 @@ import { Link } from 'react-router-dom';
 import { Button } from '../../../Core/Components/Buttons/Button.style';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import FavoriteIcon from '@mui/icons-material/Favorite';
-import { CustomIconButton } from '../../Styles/Common.style';
 import Loading from '../../../Core/Components/Loading/Loading';
 import { PostModalSagaActions } from '../Store/PostModal.saga';
-import { IconButton } from '@mui/material';
+import { IconButton, Tooltip } from '@mui/material';
+import CommentsSettings from './CommentsSettings';
 
 const CommentsSectionBody = () => {
   const dispatch = useDispatch();
@@ -54,24 +54,29 @@ const CommentsSectionBody = () => {
                       <Link className="user__name"> {obj?.user?.name} {obj?.user?.surname} </Link> 
                       <span className="user__position"> {obj?.user?.position} </span>
                     </div>
-                    <IconButton onClick={() => likeCommentHandler(obj.id, obj.likes)} fontSize={20}>
-                      {
-                        isLiked(obj.likes)
-                          ? <FavoriteIcon />
-                          : <FavoriteBorderIcon />
-                      }
-                    </IconButton>
+                    <Tooltip title={isLiked(obj.likes) ? 'Unlike' : 'Like'}>
+                      <IconButton onClick={() => likeCommentHandler(obj.id, obj.likes)} fontSize={20}>
+                        {
+                          isLiked(obj.likes)
+                            ? <FavoriteIcon />
+                            : <FavoriteBorderIcon />
+                        }
+                      </IconButton>
+                    </Tooltip>
                   </div>
                   <p className="text"> {obj?.comment} </p>
                   <div className="footer">
                     <span className="date"> {getDate(obj?.created_at)} </span> 
                     <Button
+                      disableRipple
                       bgColor="trasparent"
-                      padding="0"
                       minWidth="inital"
+                      padding="0"
+                      className="likes"
                     >
                     0 likes
                     </Button>
+                    { authorizedUser.id === obj.user_id && <CommentsSettings /> }
                   </div>
                 </S.Comment>
               </div>

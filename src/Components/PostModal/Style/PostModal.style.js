@@ -1,4 +1,5 @@
 import styled from '@emotion/styled';
+import { Menu } from '@mui/material';
 
 export const PostModal = styled.div`
     position: absolute;
@@ -170,7 +171,7 @@ export const Comment = styled.div`
             svg path {
                 fill: #927CD9;
             }
-      }
+        }
     }
     .text {
         color: #c9c9c9;
@@ -182,11 +183,18 @@ export const Comment = styled.div`
     }
     .footer {
         display: flex;
-        gap: 15px;
         align-items: center;
+        gap: 15px;
         > * {
             font-size: 12px;
             color: #9a9a9a;
+        }
+        .likes {
+            align-self: center;
+            line-height: 18px;
+            :hover {
+                color: #FFFFFF;
+            }
         }
     }
 `;
@@ -259,6 +267,59 @@ export const CreateComment = styled.div`
             }
             :hover {
                 background-color: #333;
+            }
+        }
+    }
+`;
+
+export const CommentsSettings = styled.div`
+    .setting {
+        padding: 5px;
+        :hover {
+            background-color: #333;
+        }
+        svg path {
+            fill: #c9c9c9;
+        }
+    }
+`;
+
+export const CommentSettingsMenu = styled(Menu)`
+    .MuiPaper-root {
+        padding: 0;
+        background-color: transparent;
+    }
+    ul {
+        background-color: #222;
+        padding: 0;
+        border-radius: 5px;
+        li {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: #c9c9c9;
+            padding: 10px;
+            font-size: 14px;
+            :not(:last-child) {
+                border-bottom: 1px solid #333;
+            }
+            :hover {
+                background-color: #333;
+                color: #927CD9;
+                    svg path {
+                        fill: #927CD9;
+                    }
+            }
+            &.delete {
+                :hover {
+                    color: red;
+                    svg path {
+                        fill: red;
+                    }
+                }
+            }
+            svg {
+                font-size: 22px;
             }
         }
     }
