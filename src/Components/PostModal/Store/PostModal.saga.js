@@ -13,6 +13,7 @@ export const PostModalSagaActions = {
   getSpecificPost: createAction(`${mainSagaName}/getSpecificPost`),
   getComments: createAction(`${mainSagaName}/getComments`),
   createComment: createAction(`${mainSagaName}/createComment`),
+  likeComment: createAction(`${mainSagaName}/likeComment`),
 };
 
 export default [
@@ -41,6 +42,15 @@ export default [
     * func({ payload }) {
       const response = yield call(request, HttpMethodTypes.POST, `${ApiUrl.createComment}`, payload);
       yield put(PostModalActions.setComment(response.data));
+      yield put(snackbar(response.message));
+    }
+  }),
+  createSagaWatcher({
+    actionType: PostModalSagaActions.likeComment.type,
+    takeType: SagaTakeTypes.TAKE_LATEST,
+    * func({ payload }) {
+      const response = yield call(request, HttpMethodTypes.POST, `${ApiUrl.likeComment}`, payload);
+      yield put(PostModalActions.likeComment({ id: payload.id, data: response.data }));
       yield put(snackbar(response.message));
     }
   })

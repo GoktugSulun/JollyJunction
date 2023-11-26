@@ -157,7 +157,7 @@ class PostService {
   static async like(req, res) {
     try {
       const currentState = [...likes];
-      const likeResult = await LikeService.create(req, res);
+      const likeResult = await LikeService.createForPost(req, res);
 
       const { like, post_id } = req.body;
       if (!like) {

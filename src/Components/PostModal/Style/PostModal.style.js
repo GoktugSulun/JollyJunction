@@ -163,6 +163,14 @@ export const Comment = styled.div`
                 color: #9a9a9a;
             }
         }
+        .MuiIconButton-root {
+            :hover {
+                background-color: #333;
+            }
+            svg path {
+                fill: #927CD9;
+            }
+      }
     }
     .text {
         color: #c9c9c9;

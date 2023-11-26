@@ -1,5 +1,6 @@
 import { commentsDB } from '../db/index.js';
 import { authorizedUserId } from '../server.js';
+import LikeService from './LikeService.js';
 import UserService from './UserService.js';
 
 class CommentService {
@@ -27,12 +28,19 @@ class CommentService {
       if (!data) {
         return {
           type: false,
-          message: `Comment with id ${id} couldn't find`,
-          data: result
+          message: `Comment with id ${id} couldn't find`
+        };
+      }
+      
+      const commentService = await UserService.getById({ params: { id: data.user_id } });
+      if (!commentService.type) {
+        return {
+          type: false,
+          message: commentService.message
         };
       }
 
-      const result = data;
+      const result = { ...data, user: commentService.data };
       return {
         type: true,
         message: `Comment with id ${id} has been fetched`,
@@ -89,6 +97,7 @@ class CommentService {
       const data = req.body;
       data.id = nextId;
       data.user_id = authorizedUserId;
+      data.likes = [];
       data.created_at = new Date().toString();
       data.updated_at = new Date().toString();
       data.is_removed = false;
@@ -111,6 +120,23 @@ class CommentService {
         type: true,
         message: 'Comment is created',
         data: result
+      };
+    } catch (error) {
+      return {
+        type: false,
+        message: error.message
+      };
+    }
+  }
+
+  static async like(req, res) {
+    try {
+      const commentService = await LikeService.createForComment(req, res);
+      
+      return {
+        type: commentService.type,
+        message: commentService.message,
+        data: commentService.data
       };
     } catch (error) {
       return {

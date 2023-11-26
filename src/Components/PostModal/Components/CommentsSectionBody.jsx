@@ -1,26 +1,34 @@
 import React from 'react';
 import * as S from '../Style/PostModal.style';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { getUserImageURL } from '../../../assets/Pngs/Pngs';
 import moment from 'moment';
 import { Link } from 'react-router-dom';
 import { Button } from '../../../Core/Components/Buttons/Button.style';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
+import FavoriteIcon from '@mui/icons-material/Favorite';
 import { CustomIconButton } from '../../Styles/Common.style';
 import Loading from '../../../Core/Components/Loading/Loading';
+import { PostModalSagaActions } from '../Store/PostModal.saga';
+import { IconButton } from '@mui/material';
 
 const CommentsSectionBody = () => {
+  const dispatch = useDispatch();
   const  { postData, comments, loading } = useSelector((state) => state.PostModal);
+  const  { authorizedUser } = useSelector((state) => state.AppConfig.init);
 
   const getDate = (created_at) => {
     const diff = moment.duration(moment().diff(created_at)).humanize();
     return `${diff} ago`;
   };
 
-  const sortedComments = () => {
-    const sortedArrays = [...comments];
-    sortedArrays.sort((a,b) => new Date(b.created_at).getTime() - new Date(a.created_at).getTime());
-    return sortedArrays;
+  const isLiked = (likes) => {
+    return !!likes.find((user_id) => user_id === authorizedUser.id);
+  };
+
+  const likeCommentHandler = (id, likes) => {
+    const payload = { id, like: !isLiked(likes) };
+    dispatch(PostModalSagaActions.likeComment(payload));
   };
 
   return (
@@ -29,7 +37,7 @@ const CommentsSectionBody = () => {
       {
         loading?.getComments
           ? <div className="loading-container"> <Loading size={50} /> </div>
-          : sortedComments().map((obj) => (
+          : comments.map((obj) => (
             <S.CommentContainer key={obj.id}>
               <Button
                 bgColor="transparent"
@@ -46,9 +54,13 @@ const CommentsSectionBody = () => {
                       <Link className="user__name"> {obj?.user?.name} {obj?.user?.surname} </Link> 
                       <span className="user__position"> {obj?.user?.position} </span>
                     </div>
-                    <CustomIconButton fontSize={20}>
-                      <FavoriteBorderIcon />
-                    </CustomIconButton>
+                    <IconButton onClick={() => likeCommentHandler(obj.id, obj.likes)} fontSize={20}>
+                      {
+                        isLiked(obj.likes)
+                          ? <FavoriteIcon />
+                          : <FavoriteBorderIcon />
+                      }
+                    </IconButton>
                   </div>
                   <p className="text"> {obj?.comment} </p>
                   <div className="footer">
