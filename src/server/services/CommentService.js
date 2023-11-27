@@ -172,7 +172,6 @@ class CommentService {
 
       //* If user likes or withdraw like for her/him comment, don't create or delete notification
       if (commentService.data.user_id === authorizedUserId) {
-        console.log('kendi yorumumu beğendim ya da geri çektim');
         return {
           type: true,
           message: commentService.message,
@@ -182,7 +181,6 @@ class CommentService {
 
       //* User likes a comment, create a notification for it
       if (like) {
-        console.log('Başka yorumu beğendim');
         const notificationService = await NotificationService.create({ 
           body: {
             sender_id: authorizedUserId,
@@ -200,7 +198,6 @@ class CommentService {
       
       //* User withdraw her/his like for a comment, delete this notification
       if (!like) {
-        console.log('Başka yorumdan beğenimi geri çektim');
         //* Find target notification
         const notificationService = await NotificationService.get({
           query: {
@@ -218,10 +215,8 @@ class CommentService {
         }
 
         //* Delete target notification
-        console.log(notificationService.data.notifications, ' notificationService');
         const deleteNotificationService = await NotificationService.delete({ body: { notification_ids: [notificationService.data.notifications[0].id] } });
         
-        console.log(deleteNotificationService.type, ' ilgili notiyi sildim');
         if (!deleteNotificationService.type) {
           return {
             type: false,
@@ -256,10 +251,54 @@ class CommentService {
           message: `Comment with id ${id} couldn't find`
         };
       }
-      
+
       const commentData = { ...comments[index], is_removed: true };
       comments.splice(index, 1, commentData);
       await commentsDB.write();
+
+      //* if user delete a comment for his/her post.
+      if (authorizedUserId === comments[index].post_id) {
+        return {
+          type: true,
+          message: 'Comment is removed'
+        };
+      }
+
+      //* if user delete a comment for a post which is created by another user.
+      //* Find target post firstly
+      const postService = await PostService.getById({ params: { id: comments[index].post_id } });
+      if (!postService.type) {
+        return {
+          type: false,
+          message: postService.message
+        };
+      }
+
+      //* Find target notification
+      const notificationService = await NotificationService.get({
+        query: {
+          is_removed: false,
+          type: NotificationTypes.COMMENTED_POST,
+          receiver_id: postService.data.user_id,
+          sender_id: authorizedUserId
+        }
+      });
+      if (!notificationService.type) {
+        return {
+          type: false,
+          message: notificationService.message
+        };
+      }
+
+      //* Delete target notification
+      const deleteNotificationService = await NotificationService.delete({ body: { notification_ids: [notificationService.data.notifications[0].id] } });
+      
+      if (!deleteNotificationService.type) {
+        return {
+          type: false,
+          message: deleteNotificationService.message
+        };
+      }
 
       return {
         type: true,

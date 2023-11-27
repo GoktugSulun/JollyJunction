@@ -8,7 +8,7 @@
       "likes": [],
       "created_at": "Mon Nov 27 2023 19:50:20 GMT+0300 (GMT+03:00)",
       "updated_at": "Mon Nov 27 2023 19:50:20 GMT+0300 (GMT+03:00)",
-      "is_removed": false,
+      "is_removed": true,
       "user": {
         "id": 1,
         "name": "Goktug",
