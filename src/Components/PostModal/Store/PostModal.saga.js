@@ -16,6 +16,7 @@ export const PostModalSagaActions = {
   createComment: createAction(`${mainSagaName}/createComment`),
   likeComment: createAction(`${mainSagaName}/likeComment`),
   deleteComment: createAction(`${mainSagaName}/deleteComment`),
+  editComment: createAction(`${mainSagaName}/editComment`),
 };
 
 export default [
@@ -65,6 +66,16 @@ export default [
       yield put(DashboardActions.decreaseCommentCount({ post_id: payload.post_id }));
       yield put(snackbar(response.message));
       payload.clearCommentIdsFunc();
+    }
+  }),
+  createSagaWatcher({
+    actionType: PostModalSagaActions.editComment.type,
+    takeType: SagaTakeTypes.TAKE_EVERY,
+    * func({ payload }) {
+      const response = yield call(request, HttpMethodTypes.PUT, `${ApiUrl.editComment}`, payload.data);
+      yield put(PostModalActions.editComment(payload.data));
+      yield put(snackbar(response.message));
+      payload.resetHandler();
     }
   })
 ];

@@ -43,9 +43,13 @@ const PostModalSlice = createSlice({
       state.comments = state.comments.map((obj) => obj.id === id ? data : obj);
     },
     deleteComment: (state, action) => {
-      const { id  } = action.payload;
+      const { id } = action.payload;
       state.comments = state.comments.filter((obj) => obj.id !== id);
       state.postData.comments_count--;
+    },
+    editComment: (state, action) => {
+      const { id, comment } = action.payload;
+      state.comments = state.comments.map((obj) => obj.id === id ? {...obj, comment} : obj);
     },
     likePost: likePostHandler,
     savePost: savePostHandler

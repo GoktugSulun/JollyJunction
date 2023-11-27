@@ -181,6 +181,26 @@ export const Comment = styled.div`
         -webkit-box-orient: vertical;
         overflow: hidden;
     }
+    .edit-section {
+        .MuiOutlinedInput-root {
+            background-color: #222;
+            border-radius: 10px;
+            input {
+                color: #FFFFFF;
+                padding: 15px 20px;
+            }
+            fieldset {
+                border: none;
+            }
+        }
+        &__buttons {
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            gap: 15px;
+            margin-top: 10px;
+        }
+    }
     .footer {
         display: flex;
         align-items: center;
@@ -192,9 +212,9 @@ export const Comment = styled.div`
         .likes {
             align-self: center;
             line-height: 18px;
-            :hover {
+            /* :hover {
                 color: #FFFFFF;
-            }
+            } */
         }
     }
 `;

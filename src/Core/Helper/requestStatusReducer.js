@@ -26,10 +26,11 @@ const requestStatusReducer = (builder, sagaActions) => {
         if (!state.requestStatus) {
           state.requestStatus = {};
         }
-        if (action.payload) {
-          // state.actionPayload[getActionType(action)] = 'deneme';
-        } else {
+        if (action.payload && !state.actionPayload) {
           state.actionPayload = {};
+        } else {
+          console.log('setliyorum');
+          state.actionPayload[getActionType(action)] = action.payload;
         }
       }
     )
@@ -39,12 +40,12 @@ const requestStatusReducer = (builder, sagaActions) => {
       (state, action) => {
         state.loading[getActionType(action)] = false;
         state.requestStatus[getActionType(action)] = HttpResponseTypes.IDLE;
-        // state.actionPayload[getActionType(action)] = null;
       }
     )
     .addMatcher(
       (action) => isMatchedSliceAndRequestAction(action, HttpResponseTypes.LOADING),
       (state, action) => {
+        console.log('loading action: => ', action);
         state.loading[getActionType(action)] = true;
         state.requestStatus[getActionType(action)] = HttpResponseTypes.LOADING;
       }

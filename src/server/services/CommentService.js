@@ -174,6 +174,35 @@ class CommentService {
       };
     }
   }
+
+  static async edit(req, res) {
+    try {
+      const { id, comment } = req.body;
+      const { comments } = commentsDB.data;
+      
+      const index = comments.findIndex((obj) => obj.id === parseInt(id));
+      if (index === -1) {
+        return {
+          type: false,
+          message: `Comment with id ${id} couldn't find`
+        };
+      }
+      
+      const commentData = { ...comments[index], comment, updated_at: new Date() };
+      comments.splice(index, 1, commentData);
+      await commentsDB.write();
+
+      return {
+        type: true,
+        message: 'Comment is edited'
+      };
+    } catch (error) {
+      return {
+        type: false,
+        message: error.message
+      };
+    }
+  }
 }
   
 export default CommentService;

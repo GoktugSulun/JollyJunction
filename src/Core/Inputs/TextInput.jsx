@@ -48,6 +48,7 @@ const TextInput = (props) => {
         inputRef={props.field?.ref || props.inputRef} 
         type={props.type}
         placeholder={props.placeholder}
+        disabled={props.disabled}
         notched={false}
         error={props.error || !!props.fieldState?.error} 
         color={props.palette.defaultColor}
@@ -86,6 +87,7 @@ TextInput.propTypes = {
   value: PropTypes.any,
   onBlur: PropTypes.func,
   inputRef: PropTypes.any,
+  disabled: PropTypes.bool,
 };
 
 TextInput.defaultProps = {
@@ -115,4 +117,5 @@ TextInput.defaultProps = {
   value: null,
   onBlur: () => {},
   inputRef: null,
+  disabled: false
 };

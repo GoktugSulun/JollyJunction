@@ -12,6 +12,7 @@ const useHttpResponse = (
   { idle, loading, success, failure }, 
   sagaAction
 ) => {
+  console.log('hey ?', sagaAction.type);
   const dispatch = useDispatch();
   const [sliceName,,actionType] = sagaAction.type.split('/');
 

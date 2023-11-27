@@ -58,7 +58,18 @@ class CommentController {
       } catch (error) {
         Helpers.responseMessage(res, ResponseEnums.FAILURE, error.message);
       }
-    }, 10000);
+    }, 5000);
+  }
+  
+  static async edit(req, res) {
+    setTimeout(async () => {
+      try {
+        const result = await CommentService.edit(req, res);
+        Helpers.responseJSON(res, result);
+      } catch (error) {
+        Helpers.responseMessage(res, ResponseEnums.FAILURE, error.message);
+      }
+    }, 5000);
   }
 }
   

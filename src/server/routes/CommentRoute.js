@@ -8,6 +8,7 @@ server.get('/getById/:id', CommentController.getById);
 server.get('/get', CommentController.get);
 server.post('/create', CommentController.create);
 server.post('/like', CommentController.like);
+server.put('/edit', CommentController.edit);
 server.delete('/delete/:id', CommentController.delete);
 
 export default server;

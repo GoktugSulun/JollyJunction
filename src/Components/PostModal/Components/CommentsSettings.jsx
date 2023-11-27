@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
 import MenuItem from '@mui/material/MenuItem';
 import EditIcon from '@mui/icons-material/Edit';
@@ -9,13 +9,14 @@ import PropTypes from 'prop-types';
 import { useDispatch, useSelector } from 'react-redux';
 import { PostModalSagaActions } from '../Store/PostModal.saga';
 import Loading from '../../../Core/Components/Loading/Loading';
+import CommentActionTypes from '../Enums/CommentActionTypes';
 
-const CommentsSettings = ({ data, commentIdsState }) => {
+const CommentsSettings = ({ commentId, commentLoadingStates, startEditingHandler, isEditing }) => {
   const dispatch = useDispatch();
   const [anchorEl, setAnchorEl] = useState(null);
-  const [commentIds, setCommentIds] = commentIdsState;
+  const [commentLoadingState, setCommentLoadingState] = commentLoadingStates;
   const open = Boolean(anchorEl);
-  const { loading, postData } = useSelector((state) => state.PostModal);
+  const { postData } = useSelector((state) => state.PostModal);
 
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -25,19 +26,20 @@ const CommentsSettings = ({ data, commentIdsState }) => {
     setAnchorEl(null);
   };
 
-  const deleteHandler = () => {
+  const handleDelete = () => {
     const payload = { 
-      id: data.id, 
+      id: commentId, 
       post_id: postData.id, 
-      clearCommentIdsFunc: () => setCommentIds((prevValues) => prevValues.filter((id) => id !== data.id)) 
+      clearCommentIdsFunc: () => setCommentLoadingState((prevValues) => prevValues.filter((obj) => obj.id !== commentId)) 
     };
-    setCommentIds((prevValues) => ([...prevValues, data.id]));
+    setCommentLoadingState((prevValues) => ([...prevValues, { id: commentId, type: CommentActionTypes.DELETE }]));
     dispatch(PostModalSagaActions.deleteComment(payload));
   };
 
-  useEffect(() => {
-    console.log(commentIds, ' commentIds');
-  }, [commentIds]);
+  const handleEdit = () => {
+    startEditingHandler();
+    handleClose();
+  };
 
   return (
     <S.CommentsSettings>
@@ -61,18 +63,22 @@ const CommentsSettings = ({ data, commentIdsState }) => {
       >
         <MenuItem 
           disableRipple 
-          onClick={handleClose}
-          disabled={commentIds.includes(data.id)}
+          onClick={handleEdit}
+          disabled={!!commentLoadingState.find((obj) => obj.id === commentId && (obj.type === CommentActionTypes.EDIT || obj.type === CommentActionTypes.DELETE)) || isEditing}
         > 
-          <EditIcon /> Edit 
+          {commentLoadingState.find((obj) => obj.id === commentId && obj.type === CommentActionTypes.EDIT) 
+            ? <Loading color="white" size={18} /> 
+            : <EditIcon />} Edit
         </MenuItem>
         <MenuItem 
           disableRipple 
           className="delete" 
-          onClick={deleteHandler}
-          disabled={commentIds.includes(data.id)}
+          onClick={handleDelete}
+          disabled={!!commentLoadingState.find((obj) => obj.id === commentId && (obj.type === CommentActionTypes.EDIT || obj.type === CommentActionTypes.DELETE))}
         > 
-          {commentIds.includes(data.id) ? <Loading color="white" size={18} /> : <DeleteIcon />} Delete
+          {commentLoadingState.find((obj) => obj.id === commentId && obj.type === CommentActionTypes.DELETE) 
+            ? <Loading color="white" size={18} /> 
+            : <DeleteIcon />} Delete
         </MenuItem>
       </S.CommentSettingsMenu>
     </S.CommentsSettings>
@@ -82,6 +88,8 @@ const CommentsSettings = ({ data, commentIdsState }) => {
 export default CommentsSettings;
 
 CommentsSettings.propTypes = {
-  data: PropTypes.object.isRequired,
-  commentIdsState: PropTypes.array.isRequired
+  commentId: PropTypes.number.isRequired,
+  commentLoadingStates: PropTypes.array.isRequired,
+  startEditingHandler: PropTypes.func.isRequired,
+  isEditing: PropTypes.bool.isRequired
 };
