@@ -145,7 +145,7 @@ const Comment = ({ data, commentLoadingStates }) => {
               padding="0"
               className="likes"
             >
-               0 likes
+              {data.likes.length} likes
             </Button>
             { authorizedUser.id === data.user_id 
                && <CommentsSettings 
