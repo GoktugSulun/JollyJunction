@@ -1,6 +1,9 @@
+import NotificationTypes from '../../Core/Constants/Enums/NotificationTypes.js';
 import { commentsDB } from '../db/index.js';
 import { authorizedUserId } from '../server.js';
 import LikeService from './LikeService.js';
+import NotificationService from './NotificationService.js';
+import PostService from './PostService.js';
 import UserService from './UserService.js';
 
 class CommentService {
@@ -104,9 +107,9 @@ class CommentService {
       comments.push(data);
       await commentsDB.write();
 
-      //* get post that has just created
       const createdData = await CommentService.getById({ params: { id: data.id } });
       if (!createdData.type) {
+        console.log(3);
         return {
           type: false,
           message: "Couldn't fetch created data"
@@ -115,6 +118,34 @@ class CommentService {
 
       const user = await UserService.getById({ params: { id: data.user_id }});
       const result = { ...createdData.data, user: user.data };
+
+      const postService = await PostService.getById({ params: { id: data.post_id } });
+      if (!postService.type) {
+        console.log(2);
+        return {
+          type: false,
+          message: postService.message
+        };
+      }
+
+      //* if user makes a comment for a post who is not created by himself/herself, then create a notification
+      if (postService.data.user_id !== authorizedUserId) {
+        const notificationService = await NotificationService.create({ 
+          body: { 
+            receiver_id: postService.data.user_id,
+            sender_id: authorizedUserId,
+            type: NotificationTypes.COMMENTED_POST
+          } 
+        });
+  
+        if (!notificationService.type) {
+          console.log(1);
+          return {
+            type: false,
+            message: notificationService.message
+          };
+        }
+      }
       
       return {
         type: true,
@@ -122,6 +153,7 @@ class CommentService {
         data: result
       };
     } catch (error) {
+      console.log('burada mıyız ?', error);
       return {
         type: false,
         message: error.message

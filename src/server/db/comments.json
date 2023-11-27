@@ -155,6 +155,56 @@
         "img": "goktug.jpeg",
         "position": "Fullstack Developer"
       }
+    },
+    {
+      "comment": "hey velet",
+      "post_id": 14,
+      "id": 9,
+      "user_id": 1,
+      "likes": [],
+      "created_at": "Mon Nov 27 2023 19:05:53 GMT+0300 (GMT+03:00)",
+      "updated_at": "Mon Nov 27 2023 19:05:53 GMT+0300 (GMT+03:00)",
+      "is_removed": false
+    },
+    {
+      "comment": "a",
+      "post_id": 14,
+      "id": 10,
+      "user_id": 1,
+      "likes": [],
+      "created_at": "Mon Nov 27 2023 19:07:06 GMT+0300 (GMT+03:00)",
+      "updated_at": "Mon Nov 27 2023 19:07:06 GMT+0300 (GMT+03:00)",
+      "is_removed": false
+    },
+    {
+      "comment": "adsa",
+      "post_id": 14,
+      "id": 11,
+      "user_id": 1,
+      "likes": [],
+      "created_at": "Mon Nov 27 2023 19:07:42 GMT+0300 (GMT+03:00)",
+      "updated_at": "Mon Nov 27 2023 19:07:42 GMT+0300 (GMT+03:00)",
+      "is_removed": false
+    },
+    {
+      "comment": "123",
+      "post_id": 13,
+      "id": 12,
+      "user_id": 1,
+      "likes": [],
+      "created_at": "Mon Nov 27 2023 19:09:18 GMT+0300 (GMT+03:00)",
+      "updated_at": "Mon Nov 27 2023 19:09:18 GMT+0300 (GMT+03:00)",
+      "is_removed": false
+    },
+    {
+      "comment": "hey güzellik",
+      "post_id": 16,
+      "id": 13,
+      "user_id": 1,
+      "likes": [],
+      "created_at": "Mon Nov 27 2023 19:09:44 GMT+0300 (GMT+03:00)",
+      "updated_at": "Mon Nov 27 2023 19:09:44 GMT+0300 (GMT+03:00)",
+      "is_removed": false
     }
   ]
 }

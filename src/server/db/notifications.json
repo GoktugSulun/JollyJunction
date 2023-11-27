@@ -51,7 +51,7 @@
       "sender_id": 1,
       "created_at": "Fri Nov 10 2023 21:21:27 GMT+0300 (GMT+03:00)",
       "updated_at": "Fri Nov 10 2023 21:21:27 GMT+0300 (GMT+03:00)",
-      "seen": false,
+      "seen": true,
       "read": false,
       "is_removed": false
     },
@@ -84,7 +84,7 @@
       "sender_id": 1,
       "created_at": "Fri Nov 10 2023 21:37:16 GMT+0300 (GMT+03:00)",
       "updated_at": "Fri Nov 10 2023 21:37:16 GMT+0300 (GMT+03:00)",
-      "seen": false,
+      "seen": true,
       "read": false,
       "is_removed": false
     },
@@ -106,7 +106,7 @@
       "sender_id": 1,
       "created_at": "Sat Nov 25 2023 11:51:17 GMT+0300 (GMT+03:00)",
       "updated_at": "Sat Nov 25 2023 11:51:17 GMT+0300 (GMT+03:00)",
-      "seen": false,
+      "seen": true,
       "read": false,
       "is_removed": false
     },
@@ -117,7 +117,7 @@
       "sender_id": 1,
       "created_at": "Sat Nov 25 2023 12:28:31 GMT+0300 (GMT+03:00)",
       "updated_at": "Sat Nov 25 2023 12:28:31 GMT+0300 (GMT+03:00)",
-      "seen": false,
+      "seen": true,
       "read": false,
       "is_removed": false
     },
@@ -128,8 +128,8 @@
       "sender_id": 1,
       "created_at": "Sat Nov 25 2023 12:42:17 GMT+0300 (GMT+03:00)",
       "updated_at": "Sat Nov 25 2023 12:42:17 GMT+0300 (GMT+03:00)",
-      "seen": false,
-      "read": false,
+      "seen": true,
+      "read": true,
       "is_removed": false
     },
     {
@@ -172,8 +172,8 @@
       "sender_id": 1,
       "created_at": "Mon Nov 27 2023 16:40:00 GMT+0300 (GMT+03:00)",
       "updated_at": "Mon Nov 27 2023 16:40:00 GMT+0300 (GMT+03:00)",
-      "seen": false,
-      "read": false,
+      "seen": true,
+      "read": true,
       "is_removed": false
     },
     {
@@ -182,9 +182,42 @@
       "receiver_id": 2,
       "sender_id": 1,
       "created_at": "Mon Nov 27 2023 16:40:01 GMT+0300 (GMT+03:00)",
-      "updated_at": "Mon Nov 27 2023 16:40:01 GMT+0300 (GMT+03:00)",
+      "updated_at": "Mon Nov 27 2023 19:10:37 GMT+0300 (GMT+03:00)",
+      "seen": true,
+      "read": false,
+      "is_removed": true
+    },
+    {
+      "id": 18,
+      "type": 3,
+      "receiver_id": 2,
+      "sender_id": 1,
+      "created_at": "Mon Nov 27 2023 19:09:44 GMT+0300 (GMT+03:00)",
+      "updated_at": "Mon Nov 27 2023 19:09:44 GMT+0300 (GMT+03:00)",
+      "seen": true,
+      "read": true,
+      "is_removed": false
+    },
+    {
+      "id": 19,
+      "type": 5,
+      "receiver_id": 1,
+      "sender_id": 2,
+      "created_at": "Mon Nov 27 2023 19:10:37 GMT+0300 (GMT+03:00)",
+      "updated_at": "Mon Nov 27 2023 19:10:37 GMT+0300 (GMT+03:00)",
       "seen": false,
       "read": false,
+      "is_removed": false
+    },
+    {
+      "id": 20,
+      "type": 4,
+      "receiver_id": 2,
+      "sender_id": 1,
+      "created_at": "Mon Nov 27 2023 19:10:37 GMT+0300 (GMT+03:00)",
+      "updated_at": "Mon Nov 27 2023 19:10:37 GMT+0300 (GMT+03:00)",
+      "seen": true,
+      "read": true,
       "is_removed": false
     }
   ]
