@@ -8,6 +8,7 @@ import Settings from './Components/Settings';
 import useHttpResponse from '../../Core/Hooks/useHttpResponse';
 import { Button } from '../../Core/Components/Buttons/Button.style';
 import { NotificationActions } from './Store/Notifications.slice';
+import { DashboardSagaActions } from '../Dashboard/Store/Dashboard.saga';
 
 const Notifications = () => {
   const dispatch = useDispatch();
@@ -39,6 +40,8 @@ const Notifications = () => {
 
   useEffect(() => {
     fetchNotifications();
+    const payload = { query: `?user_id=${authorizedUser.id}` };
+    dispatch(DashboardSagaActions.getFriends(payload));
     return () => {
       dispatch(NotificationActions.setReset());
     };
@@ -55,7 +58,7 @@ const Notifications = () => {
           </S.NotificationItem>
         ))
       }
-      { more && <Button style={{ marginTop: 20}} onClick={fetchNotifications}> Fetch More </Button> }
+      { loading?.getNotifications === false && more && <Button style={{ marginTop: 20}} onClick={fetchNotifications}> Fetch More </Button> }
     </S.NotificationsContent>
   );
 };
