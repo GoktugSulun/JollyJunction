@@ -28,6 +28,8 @@ const Content = ({ data }) => {
       return 'accepted your friendship request.';
     case NotificationTypes.YOU_ARE_FRIEND_NOW:
       return 'and you are friends now.';
+    case NotificationTypes.LIKED_COMMENT:
+      return 'liked your comment.';
     default:
       throw new Error('undefined notification type!');
     }

@@ -109,7 +109,6 @@ class CommentService {
 
       const createdData = await CommentService.getById({ params: { id: data.id } });
       if (!createdData.type) {
-        console.log(3);
         return {
           type: false,
           message: "Couldn't fetch created data"
@@ -121,7 +120,6 @@ class CommentService {
 
       const postService = await PostService.getById({ params: { id: data.post_id } });
       if (!postService.type) {
-        console.log(2);
         return {
           type: false,
           message: postService.message
@@ -139,7 +137,6 @@ class CommentService {
         });
   
         if (!notificationService.type) {
-          console.log(1);
           return {
             type: false,
             message: notificationService.message
@@ -164,12 +161,81 @@ class CommentService {
   static async like(req, res) {
     try {
       const commentService = await LikeService.createForComment(req, res);
+      if (!commentService.type) {
+        return {
+          type: false,
+          message: commentService.message
+        };
+      }
+
+      const { id, like } = req.body;
+
+      //* If user likes or withdraw like for her/him comment, don't create or delete notification
+      if (commentService.data.user_id === authorizedUserId) {
+        console.log('kendi yorumumu beğendim ya da geri çektim');
+        return {
+          type: true,
+          message: commentService.message,
+          data: commentService.data
+        };
+      }
+
+      //* User likes a comment, create a notification for it
+      if (like) {
+        console.log('Başka yorumu beğendim');
+        const notificationService = await NotificationService.create({ 
+          body: {
+            sender_id: authorizedUserId,
+            receiver_id: commentService.data.user_id,
+            type: NotificationTypes.LIKED_COMMENT
+          } 
+        });
+        if (!notificationService.type) {
+          return {
+            type: false,
+            message: notificationService.message
+          };
+        }
+      } 
       
+      //* User withdraw her/his like for a comment, delete this notification
+      if (!like) {
+        console.log('Başka yorumdan beğenimi geri çektim');
+        //* Find target notification
+        const notificationService = await NotificationService.get({
+          query: {
+            is_removed: false,
+            type: NotificationTypes.LIKED_COMMENT,
+            receiver_id: commentService.data.user_id,
+            sender_id: authorizedUserId
+          }
+        });
+        if (!notificationService.type) {
+          return {
+            type: false,
+            message: notificationService.message
+          };
+        }
+
+        //* Delete target notification
+        console.log(notificationService.data.notifications, ' notificationService');
+        const deleteNotificationService = await NotificationService.delete({ body: { notification_ids: [notificationService.data.notifications[0].id] } });
+        
+        console.log(deleteNotificationService.type, ' ilgili notiyi sildim');
+        if (!deleteNotificationService.type) {
+          return {
+            type: false,
+            message: deleteNotificationService.message
+          };
+        }
+      }
+
       return {
-        type: commentService.type,
+        type: true,
         message: commentService.message,
         data: commentService.data
       };
+     
     } catch (error) {
       return {
         type: false,

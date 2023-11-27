@@ -1,148 +1,13 @@
 {
   "comments": [
     {
-      "comment": "harika bir fotoğraf ya ",
-      "post_id": 14,
+      "comment": "harika dsotum",
+      "post_id": 15,
       "id": 1,
       "user_id": 1,
-      "likes": [
-        1
-      ],
-      "created_at": "Sun Nov 26 2023 15:19:21 GMT+0300 (GMT+03:00)",
-      "updated_at": "Sun Nov 26 2023 15:19:21 GMT+0300 (GMT+03:00)",
-      "is_removed": true,
-      "user": {
-        "id": 1,
-        "name": "Goktug",
-        "surname": "Sulun",
-        "email": "goktug.sulun@hotmail.com",
-        "location": "Kucukcekmece",
-        "city": "Istanbul",
-        "country": "Turkey",
-        "img": "goktug.jpeg",
-        "position": "Fullstack Developer"
-      }
-    },
-    {
-      "comment": "deneme -123",
-      "post_id": 14,
-      "id": 2,
-      "user_id": 1,
-      "likes": [
-        1
-      ],
-      "created_at": "Sun Nov 26 2023 15:23:19 GMT+0300 (GMT+03:00)",
-      "updated_at": "Sun Nov 26 2023 15:23:19 GMT+0300 (GMT+03:00)",
-      "is_removed": true,
-      "user": {
-        "id": 1,
-        "name": "Goktug",
-        "surname": "Sulun",
-        "email": "goktug.sulun@hotmail.com",
-        "location": "Kucukcekmece",
-        "city": "Istanbul",
-        "country": "Turkey",
-        "img": "goktug.jpeg",
-        "position": "Fullstack Developer"
-      }
-    },
-    {
-      "comment": "harikasın ya",
-      "post_id": 14,
-      "id": 3,
-      "user_id": 2,
-      "likes": [
-        1
-      ],
-      "created_at": "Sun Nov 26 2023 15:55:19 GMT+0300 (GMT+03:00)",
-      "updated_at": "Sun Nov 26 2023 15:55:19 GMT+0300 (GMT+03:00)",
-      "is_removed": false,
-      "user": {
-        "id": 2,
-        "name": "Damla Nur",
-        "surname": "Yilmaz",
-        "email": "damlanur.ylmaz@hotmail.com",
-        "location": "Esenyurt",
-        "city": "Istanbul",
-        "country": "Turkey",
-        "img": "damla.jpg",
-        "position": "Frontend Developer"
-      }
-    },
-    {
-      "comment": "aaloo",
-      "post_id": 14,
-      "id": 4,
-      "user_id": 1,
       "likes": [],
-      "created_at": "Sun Nov 26 2023 16:50:17 GMT+0300 (GMT+03:00)",
-      "updated_at": "Sun Nov 26 2023 16:50:17 GMT+0300 (GMT+03:00)",
-      "is_removed": true
-    },
-    {
-      "comment": "def",
-      "post_id": 14,
-      "id": 5,
-      "user_id": 1,
-      "likes": [
-        1
-      ],
-      "created_at": "Sun Nov 26 2023 16:53:18 GMT+0300 (GMT+03:00)",
-      "updated_at": "2023-11-27T14:18:54.656Z",
-      "is_removed": true,
-      "user": {
-        "id": 1,
-        "name": "Goktug",
-        "surname": "Sulun",
-        "email": "goktug.sulun@hotmail.com",
-        "location": "Kucukcekmece",
-        "city": "Istanbul",
-        "country": "Turkey",
-        "img": "goktug.jpeg",
-        "position": "Fullstack Developer"
-      }
-    },
-    {
-      "comment": "abc",
-      "post_id": 14,
-      "id": 6,
-      "user_id": 1,
-      "likes": [],
-      "created_at": "Mon Nov 27 2023 16:15:55 GMT+0300 (GMT+03:00)",
-      "updated_at": "2023-11-27T14:18:53.341Z",
-      "is_removed": true,
-      "user": {
-        "id": 1,
-        "name": "Goktug",
-        "surname": "Sulun",
-        "email": "goktug.sulun@hotmail.com",
-        "location": "Kucukcekmece",
-        "city": "Istanbul",
-        "country": "Turkey",
-        "img": "goktug.jpeg",
-        "position": "Fullstack Developer"
-      }
-    },
-    {
-      "comment": "ee",
-      "post_id": 14,
-      "id": 7,
-      "user_id": 1,
-      "likes": [],
-      "created_at": "Mon Nov 27 2023 17:20:38 GMT+0300 (GMT+03:00)",
-      "updated_at": "2023-11-27T14:21:10.426Z",
-      "is_removed": true
-    },
-    {
-      "comment": "ccccc",
-      "post_id": 14,
-      "id": 8,
-      "user_id": 1,
-      "likes": [
-        1
-      ],
-      "created_at": "Mon Nov 27 2023 17:20:45 GMT+0300 (GMT+03:00)",
-      "updated_at": "2023-11-27T14:20:56.853Z",
+      "created_at": "Mon Nov 27 2023 19:50:20 GMT+0300 (GMT+03:00)",
+      "updated_at": "Mon Nov 27 2023 19:50:20 GMT+0300 (GMT+03:00)",
       "is_removed": false,
       "user": {
         "id": 1,
@@ -155,56 +20,6 @@
         "img": "goktug.jpeg",
         "position": "Fullstack Developer"
       }
-    },
-    {
-      "comment": "hey velet",
-      "post_id": 14,
-      "id": 9,
-      "user_id": 1,
-      "likes": [],
-      "created_at": "Mon Nov 27 2023 19:05:53 GMT+0300 (GMT+03:00)",
-      "updated_at": "Mon Nov 27 2023 19:05:53 GMT+0300 (GMT+03:00)",
-      "is_removed": false
-    },
-    {
-      "comment": "a",
-      "post_id": 14,
-      "id": 10,
-      "user_id": 1,
-      "likes": [],
-      "created_at": "Mon Nov 27 2023 19:07:06 GMT+0300 (GMT+03:00)",
-      "updated_at": "Mon Nov 27 2023 19:07:06 GMT+0300 (GMT+03:00)",
-      "is_removed": false
-    },
-    {
-      "comment": "adsa",
-      "post_id": 14,
-      "id": 11,
-      "user_id": 1,
-      "likes": [],
-      "created_at": "Mon Nov 27 2023 19:07:42 GMT+0300 (GMT+03:00)",
-      "updated_at": "Mon Nov 27 2023 19:07:42 GMT+0300 (GMT+03:00)",
-      "is_removed": false
-    },
-    {
-      "comment": "123",
-      "post_id": 13,
-      "id": 12,
-      "user_id": 1,
-      "likes": [],
-      "created_at": "Mon Nov 27 2023 19:09:18 GMT+0300 (GMT+03:00)",
-      "updated_at": "Mon Nov 27 2023 19:09:18 GMT+0300 (GMT+03:00)",
-      "is_removed": false
-    },
-    {
-      "comment": "hey güzellik",
-      "post_id": 16,
-      "id": 13,
-      "user_id": 1,
-      "likes": [],
-      "created_at": "Mon Nov 27 2023 19:09:44 GMT+0300 (GMT+03:00)",
-      "updated_at": "Mon Nov 27 2023 19:09:44 GMT+0300 (GMT+03:00)",
-      "is_removed": false
     }
   ]
 }
