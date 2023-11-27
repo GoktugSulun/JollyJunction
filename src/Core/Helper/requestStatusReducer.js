@@ -29,7 +29,6 @@ const requestStatusReducer = (builder, sagaActions) => {
         if (action.payload && !state.actionPayload) {
           state.actionPayload = {};
         } else {
-          console.log('setliyorum');
           state.actionPayload[getActionType(action)] = action.payload;
         }
       }
@@ -45,7 +44,6 @@ const requestStatusReducer = (builder, sagaActions) => {
     .addMatcher(
       (action) => isMatchedSliceAndRequestAction(action, HttpResponseTypes.LOADING),
       (state, action) => {
-        console.log('loading action: => ', action);
         state.loading[getActionType(action)] = true;
         state.requestStatus[getActionType(action)] = HttpResponseTypes.LOADING;
       }

@@ -51,25 +51,21 @@ class CommentController {
   }
 
   static async delete(req, res) {
-    setTimeout(async () => {
-      try {
-        const result = await CommentService.delete(req, res);
-        Helpers.responseJSON(res, result);
-      } catch (error) {
-        Helpers.responseMessage(res, ResponseEnums.FAILURE, error.message);
-      }
-    }, 5000);
+    try {
+      const result = await CommentService.delete(req, res);
+      Helpers.responseJSON(res, result);
+    } catch (error) {
+      Helpers.responseMessage(res, ResponseEnums.FAILURE, error.message);
+    }
   }
   
   static async edit(req, res) {
-    setTimeout(async () => {
-      try {
-        const result = await CommentService.edit(req, res);
-        Helpers.responseJSON(res, result);
-      } catch (error) {
-        Helpers.responseMessage(res, ResponseEnums.FAILURE, error.message);
-      }
-    }, 5000);
+    try {
+      const result = await CommentService.edit(req, res);
+      Helpers.responseJSON(res, result);
+    } catch (error) {
+      Helpers.responseMessage(res, ResponseEnums.FAILURE, error.message);
+    }
   }
 }
   

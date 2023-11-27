@@ -314,6 +314,7 @@ export const Post = styled.div`
       object-fit: cover;
       height: auto;
       border-radius: 10px;
+      cursor: pointer;
    }
    .buttons {
       display: flex;
