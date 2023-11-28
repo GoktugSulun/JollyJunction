@@ -60,6 +60,7 @@ export const CommentsSectionHeader = styled.div`
                 color: #c9c9c9;
                 text-decoration: none;
                 transition: all 350ms;
+                cursor: pointer;
                 :hover {
                     color: #FFFFFF;
                 }
@@ -155,6 +156,7 @@ export const Comment = styled.div`
             &__name {
                 color: #c9c9c9;
                 text-decoration: none;
+                cursor: pointer;
                 :hover {
                     color: #FFFFFF;
                 }

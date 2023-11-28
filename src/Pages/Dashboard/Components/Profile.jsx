@@ -28,6 +28,7 @@ const Profile = ({ data }) => {
           name={`${data?.name || ''} ${data?.surname || ''}`}
           position={data?.position || ''}
           src={getUserSrc()}
+          clickable={false}
         />
         {
           authorizedUser.id === data.id 

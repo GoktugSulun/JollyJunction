@@ -13,11 +13,13 @@ const LetterImage = (props) => {
 export default LetterImage;
 
 LetterImage.propTypes = {
-   name: PropTypes.string,
-   fontSize: PropTypes.string
+  name: PropTypes.string,
+  fontSize: PropTypes.string,
+  className: PropTypes.string
 };
 
 LetterImage.defaultProps = {
-   name: '?',
-   fontSize: '35px'
+  name: '?',
+  fontSize: '35px',
+  className: ''
 };

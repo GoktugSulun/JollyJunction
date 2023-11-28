@@ -9,6 +9,8 @@ import Loading from '../../Core/Components/Loading/Loading';
 import { DashboardActions } from './Store/Dashboard.slice';
 import { AppConfigSagaActions } from '../../Core/Store/AppConfig.saga';
 import { intersectionObserver } from '../../Core/Helpers';
+import { PostModalActions } from '../../Components/PostModal/Store/PostModal.slice';
+import { ModalTypes } from '../../Core/Constants/Enums';
 
 const Dashboard = () => {
   const dispatch = useDispatch();
@@ -49,6 +51,7 @@ const Dashboard = () => {
     dispatch(DashboardSagaActions.getFriends(payload));
     return () => {
       dispatch(DashboardActions.setReset());
+      dispatch(PostModalActions.handleModal(ModalTypes.CLOSE));
     };
   }, []);
 

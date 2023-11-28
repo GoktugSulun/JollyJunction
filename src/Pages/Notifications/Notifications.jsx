@@ -14,20 +14,23 @@ import { ModalTypes, NotificationTypes } from '../../Core/Constants/Enums';
 import { PostModalSagaActions } from '../../Components/PostModal/Store/PostModal.saga';
 import FriendshipEnums from '../../server/constants/Enums/FriendshipEnums';
 import { useNavigate } from 'react-router-dom';
+import intersectionObserver from '../../Core/Helpers/intersectionObserver';
 
 const Notifications = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [loadingId, setLoadingId] = useState(null);
-  const { loading, notifications, page, limit, more } = useSelector((state) => state.Notifications);
+  const { loading, notifications, page, limit, canBeMore } = useSelector((state) => state.Notifications);
   const { loading: postModalLoading } = useSelector((state) => state.PostModal);
   const { authorizedUser } = useSelector((state) => state.AppConfig.init);
 
   const fetchNotifications = () => {
-    const payload = {
-      queries: `?page=${page}&limit=${limit}&receiver_id=${authorizedUser.id}&is_removed=${false}`
-    };
-    dispatch(NotificationSagaActions.getNotifications(payload));
+    if (canBeMore) {
+      const payload = {
+        queries: `?page=${page}&limit=${limit}&receiver_id=${authorizedUser.id}&is_removed=${false}`
+      };
+      dispatch(NotificationSagaActions.getNotifications(payload));
+    }
   };
 
   const getPostDetail = (post_id, notification_id, sender_user, type) => {
@@ -107,20 +110,29 @@ const Notifications = () => {
   }, NotificationSagaActions.getNotifications());
 
   useEffect(() => {
-    fetchNotifications();
-    const payload = { query: `?user_id=${authorizedUser.id}` };
-    dispatch(DashboardSagaActions.getFriends(payload));
+    const element = Array.from(document.querySelectorAll('.notification-item'))?.at(-1);
+    intersectionObserver(element, fetchNotifications, 0.8);
+  }, [notifications]);
+
+  useEffect(() => {
+    const payload = {
+      queries: `?page=${1}&limit=${limit}&receiver_id=${authorizedUser.id}&is_removed=${false}`
+    };
+    dispatch(NotificationSagaActions.getNotifications(payload));
+    const friendPayload = { query: `?user_id=${authorizedUser.id}` };
+    dispatch(DashboardSagaActions.getFriends(friendPayload));
     return () => {
       dispatch(NotificationActions.setReset());
+      dispatch(PostModalActions.handleModal(ModalTypes.CLOSE));
     };
   }, []);
 
   return (
     <S.NotificationsContent>
-      { loading?.getNotifications && <Loading /> }
       {
         notifications.map((obj) => (
           <S.NotificationItem 
+            className="notification-item"
             key={obj.id}
             disabled={postModalLoading?.getSpecificPost}
             onClick={() => getPostDetail(obj.post_id, obj.id, obj.sender_user, obj.type)} 
@@ -131,7 +143,7 @@ const Notifications = () => {
           </S.NotificationItem>
         ))
       }
-      { loading?.getNotifications === false && more && <Button style={{ marginTop: 20}} onClick={fetchNotifications}> Fetch More </Button> }
+      { loading?.getNotifications && <Loading margin="15px 0 0 0" /> }
     </S.NotificationsContent>
   );
 };

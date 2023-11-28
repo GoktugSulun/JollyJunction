@@ -28,7 +28,7 @@ export default [
     * func({ payload }) {
       const response = yield call(request, HttpMethodTypes.GET, `${ApiUrl.getNotifications}${payload.queries}`);
       yield put(NotificationActions.setNotifications(response?.data?.notifications || []));
-      yield put(NotificationActions.setMore(response?.data?.more || false));
+      yield put(NotificationActions.setCanBeMore(response?.data?.more || false));
     }
   }),
   createSagaWatcher({

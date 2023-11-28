@@ -36,6 +36,7 @@ const PostHeader = ({ data }) => {
         name={`${data?.user?.name || ''} ${data?.user?.surname || ''}`}
         position={data?.user?.position || ''}
         src={getUserImageURL(data?.user?.img)}
+        id={data.user.id}
       />
       {
         (loading?.addFriend || notificationLoading?.cancelFriendshipRequest || loading?.acceptFriendship)

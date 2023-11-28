@@ -62,7 +62,7 @@ const CreatePost = () => {
   return (
     <S.CreatePost>
       <div className="header">
-        <UserProfile name={authorizedUser.name} src={getUserImageURL(authorizedUser.img)} displayName={false} />
+        <UserProfile name={authorizedUser.name} clickable={false} src={getUserImageURL(authorizedUser.img)} displayName={false} />
         <TextInput
           {...registerHandler('value')}
           placeholder="What's on your mind..."
