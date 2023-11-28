@@ -40,6 +40,33 @@ class CommentController {
       Helpers.responseMessage(res, ResponseEnums.FAILURE, error.message);
     }
   }
+
+  static async like(req, res) {
+    try {
+      const result = await CommentService.like(req, res);
+      Helpers.responseJSON(res, result);
+    } catch (error) {
+      Helpers.responseMessage(res, ResponseEnums.FAILURE, error.message);
+    }
+  }
+
+  static async delete(req, res) {
+    try {
+      const result = await CommentService.delete(req, res);
+      Helpers.responseJSON(res, result);
+    } catch (error) {
+      Helpers.responseMessage(res, ResponseEnums.FAILURE, error.message);
+    }
+  }
+  
+  static async edit(req, res) {
+    try {
+      const result = await CommentService.edit(req, res);
+      Helpers.responseJSON(res, result);
+    } catch (error) {
+      Helpers.responseMessage(res, ResponseEnums.FAILURE, error.message);
+    }
+  }
 }
   
 export default CommentController;

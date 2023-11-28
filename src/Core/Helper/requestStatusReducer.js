@@ -26,10 +26,10 @@ const requestStatusReducer = (builder, sagaActions) => {
         if (!state.requestStatus) {
           state.requestStatus = {};
         }
-        if (action.payload) {
-          // state.actionPayload[getActionType(action)] = 'deneme';
-        } else {
+        if (action.payload && !state.actionPayload) {
           state.actionPayload = {};
+        } else {
+          state.actionPayload[getActionType(action)] = action.payload;
         }
       }
     )
@@ -39,7 +39,6 @@ const requestStatusReducer = (builder, sagaActions) => {
       (state, action) => {
         state.loading[getActionType(action)] = false;
         state.requestStatus[getActionType(action)] = HttpResponseTypes.IDLE;
-        // state.actionPayload[getActionType(action)] = null;
       }
     )
     .addMatcher(

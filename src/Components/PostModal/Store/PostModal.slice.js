@@ -11,7 +11,7 @@ const initialState = {
   limit: 10,
   canBeMoreComment: true,
   postData: {},
-  comments: []
+  comments: [],
 };
 
 const PostModalSlice = createSlice({
@@ -37,6 +37,19 @@ const PostModalSlice = createSlice({
     setComment: (state, action) => {
       state.comments.unshift(action.payload);
       state.postData.comments_count++;
+    },
+    likeComment: (state, action) => {
+      const { id, data } = action.payload;
+      state.comments = state.comments.map((obj) => obj.id === id ? data : obj);
+    },
+    deleteComment: (state, action) => {
+      const { id } = action.payload;
+      state.comments = state.comments.filter((obj) => obj.id !== id);
+      state.postData.comments_count--;
+    },
+    editComment: (state, action) => {
+      const { id, comment } = action.payload;
+      state.comments = state.comments.map((obj) => obj.id === id ? {...obj, comment} : obj);
     },
     likePost: likePostHandler,
     savePost: savePostHandler

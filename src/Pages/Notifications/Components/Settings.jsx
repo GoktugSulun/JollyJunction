@@ -36,21 +36,29 @@ const Settings = ({ data }) => {
   const { loading, targetNotificationIds, targetRemovedNotificationsIds } = useSelector((state) => state.Notifications);
   
   const handleClick = (event) => {
+    event.stopPropagation(); //* Stop bubbling
     setAnchorEl(event.currentTarget);
   };
 
-  const handleClose = () => {
+  const handleClose = (event) => {
+    event?.stopPropagation(); //* Stop bubbling
     setAnchorEl(null);
   };
 
-  const markAsRead = () => { 
+  const markAsRead = (event) => { 
+    event.stopPropagation(); //* Stop bubbling
     const payload = {
-      notification_ids: [data.id]
+      data: {
+        notification_ids: [data.id]
+      },
+      settings: true,
+      snackbar: true
     };
     dispatch(NotificationSagaActions.markNotificationsRead(payload));
   };
 
-  const deleteNotification = () => {
+  const deleteNotification = (event) => {
+    event.stopPropagation(); //* Stop bubbling
     const payload = {
       notification_ids: [data.id]
     };
@@ -58,11 +66,13 @@ const Settings = ({ data }) => {
   };
 
   useHttpResponse({
-    success: ({ idleAction }) => {
-      idleAction();
-      if (targetNotificationIds.includes(data.id)) {
-        handleClose();
-        dispatch(NotificationActions.setTargetNotificationIds([]));
+    success: ({ idleAction, payload }) => {
+      if (payload?.settings) {
+        idleAction();
+        if (targetNotificationIds.includes(data.id)) {
+          handleClose();
+          dispatch(NotificationActions.setTargetNotificationIds([]));
+        }
       }
     }
   }, NotificationSagaActions.markNotificationsRead());

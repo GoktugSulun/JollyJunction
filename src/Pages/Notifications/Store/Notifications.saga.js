@@ -44,10 +44,12 @@ export default [
     actionType: NotificationSagaActions.markNotificationsRead.type,
     takeType: SagaTakeTypes.TAKE_LATEST,
     * func({ payload }) {
-      yield put(NotificationActions.setTargetNotificationIds(payload.notification_ids));
-      yield call(request, HttpMethodTypes.PUT, `${ApiUrl.markNotificationsRead}`, payload);
-      yield put(snackbar('Marked as read'));
-      yield put(NotificationActions.markNotificationsRead(payload));
+      yield put(NotificationActions.setTargetNotificationIds(payload.data.notification_ids));
+      yield call(request, HttpMethodTypes.PUT, `${ApiUrl.markNotificationsRead}`, payload.data);
+      yield put(NotificationActions.markNotificationsRead(payload.data));
+      if (payload.snackbar) {
+        yield put(snackbar('Marked as read'));
+      }
     }
   }),
   createSagaWatcher({

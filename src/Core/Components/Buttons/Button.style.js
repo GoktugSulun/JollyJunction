@@ -13,6 +13,10 @@ export const Button = styled(MaterialButton, overridedProps)`
    border: ${(props) => props.border || 'none'};
    font-weight: ${(props) => props.fontWeight || 500};
    min-width: ${(props) => props.minWidth || '64px'};
+   :disabled {
+      background-color: #202022;
+      color: #7d7c7c;
+   }
    :hover {
       color: ${(props) => props.hoverColor || props.$color || '#FFFFFF'};
       background: ${(props) => props.hoverBgColor || props.bgColor || '#4A329A'};

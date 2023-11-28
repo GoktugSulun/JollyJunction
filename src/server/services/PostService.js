@@ -48,7 +48,7 @@ const getPostDetail = (data) => (
   {
     ...data,
     likes_count: likes.filter((likeObj) => likeObj.post_id === data.id).length,
-    comments_count: comments.filter((commentObj) => commentObj.post_id === data.id).length,
+    comments_count: comments.filter((commentObj) => commentObj.post_id === data.id && !commentObj.is_removed).length,
     liked: !!likes.find((likeObj) => likeObj.user_id === authorizedUserId && likeObj.post_id === data.id),
     saved: !!saves.find((saveObj) => saveObj.user_id === authorizedUserId && saveObj.post_id === data.id),
     user: users.find((userObj) => userObj.id === data.user_id),
@@ -157,7 +157,7 @@ class PostService {
   static async like(req, res) {
     try {
       const currentState = [...likes];
-      const likeResult = await LikeService.create(req, res);
+      const likeResult = await LikeService.createForPost(req, res);
 
       const { like, post_id } = req.body;
       if (!like) {
@@ -178,7 +178,7 @@ class PostService {
       const receiver_id = postResult.data.user.id;
 
       if (receiver_id !== authorizedUserId) {
-        const notificationResult = await NotificationService.create({ body: { receiver_id, type: NotificationTypes.LIKED_POST } }, res);
+        const notificationResult = await NotificationService.create({ body: { receiver_id, type: NotificationTypes.LIKED_POST, post_id } }, res);
         if (!notificationResult.type) {
           likesDB.data = { likes: currentState }; //* reset likes data
           await likesDB.write();

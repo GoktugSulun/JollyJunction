@@ -7,6 +7,7 @@ export const ContentWrapper = styled.div`
    background-color: #0f0f0f;
    display: grid;
    grid-template-columns: 1fr 2fr 1fr;
+   align-items: start;
    padding: 0 75px;
    margin: 30px 0;
    gap: 50px;

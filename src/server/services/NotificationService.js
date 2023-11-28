@@ -119,12 +119,13 @@ class NotificationService {
     const { notifications } = notificationsDB.data;
     const nextId = Math.max(...notifications.map(like => like.id), 0) + 1;
     try {
-      const { receiver_id, type, sender_id=authorizedUserId, seen=false, read=false } = req.body;
+      const { receiver_id, type, sender_id=authorizedUserId, post_id=null, seen=false, read=false } = req.body;
       const newNotification = {
         id: nextId,
         type,
         receiver_id,
-        sender_id: sender_id,
+        sender_id,
+        post_id,
         created_at: new Date().toString(),
         updated_at: new Date().toString(),
         seen,
@@ -200,12 +201,14 @@ class NotificationService {
     try {
       const { notifications } = notificationsDB.data;
       const { notification_ids } = req.body;
+      console.log(notification_ids, ' gelen noti ids');
       const newNotifications = notifications.map((obj) => {
         if (notification_ids.includes(obj.id)) {
           return { ...obj, is_removed: true, updated_at: new Date().toString() };
         }
         return obj;
       });
+      console.log('siliyorum aga => ', newNotifications);
 
       notificationsDB.data = { notifications: newNotifications };
       await notificationsDB.write();

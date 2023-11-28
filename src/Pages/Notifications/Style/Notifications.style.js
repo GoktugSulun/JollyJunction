@@ -1,6 +1,7 @@
 import styled from '@emotion/styled';
 import { ContentWrapper } from '../../../Core/Components/Pages/ContentWrapper.style';
 import Menu from '@mui/material/Menu';
+import { LinearProgress } from '@mui/material';
 
 export const Notifications = styled(ContentWrapper)`
    min-height: calc(100vh - 150px);
@@ -126,13 +127,15 @@ export const Buttons = styled.div`
    }
 `;
 
-export const NotificationItem = styled.div`
+export const NotificationItem = styled.button`
+   all: unset;
    display: flex;
    align-items: center;
    gap: 15px;
    padding: 15px 20px;
    background-color: #181818;
    cursor: pointer;
+   position: relative;
    transition: background-color 150ms;
    :first-child {
       border-top-left-radius: 10px;
@@ -156,3 +159,15 @@ export const NotificationItem = styled.div`
       background: #555; 
    }
  `;
+
+export const ProgressBar = styled(LinearProgress)`
+   width: 100%;
+   position: absolute;
+   left: 0;
+   bottom: 0;
+   z-index: 1;
+   background-color: #0f0f0f;
+   span {
+      background-color: #4A329A;
+   }
+`;

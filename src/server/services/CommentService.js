@@ -1,5 +1,9 @@
+import NotificationTypes from '../../Core/Constants/Enums/NotificationTypes.js';
 import { commentsDB } from '../db/index.js';
 import { authorizedUserId } from '../server.js';
+import LikeService from './LikeService.js';
+import NotificationService from './NotificationService.js';
+import PostService from './PostService.js';
 import UserService from './UserService.js';
 
 class CommentService {
@@ -27,12 +31,19 @@ class CommentService {
       if (!data) {
         return {
           type: false,
-          message: `Comment with id ${id} couldn't find`,
-          data: result
+          message: `Comment with id ${id} couldn't find`
+        };
+      }
+      
+      const commentService = await UserService.getById({ params: { id: data.user_id } });
+      if (!commentService.type) {
+        return {
+          type: false,
+          message: commentService.message
         };
       }
 
-      const result = data;
+      const result = { ...data, user: commentService.data };
       return {
         type: true,
         message: `Comment with id ${id} has been fetched`,
@@ -89,13 +100,13 @@ class CommentService {
       const data = req.body;
       data.id = nextId;
       data.user_id = authorizedUserId;
+      data.likes = [];
       data.created_at = new Date().toString();
       data.updated_at = new Date().toString();
       data.is_removed = false;
       comments.push(data);
       await commentsDB.write();
 
-      //* get post that has just created
       const createdData = await CommentService.getById({ params: { id: data.id } });
       if (!createdData.type) {
         return {
@@ -106,11 +117,231 @@ class CommentService {
 
       const user = await UserService.getById({ params: { id: data.user_id }});
       const result = { ...createdData.data, user: user.data };
+
+      const postService = await PostService.getById({ params: { id: data.post_id } });
+      if (!postService.type) {
+        return {
+          type: false,
+          message: postService.message
+        };
+      }
+
+      //* if user makes a comment for a post who is not created by himself/herself, then create a notification
+      if (postService.data.user_id !== authorizedUserId) {
+        const notificationService = await NotificationService.create({ 
+          body: { 
+            receiver_id: postService.data.user_id,
+            sender_id: authorizedUserId,
+            type: NotificationTypes.COMMENTED_POST,
+            post_id: data.post_id
+          } 
+        });
+  
+        if (!notificationService.type) {
+          return {
+            type: false,
+            message: notificationService.message
+          };
+        }
+      }
       
       return {
         type: true,
         message: 'Comment is created',
         data: result
+      };
+    } catch (error) {
+      console.log('burada mıyız ?', error);
+      return {
+        type: false,
+        message: error.message
+      };
+    }
+  }
+
+  static async like(req, res) {
+    try {
+      const commentService = await LikeService.createForComment(req, res);
+      if (!commentService.type) {
+        return {
+          type: false,
+          message: commentService.message
+        };
+      }
+
+      const { id, like } = req.body;
+
+      //* If user likes or withdraw like for her/him comment, don't create or delete notification
+      if (commentService.data.user_id === authorizedUserId) {
+        return {
+          type: true,
+          message: commentService.message,
+          data: commentService.data
+        };
+      }
+
+      //* User likes a comment, create a notification for it
+      if (like) {
+        const commentService = await CommentService.getById({ params: { id }});
+        if (!commentService.type) {
+          return {
+            type: false,
+            message: commentService.message
+          };
+        }
+
+        const notificationService = await NotificationService.create({ 
+          body: {
+            sender_id: authorizedUserId,
+            receiver_id: commentService.data.user_id,
+            type: NotificationTypes.LIKED_COMMENT,
+            post_id: commentService.data.post_id
+          } 
+        });
+        if (!notificationService.type) {
+          return {
+            type: false,
+            message: notificationService.message
+          };
+        }
+      } 
+      
+      //* User withdraw her/his like for a comment, delete this notification
+      if (!like) {
+        //* Find target notification
+        const notificationService = await NotificationService.get({
+          query: {
+            is_removed: false,
+            type: NotificationTypes.LIKED_COMMENT,
+            receiver_id: commentService.data.user_id,
+            sender_id: authorizedUserId
+          }
+        });
+        if (!notificationService.type) {
+          return {
+            type: false,
+            message: notificationService.message
+          };
+        }
+
+        //* Delete target notification
+        const deleteNotificationService = await NotificationService.delete({ body: { notification_ids: [notificationService.data.notifications[0].id] } });
+        
+        if (!deleteNotificationService.type) {
+          return {
+            type: false,
+            message: deleteNotificationService.message
+          };
+        }
+      }
+
+      return {
+        type: true,
+        message: commentService.message,
+        data: commentService.data
+      };
+     
+    } catch (error) {
+      return {
+        type: false,
+        message: error.message
+      };
+    }
+  }
+
+  static async delete(req, res) {
+    try {
+      const { id } = req.params;
+      const { comments } = commentsDB.data;
+      
+      const index = comments.findIndex((obj) => obj.id === parseInt(id));
+      if (index === -1) {
+        return {
+          type: false,
+          message: `Comment with id ${id} couldn't find`
+        };
+      }
+
+      const commentData = { ...comments[index], is_removed: true };
+      comments.splice(index, 1, commentData);
+      await commentsDB.write();
+
+      //* if user delete a comment for his/her post.
+      if (authorizedUserId === comments[index].post_id) {
+        return {
+          type: true,
+          message: 'Comment is removed'
+        };
+      }
+
+      //* if user delete a comment for a post which is created by another user.
+      //* Find target post firstly
+      const postService = await PostService.getById({ params: { id: comments[index].post_id } });
+      if (!postService.type) {
+        return {
+          type: false,
+          message: postService.message
+        };
+      }
+
+      //* Find target notification
+      const notificationService = await NotificationService.get({
+        query: {
+          is_removed: false,
+          type: NotificationTypes.COMMENTED_POST,
+          receiver_id: postService.data.user_id,
+          sender_id: authorizedUserId
+        }
+      });
+      if (!notificationService.type) {
+        return {
+          type: false,
+          message: notificationService.message
+        };
+      }
+
+      //* Delete target notification
+      const deleteNotificationService = await NotificationService.delete({ body: { notification_ids: [notificationService.data.notifications[0].id] } });
+      
+      if (!deleteNotificationService.type) {
+        return {
+          type: false,
+          message: deleteNotificationService.message
+        };
+      }
+
+      return {
+        type: true,
+        message: 'Comment is removed'
+      };
+    } catch (error) {
+      return {
+        type: false,
+        message: error.message
+      };
+    }
+  }
+
+  static async edit(req, res) {
+    try {
+      const { id, comment } = req.body;
+      const { comments } = commentsDB.data;
+      
+      const index = comments.findIndex((obj) => obj.id === parseInt(id));
+      if (index === -1) {
+        return {
+          type: false,
+          message: `Comment with id ${id} couldn't find`
+        };
+      }
+      
+      const commentData = { ...comments[index], comment, updated_at: new Date() };
+      comments.splice(index, 1, commentData);
+      await commentsDB.write();
+
+      return {
+        type: true,
+        message: 'Comment is edited'
       };
     } catch (error) {
       return {

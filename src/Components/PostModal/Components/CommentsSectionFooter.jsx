@@ -70,7 +70,7 @@ const CommentsSectionFooter = () => {
         </Tooltip>
       </div>
       <div className="post-detail">
-        <Button className="post-detail__likes">
+        <Button disableRipple className="post-detail__likes">
           {postData?.likes_count || 0} likes
         </Button>
         <span className="post-detail__date"> {getDate()} </span>
