@@ -20,7 +20,9 @@ const Layout = () => {
         { !min1200px && <Sidebar /> }
       </S.ProfileWrapper>
       <Outlet />
-      { min1200px && <Sidebar /> }
+      <S.SidebarWrapper>
+        { min1200px && <Sidebar /> }
+      </S.SidebarWrapper>
       <PostModal />
     </S.Layout>
   );

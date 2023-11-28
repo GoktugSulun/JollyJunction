@@ -44,9 +44,7 @@ export const Profile = styled.div`
    background: #181818;
    border-radius: 10px;
    padding: 25px;
-   place-self: flex-start;
-   align-self: flex-start;
-   /* flex: 1; */
+   top: 400px;
    width: 100%;
    transition: width 350ms;
    .user {
