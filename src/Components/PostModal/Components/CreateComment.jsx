@@ -9,6 +9,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { PostModalSagaActions } from '../Store/PostModal.saga';
 import useHttpResponse from '../../../Core/Hooks/useHttpResponse';
 import { DashboardActions } from '../../../Pages/Dashboard/Store/Dashboard.slice';
+import Loading from '../../../Core/Components/Loading/Loading';
 
 const defaultValues = {
   comment: ''
@@ -16,7 +17,7 @@ const defaultValues = {
 
 const CreateComment = () => {
   const dispatch = useDispatch();
-  const { postData } = useSelector((state) => state.PostModal);
+  const { postData, loading } = useSelector((state) => state.PostModal);
   const { registerHandler, form } = useMaterialForm({
     defaultValues
   });
@@ -51,7 +52,11 @@ const CreateComment = () => {
         fullWidth
         id="create-comment-input"
         placeholder="Make a comment..."
-        endAdornment={<IconButton onClick={createCommentHandler} disabled={comment === ''} > <SendIcon /> </IconButton>}
+        readOnly={loading?.createComment}
+        endAdornment={
+          loading?.createComment
+            ? <Loading size={25} color="#FFFFFF" />
+            : <IconButton onClick={createCommentHandler} disabled={comment === ''} > <SendIcon /> </IconButton>}
         {...registerHandler('comment')}
         onKeyDown={onKeyDownHandler}
       />

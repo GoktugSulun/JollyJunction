@@ -270,7 +270,7 @@ export const CommentsSectionFooter = styled.div`
 
 export const CreateComment = styled.div`
     padding: 10px 0;
-    .MuiOutlinedInput-root {
+    .MuiFormControl-root .MuiOutlinedInput-root {
         background-color: transparent;
         color: #c9c9c9;
         input {
