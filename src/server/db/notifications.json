@@ -32,8 +32,8 @@
       "post_id": null,
       "created_at": "Tue Nov 28 2023 15:24:42 GMT+0300 (GMT+03:00)",
       "updated_at": "Tue Nov 28 2023 15:24:42 GMT+0300 (GMT+03:00)",
-      "seen": false,
-      "read": false,
+      "seen": true,
+      "read": true,
       "is_removed": false
     },
     {

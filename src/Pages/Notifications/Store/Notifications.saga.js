@@ -44,7 +44,6 @@ export default [
     actionType: NotificationSagaActions.markNotificationsRead.type,
     takeType: SagaTakeTypes.TAKE_LATEST,
     * func({ payload }) {
-      console.log(payload, ' payload');
       yield put(NotificationActions.setTargetNotificationIds(payload.data.notification_ids));
       yield call(request, HttpMethodTypes.PUT, `${ApiUrl.markNotificationsRead}`, payload.data);
       yield put(NotificationActions.markNotificationsRead(payload.data));
