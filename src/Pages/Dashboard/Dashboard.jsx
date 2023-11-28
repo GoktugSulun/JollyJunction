@@ -4,7 +4,6 @@ import CreatePost from './Components/Post/CreatePost';
 import Post from './Components/Post/Post';
 import { useDispatch, useSelector } from 'react-redux';
 import { DashboardSagaActions } from './Store/Dashboard.saga';
-import { Button } from '../../Core/Components/Buttons/Button.style';
 import useHttpResponse from '../../Core/Hooks/useHttpResponse';
 import Loading from '../../Core/Components/Loading/Loading';
 import { DashboardActions } from './Store/Dashboard.slice';
@@ -15,11 +14,25 @@ const Dashboard = () => {
   const { posts, page, limit, canBeMorePost, loading } = useSelector(state => state.Dashboard);
   const { authorizedUser } = useSelector(state => state.AppConfig.init);
   
-  // TODO: 'More Post' button and the snackbar message are gonna be removed. Instead of this, I am gonna do scroll & fetch combination. 
   const fetchMorePost = () => {
     if (canBeMorePost) {
       dispatch(DashboardSagaActions.getPosts({ page, limit }));
     }
+  };
+
+  const observePosts = () => {
+    const posts = Array.from(document.querySelectorAll('.post'));
+    const lastElement = posts.at(-1);
+    if (!lastElement) {
+      return;
+    }
+    const observer = new IntersectionObserver(([entry]) => {
+      if (entry.isIntersecting) {
+        observer.unobserve(lastElement);
+        fetchMorePost();
+      }
+    });
+    observer.observe(lastElement, { threshold: 0.8 }); //! Doesnt work threshold :(
   };
 
   useHttpResponse({
@@ -27,6 +40,13 @@ const Dashboard = () => {
       idleAction();
     }
   }, DashboardSagaActions.createPost());
+
+  useHttpResponse({
+    success: ({ idleAction }) => {
+      idleAction();
+      observePosts();
+    }
+  }, DashboardSagaActions.getPosts());
 
   useHttpResponse({
     success: ({ idleAction }) => {
@@ -46,19 +66,20 @@ const Dashboard = () => {
   }, []);
 
   return (
-    <S.PostWrapper>
+    <S.PostWrapper id="wrapper">
       <CreatePost />
       {
         loading?.createPost &&
           (<div className="loading-container">
-            <Loading size={50} />
+            <Loading size={50} /> 
           </div>)
       }
       {
-        posts.map((obj) => (
+        posts.map((obj, index) => (
           <Post 
             key={obj.id}
             data={obj}
+            index={index}
           />
         ))
       }
@@ -66,12 +87,6 @@ const Dashboard = () => {
         loading?.getPosts &&
           (<div className="loading-container">
             <Loading size={50} />
-          </div>)
-      }
-      {
-        !!posts.length && canBeMorePost
-          && (<div className="more-button-container">
-            <Button onClick={fetchMorePost}> More Post </Button>
           </div>)
       }
     </S.PostWrapper>

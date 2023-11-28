@@ -7,7 +7,7 @@ import PostFooter from './Components/PostFooter';
 import { useDispatch } from 'react-redux';
 import { DashboardSagaActions } from '../../Store/Dashboard.saga';
 
-const Post = ({ data }) => {
+const Post = ({ data, index }) => {
   const dispatch = useDispatch();
 
   const likeHandler = () => {
@@ -16,10 +16,11 @@ const Post = ({ data }) => {
       post_id: data.id
     };
     dispatch(DashboardSagaActions.likePost(payload));
-  };
+  }; 
 
   return (
-    <S.Post>
+    <S.Post className="post">
+      <div style={{ color: 'red'}}> {index + 1} </div>
       <PostHeader data={data} />
       <PostBody 
         likeHandler={likeHandler} 
@@ -36,5 +37,5 @@ const Post = ({ data }) => {
 export default Post;
 
 Post.propTypes = {
-  data: PropTypes.object.isRequired
+  data: PropTypes.object.isRequired,
 };
