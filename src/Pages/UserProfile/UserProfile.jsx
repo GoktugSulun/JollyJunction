@@ -41,11 +41,11 @@ const UserProfile = () => {
     }
   }, DashboardSagaActions.getPosts());
 
-  useEffect(() => {
-    if ((parseInt(params.id) !== authorizedUser?.id)) {
-      dispatch(UserProfileSagaActions.getUserById({ user_id: parseInt(params.id) }));
-    }
-  }, [authorizedUser]);
+  // useEffect(() => {
+  //   if ((parseInt(params.id) !== authorizedUser?.id)) {
+  //     dispatch(UserProfileSagaActions.getUserById({ user_id: parseInt(params.id) }));
+  //   }
+  // }, [authorizedUser]);
 
   useEffect(() => {
     if (isNaN(parseInt(params.id))) {

@@ -20,7 +20,6 @@ const DashboardSlice = createSlice({
     setReset: () => initialState,
     setPosts: (state, action) => {
       if (state.page === 1) {
-        console.log('first page');
         state.posts = action.payload;
       } else {
         state.posts = [...state.posts, ...action.payload];

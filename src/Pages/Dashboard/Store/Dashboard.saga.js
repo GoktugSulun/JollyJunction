@@ -37,7 +37,6 @@ export default [
     takeType: SagaTakeTypes.TAKE_LATEST,
     * func({ payload }) {
       const response = yield call(request, HttpMethodTypes.POST, `${ApiUrl.createPost}`, payload);
-      console.log(response.data, ' wttg ???');
       yield put(DashboardActions.setPost(response.data));
       yield put(snackbar('Post is created successfully'));
     }

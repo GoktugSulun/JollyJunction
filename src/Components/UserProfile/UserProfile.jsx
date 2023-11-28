@@ -11,7 +11,6 @@ const UserProfile = (props) => {
   const navigateHandler = () => {
     const targetUrl = `/profile/${props.name.split(' ').join('')}/${props.id}`;
     if (targetUrl !== location.pathname) {
-      console.log('navigate etti');
       navigate(targetUrl);
     }
   };

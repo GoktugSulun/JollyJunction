@@ -151,7 +151,6 @@ class CommentService {
         data: result
       };
     } catch (error) {
-      console.log('burada mıyız ?', error);
       return {
         type: false,
         message: error.message
