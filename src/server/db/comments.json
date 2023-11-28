@@ -20,6 +20,16 @@
         "img": "goktug.jpeg",
         "position": "Fullstack Developer"
       }
+    },
+    {
+      "comment": "hey harikasın :)",
+      "post_id": 15,
+      "id": 2,
+      "user_id": 1,
+      "likes": [],
+      "created_at": "Tue Nov 28 2023 13:53:42 GMT+0300 (GMT+03:00)",
+      "updated_at": "Tue Nov 28 2023 13:53:42 GMT+0300 (GMT+03:00)",
+      "is_removed": false
     }
   ]
 }

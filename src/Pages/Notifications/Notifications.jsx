@@ -9,6 +9,7 @@ import useHttpResponse from '../../Core/Hooks/useHttpResponse';
 import { Button } from '../../Core/Components/Buttons/Button.style';
 import { NotificationActions } from './Store/Notifications.slice';
 import { DashboardSagaActions } from '../Dashboard/Store/Dashboard.saga';
+import PostModal from '../../Components/PostModal/PostModal';
 
 const Notifications = () => {
   const dispatch = useDispatch();
@@ -20,6 +21,10 @@ const Notifications = () => {
       queries: `?page=${page}&limit=${limit}&receiver_id=${authorizedUser.id}&is_removed=${false}`
     };
     dispatch(NotificationSagaActions.getNotifications(payload));
+  };
+
+  const openPostDetail = (e) => {
+    console.log('open');
   };
 
   useHttpResponse({
@@ -52,13 +57,15 @@ const Notifications = () => {
       { loading?.getNotifications && <Loading /> }
       {
         notifications.map((obj) => (
-          <S.NotificationItem key={obj.id}>
+          <S.NotificationItem onClick={openPostDetail} key={obj.id}>
             <Content data={obj} />
             <Settings data={obj} />
           </S.NotificationItem>
         ))
       }
       { loading?.getNotifications === false && more && <Button style={{ marginTop: 20}} onClick={fetchNotifications}> Fetch More </Button> }
+      <PostModal />
+
     </S.NotificationsContent>
   );
 };
