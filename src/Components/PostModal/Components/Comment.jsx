@@ -90,7 +90,7 @@ const Comment = ({ data, commentLoadingStates }) => {
   };
 
   return (
-    <S.CommentContainer>
+    <S.CommentContainer className="comment">
       <Button
         bgColor="transparent"
         padding="0"
