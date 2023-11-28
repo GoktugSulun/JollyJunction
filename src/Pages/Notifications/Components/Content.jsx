@@ -11,7 +11,8 @@ import Buttons from './Buttons';
 const Content = ({ data }) => {
   const navigate = useNavigate();
 
-  const navigateToUserProfile = (user) => {
+  const navigateToUserProfile = (event, user) => {
+    event.stopPropagation();
     const url = `/profile/${user.name.split(' ').join('')}${user.surname}/${user.id}`;
     navigate(url);
   };
@@ -46,7 +47,7 @@ const Content = ({ data }) => {
               className="description__sender-user"
               bgColor="transparent"
               padding="0"
-              onClick={() => navigateToUserProfile(data.sender_user)}
+              onClick={(event) => navigateToUserProfile(event, data.sender_user)}
             >  
               { `${data.sender_user.name} ${data.sender_user.surname}` } 
             </Button>

@@ -55,10 +55,10 @@
       "sender_id": 1,
       "post_id": 16,
       "created_at": "Tue Nov 28 2023 16:08:38 GMT+0300 (GMT+03:00)",
-      "updated_at": "Tue Nov 28 2023 16:08:38 GMT+0300 (GMT+03:00)",
+      "updated_at": "Tue Nov 28 2023 16:42:57 GMT+0300 (GMT+03:00)",
       "seen": true,
       "read": true,
-      "is_removed": false
+      "is_removed": true
     }
   ]
 }

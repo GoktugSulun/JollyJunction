@@ -9,7 +9,6 @@ import useHttpResponse from '../../Core/Hooks/useHttpResponse';
 import { Button } from '../../Core/Components/Buttons/Button.style';
 import { NotificationActions } from './Store/Notifications.slice';
 import { DashboardSagaActions } from '../Dashboard/Store/Dashboard.saga';
-import PostModal from '../../Components/PostModal/PostModal';
 import { PostModalActions } from '../../Components/PostModal/Store/PostModal.slice';
 import { ModalTypes, NotificationTypes } from '../../Core/Constants/Enums';
 import { PostModalSagaActions } from '../../Components/PostModal/Store/PostModal.saga';
@@ -45,7 +44,7 @@ const Notifications = () => {
         },
         snackbar: false,
         navigate: true,
-        url: `/profile/${sender_user.name}${sender_user.surname}/${sender_user.id}`
+        url: `/profile/${sender_user.name.split(' ').join('')}${sender_user.surname}/${sender_user.id}`
       };
       dispatch(NotificationSagaActions.markNotificationsRead(payload));
     }

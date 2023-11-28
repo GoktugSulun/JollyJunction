@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import Modal from '@mui/material/Modal';
 import * as S from './Style/PostModal.style';
 import { useDispatch, useSelector } from 'react-redux';
@@ -12,7 +12,6 @@ import { DashboardSagaActions } from '../../Pages/Dashboard/Store/Dashboard.saga
 
 const PostModal = () => {
   const dispatch = useDispatch();
-  const [count, setCount] = useState(1);
   const { isOpen, postData, limit } = useSelector((state) => state.PostModal); 
 
   const handleClose = () => dispatch(PostModalActions.handleModal(ModalTypes.CLOSE));
@@ -36,17 +35,10 @@ const PostModal = () => {
   }, DashboardSagaActions.savePost());
 
   useEffect(() => {
-    console.log(isOpen, ' is open =>');
     if (isOpen) {
-      console.log('commentleri çek');
-      setCount((prev) => prev + 1);
       dispatch(PostModalSagaActions.getComments({ post_id: postData.id, page: 1, limit }));
     }
   }, [isOpen]);
-
-  useEffect(() => {
-    console.log(count, ' count');
-  }, [count]);
 
   return (
     <div>
