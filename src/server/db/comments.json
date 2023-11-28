@@ -1,14 +1,26 @@
 {
   "comments": [
     {
-      "comment": "harika dsotum",
-      "post_id": 15,
+      "comment": "harika görüntü dostum",
+      "post_id": 14,
       "id": 1,
-      "user_id": 1,
+      "user_id": 2,
       "likes": [],
-      "created_at": "Mon Nov 27 2023 19:50:20 GMT+0300 (GMT+03:00)",
-      "updated_at": "Mon Nov 27 2023 19:50:20 GMT+0300 (GMT+03:00)",
-      "is_removed": true,
+      "created_at": "Tue Nov 28 2023 14:44:43 GMT+0300 (GMT+03:00)",
+      "updated_at": "Tue Nov 28 2023 14:44:43 GMT+0300 (GMT+03:00)",
+      "is_removed": false
+    },
+    {
+      "comment": "naber bebek",
+      "post_id": 16,
+      "id": 2,
+      "user_id": 1,
+      "likes": [
+        2
+      ],
+      "created_at": "Tue Nov 28 2023 14:46:07 GMT+0300 (GMT+03:00)",
+      "updated_at": "Tue Nov 28 2023 14:46:07 GMT+0300 (GMT+03:00)",
+      "is_removed": false,
       "user": {
         "id": 1,
         "name": "Goktug",
@@ -20,16 +32,6 @@
         "img": "goktug.jpeg",
         "position": "Fullstack Developer"
       }
-    },
-    {
-      "comment": "hey harikasın :)",
-      "post_id": 15,
-      "id": 2,
-      "user_id": 1,
-      "likes": [],
-      "created_at": "Tue Nov 28 2023 13:53:42 GMT+0300 (GMT+03:00)",
-      "updated_at": "Tue Nov 28 2023 13:53:42 GMT+0300 (GMT+03:00)",
-      "is_removed": false
     }
   ]
 }

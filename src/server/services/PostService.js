@@ -178,7 +178,7 @@ class PostService {
       const receiver_id = postResult.data.user.id;
 
       if (receiver_id !== authorizedUserId) {
-        const notificationResult = await NotificationService.create({ body: { receiver_id, type: NotificationTypes.LIKED_POST } }, res);
+        const notificationResult = await NotificationService.create({ body: { receiver_id, type: NotificationTypes.LIKED_POST, post_id } }, res);
         if (!notificationResult.type) {
           likesDB.data = { likes: currentState }; //* reset likes data
           await likesDB.write();

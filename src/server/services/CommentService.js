@@ -132,7 +132,8 @@ class CommentService {
           body: { 
             receiver_id: postService.data.user_id,
             sender_id: authorizedUserId,
-            type: NotificationTypes.COMMENTED_POST
+            type: NotificationTypes.COMMENTED_POST,
+            post_id: data.post_id
           } 
         });
   
@@ -181,11 +182,20 @@ class CommentService {
 
       //* User likes a comment, create a notification for it
       if (like) {
+        const commentService = await CommentService.getById({ params: { id }});
+        if (!commentService.type) {
+          return {
+            type: false,
+            message: commentService.message
+          };
+        }
+
         const notificationService = await NotificationService.create({ 
           body: {
             sender_id: authorizedUserId,
             receiver_id: commentService.data.user_id,
-            type: NotificationTypes.LIKED_COMMENT
+            type: NotificationTypes.LIKED_COMMENT,
+            post_id: commentService.data.post_id
           } 
         });
         if (!notificationService.type) {

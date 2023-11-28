@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import * as S from './Style/Notifications.style';
 import { useDispatch, useSelector } from 'react-redux';
 import Loading from '../../Core/Components/Loading/Loading';
@@ -10,10 +10,16 @@ import { Button } from '../../Core/Components/Buttons/Button.style';
 import { NotificationActions } from './Store/Notifications.slice';
 import { DashboardSagaActions } from '../Dashboard/Store/Dashboard.saga';
 import PostModal from '../../Components/PostModal/PostModal';
+import { PostModalActions } from '../../Components/PostModal/Store/PostModal.slice';
+import { ModalTypes } from '../../Core/Constants/Enums';
+import { PostModalSagaActions } from '../../Components/PostModal/Store/PostModal.saga';
+import { LinearProgress } from '@mui/material';
 
 const Notifications = () => {
   const dispatch = useDispatch();
+  const [loadingId, setLoadingId] = useState(null);
   const { loading, notifications, page, limit, more } = useSelector((state) => state.Notifications);
+  const { loading: postModalLoading } = useSelector((state) => state.PostModal);
   const { authorizedUser } = useSelector((state) => state.AppConfig.init);
 
   const fetchNotifications = () => {
@@ -23,9 +29,22 @@ const Notifications = () => {
     dispatch(NotificationSagaActions.getNotifications(payload));
   };
 
-  const openPostDetail = (e) => {
-    console.log('open');
+  const getPostDetail = (post_id, notification_id) => {
+    setLoadingId(notification_id);
+    dispatch(PostModalSagaActions.getSpecificPost({ post_id }));
   };
+
+  useHttpResponse({
+    success: ({ idleAction }) => {
+      idleAction();
+      setLoadingId(null);
+      dispatch(PostModalActions.handleModal(ModalTypes.OPEN));
+    },
+    failure: ({ idleAction }) => {
+      idleAction();
+      setLoadingId(null);
+    }
+  }, PostModalSagaActions.getSpecificPost());
 
   useHttpResponse({
     success: ({ idleAction }) => {
@@ -57,7 +76,12 @@ const Notifications = () => {
       { loading?.getNotifications && <Loading /> }
       {
         notifications.map((obj) => (
-          <S.NotificationItem onClick={openPostDetail} key={obj.id}>
+          <S.NotificationItem 
+            key={obj.id}
+            disabled={postModalLoading?.getSpecificPost}
+            onClick={() => getPostDetail(obj.post_id, obj.id)} 
+          >
+            { postModalLoading?.getSpecificPost && loadingId === obj.id && <S.ProgressBar /> }
             <Content data={obj} />
             <Settings data={obj} />
           </S.NotificationItem>

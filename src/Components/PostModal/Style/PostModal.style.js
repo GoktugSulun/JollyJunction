@@ -256,6 +256,7 @@ export const CommentsSectionFooter = styled.div`
             transition: color 350ms;
             :hover {
                 color: #FFFFFf;
+                background: transparent;
             }
         }
         &__date {

@@ -11,7 +11,7 @@ const initialState = {
   limit: 10,
   canBeMoreComment: true,
   postData: {},
-  comments: []
+  comments: [],
 };
 
 const PostModalSlice = createSlice({
