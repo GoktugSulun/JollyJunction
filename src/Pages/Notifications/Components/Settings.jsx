@@ -48,7 +48,11 @@ const Settings = ({ data }) => {
   const markAsRead = (event) => { 
     event.stopPropagation(); //* Stop bubbling
     const payload = {
-      notification_ids: [data.id]
+      data: {
+        notification_ids: [data.id]
+      },
+      settings: true,
+      snackbar: true
     };
     dispatch(NotificationSagaActions.markNotificationsRead(payload));
   };
@@ -62,11 +66,13 @@ const Settings = ({ data }) => {
   };
 
   useHttpResponse({
-    success: ({ idleAction }) => {
-      idleAction();
-      if (targetNotificationIds.includes(data.id)) {
-        handleClose();
-        dispatch(NotificationActions.setTargetNotificationIds([]));
+    success: ({ idleAction, payload }) => {
+      if (payload?.settings) {
+        idleAction();
+        if (targetNotificationIds.includes(data.id)) {
+          handleClose();
+          dispatch(NotificationActions.setTargetNotificationIds([]));
+        }
       }
     }
   }, NotificationSagaActions.markNotificationsRead());

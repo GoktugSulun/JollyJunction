@@ -13,14 +13,12 @@ class PostController {
   }
 
   static async getById(req, res) {
-    setTimeout(async () => {
-      try {
-        const result = await PostService.getById(req, res);
-        Helpers.responseJSON(res, result);
-      } catch (error) {
-        Helpers.responseMessage(res, ResponseEnums.FAILURE, error.message);
-      }
-    }, 3000);
+    try {
+      const result = await PostService.getById(req, res);
+      Helpers.responseJSON(res, result);
+    } catch (error) {
+      Helpers.responseMessage(res, ResponseEnums.FAILURE, error.message);
+    }
   }
   /**
    * @query = page, limit

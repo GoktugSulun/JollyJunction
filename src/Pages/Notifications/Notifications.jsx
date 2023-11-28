@@ -11,12 +11,14 @@ import { NotificationActions } from './Store/Notifications.slice';
 import { DashboardSagaActions } from '../Dashboard/Store/Dashboard.saga';
 import PostModal from '../../Components/PostModal/PostModal';
 import { PostModalActions } from '../../Components/PostModal/Store/PostModal.slice';
-import { ModalTypes } from '../../Core/Constants/Enums';
+import { ModalTypes, NotificationTypes } from '../../Core/Constants/Enums';
 import { PostModalSagaActions } from '../../Components/PostModal/Store/PostModal.saga';
-import { LinearProgress } from '@mui/material';
+import FriendshipEnums from '../../server/constants/Enums/FriendshipEnums';
+import { useNavigate } from 'react-router-dom';
 
 const Notifications = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const [loadingId, setLoadingId] = useState(null);
   const { loading, notifications, page, limit, more } = useSelector((state) => state.Notifications);
   const { loading: postModalLoading } = useSelector((state) => state.PostModal);
@@ -29,22 +31,65 @@ const Notifications = () => {
     dispatch(NotificationSagaActions.getNotifications(payload));
   };
 
-  const getPostDetail = (post_id, notification_id) => {
-    setLoadingId(notification_id);
-    dispatch(PostModalSagaActions.getSpecificPost({ post_id }));
+  const getPostDetail = (post_id, notification_id, sender_user, type) => {
+    if (post_id) {
+      setLoadingId(notification_id);
+      dispatch(PostModalSagaActions.getSpecificPost({ post_id }));
+      return;
+    }
+    if (type === NotificationTypes.ACCEPTED_FRIENDSHIP_REQUEST || type === NotificationTypes.YOU_ARE_FRIEND_NOW) {
+      setLoadingId(notification_id);
+      const payload = { 
+        data: { 
+          notification_ids: [ notification_id ] 
+        },
+        snackbar: false,
+        navigate: true,
+        url: `/profile/${sender_user.name}${sender_user.surname}/${sender_user.id}`
+      };
+      dispatch(NotificationSagaActions.markNotificationsRead(payload));
+    }
   };
+
+  useHttpResponse({
+    success: ({ idleAction, payload }) => {
+      if (payload?.navigate) {
+        idleAction();
+        navigate(payload.url);
+      }
+    }
+  }, NotificationSagaActions.markNotificationsRead());
 
   useHttpResponse({
     success: ({ idleAction }) => {
       idleAction();
-      setLoadingId(null);
+      const read = notifications.find((obj) => obj.id === loadingId).read;
+      if (!read) {
+        const payload = { 
+          data: { 
+            notification_ids: [ loadingId ] 
+          }
+        };
+        dispatch(NotificationSagaActions.markNotificationsRead(payload));
+      }
       dispatch(PostModalActions.handleModal(ModalTypes.OPEN));
+      setLoadingId(null);
     },
     failure: ({ idleAction }) => {
       idleAction();
       setLoadingId(null);
     }
   }, PostModalSagaActions.getSpecificPost());
+
+  useHttpResponse({
+    success: ({ idleAction, payload }) => {
+      idleAction();
+      if (payload.type === FriendshipEnums.ACCEPT) {
+        const payload = { query: `?user_id=${authorizedUser.id}` };
+        dispatch(DashboardSagaActions.getFriends(payload));
+      }
+    }
+  }, NotificationSagaActions.friendship());
 
   useHttpResponse({
     success: ({ idleAction }) => {
@@ -79,7 +124,7 @@ const Notifications = () => {
           <S.NotificationItem 
             key={obj.id}
             disabled={postModalLoading?.getSpecificPost}
-            onClick={() => getPostDetail(obj.post_id, obj.id)} 
+            onClick={() => getPostDetail(obj.post_id, obj.id, obj.sender_user, obj.type)} 
           >
             { postModalLoading?.getSpecificPost && loadingId === obj.id && <S.ProgressBar /> }
             <Content data={obj} />
@@ -88,8 +133,6 @@ const Notifications = () => {
         ))
       }
       { loading?.getNotifications === false && more && <Button style={{ marginTop: 20}} onClick={fetchNotifications}> Fetch More </Button> }
-      <PostModal />
-
     </S.NotificationsContent>
   );
 };
