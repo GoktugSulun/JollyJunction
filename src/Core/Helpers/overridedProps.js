@@ -1,5 +1,5 @@
 const overridedProps = {
-   shouldForwardProp: (prop) => !prop.startsWith('$')
+  shouldForwardProp: (prop) => !prop.startsWith('$')
 };
 
 export default overridedProps;

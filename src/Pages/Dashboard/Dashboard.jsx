@@ -8,6 +8,7 @@ import useHttpResponse from '../../Core/Hooks/useHttpResponse';
 import Loading from '../../Core/Components/Loading/Loading';
 import { DashboardActions } from './Store/Dashboard.slice';
 import { AppConfigSagaActions } from '../../Core/Store/AppConfig.saga';
+import { intersectionObserver } from '../../Core/Helpers';
 
 const Dashboard = () => {
   const dispatch = useDispatch();
@@ -20,33 +21,19 @@ const Dashboard = () => {
     }
   };
 
-  const observePosts = () => {
-    const posts = Array.from(document.querySelectorAll('.post'));
-    const lastElement = posts.at(-1);
-    if (!lastElement) {
-      return;
+  useHttpResponse({
+    success: ({ idleAction }) => {
+      idleAction();
+      const element = Array.from(document.querySelectorAll('.post')).at(-1);
+      intersectionObserver(element, fetchMorePost);
     }
-    const observer = new IntersectionObserver(([entry]) => {
-      if (entry.isIntersecting) {
-        observer.unobserve(lastElement);
-        fetchMorePost();
-      }
-    });
-    observer.observe(lastElement, { threshold: 0.8 }); //! Doesnt work threshold :(
-  };
+  }, DashboardSagaActions.getPosts());
 
   useHttpResponse({
     success: ({ idleAction }) => {
       idleAction();
     }
   }, DashboardSagaActions.createPost());
-
-  useHttpResponse({
-    success: ({ idleAction }) => {
-      idleAction();
-      observePosts();
-    }
-  }, DashboardSagaActions.getPosts());
 
   useHttpResponse({
     success: ({ idleAction }) => {
@@ -75,11 +62,10 @@ const Dashboard = () => {
           </div>)
       }
       {
-        posts.map((obj, index) => (
+        posts.map((obj) => (
           <Post 
             key={obj.id}
             data={obj}
-            index={index}
           />
         ))
       }

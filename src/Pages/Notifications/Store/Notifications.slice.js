@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { NotificationSagaActions } from './Notifications.saga';
-import requestStatusReducer from '../../../Core/Helper/requestStatusReducer';
+import requestStatusReducer from '../../../Core/Helpers/requestStatusReducer';
 
 const NAME = 'Notifications';
 

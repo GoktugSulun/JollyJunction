@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from 'react-redux';
-import requestStatusAction from '../Helper/requestStatusAction';
+import requestStatusAction from '../Helpers/requestStatusAction';
 import { HttpResponseTypes } from '../Constants/Enums';
 import { useEffect } from 'react';
 

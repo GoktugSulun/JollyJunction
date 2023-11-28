@@ -7,7 +7,7 @@ import PostFooter from './Components/PostFooter';
 import { useDispatch } from 'react-redux';
 import { DashboardSagaActions } from '../../Store/Dashboard.saga';
 
-const Post = ({ data, index }) => {
+const Post = ({ data }) => {
   const dispatch = useDispatch();
 
   const likeHandler = () => {
@@ -20,7 +20,6 @@ const Post = ({ data, index }) => {
 
   return (
     <S.Post className="post">
-      <div style={{ color: 'red'}}> {index + 1} </div>
       <PostHeader data={data} />
       <PostBody 
         likeHandler={likeHandler} 
