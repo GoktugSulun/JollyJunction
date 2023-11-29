@@ -7,7 +7,7 @@ const Sidebar = () => {
   const { pathname } = useLocation();
 
   return (
-    <div style={{ flex: 1 }}>
+    <div>
       <Advertisement />
       { !pathname.includes('profile') && <FriendList /> }
     </div>
