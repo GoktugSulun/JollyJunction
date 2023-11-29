@@ -16,10 +16,10 @@ const Post = ({ data }) => {
       post_id: data.id
     };
     dispatch(DashboardSagaActions.likePost(payload));
-  };
+  }; 
 
   return (
-    <S.Post>
+    <S.Post className="post">
       <PostHeader data={data} />
       <PostBody 
         likeHandler={likeHandler} 
@@ -36,5 +36,5 @@ const Post = ({ data }) => {
 export default Post;
 
 Post.propTypes = {
-  data: PropTypes.object.isRequired
+  data: PropTypes.object.isRequired,
 };

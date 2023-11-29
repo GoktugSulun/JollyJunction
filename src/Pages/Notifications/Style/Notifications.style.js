@@ -137,19 +137,21 @@ export const NotificationItem = styled.button`
    cursor: pointer;
    position: relative;
    transition: background-color 150ms;
-   :first-child {
+   border-radius: 10px;
+   margin-bottom: 20px;
+   /* :first-child {
       border-top-left-radius: 10px;
       border-top-right-radius: 10px;
    }
    :last-child {
       border-bottom-left-radius: 10px;
       border-bottom-right-radius: 10px;
-   }
+   } */
    :hover {
       background-color: #222;
    }
    position: relative;
-   :not(:last-child)::after {
+   /* :not(:last-child)::after {
       content: '';
       position: absolute;
       bottom: 0;
@@ -157,7 +159,7 @@ export const NotificationItem = styled.button`
       width: 100%;
       height: 1px;
       background: #555; 
-   }
+   } */
  `;
 
 export const ProgressBar = styled(LinearProgress)`

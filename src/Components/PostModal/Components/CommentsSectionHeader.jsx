@@ -4,17 +4,25 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getUserImageURL } from '../../../assets/Pngs/Pngs';
 import { IconButton, Tooltip } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
-import { Link, useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { Button } from '../../../Core/Components/Buttons/Button.style';
 import { PostModalActions } from '../Store/PostModal.slice';
+import { ModalTypes } from '../../../Core/Constants/Enums';
+import { DashboardActions } from '../../../Pages/Dashboard/Store/Dashboard.slice';
 
 const CommentsSectionHeader = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const location = useLocation();
   const { postData } = useSelector((state) => state.PostModal); 
 
-  const getUrl = () => {
-    return `profile/${postData.user.name}${postData.user.surname}/${postData.user.id}`;
+  const navigateHandler = () => {
+    const targetUrl = `profile/${postData.user.name.split(' ').join('')}${postData.user.surname}/${postData.user.id}`;
+    if (location.pathname !== targetUrl) {
+      dispatch(PostModalActions.handleModal(ModalTypes.CLOSE));
+      dispatch(DashboardActions.setReset());
+      navigate(targetUrl);
+    }
   };
 
   const closeModalHandler = () => {
@@ -30,12 +38,12 @@ const CommentsSectionHeader = () => {
             padding="0"
             minWidth="0"
             disableRipple
-            onClick={() => navigate(getUrl())}
+            onClick={navigateHandler}
           >
             <img src={getUserImageURL(postData?.user?.img)} alt="user" />
           </Button>
           <div className="user__info">
-            <Link className="user__name" to={getUrl()}> {postData?.user?.name} {postData?.user?.surname} </Link>
+            <div className="user__name" onClick={navigateHandler}> {postData?.user?.name} {postData?.user?.surname} </div>
             <span className="user__position"> {postData?.user?.position} </span>
           </div>
         </div>

@@ -11,7 +11,6 @@ const AddFriend = ({ id }) => {
   const { authorizedUser } = useSelector((state) => state.AppConfig.init);
 
   const addFriend = () => {
-    console.log(id, ' id');
     const payload = {
       data: {
         receiver_id: id,

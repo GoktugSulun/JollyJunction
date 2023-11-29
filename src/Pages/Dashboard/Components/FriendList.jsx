@@ -36,6 +36,7 @@ const FriendList = () => {
               >
                 <UserProfile 
                   name={`${obj?.name || ''} ${obj?.surname || ''}`}
+                  id={obj.id}
                   position={obj?.position || ''}
                   fontSize="25px"
                   small

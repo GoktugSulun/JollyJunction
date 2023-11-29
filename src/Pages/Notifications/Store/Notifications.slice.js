@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { NotificationSagaActions } from './Notifications.saga';
-import requestStatusReducer from '../../../Core/Helper/requestStatusReducer';
+import requestStatusReducer from '../../../Core/Helpers/requestStatusReducer';
 
 const NAME = 'Notifications';
 
@@ -10,7 +10,7 @@ const initialState = {
   targetRemovedNotificationsIds: [],
   page: 1,
   limit: 10,
-  more: true
+  canBeMore: true,
 };
 
 const NotificationSlice = createSlice({
@@ -52,11 +52,11 @@ const NotificationSlice = createSlice({
     setPage: (state, action) => {
       state.page = action.payload;
     },
-    setMore: (state, action) => {
+    setCanBeMore: (state, action) => {
       if (action.payload) {
         state.page += 1;
       }
-      state.more = action.payload;
+      state.canBeMore = action.payload;
     }
   },
   extraReducers: (builder) => requestStatusReducer(builder, NotificationSagaActions)

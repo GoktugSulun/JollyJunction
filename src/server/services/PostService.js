@@ -5,16 +5,9 @@ import LikeService from './LikeService.js';
 import NotificationService from './NotificationService.js';
 import SaveService from './SaveService.js';
 
-const { posts } = postsDB.data;
-const { likes } = likesDB.data;
-const { saves } = savesDB.data;
-const { comments } = commentsDB.data;
-const { users } = usersDB.data;
-const { friends } = friendsDB.data;
-const nextId = Math.max(...posts.map(post => post.id), 0) + 1;
-
 const canBeFriendHandler = (user_id) => {
   const { notifications } = notificationsDB.data;
+  const { friends } = friendsDB.data;
   const isMe = authorizedUserId === user_id;
   const isFriend = !!friends.find((friendObj) => friendObj.user_id === authorizedUserId)?.friends?.find((friendId) => friendId === user_id);
   if (isMe || isFriend) {
@@ -44,21 +37,27 @@ const canBeFriendHandler = (user_id) => {
   return true;
 };
 
-const getPostDetail = (data) => (
-  {
-    ...data,
-    likes_count: likes.filter((likeObj) => likeObj.post_id === data.id).length,
-    comments_count: comments.filter((commentObj) => commentObj.post_id === data.id && !commentObj.is_removed).length,
-    liked: !!likes.find((likeObj) => likeObj.user_id === authorizedUserId && likeObj.post_id === data.id),
-    saved: !!saves.find((saveObj) => saveObj.user_id === authorizedUserId && saveObj.post_id === data.id),
-    user: users.find((userObj) => userObj.id === data.user_id),
-    canBeFriend: canBeFriendHandler(data.user_id)
-  }
-);
+const getPostDetail = (data) => {
+  const { likes } = likesDB.data;
+  const { saves } = savesDB.data;
+  const { comments } = commentsDB.data;
+  const { users } = usersDB.data;
+  return (
+    {
+      ...data,
+      likes_count: likes.filter((likeObj) => likeObj.post_id === data.id).length,
+      comments_count: comments.filter((commentObj) => commentObj.post_id === data.id && !commentObj.is_removed).length,
+      liked: !!likes.find((likeObj) => likeObj.user_id === authorizedUserId && likeObj.post_id === data.id),
+      saved: !!saves.find((saveObj) => saveObj.user_id === authorizedUserId && saveObj.post_id === data.id),
+      user: users.find((userObj) => userObj.id === data.user_id),
+      canBeFriend: canBeFriendHandler(data.user_id)
+    }
+  );};
 class PostService {
   static async getAll() {
     // TODO: bir sürü key eksik onları ekle
     try {
+      const { posts } = postsDB.data;
       return {
         type: true,
         message: 'All Posts has been fetched',
@@ -74,6 +73,7 @@ class PostService {
 
   static async getById(req, res) {
     try {
+      const { posts } = postsDB.data;
       const { id } = req.params;
       const data = posts.find((obj) => obj.id === Number(id));
       if (!data) {
@@ -102,6 +102,7 @@ class PostService {
   */
   static async get(req, res) {
     try {
+      const { posts } = postsDB.data;
       const { page, limit, user_id } = req.query;
       const startIndex = (page - 1) * limit;
       const endIndex = page * limit; 
@@ -125,6 +126,8 @@ class PostService {
   static async create(req, res) {
     try {
       //* create a new post
+      const { posts } = postsDB.data;
+      const nextId = Math.max(...posts.map(post => post.id), 0) + 1;
       const data = req.body;
       data.id = nextId;
       data.created_at = new Date().toString();
@@ -156,6 +159,7 @@ class PostService {
 
   static async like(req, res) {
     try {
+      const { likes } = likesDB.data;
       const currentState = [...likes];
       const likeResult = await LikeService.createForPost(req, res);
 

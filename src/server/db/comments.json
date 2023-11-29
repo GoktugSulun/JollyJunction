@@ -42,6 +42,196 @@
       "created_at": "Tue Nov 28 2023 16:08:38 GMT+0300 (GMT+03:00)",
       "updated_at": "Tue Nov 28 2023 16:08:38 GMT+0300 (GMT+03:00)",
       "is_removed": false
+    },
+    {
+      "comment": "2",
+      "post_id": 14,
+      "id": 4,
+      "user_id": 2,
+      "likes": [],
+      "created_at": "Wed Nov 29 2023 01:06:04 GMT+0300 (GMT+03:00)",
+      "updated_at": "Wed Nov 29 2023 01:06:04 GMT+0300 (GMT+03:00)",
+      "is_removed": false
+    },
+    {
+      "comment": "3",
+      "post_id": 14,
+      "id": 5,
+      "user_id": 2,
+      "likes": [],
+      "created_at": "Wed Nov 29 2023 01:06:05 GMT+0300 (GMT+03:00)",
+      "updated_at": "Wed Nov 29 2023 01:06:05 GMT+0300 (GMT+03:00)",
+      "is_removed": false
+    },
+    {
+      "comment": "4",
+      "post_id": 14,
+      "id": 6,
+      "user_id": 2,
+      "likes": [],
+      "created_at": "Wed Nov 29 2023 01:06:06 GMT+0300 (GMT+03:00)",
+      "updated_at": "Wed Nov 29 2023 01:06:06 GMT+0300 (GMT+03:00)",
+      "is_removed": false
+    },
+    {
+      "comment": "5",
+      "post_id": 14,
+      "id": 7,
+      "user_id": 2,
+      "likes": [],
+      "created_at": "Wed Nov 29 2023 01:06:07 GMT+0300 (GMT+03:00)",
+      "updated_at": "Wed Nov 29 2023 01:06:07 GMT+0300 (GMT+03:00)",
+      "is_removed": false
+    },
+    {
+      "comment": "6",
+      "post_id": 14,
+      "id": 8,
+      "user_id": 2,
+      "likes": [],
+      "created_at": "Wed Nov 29 2023 01:06:08 GMT+0300 (GMT+03:00)",
+      "updated_at": "Wed Nov 29 2023 01:06:08 GMT+0300 (GMT+03:00)",
+      "is_removed": false
+    },
+    {
+      "comment": "7",
+      "post_id": 14,
+      "id": 9,
+      "user_id": 2,
+      "likes": [],
+      "created_at": "Wed Nov 29 2023 01:06:08 GMT+0300 (GMT+03:00)",
+      "updated_at": "Wed Nov 29 2023 01:06:08 GMT+0300 (GMT+03:00)",
+      "is_removed": false
+    },
+    {
+      "comment": "8",
+      "post_id": 14,
+      "id": 10,
+      "user_id": 2,
+      "likes": [],
+      "created_at": "Wed Nov 29 2023 01:06:09 GMT+0300 (GMT+03:00)",
+      "updated_at": "Wed Nov 29 2023 01:06:09 GMT+0300 (GMT+03:00)",
+      "is_removed": false
+    },
+    {
+      "comment": "9",
+      "post_id": 14,
+      "id": 11,
+      "user_id": 2,
+      "likes": [],
+      "created_at": "Wed Nov 29 2023 01:06:10 GMT+0300 (GMT+03:00)",
+      "updated_at": "Wed Nov 29 2023 01:06:10 GMT+0300 (GMT+03:00)",
+      "is_removed": false
+    },
+    {
+      "comment": "10",
+      "post_id": 14,
+      "id": 12,
+      "user_id": 2,
+      "likes": [],
+      "created_at": "Wed Nov 29 2023 01:06:11 GMT+0300 (GMT+03:00)",
+      "updated_at": "Wed Nov 29 2023 01:06:11 GMT+0300 (GMT+03:00)",
+      "is_removed": false
+    },
+    {
+      "comment": "11",
+      "post_id": 14,
+      "id": 13,
+      "user_id": 2,
+      "likes": [],
+      "created_at": "Wed Nov 29 2023 01:06:14 GMT+0300 (GMT+03:00)",
+      "updated_at": "Wed Nov 29 2023 01:06:14 GMT+0300 (GMT+03:00)",
+      "is_removed": false
+    },
+    {
+      "comment": "adsaadasa",
+      "post_id": 14,
+      "id": 14,
+      "user_id": 2,
+      "likes": [],
+      "created_at": "Wed Nov 29 2023 01:08:41 GMT+0300 (GMT+03:00)",
+      "updated_at": "Wed Nov 29 2023 01:08:41 GMT+0300 (GMT+03:00)",
+      "is_removed": false
+    },
+    {
+      "comment": "13",
+      "post_id": 14,
+      "id": 15,
+      "user_id": 2,
+      "likes": [],
+      "created_at": "Wed Nov 29 2023 01:09:15 GMT+0300 (GMT+03:00)",
+      "updated_at": "Wed Nov 29 2023 01:09:15 GMT+0300 (GMT+03:00)",
+      "is_removed": false
+    },
+    {
+      "comment": "14",
+      "post_id": 14,
+      "id": 16,
+      "user_id": 2,
+      "likes": [],
+      "created_at": "Wed Nov 29 2023 01:09:27 GMT+0300 (GMT+03:00)",
+      "updated_at": "Wed Nov 29 2023 01:09:27 GMT+0300 (GMT+03:00)",
+      "is_removed": false
+    },
+    {
+      "comment": "15",
+      "post_id": 14,
+      "id": 17,
+      "user_id": 2,
+      "likes": [],
+      "created_at": "Wed Nov 29 2023 01:10:22 GMT+0300 (GMT+03:00)",
+      "updated_at": "Wed Nov 29 2023 01:10:22 GMT+0300 (GMT+03:00)",
+      "is_removed": false
+    },
+    {
+      "comment": "123",
+      "post_id": 14,
+      "id": 18,
+      "user_id": 2,
+      "likes": [],
+      "created_at": "Wed Nov 29 2023 01:10:38 GMT+0300 (GMT+03:00)",
+      "updated_at": "Wed Nov 29 2023 01:10:38 GMT+0300 (GMT+03:00)",
+      "is_removed": false
+    },
+    {
+      "comment": "123",
+      "post_id": 14,
+      "id": 19,
+      "user_id": 2,
+      "likes": [],
+      "created_at": "Wed Nov 29 2023 01:11:02 GMT+0300 (GMT+03:00)",
+      "updated_at": "Wed Nov 29 2023 01:11:02 GMT+0300 (GMT+03:00)",
+      "is_removed": false
+    },
+    {
+      "comment": "hey",
+      "post_id": 16,
+      "id": 20,
+      "user_id": 2,
+      "likes": [],
+      "created_at": "Wed Nov 29 2023 01:14:49 GMT+0300 (GMT+03:00)",
+      "updated_at": "Wed Nov 29 2023 01:14:49 GMT+0300 (GMT+03:00)",
+      "is_removed": false
+    },
+    {
+      "comment": "heyadsadadasdsdasdsadsadsadasdadasdasa",
+      "post_id": 16,
+      "id": 21,
+      "user_id": 2,
+      "likes": [],
+      "created_at": "Wed Nov 29 2023 01:14:58 GMT+0300 (GMT+03:00)",
+      "updated_at": "Wed Nov 29 2023 01:14:58 GMT+0300 (GMT+03:00)",
+      "is_removed": false
+    },
+    {
+      "comment": "adasdaasdasdsadsadsa",
+      "post_id": 16,
+      "id": 22,
+      "user_id": 2,
+      "likes": [],
+      "created_at": "Wed Nov 29 2023 01:29:03 GMT+0300 (GMT+03:00)",
+      "updated_at": "Wed Nov 29 2023 01:29:03 GMT+0300 (GMT+03:00)",
+      "is_removed": false
     }
   ]
 }

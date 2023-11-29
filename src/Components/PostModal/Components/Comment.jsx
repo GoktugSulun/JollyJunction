@@ -4,7 +4,7 @@ import { getUserImageURL } from '../../../assets/Pngs/Pngs';
 import moment from 'moment';
 import { Button } from '../../../Core/Components/Buttons/Button.style';
 import { IconButton, Tooltip } from '@mui/material';
-import { Link } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import useMaterialForm from '../../../Core/Hooks/useMaterialForm';
@@ -16,6 +16,9 @@ import TextInput from '../../../Core/Inputs/TextInput';
 import { useWatch } from 'react-hook-form';
 import Loading from '../../../Core/Components/Loading/Loading';
 import CommentActionTypes from '../Enums/CommentActionTypes';
+import { PostModalActions } from '../Store/PostModal.slice';
+import { ModalTypes } from '../../../Core/Constants/Enums';
+import { DashboardActions } from '../../../Pages/Dashboard/Store/Dashboard.slice';
 
 const defaultValues = {
   comment: ''
@@ -23,13 +26,14 @@ const defaultValues = {
 
 const Comment = ({ data, commentLoadingStates }) => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const location = useLocation();
   const [commentLoadingState, setCommentLoadingState] = commentLoadingStates;
   const [commentToBeEdited, setCommentToBeEdited] = useState({
     isEditing: false,
     data: {}
   });
   const  { authorizedUser } = useSelector((state) => state.AppConfig.init);
-  const  { loading, actionPayload } = useSelector((state) => state.PostModal);
   const { form, registerHandler } = useMaterialForm({ defaultValues });
   const comment = useWatch({ control: form.control, name: 'comment' });
 
@@ -76,13 +80,23 @@ const Comment = ({ data, commentLoadingStates }) => {
     });
   };
 
+  const navigateHandler = () => {
+    const targetUrl = `profile/${data.user.name.split(' ').join('')}${data.user.surname}/${data.user.id}`;
+    if (location.pathname !== targetUrl) {
+      dispatch(PostModalActions.handleModal(ModalTypes.CLOSE));
+      dispatch(DashboardActions.setReset());
+      navigate(targetUrl);
+    }
+  };
+
   return (
-    <S.CommentContainer >
+    <S.CommentContainer className="comment">
       <Button
         bgColor="transparent"
         padding="0"
         disableRipple
         minWidth="0"
+        onClick={navigateHandler}
       >
         <img src={getUserImageURL(data?.user?.img)} alt="user-commented" />
       </Button>
@@ -90,7 +104,7 @@ const Comment = ({ data, commentLoadingStates }) => {
         <S.Comment>
           <div className="header">
             <div className="user">
-              <Link className="user__name"> {data?.user?.name} {data?.user?.surname} </Link> 
+              <div className="user__name" onClick={navigateHandler} > {data?.user?.name} {data?.user?.surname} </div> 
               <span className="user__position"> {data?.user?.position} </span>
             </div>
             <Tooltip title={isLiked(data.likes) ? 'Unlike' : 'Like'}>

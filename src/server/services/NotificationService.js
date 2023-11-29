@@ -44,7 +44,6 @@ class NotificationService {
             sender_user
           };
         } catch (error) {
-          console.log(error.message, ' ERROR!!!!!');
           return null;
         }
       }));
@@ -201,14 +200,12 @@ class NotificationService {
     try {
       const { notifications } = notificationsDB.data;
       const { notification_ids } = req.body;
-      console.log(notification_ids, ' gelen noti ids');
       const newNotifications = notifications.map((obj) => {
         if (notification_ids.includes(obj.id)) {
           return { ...obj, is_removed: true, updated_at: new Date().toString() };
         }
         return obj;
       });
-      console.log('siliyorum aga => ', newNotifications);
 
       notificationsDB.data = { notifications: newNotifications };
       await notificationsDB.write();

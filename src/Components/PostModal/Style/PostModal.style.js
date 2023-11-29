@@ -60,6 +60,7 @@ export const CommentsSectionHeader = styled.div`
                 color: #c9c9c9;
                 text-decoration: none;
                 transition: all 350ms;
+                cursor: pointer;
                 :hover {
                     color: #FFFFFF;
                 }
@@ -155,6 +156,7 @@ export const Comment = styled.div`
             &__name {
                 color: #c9c9c9;
                 text-decoration: none;
+                cursor: pointer;
                 :hover {
                     color: #FFFFFF;
                 }
@@ -268,7 +270,7 @@ export const CommentsSectionFooter = styled.div`
 
 export const CreateComment = styled.div`
     padding: 10px 0;
-    .MuiOutlinedInput-root {
+    .MuiFormControl-root .MuiOutlinedInput-root {
         background-color: transparent;
         color: #c9c9c9;
         input {

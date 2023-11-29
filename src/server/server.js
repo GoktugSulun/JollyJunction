@@ -6,7 +6,7 @@ import NotificationRoute from './routes/NotificationRoute.js';
 import FriendRoute from './routes/FriendRoute.js';
 import CommentRoute from './routes/CommentRoute.js';
 
-export const authorizedUserId = 1;
+export const authorizedUserId = 2;
 export const server = jsonServer.create();
 const middlewares = jsonServer.defaults();
 

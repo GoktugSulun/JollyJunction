@@ -1,6 +1,6 @@
 import { call, put } from 'redux-saga/effects';
 import { HttpMethodTypes, SagaTakeTypes } from '../Constants/Enums';
-import createSagaWatcher from '../Helper/createSagaWatcher';
+import createSagaWatcher from '../Helpers/createSagaWatcher';
 import { request } from '../Request/Request';
 import { ApiUrl } from '../Constants/ApiUrl';
 import { AppConfigActions } from './AppConfig.slice';

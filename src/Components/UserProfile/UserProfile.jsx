@@ -2,19 +2,36 @@ import React from 'react';
 import * as S from './UserProfile.styled';
 import PropTypes from 'prop-types';
 import LetterImage from '../LetterImage/LetterImage';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 const UserProfile = (props) => {
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  const navigateHandler = () => {
+    const targetUrl = `/profile/${props.name.split(' ').join('')}/${props.id}`;
+    if (targetUrl !== location.pathname) {
+      navigate(targetUrl);
+    }
+  };
+
+  const event = props.clickable ? { onClick: navigateHandler } : {};
+
   return (
-    <S.UserProfile small={props.small} justImage={!props.name.trim() && !props.position.trim()} >
+    <S.UserProfile 
+      small={props.small} 
+      justImage={!props.name.trim() && !props.position.trim()} 
+      clickable={props.clickable}
+    >
       {
         props.src
-          ?  <img className="user-img" src={props.src} alt="user" />
-          :  <LetterImage fontSize={props.fontSize} name={props.name} />
+          ?  <img {...event} className="user-img" src={props.src} alt="user" />
+          :  <LetterImage {...event} className="user-img" fontSize={props.fontSize} name={props.name} />
       }
       {
         props.displayName
           && <div className="user-info">
-            <div className="user-info__name"> {props.name} </div>
+            <div {...event} className="user-info__name"> {props.name} </div>
             <div className="user-info__position"> {props.position} </div>
           </div>
       }
@@ -30,7 +47,9 @@ UserProfile.propTypes = {
   position: PropTypes.string,
   small: PropTypes.bool,
   fontSize: PropTypes.string,
-  displayName: PropTypes.bool
+  displayName: PropTypes.bool,
+  clickable: PropTypes.bool,
+  id: PropTypes.number.isRequired
 };
 
 UserProfile.defaultProps = {
@@ -39,5 +58,6 @@ UserProfile.defaultProps = {
   position: '',
   small: false,
   fontSize: '35px',
-  displayName: true
+  clickable: true,
+  displayName: true,
 };

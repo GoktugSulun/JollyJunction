@@ -9,6 +9,14 @@ export const UserProfile = styled.div`
       width: 60px;
       height: 60px;
       border-radius: 50%;
+      ${(props) => props.clickable && css`
+         cursor: pointer;
+         :hover {
+            + .user-info .user-info__name {
+               color: #FFFFFF;   
+            }  
+         }
+      `}
    }
    .user-info {
       ${(props) => props.justImage && css`
@@ -17,6 +25,13 @@ export const UserProfile = styled.div`
       &__name {
          color: #c9c9c9;
          font-size: ${(props) => props.small ? '16px' : '18px'};
+         ${(props) => props.clickable && css`
+            cursor: pointer;
+            transition: color 350ms;
+            :hover {
+               color: #FFFFFF;
+            }
+         `}
       }
       &__position {
          margin-top: 2px;

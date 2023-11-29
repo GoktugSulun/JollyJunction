@@ -1,7 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
-import requestStatusReducer from '../../../Core/Helper/requestStatusReducer';
+import requestStatusReducer from '../../../Core/Helpers/requestStatusReducer';
 import { DashboardSagaActions } from './Dashboard.saga';
-import { likePostHandler, savePostHandler } from '../../../Core/Helper/commonSliceActions';
+import { likePostHandler, savePostHandler } from '../../../Core/Helpers/commonSliceActions';
 
 const NAME = 'Dashboard';
 

@@ -1,6 +1,6 @@
 import { call, put } from 'redux-saga/effects';
 import { createAction } from '@reduxjs/toolkit';
-import createSagaWatcher from '../../../Core/Helper/createSagaWatcher';
+import createSagaWatcher from '../../../Core/Helpers/createSagaWatcher';
 import { HttpMethodTypes, SagaTakeTypes } from '../../../Core/Constants/Enums';
 import { request } from '../../../Core/Request/Request';
 import { ApiUrl } from '../../../Core/Constants/ApiUrl';
@@ -28,7 +28,7 @@ export default [
     * func({ payload }) {
       const response = yield call(request, HttpMethodTypes.GET, `${ApiUrl.getNotifications}${payload.queries}`);
       yield put(NotificationActions.setNotifications(response?.data?.notifications || []));
-      yield put(NotificationActions.setMore(response?.data?.more || false));
+      yield put(NotificationActions.setCanBeMore(response?.data?.more || false));
     }
   }),
   createSagaWatcher({

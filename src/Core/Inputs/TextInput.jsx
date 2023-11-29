@@ -53,6 +53,8 @@ const TextInput = (props) => {
         error={props.error || !!props.fieldState?.error} 
         color={props.palette.defaultColor}
         palette={props.palette}
+        inputProps={props.inputProps}
+        readOnly={props.readOnly}
       />
       <FormHelperText
         error={props.error || !!props.fieldState?.error} 
@@ -88,6 +90,8 @@ TextInput.propTypes = {
   onBlur: PropTypes.func,
   inputRef: PropTypes.any,
   disabled: PropTypes.bool,
+  inputProps: PropTypes.object,
+  readOnly: PropTypes.bool,
 };
 
 TextInput.defaultProps = {
@@ -117,5 +121,7 @@ TextInput.defaultProps = {
   value: null,
   onBlur: () => {},
   inputRef: null,
-  disabled: false
+  disabled: false,
+  inputProps: {},
+  readOnly: false,
 };

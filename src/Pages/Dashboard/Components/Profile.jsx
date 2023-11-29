@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import * as S from '../Style/Dashboard.style';
 import { Divider } from '../../../Components/Divider/Divider.style';
 import UserProfile from '../../../Components/UserProfile/UserProfile';
@@ -11,15 +11,40 @@ import EditIcon from '@mui/icons-material/Edit';
 import SettingsIcon from '@mui/icons-material/Settings';
 import { IconButton, Tooltip } from '@mui/material';
 import { UserImages } from '../../../assets/Pngs/Pngs';
-import PropTypes from 'prop-types';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { useLocation } from 'react-router-dom';
+import { UserProfileSagaActions } from '../../UserProfile/Store/UserProfile.saga';
 
-const Profile = ({ data }) => {
+const Profile = () => {
+  const dispatch = useDispatch();
+  const { pathname } = useLocation();
+  const [data, setData] = useState({});
   const { authorizedUser } = useSelector((state) => state.AppConfig.init);
+  const { user, loading } = useSelector((state) => state.UserProfile);
 
   const getUserSrc = () => {
     return UserImages.find((src) => src.includes(data?.img)) || null;
   };
+
+  useEffect(() => {
+    if (loading?.getUserById) {
+      return;
+    }
+    const user_id = pathname?.split('/')?.[3];
+    if (pathname.includes('/profile') && authorizedUser?.id !== parseInt(user_id)) {
+      setData(user);
+    } else {
+      setData(authorizedUser);
+    }
+  }, [loading, pathname]);
+
+  useEffect(() => {
+    const user_id = pathname?.split('/')?.[3];
+    if (pathname.includes('/profile') && authorizedUser?.id !== parseInt(user_id)) {
+      const user_id = pathname.split('/')[3];
+      dispatch(UserProfileSagaActions.getUserById({ user_id }));
+    }
+  }, [pathname]);
 
   return (
     <S.Profile>
@@ -28,9 +53,10 @@ const Profile = ({ data }) => {
           name={`${data?.name || ''} ${data?.surname || ''}`}
           position={data?.position || ''}
           src={getUserSrc()}
+          clickable={false}
         />
         {
-          authorizedUser.id === data.id 
+          authorizedUser.id === data?.id 
             && (<Tooltip title="Edit My Profile">
               <IconButton>
                 <SettingsIcon />
@@ -86,7 +112,3 @@ const Profile = ({ data }) => {
 };
 
 export default Profile;
-
-Profile.propTypes = {
-  data: PropTypes.object.isRequired
-};

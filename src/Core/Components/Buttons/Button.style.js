@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
 import { Button as MaterialButton } from '@mui/material';
-import overridedProps from '../../Helper/overrideProps';
+import overridedProps from '../../Helpers/overridedProps';
 
 export const Button = styled(MaterialButton, overridedProps)`
    color: ${(props) => props.$color || '#FFFFFF'};

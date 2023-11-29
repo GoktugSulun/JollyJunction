@@ -3,3 +3,4 @@ export { default as withErrorHandling } from './withErrorHandling';
 export { default as requestStatusAction } from './requestStatusAction';
 export { default as requestStatusReducer } from './requestStatusReducer';
 export { default as overridedProps } from './overridedProps';
+export { default as intersectionObserver } from './intersectionObserver';

@@ -9,12 +9,19 @@ import CommentsSection from './Components/CommentsSection';
 import { PostModalSagaActions } from './Store/PostModal.saga';
 import useHttpResponse from '../../Core/Hooks/useHttpResponse';
 import { DashboardSagaActions } from '../../Pages/Dashboard/Store/Dashboard.saga';
+import { intersectionObserver } from '../../Core/Helpers';
 
 const PostModal = () => {
   const dispatch = useDispatch();
-  const { isOpen, postData, limit } = useSelector((state) => state.PostModal); 
+  const { isOpen, postData, limit, page, canBeMoreComment } = useSelector((state) => state.PostModal); 
 
   const handleClose = () => dispatch(PostModalActions.handleModal(ModalTypes.CLOSE));
+
+  const fetchMoreComment = () => {
+    if (canBeMoreComment) {
+      dispatch(PostModalSagaActions.getComments({ post_id: postData.id, page, limit }));
+    }
+  };
 
   useHttpResponse({
     success: ({ idleAction }) => {
@@ -34,9 +41,21 @@ const PostModal = () => {
     }
   }, DashboardSagaActions.savePost());
 
+  useHttpResponse({
+    success: ({ idleAction }) => {
+      idleAction();
+      const element = Array.from(document.querySelectorAll('.comment'))?.at(-1);
+      console.log(Array.from(document.querySelectorAll('.comment')), ' alo');
+      console.log(element, ' element');
+      intersectionObserver(element, fetchMoreComment);
+    }
+  }, PostModalSagaActions.getComments());
+
   useEffect(() => {
     if (isOpen) {
       dispatch(PostModalSagaActions.getComments({ post_id: postData.id, page: 1, limit }));
+    } else {
+      dispatch(PostModalActions.setReset());
     }
   }, [isOpen]);
 

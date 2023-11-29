@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import requestStatusReducer from '../../../Core/Helper/requestStatusReducer';
+import requestStatusReducer from '../../../Core/Helpers/requestStatusReducer';
 import { RegisterSagaActions } from './Register.saga';
 
 const NAME = 'Register';
