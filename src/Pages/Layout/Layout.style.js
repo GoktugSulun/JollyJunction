@@ -14,7 +14,7 @@ export const ProfileWrapper = styled.div`
    overflow-y: auto;
 
    ::-webkit-scrollbar {
-      width: 5px;
+      width: 0;
    }
 
    @media (max-width: 1200px) {

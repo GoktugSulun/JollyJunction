@@ -1,5 +1,7 @@
 import styled from '@emotion/styled';
 import { ContentWrapper } from '../../../Core/Components/Pages/ContentWrapper.style';
+import { IconButton } from '@mui/material';
+import overridedProps from '../../../Core/Helpers/overridedProps';
 
 export const Dashboard = styled(ContentWrapper)``;
 
@@ -163,10 +165,69 @@ export const Advertisement = styled.div`
          color: #c9c9c9;
       }
    }
-   img {
-      border-radius: 10px;
+   .carousel {
+      position: relative;
       margin: 15px 0;
-      width: 100%;
+      display: flex;
+      align-items: center;
+      :hover {
+         .overlay {
+            opacity: 1;
+         }
+         .arrow {
+            opacity: 1;
+            background-color: rgba(0, 0, 0, 0.3);
+            svg path {
+               fill: #FFFFFF;
+            }
+         }
+      }
+      .overlay {
+         position: absolute;
+         top: 0;
+         left: 0;
+         width: 100%;
+         height: calc(100%);
+         background-color: rgba(0, 0, 0, 0.3); 
+         z-index: 99;
+         border-radius: 10px;
+         opacity: 0;
+         transition: opacity 0.3s ease-in-out;
+         cursor: pointer;
+      }
+      .dots {
+         position: absolute;
+         width: 100%;
+         bottom: 5px;
+         display: flex;
+         z-index: 999;
+         justify-content: center;
+         align-items: center;
+         gap: 10px;
+      }
+      .arrow {
+         position: absolute;
+         top: 50%;
+         transform: translateY(-50%);
+         z-index: 999;
+         opacity: 0;
+         transition: background 350ms, opacity 350ms;
+         &__back {
+            left: 5px;
+         }
+         &__forward {
+            right: 5px;
+         }
+      }
+      img {
+         border-radius: 10px;
+         width: 100%;
+         /* height: 180px; */
+         max-height: 300px;
+         cursor: pointer;
+         object-fit: cover;
+         object-position: center;
+      }
    }
    .sponsor {
       display: flex;
@@ -192,6 +253,17 @@ export const Advertisement = styled.div`
       margin-top: 15px;
       color: #575757;
       font-size: 14px;
+   }
+`;
+
+export const DotIconButton = styled(IconButton, overridedProps)`
+   padding: 0;
+   svg {
+      font-size: 10px;
+      path {
+         transition: fill 350ms;
+         fill: ${(props) => props.$active ? '#FFFFFF' : '#333333'};
+      }
    }
 `;
 
