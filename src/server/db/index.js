@@ -7,3 +7,4 @@ export const notificationsDB = await JSONPreset('./db/notifications.json', { not
 export const likesDB = await JSONPreset('./db/likes.json', { likes: [] });
 export const savesDB = await JSONPreset('./db/saves.json', { saves: [] });
 export const friendsDB = await JSONPreset('./db/friends.json', { friends: [] });
+export const advertisementsDB = await JSONPreset('./db/advertisements.json', { advertisements: [] });

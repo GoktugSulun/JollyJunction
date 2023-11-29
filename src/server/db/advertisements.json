@@ -1,0 +1,28 @@
+{
+   "advertisements": [
+      {
+         "id": 1,
+         "img": "advertisement-1",
+         "title": "İş bankası",
+         "url": "iskultur.com",
+         "url-path": "https://www.iskultur.com.tr",
+         "description": "Türkiye İş Bankası Kültür Yayınları, 1956 yılında Hasan Âli Yücel tarafından kuruldu."
+      },
+      {
+         "id": 2,
+         "img": "advertisement-2",
+         "title": "Apple",
+         "url": "apple.com",
+         "url-path": "https://www.apple.com/tr/iphone-15",
+         "description": "Titanyum. Çok güçlü. Çok hafif. Çok Pro."
+      },
+      {
+         "id": 3,
+         "img": "advertisement-3",
+         "title": "Monster",
+         "url": "monster.com",
+         "url-path": "https://www.monsternotebook.com.tr",
+         "description": "Monster Oyun Bilgisayarları Intel ve Nvidia’nın en üst donanımları ile, maksimum performans ve en mükemmel oyun deneyimini sunar."
+      }
+   ]
+}
