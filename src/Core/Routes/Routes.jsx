@@ -13,6 +13,7 @@ import Register from '../../Pages/Register/Register';
 import UserProfile from '../../Pages/UserProfile/UserProfile';
 import Notifications from '../../Pages/Notifications/Notifications';
 import Layout from '../../Pages/Layout/Layout';
+import Settings from '../../Pages/Settings/Settings';
 
 const RouteList = () => {
   const token = localStorage.getItem('token');
@@ -43,6 +44,7 @@ const RouteList = () => {
           <Route path="/profile/:user/:id" element={<UserProfile />} />
           <Route path="/notifications" element={<Notifications />} />
         </Route>
+        <Route path="/settings" element={<Settings />} />
       </Route>
       <Route path="*" element={<div> Page Not Found! </div>} />
     </Routes>

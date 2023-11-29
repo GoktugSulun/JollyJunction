@@ -6,24 +6,23 @@ import LocationOnIcon from '@mui/icons-material/LocationOn';
 import SchoolIcon from '@mui/icons-material/School';
 import BusinessCenterIcon from '@mui/icons-material/BusinessCenter';
 import TwitterIcon from '@mui/icons-material/Twitter';
-import LinkedInIcon from '@mui/icons-material/LinkedIn';
-import EditIcon from '@mui/icons-material/Edit';
 import SettingsIcon from '@mui/icons-material/Settings';
 import { IconButton, Tooltip } from '@mui/material';
-import { UserImages } from '../../../assets/Pngs/Pngs';
+import { getUserImageURL } from '../../../assets/Pngs/Pngs';
 import { useDispatch, useSelector } from 'react-redux';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { UserProfileSagaActions } from '../../UserProfile/Store/UserProfile.saga';
 
 const Profile = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const { pathname } = useLocation();
   const [data, setData] = useState({});
   const { authorizedUser } = useSelector((state) => state.AppConfig.init);
   const { user, loading } = useSelector((state) => state.UserProfile);
 
-  const getUserSrc = () => {
-    return UserImages.find((src) => src.includes(data?.img)) || null;
+  const navigateSettings = () => {
+    navigate('/settings');
   };
 
   useEffect(() => {
@@ -52,13 +51,13 @@ const Profile = () => {
         <UserProfile 
           name={`${data?.name || ''} ${data?.surname || ''}`}
           position={data?.position || ''}
-          src={getUserSrc()}
+          src={getUserImageURL(data?.img)}
           clickable={false}
         />
         {
           authorizedUser.id === data?.id 
-            && (<Tooltip title="Edit My Profile">
-              <IconButton>
+            && (<Tooltip title="Edit My Informations">
+              <IconButton onClick={navigateSettings}>
                 <SettingsIcon />
               </IconButton>
             </Tooltip>)
