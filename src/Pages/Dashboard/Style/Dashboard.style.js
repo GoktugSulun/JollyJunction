@@ -123,11 +123,22 @@ export const Profile = styled.div`
             }
          }
          .MuiIconButton-root {
+            &:has(+ .social-profile__names .link:hover) {
+               svg path {
+                  fill: #FFFFFF;
+               }
+            }
             :hover {
                background-color: #333;
+               svg path {
+                  fill: #FFFFFF;
+               }
+               + .social-profile__names .link {
+                  color: #FFFFFF;
+               }
             }
             svg path {
-               fill: #FFFFFF;
+               fill: #9a9a9a;
             }
          }
       }
@@ -145,8 +156,13 @@ export const Profile = styled.div`
          flex-direction: column;
          color: #9a9a9a;
          font-size: 14px;
+         word-break: break-all;
          .link {
             color: #7a7a7a;
+            transition: all 350ms;
+            :hover {
+               color: #FFFFFF;
+            }
          }
       }
    }

@@ -1,11 +1,9 @@
 import { usersDB } from '../db/index.js';
 
-let nextId = 1;
-const { users } = usersDB.data;
-
 class UserService {
   static async getAll() {
     try {
+      const { users } = usersDB.data;
       return {
         type: true,
         message: 'Users has been fetched',
@@ -20,8 +18,9 @@ class UserService {
   }
 
   static async getById(req) {
-    const { id } = req.params;
     try {
+      const { id } = req.params;
+      const { users } = usersDB.data;
       const user = users.find((obj) => obj.id === parseInt(id));
       if (!user) {
         return {
@@ -29,11 +28,11 @@ class UserService {
           message: `User with ${id} couldn't find`
         };
       }
-      const { password, ...data } = user;
+      // const { password, ...data } = user;
       return {
         type: true,
         message: `User with ${id} id has been fetched`,
-        data
+        data: user
       };
     } catch (error) {
       return {
@@ -45,6 +44,8 @@ class UserService {
 
   static async create(req) {
     try {
+      const { users } = usersDB.data;
+      let nextId = Math.max(...users.map(like => like.id), 0) + 1;
       const data = req.body;
       data.id = nextId++;
       data.created_at = new Date().toString();
@@ -55,6 +56,45 @@ class UserService {
         type: true,
         message: 'User is created',
         data
+      };
+    } catch (error) {
+      return {
+        type: false,
+        message: error.message
+      };
+    }
+  }
+  
+  static async edit(req) {
+    try {
+      const { users } = usersDB.data;
+      const { id } = req.params;
+      const data = req.body;
+      
+      const targetIndex = users.findIndex((obj) => obj.id === parseInt(id));
+      if (targetIndex === -1) {
+        return {
+          type: false,
+          message: `User with id ${id} couldn't find.`,
+        };
+      }
+
+      const newData = { ...users[targetIndex], ...data, updated_at: new Date().toString() };
+      users.splice(targetIndex, 1, newData);
+      await usersDB.write();
+
+      const user = await UserService.getById({ params: { id } });
+      if (!user.type) {
+        return {
+          type: false,
+          message: user.message
+        };
+      }
+
+      return {
+        type: true,
+        message: 'User is updated',
+        data: user.data
       };
     } catch (error) {
       return {

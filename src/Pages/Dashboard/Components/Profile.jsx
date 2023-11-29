@@ -5,13 +5,16 @@ import UserProfile from '../../../Components/UserProfile/UserProfile';
 import LocationOnIcon from '@mui/icons-material/LocationOn';
 import SchoolIcon from '@mui/icons-material/School';
 import BusinessCenterIcon from '@mui/icons-material/BusinessCenter';
+import InstagramIcon from '@mui/icons-material/Instagram';
 import TwitterIcon from '@mui/icons-material/Twitter';
+import LinkedInIcon from '@mui/icons-material/LinkedIn';
 import SettingsIcon from '@mui/icons-material/Settings';
 import { IconButton, Tooltip } from '@mui/material';
 import { getUserImageURL } from '../../../assets/Pngs/Pngs';
 import { useDispatch, useSelector } from 'react-redux';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { UserProfileSagaActions } from '../../UserProfile/Store/UserProfile.saga';
+import SocialMediaEnums from './Enums/SocialMediaEnums';
 
 const Profile = () => {
   const dispatch = useDispatch();
@@ -23,6 +26,19 @@ const Profile = () => {
 
   const navigateSettings = () => {
     navigate('/settings');
+  };
+
+  const getSocialMediaIcon = (type) => {
+    switch (type) {
+    case SocialMediaEnums.INSTAGRAM:
+      return <InstagramIcon />;
+    case SocialMediaEnums.LINKEDIN:
+      return <LinkedInIcon />;
+    case SocialMediaEnums.TWITTER:
+      return <LinkedInIcon />;
+    default:
+      throw Error('undefined type of social media');
+    }
   };
 
   useEffect(() => {
@@ -67,7 +83,7 @@ const Profile = () => {
       <div className="user-detail">
         <div className="user-detail__row">
           <LocationOnIcon />
-          <span> {data?.town || ''}, {data?.city || ''} </span>
+          <span> {data?.location || ''}, {data?.city || ''} </span>
         </div>
         <div className="user-detail__row">
           <SchoolIcon />
@@ -79,7 +95,7 @@ const Profile = () => {
         </div>
       </div>
       <Divider />
-      <div className="profile-data">
+      {/* <div className="profile-data">
         <div className="profile-data__row">
           <span className="profile-data__key"> Who&apos;s viewed your profile </span>
           <span className="profile-data__value"> - </span>
@@ -89,20 +105,22 @@ const Profile = () => {
           <span className="profile-data__value"> - </span>
         </div>
       </div>
-      <Divider />
+      <Divider /> */}
       <div className="social-profile">
         <div className="social-profile__title"> Social Profiles </div>
         {
-          data?.social_profiles?.map((obj) => (
-            <div key={obj.id} className="social-profile__row"> 
-              <div className="social-profile__info">
-                <TwitterIcon />
-                <div className="social-profile__names">
-                  <span> {obj.name} </span>
-                  <span className="link"> {obj.url} </span>
+          data?.social_medias?.map((obj) => (
+            obj.url 
+              ? <div key={obj.id} className="social-profile__row"> 
+                <div className="social-profile__info">
+                  <IconButton> {getSocialMediaIcon(obj.type)} </IconButton>
+                  <div className="social-profile__names">
+                    <span> {obj.name} </span>
+                    <a href={obj.url} target="_blank" className="link" rel="noreferrer"> {obj.url} </a>
+                  </div>
                 </div>
               </div>
-            </div>
+              : null 
           ))
         }
       </div>

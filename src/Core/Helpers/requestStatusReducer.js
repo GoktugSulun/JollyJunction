@@ -26,9 +26,11 @@ const requestStatusReducer = (builder, sagaActions) => {
         if (!state.requestStatus) {
           state.requestStatus = {};
         }
-        if (action.payload && !state.actionPayload) {
+        if (!state.actionPayload) {
+          console.log('created');
           state.actionPayload = {};
-        } else {
+        }
+        if (action.payload) {
           state.actionPayload[getActionType(action)] = action.payload;
         }
       }
