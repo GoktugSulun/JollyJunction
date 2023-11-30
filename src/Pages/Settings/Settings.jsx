@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import * as S from './Style/Settings.style';
 import TextInput from '../../Core/Inputs/TextInput';
 import useMaterialForm from '../../Core/Hooks/useMaterialForm';
@@ -7,9 +7,12 @@ import { Button } from '../../Core/Components/Buttons/Button.style';
 import { useDispatch, useSelector } from 'react-redux';
 import { snackbar } from '../../Core/Utils/Snackbar';
 import { NotifierTypes } from '../../Core/Constants/Enums';
+import VisibilityIcon from '@mui/icons-material/Visibility';
+import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 import Loading from '../../Core/Components/Loading/Loading';
 import { AppConfigSagaActions } from '../../Core/Store/AppConfig.saga';
 import SocialMediaEnums from '../Dashboard/Components/Enums/SocialMediaEnums';
+import { IconButton, InputAdornment, Tooltip } from '@mui/material';
 
 const schema = yup.object().shape({
   name: yup.string().required('Required!'),
@@ -43,6 +46,7 @@ const defaultValues = {
 
 const Settings = () => {
   const dispatch = useDispatch();
+  const [isVisible, setIsVisible] = useState(false);
   const { init: { authorizedUser }, loading } = useSelector((state) => state.AppConfig);
   const { form, registerHandler } = useMaterialForm({ defaultValues, schema, mode: 'onChange' });
 
@@ -70,7 +74,20 @@ const Settings = () => {
             <TextInput disabled={loading?.editUser} label="Name*" placeholder="Goktug" {...registerHandler('name')} />
             <TextInput disabled={loading?.editUser} label="Surname*" placeholder="Sulun" {...registerHandler('surname')} />
             <TextInput disabled={loading?.editUser} label="Email*" placeholder="goktug.sulun@hotmail.com" {...registerHandler('email')} />
-            <TextInput disabled={loading?.editUser} label="Password*" type="password" placeholder="******" {...registerHandler('password')} />
+            <TextInput 
+              disabled={loading?.editUser} 
+              label="Password*" 
+              type={isVisible ? 'text' : 'password'} 
+              placeholder="******" 
+              {...registerHandler('password')} 
+              endAdornment={<InputAdornment position="end"> 
+                <Tooltip title={isVisible ? 'Hide' : 'Show'}>
+                  <IconButton onClick={() => setIsVisible((prev) => !prev)}> 
+                    {isVisible ? <VisibilityOffIcon /> : <VisibilityIcon />} 
+                  </IconButton> 
+                </Tooltip>
+              </InputAdornment>}
+            />
           </div>
         </section>
         <section>

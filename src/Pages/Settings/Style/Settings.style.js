@@ -21,6 +21,14 @@ export const Settings = styled(ContentWrapper)`
          .MuiOutlinedInput-root {
             background-color: #333;
             border-radius: 5px;
+            .MuiIconButton-root {
+               :hover {
+                  background-color: #222;
+               }
+               svg path {
+                  fill: #888;
+               }
+            }
             input {
                color: #FFFFFF;
                padding: 15px;
