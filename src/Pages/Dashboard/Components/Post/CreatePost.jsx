@@ -85,7 +85,7 @@ const CreatePost = () => {
           component="label"
           onChange={handleFiles}
         >
-               Image
+          Image
           <input type="file" accept="image/*" />
         </Button>
         <Button

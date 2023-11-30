@@ -1,5 +1,7 @@
 import styled from '@emotion/styled';
 import { ContentWrapper } from '../../../Core/Components/Pages/ContentWrapper.style';
+import { hexToRgbA } from '../../../Core/Utils/Utils';
+import { css } from '@emotion/react';
 
 export const Settings = styled(ContentWrapper)`
    .content {
@@ -52,7 +54,13 @@ export const Settings = styled(ContentWrapper)`
             font-weight: 500;
             margin-bottom: 20px;
          }
+         .container {
+            display: flex;
+            align-items: center;
+            gap: 40px;
+         }
          .group {
+            flex: 1;
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 20px;
@@ -82,8 +90,117 @@ export const Settings = styled(ContentWrapper)`
       }
    }
    @media (max-width: 600px) {
-      .content section .group {
-         grid-template-columns: 1fr;
+      .content section {
+         .group {
+            grid-template-columns: 1fr;
+         }
+         .container {
+            flex-direction: column;
+            gap: 20px;
+            align-items: stretch;
+            .img-container {
+               align-self: center;
+            }
+         }
+      }
+   }
+`;
+
+export const Image = styled.div`
+   .img-container {
+      width: 160px;
+      height: 160px;
+      border-radius: 50%;
+      position: relative;
+      ${(props) => !props.isUploading && css`
+         :hover {
+            .overlay {
+               opacity: 1;
+               .MuiIconButton-root {
+                  svg {
+                     scale: 1;
+                  }
+               }
+            }
+            .img.img__letter {
+               opacity: 0;
+               color: red;
+            }
+         }
+      `}
+      .loading-container {
+         width: 100%;
+         height: 100%;
+         border-radius: 50%;
+         position: absolute;
+         top: 0;
+         left: 0;
+         display: flex;
+         align-items: center;
+         justify-content: center;
+      }
+      .img {
+         width: 100%;
+         height: 100%;
+         border-radius: 50%;
+         object-fit: cover;
+         &__letter {
+            border: 2px solid #333;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: #888;
+            font-size: 90px;
+         }
+      }
+      .overlay {
+         position: absolute;
+         top: 0;
+         left: 0;
+         width: 100%;
+         height: 100%;
+         border-radius: 50%;
+         display: flex;
+         align-items: center;
+         justify-content: center;
+         background-color: rgba(0, 0, 0, 0.5); 
+         z-index: 99;
+         opacity: 0;
+         transition: opacity 0.3s ease-in-out;
+         cursor: pointer;
+         input {
+            opacity: 0;
+            visibility: hidden;
+            width: 100%;
+            height: 100%;
+            position: absolute;
+         }
+         .MuiIconButton-root {
+            width: 100%;
+            height: 100%;
+            svg {
+               font-size: 70px;
+               scale: 0;
+               transition: scale 0.3s ease-in-out;
+               path {
+                  fill: #FFFFFF;
+               }
+            }
+         }
+      }
+   }
+   .delete-button {
+      background-color: transparent;
+      color: #7d7c7c;
+      padding: 5px 20px;
+      margin-top: 10px;
+      font-size: 14px;
+      :hover {
+         color: #dc3545;
+      }
+      &.Mui-disabled {
+         color: #7d7c7c;
+         background-color: transparent;
       }
    }
 `;

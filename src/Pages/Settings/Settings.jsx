@@ -9,10 +9,13 @@ import { snackbar } from '../../Core/Utils/Snackbar';
 import { NotifierTypes } from '../../Core/Constants/Enums';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
+import AddAPhotoIcon from '@mui/icons-material/AddAPhoto';
 import Loading from '../../Core/Components/Loading/Loading';
 import { AppConfigSagaActions } from '../../Core/Store/AppConfig.saga';
 import SocialMediaEnums from '../Dashboard/Components/Enums/SocialMediaEnums';
+import DeleteIcon from '@mui/icons-material/Delete';
 import { IconButton, InputAdornment, Tooltip } from '@mui/material';
+import { useWatch } from 'react-hook-form';
 
 const schema = yup.object().shape({
   name: yup.string().required('Required!'),
@@ -33,6 +36,7 @@ const defaultValues = {
   password: '',
   country: '',
   city: '',
+  img: '',
   location: '',
   school: '',
   position: '',
@@ -47,8 +51,39 @@ const defaultValues = {
 const Settings = () => {
   const dispatch = useDispatch();
   const [isVisible, setIsVisible] = useState(false);
+  const [isUploading, setIsUploading] = useState(false);
   const { init: { authorizedUser }, loading } = useSelector((state) => state.AppConfig);
   const { form, registerHandler } = useMaterialForm({ defaultValues, schema, mode: 'onChange' });
+
+  const name = useWatch({ control: form.control, name: 'name' });
+  const img = useWatch({ control: form.control, name: 'img' });
+  console.log(img, ' img');
+
+  const imageHandler = (e) => {
+    const file = e.target.files?.[0];
+    const reader = new FileReader();
+
+    reader.onloadend = () => {
+      setTimeout(() => {
+        setIsUploading(false);
+        form.setValue('img', reader.result);
+      }, 3000);
+    };
+
+    reader.onloadstart = () => {
+      setIsUploading(true);
+    };
+
+    reader.onerror = () => {
+      setIsUploading(false);
+      console.error('error');
+      dispatch(snackbar('Dosya yüklenirken bir hata meydana geldi!', { variant: NotifierTypes.ERROR }));
+    };
+
+    if (file) {
+      reader.readAsDataURL(file);
+    }
+  };
 
   const saveHandler = async () => {
     const isValid = await form.trigger();
@@ -58,6 +93,10 @@ const Settings = () => {
     }
     const payload = { id: authorizedUser.id, data: form.getValues() };
     dispatch(AppConfigSagaActions.editUser(payload));
+  };
+
+  const resetImage = () => {
+    form.setValue('img', '');
   };
 
   useEffect(() => {
@@ -70,24 +109,44 @@ const Settings = () => {
       <div className="content">
         <section>
           <h2 className="title"> Account </h2>
-          <div className="group">
-            <TextInput disabled={loading?.editUser} label="Name*" placeholder="Goktug" {...registerHandler('name')} />
-            <TextInput disabled={loading?.editUser} label="Surname*" placeholder="Sulun" {...registerHandler('surname')} />
-            <TextInput disabled={loading?.editUser} label="Email*" placeholder="goktug.sulun@hotmail.com" {...registerHandler('email')} />
-            <TextInput 
-              disabled={loading?.editUser} 
-              label="Password*" 
-              type={isVisible ? 'text' : 'password'} 
-              placeholder="******" 
-              {...registerHandler('password')} 
-              endAdornment={<InputAdornment position="end"> 
-                <Tooltip title={isVisible ? 'Hide' : 'Show'}>
-                  <IconButton onClick={() => setIsVisible((prev) => !prev)}> 
-                    {isVisible ? <VisibilityOffIcon /> : <VisibilityIcon />} 
-                  </IconButton> 
-                </Tooltip>
-              </InputAdornment>}
-            />
+          <div className="container">
+            <S.Image isUploading={isUploading || loading?.editUser} >
+              <div className="img-container">
+                <div className="overlay">
+                  <IconButton disabled={isUploading || loading?.editUser} component="label" onChange={imageHandler} >
+                    <AddAPhotoIcon />
+                    <input type="file" />
+                  </IconButton>
+                </div>
+                {
+                  isUploading 
+                    ? <div className="loading-container"> <Loading size={70} /> </div>
+                    : img
+                      ? <img className="img" src={img} />
+                      : <div className="img img__letter"> {name?.at(0) || '?'} </div>
+                }
+              </div>
+              { !isUploading && img && <Button disabled={loading?.editUser} onClick={resetImage} startIcon={<DeleteIcon />} className="delete-button"> Delete Image </Button> }
+            </S.Image>
+            <div className="group">
+              <TextInput disabled={loading?.editUser} label="Name*" placeholder="Goktug" {...registerHandler('name')} />
+              <TextInput disabled={loading?.editUser} label="Surname*" placeholder="Sulun" {...registerHandler('surname')} />
+              <TextInput disabled={loading?.editUser} label="Email*" placeholder="goktug.sulun@hotmail.com" {...registerHandler('email')} />
+              <TextInput 
+                disabled={loading?.editUser} 
+                label="Password*" 
+                type={isVisible ? 'text' : 'password'} 
+                placeholder="******" 
+                {...registerHandler('password')} 
+                endAdornment={<InputAdornment position="end"> 
+                  <Tooltip title={isVisible ? 'Hide' : 'Show'}>
+                    <IconButton onClick={() => setIsVisible((prev) => !prev)}> 
+                      {isVisible ? <VisibilityOffIcon /> : <VisibilityIcon />} 
+                    </IconButton> 
+                  </Tooltip>
+                </InputAdornment>}
+              />
+            </div>
           </div>
         </section>
         <section>
