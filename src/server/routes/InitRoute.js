@@ -1,8 +1,8 @@
-import jsonServer from 'json-server';
 import InitController from '../controllers/InitController.js';
+import express from 'express';
 
-const server = jsonServer.create();
+const app = express();
 
-server.get('/get', InitController.get);
+app.get('/get', InitController.get);
 
-export default server;
+export default app;

@@ -128,11 +128,16 @@ class PostService {
       //* create a new post
       const { posts } = postsDB.data;
       const nextId = Math.max(...posts.map(post => post.id), 0) + 1;
-      const data = req.body;
+      console.log(req.body, ' body');
+      const data = JSON.parse(req.body.data);
       data.id = nextId;
       data.created_at = new Date().toString();
       data.updated_at = new Date().toString();
       data.is_removed = false;
+      data.files = req.files?.map((fileObj) => {
+        const [name, type] = fileObj.filename.split('.');
+        return { name, type };
+      }) || [];
       posts.push(data);
       await postsDB.write();
 

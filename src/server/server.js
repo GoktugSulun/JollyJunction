@@ -1,4 +1,6 @@
-import jsonServer from 'json-server';
+import express from 'express';
+import bodyParser from 'body-parser';
+import cors from 'cors';
 import PostRoute from './routes/PostRoute.js';
 import UserRoute from './routes/UserRoute.js';
 import InitRoute from './routes/InitRoute.js';
@@ -6,31 +8,31 @@ import NotificationRoute from './routes/NotificationRoute.js';
 import FriendRoute from './routes/FriendRoute.js';
 import CommentRoute from './routes/CommentRoute.js';
 
-export const authorizedUserId = 1;
-export const server = jsonServer.create();
-const middlewares = jsonServer.defaults();
+export const authorizedUserId = 2;
+export const app = express();
+const PORT = 3000;
 
-server.use(middlewares);
-server.use(jsonServer.bodyParser);
+app.use(cors());
+app.use(bodyParser.json());
 
-server.get('/health', (req, res) => {
+app.get('/health', (req, res) => {
   res.json({
     type: true,
     message: 'Deployment is running'
   });
 });
 
-server.use('/Post', PostRoute);
-server.use('/User', UserRoute);
-server.use('/Init', InitRoute);
-server.use('/Notification', NotificationRoute);
-server.use('/Friend', FriendRoute);
-server.use('/Comment', CommentRoute);
+app.use('/Post', PostRoute);
+app.use('/User', UserRoute);
+app.use('/Init', InitRoute);
+app.use('/Notification', NotificationRoute);
+app.use('/Friend', FriendRoute);
+app.use('/Comment', CommentRoute);
 
-server.use((req, res, next) => {
+app.use((req, res, next) => {
   next();
 });
 
-server.listen(3000, () => {
-  console.log('JSON Server is running');
+app.listen(PORT, () => {
+  console.log('JSON app is running');
 });

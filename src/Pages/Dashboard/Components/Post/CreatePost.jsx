@@ -16,7 +16,6 @@ import { DashboardSagaActions } from '../../Store/Dashboard.saga';
 import useHttpResponse from '../../../../Core/Hooks/useHttpResponse';
 import Loading from '../../../../Core/Components/Loading/Loading';
 import UserProfile from '../../../../Components/UserProfile/UserProfile';
-import LZString from 'lz-string';
 import { Skeleton } from '@mui/material';
 
 const defaultValues = {
@@ -27,6 +26,7 @@ const CreatePost = () => {
   const dispatch = useDispatch();
   const [imageURL, setImageURL] = useState(null);
   const [compressedFile, setCompressedFile] = useState(null);
+  const [files, setFiles] = useState([]);
   const [fileLoading, setFileLoading] = useState(false);
   const { authorizedUser } = useSelector(state => state.AppConfig.init);
   const { loading } = useSelector(state => state.Dashboard);
@@ -39,10 +39,13 @@ const CreatePost = () => {
     }
 
     const payload = {
-      description: form.getValues('value'),
-      user_id: authorizedUser.id,
-      files: [compressedFile]
+      data: {
+        description: form.getValues('value'),
+        user_id: authorizedUser.id
+      },
+      files
     };
+    console.log(payload, ' payload');
     dispatch(DashboardSagaActions.createPost(payload));
   };
 
@@ -64,35 +67,32 @@ const CreatePost = () => {
     });
   };
 
-  const compressBase64 = (data) => {
-    return new Promise(resolve => {
-      const compressedData = LZString.compress(data);
-      resolve(compressedData);
-    });
-  };
-
   const handleFiles = (e, fileType) => {
     //* single image for now
-    const file = e.target.files[0];
-    console.log(file, ' file');
+    const files = e.target.files;
+    setFiles([...files]);
 
-    const reader = new FileReader();
-    reader.readAsDataURL(file);
-    reader.onloadstart = () => {
-      setFileLoading(true);
-    };
-    reader.onloadend = async () => {
-      const base64URL = reader.result;
-      const compressedString = compressBase64(base64URL);
-      console.log(base64URL, ' original elngth');
-      console.log(base64URL.length, ' original elngth');
-      // console.log(compressedString.length, ' lz-string length');
-      // const compressedBase64 = await compressFile(reader.result, fileType);
-      // console.log(compressedBase64.length, ' canvas');
-      setCompressedFile(compressedString);
-      setImageURL(reader.result);
-      setFileLoading(false);
-    };
+    const blobURL = URL.createObjectURL(files[0]);
+    setImageURL(blobURL);
+    URL.revokeObjectURL(files[0]);
+
+    // const reader = new FileReader();
+    // reader.readAsDataURL(file);
+    // reader.onloadstart = () => {
+    //   setFileLoading(true);
+    // };
+    // reader.onloadend = async () => {
+    //   const base64URL = reader.result;
+    //   const compressedString = await compressBase64(base64URL);
+    //   console.log(base64URL.length, ' original file length');
+    //   console.log(compressedString.length, ' lz-string length');
+    //   // console.log(compressedString.length, ' lz-string length');
+    //   const compressedBase64 = await compressFile(reader.result, fileType);
+    //   console.log(compressedBase64.length, ' canvas length');
+    //   setCompressedFile(compressedString);
+    //   setImageURL(reader.result);
+    //   setFileLoading(false);
+    // };
   };
 
   useHttpResponse({

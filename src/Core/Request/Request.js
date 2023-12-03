@@ -4,17 +4,20 @@ import { handleError } from './HandleError';
 
 const baseURL = 'http://localhost:3000';
 
-export const request = async (method, url, data = undefined) => {
+const payloadWithFiles = (payload, files) => {
+  console.log('girdi');
+  const formData = new FormData();
+  for (let i=0; i<files.length; i++) {
+    formData.append('files', files[i]);
+  }
+  formData.append('data', JSON.stringify(payload));
+  return formData;
+};
+
+export const request = async (method, url, payload = undefined, files = []) => {
   try {
-    // let data = null;
-    // if (file) {
-    //   const formData = new FormData();
-    //   formData.append('file', file);
-    //   formData.append('data', JSON.stringify(payload));
-    //   data = formData;
-    // } else {
-    //   data = payload;
-    // }
+    console.log(files, ' files');
+    const data = files.length ? payloadWithFiles(payload, files) : payload;
     const response = await axios({
       method,
       url,
