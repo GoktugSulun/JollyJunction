@@ -275,6 +275,7 @@ class CommentService {
 
       //* if user delete a comment for a post which is created by another user.
       //* Find target post firstly
+      console.log(comments[index].post_id, ' ALO');
       const postService = await PostService.getById({ params: { id: comments[index].post_id } });
       if (!postService.type) {
         return {
@@ -300,20 +301,29 @@ class CommentService {
       }
 
       //* Delete target notification
-      const deleteNotificationService = await NotificationService.delete({ body: { notification_ids: [notificationService.data.notifications[0].id] } });
-      
-      if (!deleteNotificationService.type) {
-        return {
-          type: false,
-          message: deleteNotificationService.message
-        };
+      console.log('notiService data => ', notificationService.data);
+      if (notificationService.data.notifications?.[0]?.id) {
+        const deleteNotificationService = await NotificationService.delete({ 
+          body: { 
+            notification_ids: [notificationService.data.notifications[0].id] 
+          }
+        });
+        
+        if (!deleteNotificationService.type) {
+          console.log(2);
+          return {
+            type: false,
+            message: deleteNotificationService.message
+          };
+        }
       }
-
+      
       return {
         type: true,
         message: 'Comment is removed'
       };
     } catch (error) {
+      console.log(3);
       return {
         type: false,
         message: error.message

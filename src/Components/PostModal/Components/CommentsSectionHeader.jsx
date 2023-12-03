@@ -1,7 +1,6 @@
 import React from 'react';
 import * as S from '../Style/PostModal.style';
 import { useDispatch, useSelector } from 'react-redux';
-import { getUserImageURL } from '../../../assets/Pngs/Pngs';
 import { IconButton, Tooltip } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
 import { useLocation, useNavigate } from 'react-router-dom';
@@ -9,6 +8,7 @@ import { Button } from '../../../Core/Components/Buttons/Button.style';
 import { PostModalActions } from '../Store/PostModal.slice';
 import { ModalTypes } from '../../../Core/Constants/Enums';
 import { DashboardActions } from '../../../Pages/Dashboard/Store/Dashboard.slice';
+import LetterImage from '../../LetterImage/LetterImage';
 
 const CommentsSectionHeader = () => {
   const dispatch = useDispatch();
@@ -40,7 +40,7 @@ const CommentsSectionHeader = () => {
             disableRipple
             onClick={navigateHandler}
           >
-            <img src={getUserImageURL(postData?.user?.img)} alt="user" />
+            { postData?.user?.img ? <img src={postData?.user?.img} alt="user" /> : <LetterImage fontSize="30px" name={postData?.user?.name} />}
           </Button>
           <div className="user__info">
             <div className="user__name" onClick={navigateHandler}> {postData?.user?.name} {postData?.user?.surname} </div>

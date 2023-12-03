@@ -123,11 +123,22 @@ export const Profile = styled.div`
             }
          }
          .MuiIconButton-root {
+            &:has(+ .social-profile__names .link:hover) {
+               svg path {
+                  fill: #FFFFFF;
+               }
+            }
             :hover {
                background-color: #333;
+               svg path {
+                  fill: #FFFFFF;
+               }
+               + .social-profile__names .link {
+                  color: #FFFFFF;
+               }
             }
             svg path {
-               fill: #FFFFFF;
+               fill: #9a9a9a;
             }
          }
       }
@@ -145,8 +156,13 @@ export const Profile = styled.div`
          flex-direction: column;
          color: #9a9a9a;
          font-size: 14px;
+         word-break: break-all;
          .link {
             color: #7a7a7a;
+            transition: all 350ms;
+            :hover {
+               color: #FFFFFF;
+            }
          }
       }
    }
@@ -326,11 +342,17 @@ export const CreatePost = styled.div`
       }
    }
    img.user-post-img {
+      //TODO: width kısmında problem var 
       width: 100%;
       max-height: 400px;
       object-fit: cover;
       height: auto;
       border-radius: 10px;
+   }
+   .img-skeleton {
+      background-color: #2d2d2d;
+      transform: initial;
+      height: 250px;
    }
    .tools {
       display: flex;
@@ -339,6 +361,20 @@ export const CreatePost = styled.div`
       justify-content: space-between;
       .MuiButton-root {
          position: relative;
+         background-color: transparent;
+         color: #7a7a7a;
+         border-radius: 30px;
+         &.create-post {
+            color: #927CD9;
+            background-color: #222;
+            :hover {
+               background-color: #333;
+            }
+         }
+         :not(.create-post):hover {
+            color: #FFFFFF;
+            background-color: #333333;
+         }
          input {
             opacity: 0;
             visibility: hidden;

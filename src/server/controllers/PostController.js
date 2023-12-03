@@ -24,14 +24,12 @@ class PostController {
    * @query = page, limit
   */
   static async get(req, res) {
-    setTimeout(async() => {
-      try {
-        const result = await PostService.get(req, res);
-        Helpers.responseJSON(res, result);
-      } catch (error) {
-        Helpers.responseMessage(res, ResponseEnums.FAILURE, error.message);
-      }
-    }, 3000);
+    try {
+      const result = await PostService.get(req, res);
+      Helpers.responseJSON(res, result);
+    } catch (error) {
+      Helpers.responseMessage(res, ResponseEnums.FAILURE, error.message);
+    }
   }
 
   static async create(req, res) {

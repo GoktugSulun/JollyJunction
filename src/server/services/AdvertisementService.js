@@ -4,7 +4,6 @@ class AdvertisementService {
   static async getAll() {
     try {
       const { advertisements } = advertisementsDB.data;
-      console.log(advertisements, ' 23333');
 
       return {
         type: true,

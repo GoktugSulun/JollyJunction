@@ -1,11 +1,10 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import * as S from '../Style/Dashboard.style';
 import UserProfile from '../../../Components/UserProfile/UserProfile';
 import { IconButton, Tooltip } from '@mui/material';
 import PersonRemoveIcon from '@mui/icons-material/PersonRemove';
 import { useDispatch, useSelector } from 'react-redux';
 import { DashboardSagaActions } from '../Store/Dashboard.saga';
-import { getUserImageURL } from '../../../assets/Pngs/Pngs';
 import Loading from '../../../Core/Components/Loading/Loading';
 
 const FriendList = () => {
@@ -40,7 +39,7 @@ const FriendList = () => {
                   position={obj?.position || ''}
                   fontSize="25px"
                   small
-                  src={getUserImageURL(obj.img)}
+                  src={obj.img}
                 />
                 <Tooltip title="Remove Friend" placement="top" >
                   <IconButton onClick={() => removeFriend(obj.id)}>

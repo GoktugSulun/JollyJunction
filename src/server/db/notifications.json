@@ -368,7 +368,7 @@
       "post_id": 2,
       "created_at": "Wed Nov 29 2023 00:38:34 GMT+0300 (GMT+03:00)",
       "updated_at": "Wed Nov 29 2023 00:38:34 GMT+0300 (GMT+03:00)",
-      "seen": false,
+      "seen": true,
       "read": false,
       "is_removed": false
     },
@@ -380,7 +380,7 @@
       "post_id": 14,
       "created_at": "Wed Nov 29 2023 01:06:04 GMT+0300 (GMT+03:00)",
       "updated_at": "Wed Nov 29 2023 01:06:04 GMT+0300 (GMT+03:00)",
-      "seen": false,
+      "seen": true,
       "read": false,
       "is_removed": false
     },
@@ -392,8 +392,8 @@
       "post_id": 14,
       "created_at": "Wed Nov 29 2023 01:06:05 GMT+0300 (GMT+03:00)",
       "updated_at": "Wed Nov 29 2023 01:06:05 GMT+0300 (GMT+03:00)",
-      "seen": false,
-      "read": false,
+      "seen": true,
+      "read": true,
       "is_removed": false
     },
     {
@@ -404,7 +404,7 @@
       "post_id": 14,
       "created_at": "Wed Nov 29 2023 01:06:06 GMT+0300 (GMT+03:00)",
       "updated_at": "Wed Nov 29 2023 01:06:06 GMT+0300 (GMT+03:00)",
-      "seen": false,
+      "seen": true,
       "read": false,
       "is_removed": false
     },
@@ -416,7 +416,7 @@
       "post_id": 14,
       "created_at": "Wed Nov 29 2023 01:06:07 GMT+0300 (GMT+03:00)",
       "updated_at": "Wed Nov 29 2023 01:06:07 GMT+0300 (GMT+03:00)",
-      "seen": false,
+      "seen": true,
       "read": false,
       "is_removed": false
     },
@@ -428,8 +428,8 @@
       "post_id": 14,
       "created_at": "Wed Nov 29 2023 01:06:08 GMT+0300 (GMT+03:00)",
       "updated_at": "Wed Nov 29 2023 01:06:08 GMT+0300 (GMT+03:00)",
-      "seen": false,
-      "read": false,
+      "seen": true,
+      "read": true,
       "is_removed": false
     },
     {
@@ -440,7 +440,7 @@
       "post_id": 14,
       "created_at": "Wed Nov 29 2023 01:06:08 GMT+0300 (GMT+03:00)",
       "updated_at": "Wed Nov 29 2023 01:06:08 GMT+0300 (GMT+03:00)",
-      "seen": false,
+      "seen": true,
       "read": false,
       "is_removed": false
     },
@@ -452,8 +452,8 @@
       "post_id": 14,
       "created_at": "Wed Nov 29 2023 01:06:09 GMT+0300 (GMT+03:00)",
       "updated_at": "Wed Nov 29 2023 01:06:09 GMT+0300 (GMT+03:00)",
-      "seen": false,
-      "read": false,
+      "seen": true,
+      "read": true,
       "is_removed": false
     },
     {
@@ -464,8 +464,8 @@
       "post_id": 14,
       "created_at": "Wed Nov 29 2023 01:06:10 GMT+0300 (GMT+03:00)",
       "updated_at": "Wed Nov 29 2023 01:06:10 GMT+0300 (GMT+03:00)",
-      "seen": false,
-      "read": false,
+      "seen": true,
+      "read": true,
       "is_removed": false
     },
     {
@@ -476,8 +476,8 @@
       "post_id": 14,
       "created_at": "Wed Nov 29 2023 01:06:11 GMT+0300 (GMT+03:00)",
       "updated_at": "Wed Nov 29 2023 01:06:11 GMT+0300 (GMT+03:00)",
-      "seen": false,
-      "read": false,
+      "seen": true,
+      "read": true,
       "is_removed": false
     },
     {
@@ -488,8 +488,8 @@
       "post_id": 14,
       "created_at": "Wed Nov 29 2023 01:06:14 GMT+0300 (GMT+03:00)",
       "updated_at": "Wed Nov 29 2023 01:06:14 GMT+0300 (GMT+03:00)",
-      "seen": false,
-      "read": false,
+      "seen": true,
+      "read": true,
       "is_removed": false
     },
     {
@@ -500,8 +500,8 @@
       "post_id": 14,
       "created_at": "Wed Nov 29 2023 01:08:41 GMT+0300 (GMT+03:00)",
       "updated_at": "Wed Nov 29 2023 01:08:41 GMT+0300 (GMT+03:00)",
-      "seen": false,
-      "read": false,
+      "seen": true,
+      "read": true,
       "is_removed": false
     },
     {
@@ -512,8 +512,8 @@
       "post_id": 14,
       "created_at": "Wed Nov 29 2023 01:09:15 GMT+0300 (GMT+03:00)",
       "updated_at": "Wed Nov 29 2023 01:09:15 GMT+0300 (GMT+03:00)",
-      "seen": false,
-      "read": false,
+      "seen": true,
+      "read": true,
       "is_removed": false
     },
     {
@@ -524,8 +524,8 @@
       "post_id": 14,
       "created_at": "Wed Nov 29 2023 01:09:27 GMT+0300 (GMT+03:00)",
       "updated_at": "Wed Nov 29 2023 01:09:27 GMT+0300 (GMT+03:00)",
-      "seen": false,
-      "read": false,
+      "seen": true,
+      "read": true,
       "is_removed": false
     },
     {
@@ -536,8 +536,8 @@
       "post_id": 14,
       "created_at": "Wed Nov 29 2023 01:10:22 GMT+0300 (GMT+03:00)",
       "updated_at": "Wed Nov 29 2023 01:10:22 GMT+0300 (GMT+03:00)",
-      "seen": false,
-      "read": false,
+      "seen": true,
+      "read": true,
       "is_removed": false
     },
     {
@@ -548,8 +548,8 @@
       "post_id": 14,
       "created_at": "Wed Nov 29 2023 01:10:38 GMT+0300 (GMT+03:00)",
       "updated_at": "Wed Nov 29 2023 01:10:38 GMT+0300 (GMT+03:00)",
-      "seen": false,
-      "read": false,
+      "seen": true,
+      "read": true,
       "is_removed": false
     },
     {
@@ -560,6 +560,30 @@
       "post_id": 14,
       "created_at": "Wed Nov 29 2023 01:11:02 GMT+0300 (GMT+03:00)",
       "updated_at": "Wed Nov 29 2023 01:11:02 GMT+0300 (GMT+03:00)",
+      "seen": true,
+      "read": true,
+      "is_removed": false
+    },
+    {
+      "id": 48,
+      "type": 6,
+      "receiver_id": 2,
+      "sender_id": 1,
+      "post_id": 16,
+      "created_at": "Sun Dec 03 2023 10:48:02 GMT+0300 (GMT+03:00)",
+      "updated_at": "Sun Dec 03 2023 10:48:02 GMT+0300 (GMT+03:00)",
+      "seen": false,
+      "read": false,
+      "is_removed": false
+    },
+    {
+      "id": 49,
+      "type": 3,
+      "receiver_id": 2,
+      "sender_id": 1,
+      "post_id": 15,
+      "created_at": "Sun Dec 03 2023 10:48:56 GMT+0300 (GMT+03:00)",
+      "updated_at": "Sun Dec 03 2023 10:48:56 GMT+0300 (GMT+03:00)",
       "seen": false,
       "read": false,
       "is_removed": false

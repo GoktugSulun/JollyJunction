@@ -228,9 +228,165 @@
       "post_id": 16,
       "id": 22,
       "user_id": 2,
-      "likes": [],
+      "likes": [
+        1
+      ],
       "created_at": "Wed Nov 29 2023 01:29:03 GMT+0300 (GMT+03:00)",
       "updated_at": "Wed Nov 29 2023 01:29:03 GMT+0300 (GMT+03:00)",
+      "is_removed": false,
+      "user": {
+        "id": 2,
+        "name": "Damla Nur",
+        "surname": "Yilmaz",
+        "email": "damlanur.ylmaz@hotmail.com",
+        "password": 123456,
+        "location": "Esenyurt",
+        "city": "Istanbul",
+        "country": "Turkey",
+        "school": "Bahcesehir University",
+        "img": "",
+        "position": "Frontend Developer",
+        "company": "",
+        "social_medias": [
+          {
+            "id": 1,
+            "url": "",
+            "name": "LinkedIn",
+            "type": 1
+          },
+          {
+            "id": 2,
+            "url": "",
+            "name": "Instagram",
+            "type": 2
+          },
+          {
+            "id": 3,
+            "url": "",
+            "name": "Twitter",
+            "type": 3
+          }
+        ]
+      }
+    },
+    {
+      "comment": "noluyor la",
+      "post_id": 20,
+      "id": 23,
+      "user_id": 1,
+      "likes": [],
+      "created_at": "Thu Nov 30 2023 00:57:38 GMT+0300 (GMT+03:00)",
+      "updated_at": "2023-11-29T21:57:47.551Z",
+      "is_removed": true
+    },
+    {
+      "comment": "deneme",
+      "post_id": 20,
+      "id": 24,
+      "user_id": 1,
+      "likes": [],
+      "created_at": "Thu Nov 30 2023 00:58:29 GMT+0300 (GMT+03:00)",
+      "updated_at": "Thu Nov 30 2023 00:58:29 GMT+0300 (GMT+03:00)",
+      "is_removed": true
+    },
+    {
+      "comment": "adasd",
+      "post_id": 21,
+      "id": 25,
+      "user_id": 1,
+      "likes": [],
+      "created_at": "Thu Nov 30 2023 01:00:47 GMT+0300 (GMT+03:00)",
+      "updated_at": "Thu Nov 30 2023 01:00:47 GMT+0300 (GMT+03:00)",
+      "is_removed": true
+    },
+    {
+      "comment": "asdsadsadsa",
+      "post_id": 21,
+      "id": 26,
+      "user_id": 1,
+      "likes": [],
+      "created_at": "Thu Nov 30 2023 01:01:52 GMT+0300 (GMT+03:00)",
+      "updated_at": "Thu Nov 30 2023 01:01:52 GMT+0300 (GMT+03:00)",
+      "is_removed": true
+    },
+    {
+      "comment": "adasad",
+      "post_id": 21,
+      "id": 27,
+      "user_id": 1,
+      "likes": [],
+      "created_at": "Thu Nov 30 2023 01:03:34 GMT+0300 (GMT+03:00)",
+      "updated_at": "Thu Nov 30 2023 01:03:34 GMT+0300 (GMT+03:00)",
+      "is_removed": true
+    },
+    {
+      "comment": "123",
+      "post_id": 21,
+      "id": 28,
+      "user_id": 1,
+      "likes": [],
+      "created_at": "Thu Nov 30 2023 01:05:10 GMT+0300 (GMT+03:00)",
+      "updated_at": "Thu Nov 30 2023 01:05:10 GMT+0300 (GMT+03:00)",
+      "is_removed": true
+    },
+    {
+      "comment": "123",
+      "post_id": 21,
+      "id": 29,
+      "user_id": 1,
+      "likes": [],
+      "created_at": "Thu Nov 30 2023 01:06:33 GMT+0300 (GMT+03:00)",
+      "updated_at": "Thu Nov 30 2023 01:06:33 GMT+0300 (GMT+03:00)",
+      "is_removed": true
+    },
+    {
+      "comment": "123",
+      "post_id": 21,
+      "id": 30,
+      "user_id": 1,
+      "likes": [],
+      "created_at": "Thu Nov 30 2023 01:07:24 GMT+0300 (GMT+03:00)",
+      "updated_at": "Thu Nov 30 2023 01:07:24 GMT+0300 (GMT+03:00)",
+      "is_removed": true
+    },
+    {
+      "comment": "harika",
+      "post_id": 21,
+      "id": 31,
+      "user_id": 1,
+      "likes": [],
+      "created_at": "Thu Nov 30 2023 01:08:59 GMT+0300 (GMT+03:00)",
+      "updated_at": "Thu Nov 30 2023 01:08:59 GMT+0300 (GMT+03:00)",
+      "is_removed": true
+    },
+    {
+      "comment": "heeyyy",
+      "post_id": 15,
+      "id": 32,
+      "user_id": 1,
+      "likes": [],
+      "created_at": "Sun Dec 03 2023 10:48:56 GMT+0300 (GMT+03:00)",
+      "updated_at": "Sun Dec 03 2023 10:48:56 GMT+0300 (GMT+03:00)",
+      "is_removed": false
+    },
+    {
+      "comment": "hoopp",
+      "post_id": 22,
+      "id": 33,
+      "user_id": 1,
+      "likes": [],
+      "created_at": "Sun Dec 03 2023 10:51:24 GMT+0300 (GMT+03:00)",
+      "updated_at": "Sun Dec 03 2023 10:51:24 GMT+0300 (GMT+03:00)",
+      "is_removed": false
+    },
+    {
+      "comment": "naber kanki",
+      "post_id": 22,
+      "id": 34,
+      "user_id": 1,
+      "likes": [],
+      "created_at": "Sun Dec 03 2023 10:51:27 GMT+0300 (GMT+03:00)",
+      "updated_at": "Sun Dec 03 2023 10:51:27 GMT+0300 (GMT+03:00)",
       "is_removed": false
     }
   ]

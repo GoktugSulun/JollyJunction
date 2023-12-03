@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Suspense } from 'react';
 import { Navigate, Outlet } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { MainWrapper } from '../Components/Pages/MainWrapper.style';
@@ -18,7 +18,9 @@ const ProtectedRoute = ({ isAllowed, redirectPath }) => {
   return (
     <MainWrapper>
       <Header />
-      <Outlet />
+      <Suspense fallback={<div />}>
+        <Outlet />
+      </Suspense>
     </MainWrapper>
   );
 };

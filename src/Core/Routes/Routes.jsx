@@ -1,4 +1,4 @@
-import { Route, Routes } from 'react-router-dom';
+import { Route, Routes, useLocation } from 'react-router-dom';
 import ProtectedRoute from './ProtectedRoute';
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
@@ -13,10 +13,12 @@ import Register from '../../Pages/Register/Register';
 import UserProfile from '../../Pages/UserProfile/UserProfile';
 import Notifications from '../../Pages/Notifications/Notifications';
 import Layout from '../../Pages/Layout/Layout';
+import Settings from '../../Pages/Settings/Settings';
 
 const RouteList = () => {
   const token = localStorage.getItem('token');
   const dispatch = useDispatch();
+  const location = useLocation();
   const { authorizedUser } = useSelector((state) => state.AppConfig.init);
 
   useEffect(() => {
@@ -24,6 +26,10 @@ const RouteList = () => {
       dispatch(AppConfigSagaActions.getInit());
     }
   }, [authorizedUser?.id, token]);
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [location.pathname]);
 
   if (!authorizedUser?.id && token) {
     return (
@@ -43,6 +49,7 @@ const RouteList = () => {
           <Route path="/profile/:user/:id" element={<UserProfile />} />
           <Route path="/notifications" element={<Notifications />} />
         </Route>
+        <Route path="/settings" element={<Settings />} />
       </Route>
       <Route path="*" element={<div> Page Not Found! </div>} />
     </Routes>

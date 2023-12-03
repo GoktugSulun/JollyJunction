@@ -107,9 +107,7 @@
     {
       "description": "deneme - 14 NYC!",
       "user_id": 1,
-      "files": [
-        "img-1.jpg"
-      ],
+      "files": [],
       "id": 14,
       "created_at": "Mon Nov 06 2023 14:10:25 GMT+0300 (GMT+03:00)",
       "updated_at": "Mon Nov 06 2023 14:10:25 GMT+0300 (GMT+03:00)"

@@ -1,5 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { NotifierTypes } from '../Constants/Enums';
+import requestStatusReducer from '../Helpers/requestStatusReducer';
+import { AppConfigSagaActions } from './AppConfig.saga';
 
 const NAME = 'AppConfig';
 
@@ -7,7 +9,8 @@ const initialState = {
   notifications: [],
   init: {
     authorizedUser: {},
-    unseenNotificationsCount: 0
+    unseenNotificationsCount: 0,
+    advertisements: []
   },
 };
 
@@ -34,8 +37,12 @@ const AppConfigSlice = createSlice({
     },
     setUnseenNotificationsCount: (state, action) => {
       state.init.unseenNotificationsCount = action.payload;
+    },
+    setUser: (state, action) => {
+      state.init.authorizedUser = action.payload;
     }
-  }
+  },
+  extraReducers: (builder) => requestStatusReducer(builder, AppConfigSagaActions)
 });
 
 const { actions, reducer } = AppConfigSlice;
