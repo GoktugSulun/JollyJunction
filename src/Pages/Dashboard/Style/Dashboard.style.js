@@ -349,11 +349,10 @@ export const CreatePost = styled.div`
       height: auto;
       border-radius: 10px;
    }
-   canvas {
-      width: 100%;
-      height: 400px;
-      /* height: 100%; */
-      /* object-fit: contain; */
+   .img-skeleton {
+      background-color: #2d2d2d;
+      transform: initial;
+      height: 250px;
    }
    .tools {
       display: flex;
@@ -362,6 +361,20 @@ export const CreatePost = styled.div`
       justify-content: space-between;
       .MuiButton-root {
          position: relative;
+         background-color: transparent;
+         color: #7a7a7a;
+         border-radius: 30px;
+         &.create-post {
+            color: #927CD9;
+            background-color: #222;
+            :hover {
+               background-color: #333;
+            }
+         }
+         :not(.create-post):hover {
+            color: #FFFFFF;
+            background-color: #333333;
+         }
          input {
             opacity: 0;
             visibility: hidden;

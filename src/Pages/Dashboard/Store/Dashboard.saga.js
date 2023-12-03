@@ -36,8 +36,8 @@ export default [
     actionType: DashboardSagaActions.createPost.type,
     takeType: SagaTakeTypes.TAKE_LATEST,
     * func({ payload }) {
-      const response = yield call(request, HttpMethodTypes.POST, `${ApiUrl.createPost}`, payload);
-      yield put(DashboardActions.setPost(response.data));
+      const response = yield call(request, HttpMethodTypes.POST, `${ApiUrl.createPost}`, payload.data, payload.file);
+      // yield put(DashboardActions.setPost(response.data));
       yield put(snackbar('Post is created successfully'));
     }
   }),

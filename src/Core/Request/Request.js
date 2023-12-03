@@ -6,14 +6,14 @@ const baseURL = 'http://localhost:3000';
 
 export const request = async (method, url, data = undefined) => {
   try {
-    // let backendData = null;
+    // let data = null;
     // if (file) {
-    //    const formData = new FormData();
-    //    formData.append('file', file);
-    //    formData.append('data', JSON.stringify(data));
-    //    backendData = formData;
+    //   const formData = new FormData();
+    //   formData.append('file', file);
+    //   formData.append('data', JSON.stringify(payload));
+    //   data = formData;
     // } else {
-    //    backendData = data;
+    //   data = payload;
     // }
     const response = await axios({
       method,

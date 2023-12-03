@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { useDispatch } from 'react-redux';
 import { PostModalActions } from '../../../../../Components/PostModal/Store/PostModal.slice';
 import { ModalTypes } from '../../../../../Core/Constants/Enums';
+import LZString from 'lz-string';
 
 const PostBody = ({ data, likeHandler }) => {
   const dispatch = useDispatch();
@@ -27,7 +28,7 @@ const PostBody = ({ data, likeHandler }) => {
   return (
     <>
       <p className="description"> { data.description } </p>
-      { !!data.files.length && <img onClick={onClickHandler} loading="lazy" src={data?.files?.[0]} alt="post-content" /> }
+      { !!data.files.length && <img onClick={onClickHandler} loading="lazy" src={LZString.decompress(data?.files?.[0])} alt="post-content" /> }
     </>
   );
 };

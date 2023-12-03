@@ -136,7 +136,7 @@ class PostService {
       posts.push(data);
       await postsDB.write();
 
-      //* get post that created
+      // //* get post that created
       const createdData = await PostService.getById({ params: { id: data.id } });
       if (!createdData.type) {
         return {

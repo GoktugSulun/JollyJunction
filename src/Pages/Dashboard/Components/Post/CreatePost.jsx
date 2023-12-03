@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import * as S from '../../Style/Dashboard.style';
 import TextInput from '../../../../Core/Inputs/TextInput';
 import useMaterialForm from '../../../../Core/Hooks/useMaterialForm';
@@ -6,7 +6,7 @@ import { Divider } from '../../../../Components/Divider/Divider.style';
 import { Button } from '../../../../Core/Components/Buttons/Button.style';
 import ImageIcon from '@mui/icons-material/Image';
 import AudioFileIcon from '@mui/icons-material/AudioFile';
-import MicIcon from '@mui/icons-material/Mic';
+import VideoCameraBackIcon from '@mui/icons-material/VideoCameraBack';
 import AttachFileIcon from '@mui/icons-material/AttachFile';
 import SendIcon from '@mui/icons-material/Send';
 import { useDispatch, useSelector } from 'react-redux';
@@ -16,6 +16,8 @@ import { DashboardSagaActions } from '../../Store/Dashboard.saga';
 import useHttpResponse from '../../../../Core/Hooks/useHttpResponse';
 import Loading from '../../../../Core/Components/Loading/Loading';
 import UserProfile from '../../../../Components/UserProfile/UserProfile';
+import LZString from 'lz-string';
+import { Skeleton } from '@mui/material';
 
 const defaultValues = {
   value: '',
@@ -24,7 +26,8 @@ const defaultValues = {
 const CreatePost = () => {
   const dispatch = useDispatch();
   const [imageURL, setImageURL] = useState(null);
-  const [compressedData, setCompressedData] = useState(null);
+  const [compressedFile, setCompressedFile] = useState(null);
+  const [fileLoading, setFileLoading] = useState(false);
   const { authorizedUser } = useSelector(state => state.AppConfig.init);
   const { loading } = useSelector(state => state.Dashboard);
   const { registerHandler, form } = useMaterialForm({ defaultValues });
@@ -38,46 +41,57 @@ const CreatePost = () => {
     const payload = {
       description: form.getValues('value'),
       user_id: authorizedUser.id,
-      files: [compressedData]
+      files: [compressedFile]
     };
     dispatch(DashboardSagaActions.createPost(payload));
   };
 
-  const compressImage = async (blobURL) => {
+  const compressFile = async (base64URL, fileType) => {
     return new Promise((resolve) => {
       const img = new Image();
-      img.src = blobURL;
+      img.src = base64URL;
   
       img.onload = function () {
         const canvas = document.createElement('canvas');
         const ctx = canvas.getContext('2d');
-
-        // const aspectRatio = img.width / img.height;
-
         canvas.width = img.width;
         canvas.height = img.height;
-
         ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
     
         const compressedBase64 = canvas.toDataURL('image/jpeg', 0.5);
-        // canvas.toBlob((blob) => resolve(blob));
         resolve(compressedBase64);
       };
     });
   };
 
-  const handleFiles = async (e) => {
+  const compressBase64 = (data) => {
+    return new Promise(resolve => {
+      const compressedData = LZString.compress(data);
+      resolve(compressedData);
+    });
+  };
+
+  const handleFiles = (e, fileType) => {
     //* single image for now
     const file = e.target.files[0];
-    
-    const blobURL = URL.createObjectURL(file);
-    const compressedBase64 = await compressImage(blobURL);
-    setCompressedData(compressedBase64);
+    console.log(file, ' file');
 
     const reader = new FileReader();
     reader.readAsDataURL(file);
-    reader.onloadend = () => {
+    reader.onloadstart = () => {
+      setFileLoading(true);
+    };
+    reader.onloadend = async () => {
+      const base64URL = reader.result;
+      const compressedString = compressBase64(base64URL);
+      console.log(base64URL, ' original elngth');
+      console.log(base64URL.length, ' original elngth');
+      // console.log(compressedString.length, ' lz-string length');
+      // const compressedBase64 = await compressFile(reader.result, fileType);
+      // console.log(compressedBase64.length, ' canvas');
+      setCompressedFile(compressedString);
       setImageURL(reader.result);
+      setFileLoading(false);
     };
   };
 
@@ -85,7 +99,7 @@ const CreatePost = () => {
     success: ({ idleAction }) => {
       form.reset(defaultValues);
       setImageURL(null);
-      setCompressedData(null);
+      setCompressedFile(null);
       idleAction();
     }
   }, DashboardSagaActions.createPost());
@@ -100,62 +114,49 @@ const CreatePost = () => {
           fullWidth
         />
       </div>
-      { imageURL && <>
-        <Divider margin="20px 0" />
-        <img className="user-post-img" src={imageURL} alt="user-post" />
-      </> }
-      <div id="canvas"> </div>
+      { 
+        fileLoading
+          ? <>
+            <Divider margin="20px 0" />
+            <Skeleton variant="rounded" animation="wave" className="img-skeleton" />
+          </>
+          : imageURL && <>
+            <Divider margin="20px 0" />
+            <img loading="lazy" className="user-post-img" src={imageURL} alt="user-post" />
+          </>  
+      }
       <Divider margin="20px 0" />
       <div className="tools">
         <Button
           startIcon={<ImageIcon />}
-          bgColor="transparent"
-          hoverBgColor="#333"
-          hoverColor="#FFFFFF"
-          $color="#7a7a7a"
-          borderRadius="30px"
           component="label"
           onChange={handleFiles}
+          disabled={fileLoading}
         >
           Image
           <input type="file" accept="image/*" />
         </Button>
         <Button
+          startIcon={<VideoCameraBackIcon />}
+          component="label"
+          onChange={handleFiles}
+        >
+          Video
+          <input type="file" accept="video/*" />
+        </Button>
+        <Button
           startIcon={<AudioFileIcon />}
-          bgColor="transparent"
-          hoverBgColor="#333"
-          hoverColor="#FFFFFF"
-          $color="#7a7a7a"
-          borderRadius="30px"
         >
           Music
         </Button>
         <Button
-          startIcon={<MicIcon />}
-          bgColor="transparent"
-          hoverBgColor="#333"
-          hoverColor="#FFFFFF"
-          $color="#7a7a7a"
-          borderRadius="30px"
-        >
-          Audio
-        </Button>
-        <Button
           startIcon={<AttachFileIcon />}
-          bgColor="transparent"
-          hoverBgColor="#333"
-          hoverColor="#FFFFFF"
-          $color="#7a7a7a"
-          borderRadius="30px"
         >
           Attachment
         </Button>
         <Button
           endIcon={loading?.createPost ? <Loading size={20} /> : <SendIcon />}
-          bgColor="#333"
-          hoverBgColor="#555"
-          $color="#927CD9"
-          borderRadius="30px"
+          className="create-post"
           onClick={createPost}
           disabled={loading?.createPost}
         >
