@@ -47,7 +47,7 @@
       "school": "Bahcesehir University",
       "img": "",
       "position": "Frontend Developer",
-      "company": "",
+      "company": "Vodafone",
       "social_medias": [
         {
           "id": 1,
@@ -67,7 +67,8 @@
           "name": "Twitter",
           "type": 3
         }
-      ]
+      ],
+      "updated_at": "Sun Dec 03 2023 19:51:24 GMT+0300 (GMT+03:00)"
     }
   ]
 }
