@@ -342,11 +342,18 @@ export const CreatePost = styled.div`
       }
    }
    img.user-post-img {
+      //TODO: width kısmında problem var 
       width: 100%;
       max-height: 400px;
       object-fit: cover;
       height: auto;
       border-radius: 10px;
+   }
+   canvas {
+      width: 100%;
+      height: 400px;
+      /* height: 100%; */
+      /* object-fit: contain; */
    }
    .tools {
       display: flex;

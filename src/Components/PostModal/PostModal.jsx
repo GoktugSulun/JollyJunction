@@ -4,7 +4,6 @@ import * as S from './Style/PostModal.style';
 import { useDispatch, useSelector } from 'react-redux';
 import { PostModalActions } from './Store/PostModal.slice';
 import { ModalTypes } from '../../Core/Constants/Enums';
-import { getPostsImageURL } from '../../assets/Pngs/Pngs';
 import CommentsSection from './Components/CommentsSection';
 import { PostModalSagaActions } from './Store/PostModal.saga';
 import useHttpResponse from '../../Core/Hooks/useHttpResponse';
@@ -65,11 +64,11 @@ const PostModal = () => {
         open={isOpen}
         onClose={handleClose}
       >
-        <S.PostModal isOpen={isOpen}>
+        <S.PostModal image={!!postData?.files?.length} isOpen={isOpen}>
           {
             postData?.files?.length
               && <S.Image>
-                <img src={getPostsImageURL(postData?.files?.[0])} alt="post" />
+                <img src={postData?.files?.[0]} alt="post" />
               </S.Image>
           }
           <CommentsSection />

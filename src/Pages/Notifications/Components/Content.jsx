@@ -1,7 +1,6 @@
 import React from 'react';
 import * as S from '../Style/Notifications.style';
 import PropTypes from 'prop-types';
-import { getUserImageURL } from '../../../assets/Pngs/Pngs';
 import { useNavigate } from 'react-router-dom';
 import { Button } from '../../../Core/Components/Buttons/Button.style';
 import { NotificationTypes } from '../../../Core/Constants/Enums';
@@ -40,7 +39,7 @@ const Content = ({ data }) => {
     <S.Content read={data.read}>
       <div className="dot"> </div>
       <div className="content">
-        <img alt="sender-user" src={getUserImageURL(data?.sender_user?.img)} />
+        <img alt="sender-user" src={data?.sender_user?.img} />
         <div className="content__main">
           <p className="description">
             <Button 

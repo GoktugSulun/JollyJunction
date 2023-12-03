@@ -10,7 +10,6 @@ import TwitterIcon from '@mui/icons-material/Twitter';
 import LinkedInIcon from '@mui/icons-material/LinkedIn';
 import SettingsIcon from '@mui/icons-material/Settings';
 import { IconButton, Tooltip } from '@mui/material';
-import { getUserImageURL } from '../../../assets/Pngs/Pngs';
 import { useDispatch, useSelector } from 'react-redux';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { UserProfileSagaActions } from '../../UserProfile/Store/UserProfile.saga';
@@ -67,7 +66,7 @@ const Profile = () => {
         <UserProfile 
           name={`${data?.name || ''} ${data?.surname || ''}`}
           position={data?.position || ''}
-          src={getUserImageURL(data?.img)}
+          src={data?.img}
           clickable={false}
         />
         {

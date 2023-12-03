@@ -9,7 +9,7 @@ export const PostModal = styled.div`
     outline: none;
     border: none;
     border-radius: 10px;
-    width: 80vw;
+    width: ${(props) => props.image ? '80vw' : '50vw'};
     height: 80vh;
     display: flex;
 `;

@@ -3,7 +3,6 @@ import UserProfile from '../../../../../Components/UserProfile/UserProfile';
 import PropTypes from 'prop-types';
 import { useSelector } from 'react-redux';
 import Loading from '../../../../../Core/Components/Loading/Loading';
-import { getUserImageURL } from '../../../../../assets/Pngs/Pngs';
 import AddFriend from './AddFriend';
 import RespondRequest from './RespondRequest';
 import Cancel from './Cancel';
@@ -35,7 +34,7 @@ const PostHeader = ({ data }) => {
       <UserProfile
         name={`${data?.user?.name || ''} ${data?.user?.surname || ''}`}
         position={data?.user?.position || ''}
-        src={getUserImageURL(data?.user?.img)}
+        src={data?.user?.img}
         id={data.user.id}
       />
       {

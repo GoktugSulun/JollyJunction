@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import * as S from '../Style/PostModal.style';
-import { getUserImageURL } from '../../../assets/Pngs/Pngs';
 import moment from 'moment';
 import { Button } from '../../../Core/Components/Buttons/Button.style';
 import { IconButton, Tooltip } from '@mui/material';
@@ -19,6 +18,7 @@ import CommentActionTypes from '../Enums/CommentActionTypes';
 import { PostModalActions } from '../Store/PostModal.slice';
 import { ModalTypes } from '../../../Core/Constants/Enums';
 import { DashboardActions } from '../../../Pages/Dashboard/Store/Dashboard.slice';
+import LetterImage from '../../LetterImage/LetterImage';
 
 const defaultValues = {
   comment: ''
@@ -98,7 +98,7 @@ const Comment = ({ data, commentLoadingStates }) => {
         minWidth="0"
         onClick={navigateHandler}
       >
-        <img src={getUserImageURL(data?.user?.img)} alt="user-commented" />
+        { data?.user?.img ? <img src={data?.user?.img} alt="user" /> : <LetterImage fontSize="30px" name={data?.user?.name} />}
       </Button>
       <div className="comment-wrapper">
         <S.Comment>

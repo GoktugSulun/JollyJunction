@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import * as S from '../../Style/Dashboard.style';
 import TextInput from '../../../../Core/Inputs/TextInput';
 import useMaterialForm from '../../../../Core/Hooks/useMaterialForm';
@@ -15,7 +15,6 @@ import { NotifierTypes } from '../../../../Core/Constants/Enums';
 import { DashboardSagaActions } from '../../Store/Dashboard.saga';
 import useHttpResponse from '../../../../Core/Hooks/useHttpResponse';
 import Loading from '../../../../Core/Components/Loading/Loading';
-import { getUserImageURL } from '../../../../assets/Pngs/Pngs';
 import UserProfile from '../../../../Components/UserProfile/UserProfile';
 
 const defaultValues = {
@@ -25,36 +24,68 @@ const defaultValues = {
 const CreatePost = () => {
   const dispatch = useDispatch();
   const [imageURL, setImageURL] = useState(null);
-  const [files, setFiles] = useState([]);
+  const [compressedData, setCompressedData] = useState(null);
   const { authorizedUser } = useSelector(state => state.AppConfig.init);
   const { loading } = useSelector(state => state.Dashboard);
   const { registerHandler, form } = useMaterialForm({ defaultValues });
 
-  const createPost = () => {
+  const createPost = async () => {
     if (!form.getValues('value')) {
       dispatch(snackbar('You need to write a description or select an image, audio, attachment!', { variant: NotifierTypes.ERROR }));
       return;
     }
+
     const payload = {
       description: form.getValues('value'),
       user_id: authorizedUser.id,
-      files: files.map((file) => file.name)
+      files: [compressedData]
     };
     dispatch(DashboardSagaActions.createPost(payload));
   };
 
-  const handleFiles = (e) => {
+  const compressImage = async (blobURL) => {
+    return new Promise((resolve) => {
+      const img = new Image();
+      img.src = blobURL;
+  
+      img.onload = function () {
+        const canvas = document.createElement('canvas');
+        const ctx = canvas.getContext('2d');
+
+        // const aspectRatio = img.width / img.height;
+
+        canvas.width = img.width;
+        canvas.height = img.height;
+
+        ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+    
+        const compressedBase64 = canvas.toDataURL('image/jpeg', 0.5);
+        // canvas.toBlob((blob) => resolve(blob));
+        resolve(compressedBase64);
+      };
+    });
+  };
+
+  const handleFiles = async (e) => {
     //* single image for now
-    const files = [...e.target.files];
-    setFiles(files);
-    setImageURL(URL.createObjectURL(files[0]));
+    const file = e.target.files[0];
+    
+    const blobURL = URL.createObjectURL(file);
+    const compressedBase64 = await compressImage(blobURL);
+    setCompressedData(compressedBase64);
+
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onloadend = () => {
+      setImageURL(reader.result);
+    };
   };
 
   useHttpResponse({
     success: ({ idleAction }) => {
       form.reset(defaultValues);
-      setFiles([]);
       setImageURL(null);
+      setCompressedData(null);
       idleAction();
     }
   }, DashboardSagaActions.createPost());
@@ -62,7 +93,7 @@ const CreatePost = () => {
   return (
     <S.CreatePost>
       <div className="header">
-        <UserProfile name={authorizedUser.name} clickable={false} src={getUserImageURL(authorizedUser.img)} displayName={false} />
+        <UserProfile name={authorizedUser.name} clickable={false} src={authorizedUser.img} displayName={false} />
         <TextInput
           {...registerHandler('value')}
           placeholder="What's on your mind..."
@@ -73,6 +104,7 @@ const CreatePost = () => {
         <Divider margin="20px 0" />
         <img className="user-post-img" src={imageURL} alt="user-post" />
       </> }
+      <div id="canvas"> </div>
       <Divider margin="20px 0" />
       <div className="tools">
         <Button
@@ -96,7 +128,7 @@ const CreatePost = () => {
           $color="#7a7a7a"
           borderRadius="30px"
         >
-               Music
+          Music
         </Button>
         <Button
           startIcon={<MicIcon />}
@@ -106,7 +138,7 @@ const CreatePost = () => {
           $color="#7a7a7a"
           borderRadius="30px"
         >
-               Audio
+          Audio
         </Button>
         <Button
           startIcon={<AttachFileIcon />}
@@ -116,7 +148,7 @@ const CreatePost = () => {
           $color="#7a7a7a"
           borderRadius="30px"
         >
-               Attachment
+          Attachment
         </Button>
         <Button
           endIcon={loading?.createPost ? <Loading size={20} /> : <SendIcon />}
@@ -127,7 +159,7 @@ const CreatePost = () => {
           onClick={createPost}
           disabled={loading?.createPost}
         >
-               POST
+          POST
         </Button>
       </div>
     </S.CreatePost>

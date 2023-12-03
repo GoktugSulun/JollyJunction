@@ -1,11 +1,12 @@
 import styled from '@emotion/styled';
 import { ContentWrapper } from '../../../Core/Components/Pages/ContentWrapper.style';
-import { hexToRgbA } from '../../../Core/Utils/Utils';
 import { css } from '@emotion/react';
 
 export const Settings = styled(ContentWrapper)`
+   display: flex;
+   justify-content: center;
    .content {
-      grid-column: 2 / 3;
+      width: 70%;
       background: #181818;
       border-radius: 10px;
       padding: 20px;
@@ -77,16 +78,19 @@ export const Settings = styled(ContentWrapper)`
          justify-content: flex-end;
       }
    }
-   @media (max-width: 1536px) {
-      display: flex;
-      justify-content: center;
+   @media (max-width: 1200px) {
       .content {
-         width: 70%;
+         width: 100%;
       }
    }
    @media (max-width: 900px) {
-      .content {
-         width: 100%;
+      .content section {
+         .container {
+            flex-direction: column;
+            .group {
+               align-self: stretch;
+            }
+         }
       }
    }
    @media (max-width: 600px) {
@@ -107,6 +111,7 @@ export const Settings = styled(ContentWrapper)`
 `;
 
 export const Image = styled.div`
+   align-self: center;
    .img-container {
       width: 160px;
       height: 160px;
@@ -197,6 +202,7 @@ export const Image = styled.div`
       font-size: 14px;
       :hover {
          color: #dc3545;
+         background-color: transparent;
       }
       &.Mui-disabled {
          color: #7d7c7c;
