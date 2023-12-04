@@ -6,9 +6,9 @@ import { authorizedUserId } from '../server.js';
 const __dirname = path.resolve();
 
 const isFileExists = async (fileName) => {
-  const testFolder = './files';
+  const filesFolder = './files';
   try {
-    const files = await readdir(testFolder);
+    const files = await readdir(filesFolder);
     const targetFile = files.find((name) => {
       const [, user_id, file_name] = name.split('_');
       return parseInt(user_id) === authorizedUserId && file_name === fileName;

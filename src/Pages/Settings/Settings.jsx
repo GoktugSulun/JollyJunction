@@ -36,7 +36,6 @@ const defaultValues = {
   password: '',
   country: '',
   city: '',
-  img: '',
   location: '',
   school: '',
   position: '',
@@ -48,41 +47,32 @@ const defaultValues = {
   ]
 };
 
+const importImage = async (name, type, callback) => {
+  try {
+    const response = await import(`../../server/files/${name}.${type}`);
+    callback(response.default);
+  } catch (error) {
+    console.log(error, ' err');
+  }
+};
+
 const Settings = () => {
   const dispatch = useDispatch();
   const [isVisible, setIsVisible] = useState(false);
-  const [isUploading, setIsUploading] = useState(false);
+  const [imageURL, setImageURL] = useState('');
+  const [file, setFile] = useState(null);
+  const [isFileDeleted, setIsFileDeleted] = useState(false);
   const { init: { authorizedUser }, loading } = useSelector((state) => state.AppConfig);
   const { form, registerHandler } = useMaterialForm({ defaultValues, schema, mode: 'onChange' });
 
   const name = useWatch({ control: form.control, name: 'name' });
-  const img = useWatch({ control: form.control, name: 'img' });
-  console.log(img, ' img');
 
   const imageHandler = (e) => {
     const file = e.target.files?.[0];
-    const reader = new FileReader();
-
-    reader.onloadend = () => {
-      setTimeout(() => {
-        setIsUploading(false);
-        form.setValue('img', reader.result);
-      }, 3000);
-    };
-
-    reader.onloadstart = () => {
-      setIsUploading(true);
-    };
-
-    reader.onerror = () => {
-      setIsUploading(false);
-      console.error('error');
-      dispatch(snackbar('Dosya yüklenirken bir hata meydana geldi!', { variant: NotifierTypes.ERROR }));
-    };
-
-    if (file) {
-      reader.readAsDataURL(file);
-    }
+    const blobURL = URL.createObjectURL(file);
+    setImageURL(blobURL);
+    setFile(file);
+    URL.revokeObjectURL(file);
   };
 
   const saveHandler = async () => {
@@ -91,17 +81,29 @@ const Settings = () => {
       dispatch(snackbar('Please fill all the required inputs', { variant: NotifierTypes.ERROR }));
       return;
     }
-    const payload = { id: authorizedUser.id, data: form.getValues() };
+    const payload = { 
+      id: authorizedUser.id, 
+      data: {
+        ...form.getValues(),
+        is_file_deleted: authorizedUser.img.name && !file
+      },
+      file
+    };
+    console.log(payload, ' payload');
     dispatch(AppConfigSagaActions.editUser(payload));
   };
 
   const resetImage = () => {
-    form.setValue('img', '');
+    setImageURL('');
   };
 
   useEffect(() => {
-    const { id, ...user } = authorizedUser;
+    const { id, img, ...user } = authorizedUser;
+    console.log('authorized değişti mi la');
     form.reset(user);
+    if (img) {
+      importImage(img.name, img.type, (url) => { setImageURL(url); });
+    }
   }, [authorizedUser]);
 
   return (
@@ -110,23 +112,21 @@ const Settings = () => {
         <section>
           <h2 className="title"> Account </h2>
           <div className="container">
-            <S.Image isUploading={isUploading || loading?.editUser} >
+            <S.Image isUploading={loading?.editUser} >
               <div className="img-container">
                 <div className="overlay">
-                  <IconButton disabled={isUploading || loading?.editUser} component="label" onChange={imageHandler} >
+                  <IconButton disabled={loading?.editUser} component="label" onChange={imageHandler} >
                     <AddAPhotoIcon />
                     <input type="file" />
                   </IconButton>
                 </div>
                 {
-                  isUploading 
-                    ? <div className="loading-container"> <Loading size={70} /> </div>
-                    : img
-                      ? <img className="img" src={img} />
-                      : <div className="img img__letter"> {name?.at(0) || '?'} </div>
+                  imageURL
+                    ? <img className="img" src={imageURL} />
+                    : <div className="img img__letter"> {name?.at(0) || '?'} </div>
                 }
               </div>
-              { !isUploading && img && <Button disabled={loading?.editUser} onClick={resetImage} startIcon={<DeleteIcon />} className="delete-button"> Delete Image </Button> }
+              { imageURL && <Button disabled={loading?.editUser} onClick={resetImage} startIcon={<DeleteIcon />} className="delete-button"> Delete Image </Button> }
             </S.Image>
             <div className="group">
               <TextInput disabled={loading?.editUser} label="Name*" placeholder="Goktug" {...registerHandler('name')} />

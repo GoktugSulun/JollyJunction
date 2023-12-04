@@ -128,7 +128,6 @@ class PostService {
       //* create a new post
       const { posts } = postsDB.data;
       const nextId = Math.max(...posts.map(post => post.id), 0) + 1;
-      console.log(req.body, ' body');
       const data = JSON.parse(req.body.data);
       data.id = nextId;
       data.created_at = new Date().toString();
