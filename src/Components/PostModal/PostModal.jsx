@@ -9,19 +9,10 @@ import { PostModalSagaActions } from './Store/PostModal.saga';
 import useHttpResponse from '../../Core/Hooks/useHttpResponse';
 import { DashboardSagaActions } from '../../Pages/Dashboard/Store/Dashboard.saga';
 import { intersectionObserver } from '../../Core/Helpers';
-
-const importImage = async (name, type, callback) => {
-  try {
-    const response = await import(`../../server/files/${name}.${type}`);
-    callback(response.default);
-  } catch (error) {
-    console.log(error, ' err');
-  }
-};
+import { getImage } from '../../Core/Utils/Image';
 
 const PostModal = () => {
   const dispatch = useDispatch();
-  const [imageURL, setImageURL] = useState('');
   const { isOpen, postData, limit, page, canBeMoreComment } = useSelector((state) => state.PostModal); 
 
   const handleClose = () => dispatch(PostModalActions.handleModal(ModalTypes.CLOSE));
@@ -61,12 +52,7 @@ const PostModal = () => {
   useEffect(() => {
     if (isOpen) {
       dispatch(PostModalSagaActions.getComments({ post_id: postData.id, page: 1, limit }));
-      if (postData.files.length) {
-        const file = postData.files[0];
-        importImage(file.name, file.type, (res) => { setImageURL(res); });
-      }
     } else {
-      setImageURL('');
       dispatch(PostModalActions.setReset());
     }
   }, [isOpen]);
@@ -81,7 +67,7 @@ const PostModal = () => {
           {
             postData?.files?.length
               && <S.Image>
-                <img loading="lazy" src={imageURL} alt="post" />
+                <img loading="lazy" src={getImage(postData.files?.[0])} alt="post" />
               </S.Image>
           }
           <CommentsSection />

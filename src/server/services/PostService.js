@@ -1,9 +1,14 @@
 import NotificationTypes from '../../Core/Constants/Enums/NotificationTypes.js';
 import { commentsDB, postsDB, savesDB, likesDB, usersDB, friendsDB, notificationsDB } from '../db/index.js';
 import { authorizedUserId } from '../server.js';
+import FileService from './FileService.js';
 import LikeService from './LikeService.js';
 import NotificationService from './NotificationService.js';
 import SaveService from './SaveService.js';
+import path from 'path';
+import fs from 'fs'
+
+const __dirname = path.resolve();
 
 const canBeFriendHandler = (user_id) => {
   const { notifications } = notificationsDB.data;
@@ -110,6 +115,7 @@ class PostService {
       const sortedData = [...filteredData].sort((a,b) => new Date(b.created_at).getTime() - new Date(a.created_at).getTime());
       const data = sortedData.slice(startIndex, endIndex);
       const result = data.map((obj) => ( getPostDetail(obj) ));
+
       return {
         type: true,
         message: 'Posts has been fetched',

@@ -388,6 +388,16 @@
       "created_at": "Sun Dec 03 2023 10:51:27 GMT+0300 (GMT+03:00)",
       "updated_at": "Sun Dec 03 2023 10:51:27 GMT+0300 (GMT+03:00)",
       "is_removed": false
+    },
+    {
+      "comment": "heey",
+      "post_id": 24,
+      "id": 35,
+      "user_id": 2,
+      "likes": [],
+      "created_at": "Wed Dec 06 2023 17:42:12 GMT+0300 (GMT+03:00)",
+      "updated_at": "Wed Dec 06 2023 17:42:12 GMT+0300 (GMT+03:00)",
+      "is_removed": false
     }
   ]
 }

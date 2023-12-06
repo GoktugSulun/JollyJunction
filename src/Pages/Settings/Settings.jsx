@@ -16,6 +16,7 @@ import SocialMediaEnums from '../Dashboard/Components/Enums/SocialMediaEnums';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { IconButton, InputAdornment, Tooltip } from '@mui/material';
 import { useWatch } from 'react-hook-form';
+import { getImage } from '../../Core/Utils/Image';
 
 const schema = yup.object().shape({
   name: yup.string().required('Required!'),
@@ -45,15 +46,6 @@ const defaultValues = {
     { id: 2, name: 'Instagram', url: '', type: SocialMediaEnums.INSTAGRAM },
     { id: 3, name: 'Twitter', url: '', type: SocialMediaEnums.TWITTER },
   ]
-};
-
-const importImage = async (name, type, callback) => {
-  try {
-    const response = await import(`../../server/files/${name}.${type}`);
-    callback(response.default);
-  } catch (error) {
-    console.log(error, ' err');
-  }
 };
 
 const Settings = () => {
@@ -99,11 +91,10 @@ const Settings = () => {
 
   useEffect(() => {
     const { id, img, ...user } = authorizedUser;
-    console.log('authorized değişti mi la');
-    form.reset(user);
     if (img) {
-      importImage(img.name, img.type, (url) => { setImageURL(url); });
+      setImageURL(getImage(img));
     }
+    form.reset(user);
   }, [authorizedUser]);
 
   return (

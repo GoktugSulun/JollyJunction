@@ -573,7 +573,7 @@
       "created_at": "Sun Dec 03 2023 10:48:02 GMT+0300 (GMT+03:00)",
       "updated_at": "Sun Dec 03 2023 10:48:02 GMT+0300 (GMT+03:00)",
       "seen": true,
-      "read": false,
+      "read": true,
       "is_removed": false
     },
     {
@@ -585,7 +585,7 @@
       "created_at": "Sun Dec 03 2023 10:48:56 GMT+0300 (GMT+03:00)",
       "updated_at": "Sun Dec 03 2023 10:48:56 GMT+0300 (GMT+03:00)",
       "seen": true,
-      "read": false,
+      "read": true,
       "is_removed": false
     }
   ]

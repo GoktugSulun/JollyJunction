@@ -69,10 +69,7 @@ class UserService {
     try {
       const { users } = usersDB.data;
       const { id } = req.params;
-      console.log(req.body);
-      console.log(JSON.parse(req.body.data || req.body), ' parse');
       const { is_file_deleted, ...data } = req.file ? JSON.parse(req.body.data) : req.body;
-      console.log(is_file_deleted, ' is_file_deleted ', ' type => ', typeof is_file_deleted);
       
       const targetIndex = users.findIndex((obj) => obj.id === parseInt(id));
       if (targetIndex === -1) {

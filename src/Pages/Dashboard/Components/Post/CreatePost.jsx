@@ -17,6 +17,7 @@ import useHttpResponse from '../../../../Core/Hooks/useHttpResponse';
 import Loading from '../../../../Core/Components/Loading/Loading';
 import UserProfile from '../../../../Components/UserProfile/UserProfile';
 import { Skeleton } from '@mui/material';
+import { getImage } from '../../../../Core/Utils/Image';
 
 const defaultValues = {
   value: '',
@@ -107,7 +108,7 @@ const CreatePost = () => {
   return (
     <S.CreatePost>
       <div className="header">
-        <UserProfile name={authorizedUser.name} clickable={false} src={authorizedUser.img} displayName={false} />
+        <UserProfile name={authorizedUser.name} clickable={false} src={getImage(authorizedUser.img)} displayName={false} />
         <TextInput
           {...registerHandler('value')}
           placeholder="What's on your mind..."

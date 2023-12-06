@@ -7,6 +7,9 @@ import InitRoute from './routes/InitRoute.js';
 import NotificationRoute from './routes/NotificationRoute.js';
 import FriendRoute from './routes/FriendRoute.js';
 import CommentRoute from './routes/CommentRoute.js';
+import path from 'path';
+
+const __dirname = path.resolve();
 
 export const authorizedUserId = 2;
 export const app = express();
@@ -22,6 +25,7 @@ app.get('/health', (req, res) => {
   });
 });
 
+app.use(express.static(__dirname + '/files'));
 app.use('/Post', PostRoute);
 app.use('/User', UserRoute);
 app.use('/Init', InitRoute);
