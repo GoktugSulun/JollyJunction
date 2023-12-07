@@ -135,7 +135,6 @@ class PostService {
       data.updated_at = new Date().toString();
       data.is_removed = false;
       data.files = req.files?.map((fileObj) => {
-        console.log(fileObj, ' fileObj');
         const slices = fileObj.filename.split('.');
         const name = slices.slice(0, -1).join('.');
         const type = slices.at(-1);

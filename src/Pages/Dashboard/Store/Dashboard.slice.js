@@ -11,6 +11,7 @@ const initialState = {
   limit: 10,
   canBeMorePost: true,
   friends: [],
+  isMuted: true
 };
 
 const DashboardSlice = createSlice({
@@ -38,6 +39,9 @@ const DashboardSlice = createSlice({
       if ((state.posts.length + 1) >= state.limit * state.page) {
         state.page += 1;
       }
+    },
+    setIsMuted: (state, action) => {
+      state.isMuted = action.payload;
     },
     setPage: (state, action) => {
       state.page = action.payload;

@@ -9,7 +9,7 @@ export const PostModal = styled.div`
     outline: none;
     border: none;
     border-radius: 10px;
-    width: ${(props) => props.image ? '80vw' : '50vw'};
+    width: ${(props) => props.file ? '80vw' : '50vw'};
     height: 80vh;
     display: flex;
 `;
@@ -20,16 +20,10 @@ export const File = styled.div`
     border-top-left-radius: 10px;
     border-bottom-left-radius: 10px;
     .file {
-        &__image {
-            width: 100%;
-            height: 100%;
-            object-fit: fill;
-        }
-        &__video {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
+        object-fit: scale-down;
+        background-color: #0f0f0f;
+        width: 100%;
+        height: 100%;
     }
     @media (max-width: 900px) {
         display: none;
@@ -41,7 +35,7 @@ export const CommentsSection = styled.div`
     background: #0f0f0f;
     display: flex;
     flex-direction: column;
-    ${(props) => props.image ? css`
+    ${(props) => props.file ? css`
         border-top-right-radius: 10px;
         border-bottom-right-radius: 10px;
         ` : css`border-radius: 10px;`}

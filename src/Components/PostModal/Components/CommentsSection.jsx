@@ -5,11 +5,13 @@ import CommentsSectionBody from './CommentsSectionBody';
 import { Divider } from '../../Divider/Divider.style';
 import CommentsSectionFooter from './CommentsSectionFooter';
 import CreateComment from './CreateComment';
+import { useSelector } from 'react-redux';
 
 const CommentsSection = () => {
+  const { postData } = useSelector((state) => state.PostModal);
 
   return (
-    <S.CommentsSection>
+    <S.CommentsSection file={!!postData?.files?.length}> 
       <CommentsSectionHeader />
       <Divider margin="10px 0 0 0" height="0.1px" />
       <CommentsSectionBody />

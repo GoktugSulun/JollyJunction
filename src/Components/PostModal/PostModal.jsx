@@ -94,7 +94,7 @@ const PostModal = () => {
         open={isOpen}
         onClose={handleClose}
       >
-        <S.PostModal image={!!postData?.files?.length} isOpen={isOpen}>
+        <S.PostModal file={!!postData?.files?.length} isOpen={isOpen}>
           { postData?.files?.length && <S.File> {getFileElement()} </S.File> }
           <CommentsSection />
         </S.PostModal>

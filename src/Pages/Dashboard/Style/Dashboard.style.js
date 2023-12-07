@@ -346,7 +346,7 @@ export const CreatePost = styled.div`
       .file {
          width: 100%;
          max-height: 400px;
-         object-fit: cover;
+         object-fit: scale-down;
          height: auto;
          border-radius: 10px;
       }
@@ -413,6 +413,7 @@ export const Post = styled.div`
       justify-content: space-between;
       align-items: center;
       gap: 10px;
+      margin-bottom: 10px;
       .MuiIconButton-root {
          background-color: #333;
          :hover {
@@ -430,12 +431,16 @@ export const Post = styled.div`
    }
    .file {
       width: 100%;
-      max-height: 400px;
-      height: auto;
+      height: 60vh;
       border-radius: 10px;
       cursor: pointer;
+      object-fit: scale-down;
       &__image {
-         object-fit: cover;
+         /* object-fit: cover; */
+      }
+      &__video {
+         /* object-fit: contain; */
+         background-color: #0f0f0f;
       }
    }
    .buttons {
