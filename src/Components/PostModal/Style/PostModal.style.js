@@ -323,6 +323,7 @@ export const CommentSettingsMenu = styled(Menu)`
             color: #c9c9c9;
             padding: 10px;
             font-size: 14px;
+            min-width: 120px;
             :not(:last-child) {
                 border-bottom: 1px solid #333;
             }
