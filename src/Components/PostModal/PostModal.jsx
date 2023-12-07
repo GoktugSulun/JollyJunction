@@ -76,7 +76,7 @@ const PostModal = () => {
     success: ({ idleAction }) => {
       idleAction();
       const element = Array.from(document.querySelectorAll('.comment'))?.at(-1);
-      intersectionObserver(element, fetchMoreComment);
+      intersectionObserver({ element, callback: fetchMoreComment, threshold: 0.8, triggerOnce: true });
     }
   }, PostModalSagaActions.getComments());
 

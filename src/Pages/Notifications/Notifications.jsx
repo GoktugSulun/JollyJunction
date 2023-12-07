@@ -110,7 +110,7 @@ const Notifications = () => {
 
   useEffect(() => {
     const element = Array.from(document.querySelectorAll('.notification-item'))?.at(-1);
-    intersectionObserver(element, fetchNotifications, 0.8);
+    intersectionObserver({ element, callback: fetchNotifications, threshold: 0.8, triggerOnce: true });
   }, [notifications]);
 
   useEffect(() => {
