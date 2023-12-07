@@ -341,27 +341,32 @@ export const CreatePost = styled.div`
          }
       }
    }
-   .file {
-      //TODO: width kısmında problem var 
-      width: 100%;
-      max-height: 400px;
-      object-fit: cover;
-      height: auto;
-      border-radius: 10px;
-   }
-   /* #video {
-      object-fit: cover;
-      width: 100vw;
-      height: 100vh;
-      position: fixed;
-      top: 0;
-      left: 0;
-      z-index: -1;
-   } */
-   .img-skeleton {
-      background-color: #2d2d2d;
-      transform: initial;
-      height: 250px;
+   .file-container {
+      position: relative;
+      .file {
+         width: 100%;
+         max-height: 400px;
+         object-fit: cover;
+         height: auto;
+         border-radius: 10px;
+      }
+      .clear-file-button {
+         position: absolute;
+         top: 25px;
+         right: -25px;
+         transform: translate(-50%, -50%);
+         background-color: red;
+         width: 30px;
+         height: 30px;
+         z-index: 99;
+         transition: scale 350ms;
+         :hover {
+            scale: 1.1;
+         }
+         svg path {
+            color: #FFFFFF;
+         }
+      }
    }
    .tools {
       display: flex;

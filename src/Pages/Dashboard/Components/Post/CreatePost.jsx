@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import * as S from '../../Style/Dashboard.style';
 import TextInput from '../../../../Core/Inputs/TextInput';
 import useMaterialForm from '../../../../Core/Hooks/useMaterialForm';
@@ -7,6 +7,7 @@ import { Button } from '../../../../Core/Components/Buttons/Button.style';
 import ImageIcon from '@mui/icons-material/Image';
 import AudioFileIcon from '@mui/icons-material/AudioFile';
 import VideoCameraBackIcon from '@mui/icons-material/VideoCameraBack';
+import ClearIcon from '@mui/icons-material/Clear';
 import AttachFileIcon from '@mui/icons-material/AttachFile';
 import SendIcon from '@mui/icons-material/Send';
 import { useDispatch, useSelector } from 'react-redux';
@@ -16,10 +17,10 @@ import { DashboardSagaActions } from '../../Store/Dashboard.saga';
 import useHttpResponse from '../../../../Core/Hooks/useHttpResponse';
 import Loading from '../../../../Core/Components/Loading/Loading';
 import UserProfile from '../../../../Components/UserProfile/UserProfile';
-import { Skeleton } from '@mui/material';
 import { getFileURL } from '../../../../Core/Utils/File';
 import FileTypeEnums from '../Enums/FileTypeEnums';
 import FileSubTypeEnums from '../Enums/FileSubTypeEnums';
+import { IconButton } from '@mui/material';
 
 const defaultValues = {
   value: '',
@@ -29,14 +30,13 @@ const CreatePost = () => {
   const dispatch = useDispatch();
   const [fileURL, setFileURL] = useState(null);
   const [files, setFiles] = useState([]);
-  const [coverImage, setCoverImage] = useState(null);
   const { authorizedUser } = useSelector(state => state.AppConfig.init);
   const { loading } = useSelector(state => state.Dashboard);
   const { registerHandler, form } = useMaterialForm({ defaultValues });
 
   const createPost = async () => {
-    if (!form.getValues('value')) {
-      dispatch(snackbar('You need to write a description or select an image, audio, attachment!', { variant: NotifierTypes.ERROR }));
+    if (!form.getValues('value') && !files.length) {
+      dispatch(snackbar('Write something or upload an image, audio, attachment to create a post!', { variant: NotifierTypes.ERROR }));
       return;
     }
 
@@ -89,6 +89,11 @@ const CreatePost = () => {
     }
   };
 
+  const clearFile = () => {
+    setFileURL(null);
+    setFiles([]);
+  };
+
   useHttpResponse({
     success: ({ idleAction }) => {
       form.reset(defaultValues);
@@ -107,12 +112,17 @@ const CreatePost = () => {
           fullWidth
         />
       </div>
-      {
-        fileURL && <>
-          <Divider margin="20px 0" />
-          { getFileElement(fileURL) }
-        </>
-      }
+      <div className="file-container">
+        {
+          fileURL && <>
+            <Divider margin="20px 0" />
+            { getFileElement(fileURL) }
+            <IconButton className="clear-file-button" onClick={clearFile}>
+              <ClearIcon />
+            </IconButton>
+          </>
+        }
+      </div>
       <Divider margin="20px 0" />
       <div className="tools">
         <Button
