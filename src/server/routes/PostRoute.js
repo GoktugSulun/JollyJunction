@@ -1,13 +1,14 @@
-import jsonServer from 'json-server';
 import PostController from '../controllers/PostController.js';
+import express from 'express';
+import files from '../helpers/Upload.js';
 
-const server = jsonServer.create();
+const app = express();
 
-server.get('/getAll', PostController.getAll);
-server.get('/getById/:id', PostController.getById);
-server.get('/get', PostController.get);
-server.post('/create', PostController.create);
-server.post('/like', PostController.like);
-server.post('/save', PostController.save);
+app.get('/getAll', PostController.getAll);
+app.get('/getById/:id', PostController.getById);
+app.get('/get', PostController.get);
+app.post('/create', files.array('files'), PostController.create);
+app.post('/like', PostController.like);
+app.post('/save', PostController.save);
 
-export default server;
+export default app;

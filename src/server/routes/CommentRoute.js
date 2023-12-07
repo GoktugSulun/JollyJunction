@@ -1,14 +1,14 @@
-import jsonServer from 'json-server';
 import CommentController from '../controllers/CommentController.js';
+import express from 'express';
 
-const server = jsonServer.create();
+const app = express();
 
-server.get('/getAll', CommentController.getAll);
-server.get('/getById/:id', CommentController.getById);
-server.get('/get', CommentController.get);
-server.post('/create', CommentController.create);
-server.post('/like', CommentController.like);
-server.put('/edit', CommentController.edit);
-server.delete('/delete/:id', CommentController.delete);
+app.get('/getAll', CommentController.getAll);
+app.get('/getById/:id', CommentController.getById);
+app.get('/get', CommentController.get);
+app.post('/create', CommentController.create);
+app.post('/like', CommentController.like);
+app.put('/edit', CommentController.edit);
+app.delete('/delete/:id', CommentController.delete);
 
-export default server;
+export default app;

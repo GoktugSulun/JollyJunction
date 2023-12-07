@@ -7,6 +7,7 @@ import { Button } from '../../../../Core/Components/Buttons/Button.style';
 import ImageIcon from '@mui/icons-material/Image';
 import AudioFileIcon from '@mui/icons-material/AudioFile';
 import VideoCameraBackIcon from '@mui/icons-material/VideoCameraBack';
+import ClearIcon from '@mui/icons-material/Clear';
 import AttachFileIcon from '@mui/icons-material/AttachFile';
 import SendIcon from '@mui/icons-material/Send';
 import { useDispatch, useSelector } from 'react-redux';
@@ -16,8 +17,10 @@ import { DashboardSagaActions } from '../../Store/Dashboard.saga';
 import useHttpResponse from '../../../../Core/Hooks/useHttpResponse';
 import Loading from '../../../../Core/Components/Loading/Loading';
 import UserProfile from '../../../../Components/UserProfile/UserProfile';
-import LZString from 'lz-string';
-import { Skeleton } from '@mui/material';
+import { getFileURL } from '../../../../Core/Utils/File';
+import FileTypeEnums from '../Enums/FileTypeEnums';
+import FileSubTypeEnums from '../Enums/FileSubTypeEnums';
+import { IconButton } from '@mui/material';
 
 const defaultValues = {
   value: '',
@@ -25,81 +28,76 @@ const defaultValues = {
 
 const CreatePost = () => {
   const dispatch = useDispatch();
-  const [imageURL, setImageURL] = useState(null);
-  const [compressedFile, setCompressedFile] = useState(null);
-  const [fileLoading, setFileLoading] = useState(false);
+  const [fileURL, setFileURL] = useState(null);
+  const [files, setFiles] = useState([]);
   const { authorizedUser } = useSelector(state => state.AppConfig.init);
   const { loading } = useSelector(state => state.Dashboard);
   const { registerHandler, form } = useMaterialForm({ defaultValues });
 
   const createPost = async () => {
-    if (!form.getValues('value')) {
-      dispatch(snackbar('You need to write a description or select an image, audio, attachment!', { variant: NotifierTypes.ERROR }));
+    if (!form.getValues('value') && !files.length) {
+      dispatch(snackbar('Write something or upload an image, audio, attachment to create a post!', { variant: NotifierTypes.ERROR }));
       return;
     }
 
     const payload = {
-      description: form.getValues('value'),
-      user_id: authorizedUser.id,
-      files: [compressedFile]
+      data: {
+        description: form.getValues('value'),
+        user_id: authorizedUser.id
+      },
+      files
     };
     dispatch(DashboardSagaActions.createPost(payload));
   };
 
-  const compressFile = async (base64URL, fileType) => {
-    return new Promise((resolve) => {
-      const img = new Image();
-      img.src = base64URL;
-  
-      img.onload = function () {
-        const canvas = document.createElement('canvas');
-        const ctx = canvas.getContext('2d');
-        canvas.width = img.width;
-        canvas.height = img.height;
-        ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
-    
-        const compressedBase64 = canvas.toDataURL('image/jpeg', 0.5);
-        resolve(compressedBase64);
-      };
-    });
-  };
-
-  const compressBase64 = (data) => {
-    return new Promise(resolve => {
-      const compressedData = LZString.compress(data);
-      resolve(compressedData);
-    });
-  };
-
-  const handleFiles = (e, fileType) => {
+  const handleFiles = (e) => {
     //* single image for now
-    const file = e.target.files[0];
-    console.log(file, ' file');
+    const files = e.target.files;
+    if (files.length) {
+      const file = files[0];
+      const [fileType, fileSubType] = file.type.split('/');
+      if (fileType === FileTypeEnums.VIDEO && fileSubType !== FileSubTypeEnums.MP4) {
+        dispatch(snackbar('Invalid video format! You can only upload mp4 video.', { variant: NotifierTypes.ERROR }));
+        return;
+      }
+      setFiles([...files]);
+      const blobURL = URL.createObjectURL(file);
+      setFileURL({ url: blobURL, type: file.type.split('/')[0] });
+      URL.revokeObjectURL(file);
+    }
+  };
 
-    const reader = new FileReader();
-    reader.readAsDataURL(file);
-    reader.onloadstart = () => {
-      setFileLoading(true);
-    };
-    reader.onloadend = async () => {
-      const base64URL = reader.result;
-      const compressedString = compressBase64(base64URL);
-      console.log(base64URL, ' original elngth');
-      console.log(base64URL.length, ' original elngth');
-      // console.log(compressedString.length, ' lz-string length');
-      // const compressedBase64 = await compressFile(reader.result, fileType);
-      // console.log(compressedBase64.length, ' canvas');
-      setCompressedFile(compressedString);
-      setImageURL(reader.result);
-      setFileLoading(false);
-    };
+  const getFileElement = ({ url, type }) => {
+    switch (type) {
+    case FileTypeEnums.IMAGE:
+      return <img loading="lazy" className="file" src={url} alt="user-post" />;
+    case FileTypeEnums.VIDEO:
+      return (
+        <video 
+          key={url} 
+          id="video" 
+          className="file" 
+          controls
+          preload="metadata"
+        >
+          <source src={url + '#t=0.5'} type="video/mp4" />
+          Your browser does not support the video tag.
+        </video>
+      );
+    default:
+      throw Error('Undefied file type: ' + type);
+    }
+  };
+
+  const clearFile = () => {
+    setFileURL(null);
+    setFiles([]);
   };
 
   useHttpResponse({
     success: ({ idleAction }) => {
       form.reset(defaultValues);
-      setImageURL(null);
-      setCompressedFile(null);
+      setFileURL(null);
       idleAction();
     }
   }, DashboardSagaActions.createPost());
@@ -107,31 +105,30 @@ const CreatePost = () => {
   return (
     <S.CreatePost>
       <div className="header">
-        <UserProfile name={authorizedUser.name} clickable={false} src={authorizedUser.img} displayName={false} />
+        <UserProfile name={authorizedUser.name} clickable={false} src={getFileURL(authorizedUser.img)} displayName={false} />
         <TextInput
           {...registerHandler('value')}
           placeholder="What's on your mind..."
           fullWidth
         />
       </div>
-      { 
-        fileLoading
-          ? <>
+      <div className="file-container">
+        {
+          fileURL && <>
             <Divider margin="20px 0" />
-            <Skeleton variant="rounded" animation="wave" className="img-skeleton" />
+            { getFileElement(fileURL) }
+            <IconButton className="clear-file-button" onClick={clearFile}>
+              <ClearIcon />
+            </IconButton>
           </>
-          : imageURL && <>
-            <Divider margin="20px 0" />
-            <img loading="lazy" className="user-post-img" src={imageURL} alt="user-post" />
-          </>  
-      }
+        }
+      </div>
       <Divider margin="20px 0" />
       <div className="tools">
         <Button
           startIcon={<ImageIcon />}
           component="label"
           onChange={handleFiles}
-          disabled={fileLoading}
         >
           Image
           <input type="file" accept="image/*" />

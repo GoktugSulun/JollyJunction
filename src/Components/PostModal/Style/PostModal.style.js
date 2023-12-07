@@ -1,5 +1,5 @@
 import styled from '@emotion/styled';
-import { Menu } from '@mui/material';
+import { Menu, css } from '@mui/material';
 
 export const PostModal = styled.div`
     position: absolute;
@@ -9,20 +9,21 @@ export const PostModal = styled.div`
     outline: none;
     border: none;
     border-radius: 10px;
-    width: ${(props) => props.image ? '80vw' : '50vw'};
+    width: ${(props) => props.file ? '80vw' : '50vw'};
     height: 80vh;
     display: flex;
 `;
 
-export const Image = styled.div`
+export const File = styled.div`
     flex: 1.5;
     overflow: hidden;
     border-top-left-radius: 10px;
     border-bottom-left-radius: 10px;
-    img {
+    .file {
+        object-fit: scale-down;
+        background-color: #0f0f0f;
         width: 100%;
         height: 100%;
-        object-fit: fill;
     }
     @media (max-width: 900px) {
         display: none;
@@ -34,8 +35,10 @@ export const CommentsSection = styled.div`
     background: #0f0f0f;
     display: flex;
     flex-direction: column;
-    border-top-right-radius: 10px;
-    border-bottom-right-radius: 10px;
+    ${(props) => props.file ? css`
+        border-top-right-radius: 10px;
+        border-bottom-right-radius: 10px;
+        ` : css`border-radius: 10px;`}
 `;
 
 export const CommentsSectionHeader = styled.div`
@@ -323,6 +326,7 @@ export const CommentSettingsMenu = styled(Menu)`
             color: #c9c9c9;
             padding: 10px;
             font-size: 14px;
+            min-width: 120px;
             :not(:last-child) {
                 border-bottom: 1px solid #333;
             }

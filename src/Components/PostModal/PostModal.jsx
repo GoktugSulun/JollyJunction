@@ -9,6 +9,9 @@ import { PostModalSagaActions } from './Store/PostModal.saga';
 import useHttpResponse from '../../Core/Hooks/useHttpResponse';
 import { DashboardSagaActions } from '../../Pages/Dashboard/Store/Dashboard.saga';
 import { intersectionObserver } from '../../Core/Helpers';
+import { getFileURL } from '../../Core/Utils/File';
+import { getFileType } from '../../Core/Utils/FileType';
+import FileTypeEnums from '../../Pages/Dashboard/Components/Enums/FileTypeEnums';
 
 const PostModal = () => {
   const dispatch = useDispatch();
@@ -19,6 +22,35 @@ const PostModal = () => {
   const fetchMoreComment = () => {
     if (canBeMoreComment) {
       dispatch(PostModalSagaActions.getComments({ post_id: postData.id, page, limit }));
+    }
+  };
+
+  const getFileElement = () => {
+    const fileType = getFileType(postData.files[0].type);
+    switch (fileType) {
+    case FileTypeEnums.IMAGE:
+      return (
+        <img 
+          loading="lazy" 
+          className="file file__image"
+          src={getFileURL(postData.files?.[0])} 
+          alt="post" 
+        />
+      );
+    case FileTypeEnums.VIDEO:
+      return (
+        <video 
+          key={getFileURL(postData.files[0])} 
+          className="file file__video" 
+          controls
+          preload="metadata"
+        >
+          <source src={getFileURL(postData.files[0]) + '#t=0.5'} type="video/mp4" />
+          Your browser does not support the video tag.
+        </video>
+      );
+    default:
+      throw new Error('Undefined video type: => ', fileType);
     }
   };
 
@@ -44,9 +76,7 @@ const PostModal = () => {
     success: ({ idleAction }) => {
       idleAction();
       const element = Array.from(document.querySelectorAll('.comment'))?.at(-1);
-      console.log(Array.from(document.querySelectorAll('.comment')), ' alo');
-      console.log(element, ' element');
-      intersectionObserver(element, fetchMoreComment);
+      intersectionObserver({ element, callback: fetchMoreComment, threshold: 0.8, triggerOnce: true });
     }
   }, PostModalSagaActions.getComments());
 
@@ -64,13 +94,8 @@ const PostModal = () => {
         open={isOpen}
         onClose={handleClose}
       >
-        <S.PostModal image={!!postData?.files?.length} isOpen={isOpen}>
-          {
-            postData?.files?.length
-              && <S.Image>
-                <img src={postData?.files?.[0]} alt="post" />
-              </S.Image>
-          }
+        <S.PostModal file={!!postData?.files?.length} isOpen={isOpen}>
+          { postData?.files?.length && <S.File> {getFileElement()} </S.File> }
           <CommentsSection />
         </S.PostModal>
       </Modal>

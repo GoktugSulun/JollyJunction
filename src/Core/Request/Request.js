@@ -4,17 +4,23 @@ import { handleError } from './HandleError';
 
 const baseURL = 'http://localhost:3000';
 
-export const request = async (method, url, data = undefined) => {
+const payloadWithFiles = (payload, files) => {
+  const formData = new FormData();
+  if (Array.isArray(files)) {
+    for (let i=0; i<files.length; i++) {
+      formData.append('files', files[i]);
+    }
+  } else {
+    formData.append('files', files);
+  }
+  formData.append('data', JSON.stringify(payload));
+  return formData;
+};
+
+export const request = async (method, url, payload = undefined, files = null) => {
   try {
-    // let data = null;
-    // if (file) {
-    //   const formData = new FormData();
-    //   formData.append('file', file);
-    //   formData.append('data', JSON.stringify(payload));
-    //   data = formData;
-    // } else {
-    //   data = payload;
-    // }
+    console.log(files, ' files');
+    const data = files ? payloadWithFiles(payload, files) : payload;
     const response = await axios({
       method,
       url,

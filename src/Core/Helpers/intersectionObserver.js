@@ -1,14 +1,16 @@
-const intersectionObserver = (element, callback, threshold=0.8) => {
+const intersectionObserver = ({ element, callback, threshold=0, triggerOnce=false }) => {
   if (!element) {
     return;
   }
   const observer = new IntersectionObserver(([entry]) => {
     if (entry.isIntersecting) {
-      observer.unobserve(element);
       callback();
+      if (triggerOnce) {
+        observer.unobserve(element);
+      }
     } 
-  });
-  observer.observe(element, { threshold }); //! Doesnt work threshold :(
+  }, { threshold });
+  observer.observe(element);
 };
 
 export default intersectionObserver;

@@ -1,15 +1,16 @@
-import jsonServer from 'json-server';
 import NotificationController from '../controllers/NotificationController.js';
+import express from 'express';
 
-const server = jsonServer.create();
+const app = express();
 
-server.get('/get', NotificationController.get);
-server.post('/friendship', NotificationController.friendship);
-server.post('/addFriend', NotificationController.addFriend);
-server.put('/seen', NotificationController.seen);
-server.put('/read', NotificationController.read);
-server.put('/cancel', NotificationController.cancel);
-server.put('/acceptFriendship', NotificationController.acceptFriendship);
-server.delete('/delete', NotificationController.delete);
 
-export default server;
+app.get('/get', NotificationController.get);
+app.post('/friendship', NotificationController.friendship);
+app.post('/addFriend', NotificationController.addFriend);
+app.put('/seen', NotificationController.seen);
+app.put('/read', NotificationController.read);
+app.put('/cancel', NotificationController.cancel);
+app.put('/acceptFriendship', NotificationController.acceptFriendship);
+app.delete('/delete', NotificationController.delete);
+
+export default app;

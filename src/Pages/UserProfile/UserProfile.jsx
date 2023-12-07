@@ -37,7 +37,7 @@ const UserProfile = () => {
     success: ({ idleAction }) => {
       idleAction();
       const element = Array.from(document.querySelectorAll('.post'))?.at(-1);
-      intersectionObserver(element, fetchMorePost, 0.8);
+      intersectionObserver({ element, callback: fetchMorePost, threshold: 0.8, triggerOnce: true });
     }
   }, DashboardSagaActions.getPosts());
 

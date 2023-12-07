@@ -37,8 +37,8 @@ export default [
     actionType: AppConfigSagaActions.editUser.type,
     takeType: SagaTakeTypes.TAKE_LATEST,
     * func({ payload }) {
-      const { id, data } = payload;
-      const response = yield call(request, HttpMethodTypes.PUT, `${ApiUrl.editUser}/${id}`, data);
+      const { id, data, file } = payload;
+      const response = yield call(request, HttpMethodTypes.PUT, `${ApiUrl.editUser}/${id}`, data, file);
       yield put(snackbar('Your informations is saved'));
       yield put(AppConfigActions.setUser(response.data));
     }

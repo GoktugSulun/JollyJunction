@@ -110,6 +110,7 @@ class PostService {
       const sortedData = [...filteredData].sort((a,b) => new Date(b.created_at).getTime() - new Date(a.created_at).getTime());
       const data = sortedData.slice(startIndex, endIndex);
       const result = data.map((obj) => ( getPostDetail(obj) ));
+
       return {
         type: true,
         message: 'Posts has been fetched',
@@ -128,11 +129,17 @@ class PostService {
       //* create a new post
       const { posts } = postsDB.data;
       const nextId = Math.max(...posts.map(post => post.id), 0) + 1;
-      const data = req.body;
+      const data = JSON.parse(req.body.data);
       data.id = nextId;
       data.created_at = new Date().toString();
       data.updated_at = new Date().toString();
       data.is_removed = false;
+      data.files = req.files?.map((fileObj) => {
+        const slices = fileObj.filename.split('.');
+        const name = slices.slice(0, -1).join('.');
+        const type = slices.at(-1);
+        return { name, type };
+      }) || [];
       posts.push(data);
       await postsDB.write();
 

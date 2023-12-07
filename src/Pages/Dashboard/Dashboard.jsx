@@ -27,7 +27,7 @@ const Dashboard = () => {
     success: ({ idleAction }) => {
       idleAction();
       const element = Array.from(document.querySelectorAll('.post')).at(-1);
-      intersectionObserver(element, fetchMorePost);
+      intersectionObserver({ element, callback: fetchMorePost, triggerOnce: true });
     }
   }, DashboardSagaActions.getPosts());
 
@@ -54,6 +54,13 @@ const Dashboard = () => {
       dispatch(PostModalActions.handleModal(ModalTypes.CLOSE));
     };
   }, []);
+
+  useEffect(() => {
+    const elements = Array.from(document.querySelectorAll('.file__video'));
+    elements.forEach((element) => {
+      intersectionObserver({ element, callback: () => { console.log(element, ' => görüldüüü'); } });
+    });
+  }, [posts]);
 
   return (
     <S.PostWrapper id="wrapper">

@@ -1,9 +1,9 @@
-import jsonServer from 'json-server';
 import FriendController from '../controllers/FriendController.js';
+import express from 'express';
 
-const server = jsonServer.create();
+const app = express();
 
-server.get('/get', FriendController.get);
-server.delete('/delete', FriendController.delete);
+app.get('/get', FriendController.get);
+app.delete('/delete', FriendController.delete);
 
-export default server;
+export default app;
