@@ -16,7 +16,7 @@ import SocialMediaEnums from '../Dashboard/Components/Enums/SocialMediaEnums';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { IconButton, InputAdornment, Tooltip } from '@mui/material';
 import { useWatch } from 'react-hook-form';
-import { getImage } from '../../Core/Utils/Image';
+import { getFileURL } from '../../Core/Utils/File';
 
 const schema = yup.object().shape({
   name: yup.string().required('Required!'),
@@ -53,7 +53,6 @@ const Settings = () => {
   const [isVisible, setIsVisible] = useState(false);
   const [imageURL, setImageURL] = useState('');
   const [file, setFile] = useState(null);
-  const [isFileDeleted, setIsFileDeleted] = useState(false);
   const { init: { authorizedUser }, loading } = useSelector((state) => state.AppConfig);
   const { form, registerHandler } = useMaterialForm({ defaultValues, schema, mode: 'onChange' });
 
@@ -77,11 +76,10 @@ const Settings = () => {
       id: authorizedUser.id, 
       data: {
         ...form.getValues(),
-        is_file_deleted: authorizedUser.img.name && !file
+        ...(!file ? { is_file_deleted: !!authorizedUser.img.name && !imageURL } : {})
       },
       file
     };
-    console.log(payload, ' payload');
     dispatch(AppConfigSagaActions.editUser(payload));
   };
 
@@ -91,10 +89,10 @@ const Settings = () => {
 
   useEffect(() => {
     const { id, img, ...user } = authorizedUser;
-    if (img) {
-      setImageURL(getImage(img));
-    }
     form.reset(user);
+    if (img) {
+      setImageURL(getFileURL(img));
+    }
   }, [authorizedUser]);
 
   return (

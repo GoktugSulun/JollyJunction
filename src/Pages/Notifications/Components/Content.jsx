@@ -6,6 +6,8 @@ import { Button } from '../../../Core/Components/Buttons/Button.style';
 import { NotificationTypes } from '../../../Core/Constants/Enums';
 import moment from 'moment';
 import Buttons from './Buttons';
+import { getFileURL } from '../../../Core/Utils/File';
+import UserProfile from '../../../Components/UserProfile/UserProfile';
 
 const Content = ({ data }) => {
   const navigate = useNavigate();
@@ -39,7 +41,12 @@ const Content = ({ data }) => {
     <S.Content read={data.read}>
       <div className="dot"> </div>
       <div className="content">
-        <img alt="sender-user" src={data?.sender_user?.img} />
+        <UserProfile 
+          name={data.sender_user.name}
+          id={data.sender_user.id}
+          displayName={false}
+          src={getFileURL(data.sender_user.img)}
+        />
         <div className="content__main">
           <p className="description">
             <Button 

@@ -6,7 +6,6 @@ import { NotificationSagaActions } from './Store/Notifications.saga';
 import Content from './Components/Content';
 import Settings from './Components/Settings';
 import useHttpResponse from '../../Core/Hooks/useHttpResponse';
-import { Button } from '../../Core/Components/Buttons/Button.style';
 import { NotificationActions } from './Store/Notifications.slice';
 import { DashboardSagaActions } from '../Dashboard/Store/Dashboard.saga';
 import { PostModalActions } from '../../Components/PostModal/Store/PostModal.slice';

@@ -6,7 +6,7 @@ import PersonRemoveIcon from '@mui/icons-material/PersonRemove';
 import { useDispatch, useSelector } from 'react-redux';
 import { DashboardSagaActions } from '../Store/Dashboard.saga';
 import Loading from '../../../Core/Components/Loading/Loading';
-import { getImage } from '../../../Core/Utils/Image';
+import { getFileURL } from '../../../Core/Utils/File';
 
 const FriendList = () => {
   const dispatch = useDispatch();
@@ -40,7 +40,7 @@ const FriendList = () => {
                   position={obj?.position || ''}
                   fontSize="25px"
                   small
-                  src={getImage(obj.img)}
+                  src={getFileURL(obj.img)}
                 />
                 <Tooltip title="Remove Friend" placement="top" >
                   <IconButton onClick={() => removeFriend(obj.id)}>

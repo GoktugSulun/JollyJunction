@@ -6,7 +6,7 @@ import Loading from '../../../../../Core/Components/Loading/Loading';
 import AddFriend from './AddFriend';
 import RespondRequest from './RespondRequest';
 import Cancel from './Cancel';
-import { getImage } from '../../../../../Core/Utils/Image';
+import { getFileURL } from '../../../../../Core/Utils/File';
 
 const PostHeader = ({ data }) => {
   const { authorizedUser } = useSelector((state) => state.AppConfig.init);
@@ -35,7 +35,7 @@ const PostHeader = ({ data }) => {
       <UserProfile
         name={`${data?.user?.name || ''} ${data?.user?.surname || ''}`}
         position={data?.user?.position || ''}
-        src={getImage(data?.user?.img)}
+        src={getFileURL(data?.user?.img)}
         id={data.user.id}
       />
       {

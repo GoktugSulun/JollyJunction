@@ -9,7 +9,7 @@ import { PostModalActions } from '../Store/PostModal.slice';
 import { ModalTypes } from '../../../Core/Constants/Enums';
 import { DashboardActions } from '../../../Pages/Dashboard/Store/Dashboard.slice';
 import LetterImage from '../../LetterImage/LetterImage';
-import { getImage } from '../../../Core/Utils/Image';
+import { getFileURL } from '../../../Core/Utils/File';
 
 const CommentsSectionHeader = () => {
   const dispatch = useDispatch();
@@ -41,7 +41,7 @@ const CommentsSectionHeader = () => {
             disableRipple
             onClick={navigateHandler}
           >
-            { postData?.user?.img ? <img src={getImage(postData.user.img)} alt="user" /> : <LetterImage fontSize="30px" name={postData?.user?.name} />}
+            { postData?.user?.img ? <img src={getFileURL(postData.user.img)} alt="user" /> : <LetterImage fontSize="30px" name={postData?.user?.name} />}
           </Button>
           <div className="user__info">
             <div className="user__name" onClick={navigateHandler}> {postData?.user?.name} {postData?.user?.surname} </div>

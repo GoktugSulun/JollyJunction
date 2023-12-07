@@ -341,7 +341,7 @@ export const CreatePost = styled.div`
          }
       }
    }
-   img.user-post-img {
+   .file {
       //TODO: width kısmında problem var 
       width: 100%;
       max-height: 400px;
@@ -349,6 +349,15 @@ export const CreatePost = styled.div`
       height: auto;
       border-radius: 10px;
    }
+   /* #video {
+      object-fit: cover;
+      width: 100vw;
+      height: 100vh;
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: -1;
+   } */
    .img-skeleton {
       background-color: #2d2d2d;
       transform: initial;
@@ -414,13 +423,15 @@ export const Post = styled.div`
       font-size: 14px;
       margin-top: 10px;
    }
-   img {
+   .file {
       width: 100%;
       max-height: 400px;
-      object-fit: cover;
       height: auto;
       border-radius: 10px;
       cursor: pointer;
+      &__image {
+         object-fit: cover;
+      }
    }
    .buttons {
       display: flex;

@@ -9,6 +9,7 @@ export const UserProfile = styled.div`
       width: 60px;
       height: 60px;
       border-radius: 50%;
+      object-fit: cover;
       ${(props) => props.clickable && css`
          cursor: pointer;
          :hover {

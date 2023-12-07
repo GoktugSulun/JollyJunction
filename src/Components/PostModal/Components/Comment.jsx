@@ -19,7 +19,7 @@ import { PostModalActions } from '../Store/PostModal.slice';
 import { ModalTypes } from '../../../Core/Constants/Enums';
 import { DashboardActions } from '../../../Pages/Dashboard/Store/Dashboard.slice';
 import LetterImage from '../../LetterImage/LetterImage';
-import { getImage } from '../../../Core/Utils/Image';
+import { getFileURL } from '../../../Core/Utils/File';
 
 const defaultValues = {
   comment: ''
@@ -99,7 +99,7 @@ const Comment = ({ data, commentLoadingStates }) => {
         minWidth="0"
         onClick={navigateHandler}
       >
-        { data?.user?.img ? <img src={getImage(data.user.img)} alt="user" /> : <LetterImage fontSize="30px" name={data?.user?.name} />}
+        { data?.user?.img ? <img src={getFileURL(data.user.img)} alt="user" /> : <LetterImage fontSize="30px" name={data?.user?.name} />}
       </Button>
       <div className="comment-wrapper">
         <S.Comment>

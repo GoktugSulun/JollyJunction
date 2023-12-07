@@ -14,7 +14,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { UserProfileSagaActions } from '../../UserProfile/Store/UserProfile.saga';
 import SocialMediaEnums from './Enums/SocialMediaEnums';
-import { getImage } from '../../../Core/Utils/Image';
+import { getFileURL } from '../../../Core/Utils/File';
 
 const Profile = () => {
   const dispatch = useDispatch();
@@ -67,7 +67,7 @@ const Profile = () => {
         <UserProfile 
           name={`${data?.name || ''} ${data?.surname || ''}`}
           position={data?.position || ''}
-          src={getImage(data?.img)}
+          src={getFileURL(data?.img)}
           clickable={false}
         />
         {

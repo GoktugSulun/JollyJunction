@@ -1,4 +1,4 @@
-export const getImage = ({ name, type } = {}) => {
+export const getFileURL = ({ name, type } = {}) => {
   if (!name || !type) {
     return '';
   }
