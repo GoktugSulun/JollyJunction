@@ -19,7 +19,6 @@ const payloadWithFiles = (payload, files) => {
 
 export const request = async (method, url, payload = undefined, files = null) => {
   try {
-    console.log(files, ' files');
     const data = files ? payloadWithFiles(payload, files) : payload;
     const response = await axios({
       method,

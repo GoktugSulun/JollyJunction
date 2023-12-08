@@ -55,12 +55,12 @@ const Dashboard = () => {
     };
   }, []);
 
-  useEffect(() => {
-    const elements = Array.from(document.querySelectorAll('.file__video'));
-    elements.forEach((element) => {
-      intersectionObserver({ element, callback: () => { console.log(element, ' => görüldüüü'); } });
-    });
-  }, [posts]);
+  // useEffect(() => {
+  //   const elements = Array.from(document.querySelectorAll('.file__video'));
+  //   elements.forEach((element) => {
+  //     intersectionObserver({ element, callback: () => { console.log(element, ' => görüldüüü'); } });
+  //   });
+  // }, [posts]);
 
   return (
     <S.PostWrapper id="wrapper">
