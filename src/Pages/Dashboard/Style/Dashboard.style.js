@@ -235,14 +235,17 @@ export const Advertisement = styled.div`
             right: 5px;
          }
       }
-      img {
+      .image {
          border-radius: 10px;
          width: 100%;
-         /* height: 180px; */
          max-height: 300px;
          cursor: pointer;
          object-fit: cover;
          object-position: center;
+         display: none;
+         &__active {
+            display: block;
+         }
       }
    }
    .sponsor {
