@@ -3,24 +3,21 @@ import * as S from './Style/Notifications.style';
 import { useDispatch, useSelector } from 'react-redux';
 import Loading from '../../Core/Components/Loading/Loading';
 import { NotificationSagaActions } from './Store/Notifications.saga';
-import Content from './Components/Content';
-import Settings from './Components/Settings';
 import useHttpResponse from '../../Core/Hooks/useHttpResponse';
 import { NotificationActions } from './Store/Notifications.slice';
 import { DashboardSagaActions } from '../Dashboard/Store/Dashboard.saga';
 import { PostModalActions } from '../../Components/PostModal/Store/PostModal.slice';
-import { ModalTypes, NotificationTypes } from '../../Core/Constants/Enums';
+import { ModalTypes } from '../../Core/Constants/Enums';
 import { PostModalSagaActions } from '../../Components/PostModal/Store/PostModal.saga';
 import FriendshipEnums from '../../server/constants/Enums/FriendshipEnums';
 import { useNavigate } from 'react-router-dom';
-import intersectionObserver from '../../Core/Helpers/intersectionObserver';
+import Notification from './Components/Notification';
 
 const Notifications = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [loadingId, setLoadingId] = useState(null);
   const { loading, notifications, page, limit, canBeMore } = useSelector((state) => state.Notifications);
-  const { loading: postModalLoading } = useSelector((state) => state.PostModal);
   const { authorizedUser } = useSelector((state) => state.AppConfig.init);
 
   const fetchNotifications = () => {
@@ -29,26 +26,6 @@ const Notifications = () => {
         queries: `?page=${page}&limit=${limit}&receiver_id=${authorizedUser.id}&is_removed=${false}`
       };
       dispatch(NotificationSagaActions.getNotifications(payload));
-    }
-  };
-
-  const getPostDetail = (post_id, notification_id, sender_user, type) => {
-    if (post_id) {
-      setLoadingId(notification_id);
-      dispatch(PostModalSagaActions.getSpecificPost({ post_id }));
-      return;
-    }
-    if (type === NotificationTypes.ACCEPTED_FRIENDSHIP_REQUEST || type === NotificationTypes.YOU_ARE_FRIEND_NOW) {
-      setLoadingId(notification_id);
-      const payload = { 
-        data: { 
-          notification_ids: [ notification_id ] 
-        },
-        snackbar: false,
-        navigate: true,
-        url: `/profile/${sender_user.name.split(' ').join('')}${sender_user.surname}/${sender_user.id}`
-      };
-      dispatch(NotificationSagaActions.markNotificationsRead(payload));
     }
   };
 
@@ -109,17 +86,8 @@ const Notifications = () => {
   }, NotificationSagaActions.getNotifications());
 
   useEffect(() => {
-    const element = Array.from(document.querySelectorAll('.notification-item'))?.at(-1);
-    intersectionObserver({ element, callback: fetchNotifications, threshold: 0.8, triggerOnce: true });
-  }, [notifications]);
-
-  useEffect(() => {
-    const payload = {
-      queries: `?page=${1}&limit=${limit}&receiver_id=${authorizedUser.id}&is_removed=${false}`
-    };
-    dispatch(NotificationSagaActions.getNotifications(payload));
-    const friendPayload = { query: `?user_id=${authorizedUser.id}` };
-    dispatch(DashboardSagaActions.getFriends(friendPayload));
+    dispatch(NotificationSagaActions.getNotifications({ queries: `?page=${1}&limit=${limit}&receiver_id=${authorizedUser.id}&is_removed=${false}` }));
+    dispatch(DashboardSagaActions.getFriends({ query: `?user_id=${authorizedUser.id}` }));
     return () => {
       dispatch(NotificationActions.setReset());
       dispatch(PostModalActions.handleModal(ModalTypes.CLOSE));
@@ -128,20 +96,14 @@ const Notifications = () => {
 
   return (
     <S.NotificationsContent>
-      {
-        notifications.map((obj) => (
-          <S.NotificationItem 
-            className="notification-item"
-            key={obj.id}
-            disabled={postModalLoading?.getSpecificPost}
-            onClick={() => getPostDetail(obj.post_id, obj.id, obj.sender_user, obj.type)} 
-          >
-            { postModalLoading?.getSpecificPost && loadingId === obj.id && <S.ProgressBar /> }
-            <Content data={obj} />
-            <Settings data={obj} />
-          </S.NotificationItem>
-        ))
-      }
+      { notifications.map((obj, index) => 
+        <Notification 
+          key={obj.id} 
+          data={obj} 
+          {...(notifications.length - 1 === index ? { fetchNotifications, isLastElement: true } : {})}
+          loadingState={[loadingId, setLoadingId]}
+        />
+      )}
       { loading?.getNotifications && <Loading margin="15px 0 0 0" /> }
     </S.NotificationsContent>
   );
