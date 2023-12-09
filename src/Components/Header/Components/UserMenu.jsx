@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, { useState } from 'react';
 import { styled, alpha } from '@mui/material/styles';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
@@ -7,9 +7,11 @@ import { Button } from '../../../Core/Components/Buttons/Button.style';
 import * as S from '../Style/Header.style';
 import PersonIcon from '@mui/icons-material/Person';
 import LogoutIcon from '@mui/icons-material/Logout';
+import SettingsIcon from '@mui/icons-material/Settings';
 import MenuIcon from '@mui/icons-material/Menu';
 import { IconButton } from '@mui/material';
 import { useSelector } from 'react-redux';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 const StyledMenu = styled((props) => (
   <Menu
@@ -58,7 +60,9 @@ const StyledMenu = styled((props) => (
 }));
 
 const UserMenu = () => {
-  const [anchorEl, setAnchorEl] = React.useState(null);
+  const navigate = useNavigate();
+  const { pathname } = useLocation();
+  const [anchorEl, setAnchorEl] = useState(null);
   const { authorizedUser } = useSelector((state) => state.AppConfig.init);
   const open = Boolean(anchorEl);
 
@@ -74,6 +78,21 @@ const UserMenu = () => {
     handleClose();
     localStorage.clear();
     location.reload();
+  };
+
+  const navigateMyProfile = () => {
+    handleClose();
+    const targetURL = `/profile/${authorizedUser.name.split(' ').join('')}${authorizedUser.surname.split(' ').join('')}/${authorizedUser.id}`;
+    if (pathname !== targetURL) {
+      navigate(targetURL);
+    }
+  };
+
+  const navigateSettings = () => {
+    handleClose();
+    if (pathname !== '/settings') {
+      navigate('/settings');
+    }
   };
 
   return (
@@ -105,9 +124,14 @@ const UserMenu = () => {
         open={open}
         onClose={handleClose}
       >
-        <MenuItem onClick={handleClose} disableRipple>
+        <MenuItem onClick={navigateMyProfile} disableRipple>
           <PersonIcon />
           Profile
+        </MenuItem>
+        <S.CustomDivider />
+        <MenuItem onClick={navigateSettings} disableRipple>
+          <SettingsIcon />
+          Settings
         </MenuItem>
         <S.CustomDivider />
         <MenuItem onClick={logout} disableRipple>

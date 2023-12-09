@@ -15,6 +15,15 @@ const requestStatusReducer = (builder, sagaActions) => {
     return action.type.split('/')[2];
   };
 
+  const setResult = (state, action, loading, requestStatus) => {
+    if (state?.loading) {
+      state.loading[getActionType(action)] = loading;
+    }
+    if (state?.requestStatus) {
+      state.requestStatus[getActionType(action)] = requestStatus;
+    }
+  };
+
   builder
   //* add loading and requestStatus objects in slice state if there is no when the request action is triggered firstly. (SliceName/request/ActionType)
     .addMatcher(
@@ -37,31 +46,19 @@ const requestStatusReducer = (builder, sagaActions) => {
   //* check action type and repsonse type, and then set the loading, request status values. (SliceName/request/ActionType/HttpResponseType)
     .addMatcher(
       (action) => isMatchedSliceAndRequestAction(action, HttpResponseTypes.IDLE),
-      (state, action) => {
-        state.loading[getActionType(action)] = false;
-        state.requestStatus[getActionType(action)] = HttpResponseTypes.IDLE;
-      }
+      (state, action) => setResult(state, action, false, HttpResponseTypes.IDLE)
     )
     .addMatcher(
       (action) => isMatchedSliceAndRequestAction(action, HttpResponseTypes.LOADING),
-      (state, action) => {
-        state.loading[getActionType(action)] = true;
-        state.requestStatus[getActionType(action)] = HttpResponseTypes.LOADING;
-      }
+      (state, action) => setResult(state, action, true, HttpResponseTypes.LOADING)
     )
     .addMatcher(
       (action) => isMatchedSliceAndRequestAction(action, HttpResponseTypes.SUCCESS),
-      (state, action) => {
-        state.loading[getActionType(action)] = false;
-        state.requestStatus[getActionType(action)] = HttpResponseTypes.SUCCESS;
-      }
+      (state, action) => setResult(state, action, false, HttpResponseTypes.SUCCESS)
     )
     .addMatcher(
       (action) => isMatchedSliceAndRequestAction(action, HttpResponseTypes.FAILURE),
-      (state, action) => {
-        state.loading[getActionType(action)] = false;
-        state.requestStatus[getActionType(action)] = HttpResponseTypes.FAILURE;
-      }
+      (state, action) => setResult(state, action, false, HttpResponseTypes.FAILURE)
     );
 };
 
