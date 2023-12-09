@@ -38,18 +38,20 @@ const Post = ({ data }) => {
   };
 
   useEffect(() => {
-    // if (isIntersecting) {
-    //   const postElement = ref.current;
-    //   const mediaElementSrc = postElement.dataset.src;
-    //   setSrc(mediaElementSrc);
-    // } else {
-    //   setSrc('');
-    // }
-  }, [isIntersecting]);
+    if (isIntersecting) {
+      const postElement = ref.current;
+      const mediaElementSrc = postElement.dataset.src;
+      console.log('setliyorum');
+      setSrc(mediaElementSrc);
+    } else {
+      console.log('siliyorum setlemeyi');
+      setSrc('');
+    }
+  }, [isIntersecting, data]);
   
-  useEffect(() => {
-    setSrc(getFileURL(data.files[0]));
-  }, [data]);
+  // useEffect(() => {
+  //   setSrc(getFileURL(data.files[0]));
+  // }, [data]);
 
   return (
     <S.Post

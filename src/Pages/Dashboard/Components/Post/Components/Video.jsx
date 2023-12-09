@@ -11,9 +11,12 @@ const options = {
 const Video = ({ data, src }) => {
   const dispatch = useDispatch();
   const { isMuted } = useSelector((state) => state.Dashboard);
-  const { ref, isIntersecting } = useIntersectionObserver({ options });
+  const { ref, isIntersecting } = useIntersectionObserver({ options, dependencies: [src] });
  
   useEffect(() => {
+    if (data.id === 28) {
+      console.log('id 28 => ', isIntersecting);
+    }
     if (!ref.current) {
       return;
     }
@@ -28,7 +31,7 @@ const Video = ({ data, src }) => {
         ref.current.pause();
       }
     }
-  }, [isIntersecting, ref.current]);
+  }, [isIntersecting, ref.current, data.id]);
 
   return (
     <video 
