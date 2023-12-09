@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
+import { useDispatch } from 'react-redux';
 import * as S from '../../Style/Dashboard.style';
 import PropTypes from 'prop-types';
 import PostHeader from './Components/PostHeader';
 import PostFooter from './Components/PostFooter';
-import { useDispatch } from 'react-redux';
 import { DashboardSagaActions } from '../../Store/Dashboard.saga';
 import { useIntersectionObserver } from '../../../../Hooks';
 import { getFileURL } from '../../../../Core/Utils/File';
@@ -18,9 +18,16 @@ const options = {
   threshold: 0
 };
 
-const Post = ({ data }) => {
+const optionsForLastElement = {
+  root: null,
+  rootMargin: '0px',
+  threshold: 1
+};
+
+const Post = ({ data, isLast, fetchMorePost }) => {
   const dispatch = useDispatch();
   const { ref, isIntersecting } = useIntersectionObserver({ options });
+  const { ref: lastElementRef, isIntersecting: isIntersectingLastElement } = useIntersectionObserver({ options: optionsForLastElement, triggerOnce: true });
   const [src, setSrc] = useState('');
 
   const likeHandler = () => {
@@ -38,24 +45,32 @@ const Post = ({ data }) => {
   };
 
   useEffect(() => {
-    if (isIntersecting) {
+    if (isIntersecting) { 
       const postElement = ref.current;
       const mediaElementSrc = postElement.dataset.src;
-      console.log('setliyorum');
       setSrc(mediaElementSrc);
     } else {
-      console.log('siliyorum setlemeyi');
       setSrc('');
     }
   }, [isIntersecting, data]);
-  
-  // useEffect(() => {
-  //   setSrc(getFileURL(data.files[0]));
-  // }, [data]);
+
+  useEffect(() => {
+    if (isIntersectingLastElement) {
+      fetchMorePost();
+    }
+  }, [isIntersectingLastElement]);
 
   return (
     <S.Post
-      {...(data.files.length ? { ref, 'data-src': getFileURL(data.files[0]) } : {})} 
+      {...(data.files.length ? { 'data-src': getFileURL(data.files[0]) } : {})} 
+      ref={(el) => {
+        if (data.files.length) {
+          ref.current = el;
+        }
+        if (isLast) {
+          lastElementRef.current = el;
+        }
+      }}
       className="post"
     >
       <PostHeader data={data} />
@@ -73,4 +88,11 @@ export default Post;
 
 Post.propTypes = {
   data: PropTypes.object.isRequired,
+  isLast: PropTypes.bool,
+  fetchMorePost: PropTypes.func,
+};
+
+Post.defaultProps = {
+  isLast: false,
+  fetchMorePost: () => {}
 };

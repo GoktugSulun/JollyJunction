@@ -14,20 +14,15 @@ const Video = ({ data, src }) => {
   const { ref, isIntersecting } = useIntersectionObserver({ options, dependencies: [src] });
  
   useEffect(() => {
-    if (data.id === 28) {
-      console.log('id 28 => ', isIntersecting);
-    }
     if (!ref.current) {
       return;
     }
     if (isIntersecting) {
       if (ref.current.paused) {
-        console.log(data.id, ' => OYNAT ', ref.current);
         ref.current.play();
       }
     } else {
       if (!ref.current.paused) {
-        console.log(data.id, ' => DURDUR ', ref.current);
         ref.current.pause();
       }
     }
