@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import * as S from '../Style/PostModal.style';
 import moment from 'moment';
 import { Button } from '../../../Core/Components/Buttons/Button.style';
@@ -20,12 +20,17 @@ import { ModalTypes } from '../../../Core/Constants/Enums';
 import { DashboardActions } from '../../../Pages/Dashboard/Store/Dashboard.slice';
 import LetterImage from '../../LetterImage/LetterImage';
 import { getFileURL } from '../../../Core/Utils/File';
+import { useIntersectionObserver } from '../../../Hooks';
+
+const options = {
+  threshold: 0.5
+};
 
 const defaultValues = {
   comment: ''
 };
 
-const Comment = ({ data, commentLoadingStates }) => {
+const Comment = ({ data, commentLoadingStates, isLastElement, fetchMoreComment }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const location = useLocation();
@@ -37,6 +42,8 @@ const Comment = ({ data, commentLoadingStates }) => {
   const  { authorizedUser } = useSelector((state) => state.AppConfig.init);
   const { form, registerHandler } = useMaterialForm({ defaultValues });
   const comment = useWatch({ control: form.control, name: 'comment' });
+
+  const { ref, isIntersecting } = useIntersectionObserver({ options, triggerOnce: true });
 
   const isLiked = (likes) => {
     return !!likes.find((user_id) => user_id === authorizedUser.id);
@@ -90,8 +97,17 @@ const Comment = ({ data, commentLoadingStates }) => {
     }
   };
 
+  useEffect(() => {
+    if (isIntersecting) {
+      fetchMoreComment();
+    }
+  }, [isIntersecting]);
+
   return (
-    <S.CommentContainer className="comment">
+    <S.CommentContainer
+      className="comment"
+      {...(isLastElement ? { ref } : {})}
+    >
       <Button
         bgColor="transparent"
         padding="0"
@@ -181,5 +197,12 @@ export default Comment;
 
 Comment.propTypes = {
   data: PropTypes.object.isRequired,
-  commentLoadingStates: PropTypes.array.isRequired
+  commentLoadingStates: PropTypes.array.isRequired,
+  isLastElement: PropTypes.bool,
+  fetchMoreComment: PropTypes.func,
+};
+
+Comment.defaultProps = {
+  isLastElement: false,
+  fetchMoreComment: () => {}
 };

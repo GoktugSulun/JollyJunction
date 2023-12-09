@@ -8,22 +8,15 @@ import CommentsSection from './Components/CommentsSection';
 import { PostModalSagaActions } from './Store/PostModal.saga';
 import useHttpResponse from '../../Core/Hooks/useHttpResponse';
 import { DashboardSagaActions } from '../../Pages/Dashboard/Store/Dashboard.saga';
-import { intersectionObserver } from '../../Core/Helpers';
 import { getFileURL } from '../../Core/Utils/File';
 import { getFileType } from '../../Core/Utils/FileType';
 import FileTypeEnums from '../../Pages/Dashboard/Components/Enums/FileTypeEnums';
 
 const PostModal = () => {
   const dispatch = useDispatch();
-  const { isOpen, postData, limit, page, canBeMoreComment } = useSelector((state) => state.PostModal); 
+  const { isOpen, postData, limit } = useSelector((state) => state.PostModal); 
 
   const handleClose = () => dispatch(PostModalActions.handleModal(ModalTypes.CLOSE));
-
-  const fetchMoreComment = () => {
-    if (canBeMoreComment) {
-      dispatch(PostModalSagaActions.getComments({ post_id: postData.id, page, limit }));
-    }
-  };
 
   const getFileElement = () => {
     const fileType = getFileType(postData.files[0].type);
@@ -71,14 +64,6 @@ const PostModal = () => {
       }
     }
   }, DashboardSagaActions.savePost());
-
-  useHttpResponse({
-    success: ({ idleAction }) => {
-      idleAction();
-      const element = Array.from(document.querySelectorAll('.comment'))?.at(-1);
-      intersectionObserver({ element, callback: fetchMoreComment, threshold: 0.8, triggerOnce: true });
-    }
-  }, PostModalSagaActions.getComments());
 
   useEffect(() => {
     if (isOpen) {
