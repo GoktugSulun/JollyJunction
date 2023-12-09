@@ -59,7 +59,7 @@ const Dashboard = () => {
           <Post 
             key={obj.id}
             data={obj}
-            {...(posts.length - 1 === index ? { fetchMorePost, isLast: true } : {})}
+            {...(posts.length - 1 === index ? { fetchMorePost, isLastElement: true } : {})}
           />
         ))
       }

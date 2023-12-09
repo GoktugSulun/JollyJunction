@@ -24,7 +24,7 @@ const optionsForLastElement = {
   threshold: 1
 };
 
-const Post = ({ data, isLast, fetchMorePost }) => {
+const Post = ({ data, isLastElement, fetchMorePost }) => {
   const dispatch = useDispatch();
   const { ref, isIntersecting } = useIntersectionObserver({ options });
   const { ref: lastElementRef, isIntersecting: isIntersectingLastElement } = useIntersectionObserver({ options: optionsForLastElement, triggerOnce: true });
@@ -67,7 +67,7 @@ const Post = ({ data, isLast, fetchMorePost }) => {
         if (data.files.length) {
           ref.current = el;
         }
-        if (isLast) {
+        if (isLastElement) {
           lastElementRef.current = el;
         }
       }}
@@ -88,11 +88,11 @@ export default Post;
 
 Post.propTypes = {
   data: PropTypes.object.isRequired,
-  isLast: PropTypes.bool,
+  isLastElement: PropTypes.bool,
   fetchMorePost: PropTypes.func,
 };
 
 Post.defaultProps = {
-  isLast: false,
+  isLastElement: false,
   fetchMorePost: () => {}
 };
