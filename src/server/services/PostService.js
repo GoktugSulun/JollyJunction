@@ -52,7 +52,9 @@ const getPostDetail = (data) => {
       user: users.find((userObj) => userObj.id === data.user_id),
       canBeFriend: canBeFriendHandler(data.user_id)
     }
-  );};
+  );
+};
+
 class PostService {
   static async getAll() {
     // TODO: bir sürü key eksik onları ekle
@@ -79,8 +81,7 @@ class PostService {
       if (!data) {
         return {
           type: false,
-          message: `Post with id ${id} couldn't find`,
-          data: result
+          message: `Post with id ${id} couldn't find. It may have been deleted`,
         };
       }
 

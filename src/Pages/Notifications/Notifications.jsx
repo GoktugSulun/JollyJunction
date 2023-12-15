@@ -12,6 +12,7 @@ import { PostModalSagaActions } from '../../Components/PostModal/Store/PostModal
 import FriendshipEnums from '../../server/constants/Enums/FriendshipEnums';
 import { useNavigate } from 'react-router-dom';
 import Notification from './Components/Notification';
+import NoData from '../UserProfile/Components/NoData';
 
 const Notifications = () => {
   const dispatch = useDispatch();
@@ -96,14 +97,18 @@ const Notifications = () => {
 
   return (
     <S.NotificationsContent>
-      { notifications.map((obj, index) => 
-        <Notification 
-          key={obj.id} 
-          data={obj} 
-          {...(notifications.length - 1 === index ? { fetchNotifications, isLastElement: true } : {})}
-          loadingState={[loadingId, setLoadingId]}
-        />
-      )}
+      {
+        !notifications.length && loading?.getNotifications === false
+          ? <NoData message="You have not received notification yet." />
+          : notifications.map((obj, index) => 
+            <Notification 
+              key={obj.id} 
+              data={obj} 
+              {...(notifications.length - 1 === index ? { fetchNotifications, isLastElement: true } : {})}
+              loadingState={[loadingId, setLoadingId]}
+            />
+          )
+      }
       { loading?.getNotifications && <Loading margin="15px 0 0 0" /> }
     </S.NotificationsContent>
   );

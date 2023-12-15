@@ -59,7 +59,7 @@ const UserProfile = () => {
     <div>
       {
         !posts.length && loading?.getPosts === false
-          ? <NoData />
+          ? <NoData message="There is no post in this profile." />
           : posts.map((obj, index) => (
             <Post 
               key={obj.id}
