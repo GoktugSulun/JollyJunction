@@ -41,6 +41,17 @@ const UserProfile = (props) => {
 
 export default UserProfile;
 
+const validateId = (props, propName, componentName) => {
+  const id = props[propName];
+  const clickable = props.clickable;
+
+  if (clickable && id === undefined) {
+    return new Error(`The prop '${propName}' is required when 'clickable' is set to true in ${componentName}.`);
+  }
+
+  return null;
+};
+
 UserProfile.propTypes = {
   src: PropTypes.string,
   name: PropTypes.string,
@@ -49,7 +60,7 @@ UserProfile.propTypes = {
   fontSize: PropTypes.string,
   displayName: PropTypes.bool,
   clickable: PropTypes.bool,
-  id: PropTypes.number.isRequired
+  id: validateId
 };
 
 UserProfile.defaultProps = {
