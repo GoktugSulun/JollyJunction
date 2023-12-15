@@ -5,7 +5,7 @@ import { DashboardActions } from '../../../Store/Dashboard.slice';
 
 const Video = ({ data, src, videoRef, isVideoIntersecting }) => {
   const dispatch = useDispatch();
-  const { isMuted } = useSelector((state) => state.Dashboard);
+  const { isMuted, videoData: { isLegal, currentTime, isPlaying } } = useSelector((state) => state.Dashboard);
  
   useEffect(() => {
     if (!videoRef.current) {
@@ -22,6 +22,18 @@ const Video = ({ data, src, videoRef, isVideoIntersecting }) => {
     }
   }, [isVideoIntersecting, data.id]);
 
+  //* After postModal data is closed, start/stop video on actual time
+  useEffect(() => {
+    if (!videoRef.current || !isLegal || !isVideoIntersecting) {
+      return;
+    }
+    videoRef.current.currentTime = currentTime;
+    if (isPlaying) {
+      videoRef.current.play();
+    }
+    dispatch(DashboardActions.setVideoData({ isLegal: false }));
+  }, [isLegal, isVideoIntersecting]);
+
   return (
     <video 
       ref={videoRef}
@@ -31,6 +43,7 @@ const Video = ({ data, src, videoRef, isVideoIntersecting }) => {
       preload="metadata"
       loop
       muted={isMuted}
+      // onClick={setManullyPlayPauseHandler}
       onVolumeChange={(e) => dispatch(DashboardActions.setIsMuted(e.target.muted))}
     >
       <source src={src + '#t=0.5'} type="video/mp4" />
@@ -45,6 +58,6 @@ Video.propTypes = {
   data: PropTypes.object.isRequired,
   src: PropTypes.string.isRequired,
   videoRef: PropTypes.object.isRequired,
-  isVideoIntersecting: PropTypes.bool.isRequired,
+  isVideoIntersecting: PropTypes.bool.isRequired
 };
 

@@ -3,7 +3,6 @@ import Modal from '@mui/material/Modal';
 import * as S from './Style/PostModal.style';
 import { useDispatch, useSelector } from 'react-redux';
 import { PostModalActions } from './Store/PostModal.slice';
-import { ModalTypes } from '../../Core/Constants/Enums';
 import CommentsSection from './Components/CommentsSection';
 import { PostModalSagaActions } from './Store/PostModal.saga';
 import useHttpResponse from '../../Core/Hooks/useHttpResponse';
@@ -13,12 +12,24 @@ import { getFileType } from '../../Core/Utils/FileType';
 import FileTypeEnums from '../../Pages/Dashboard/Components/Enums/FileTypeEnums';
 import Image from '../../Pages/Dashboard/Components/Post/Components/Image';
 import Video from './Components/Video';
+import { DashboardActions } from '../../Pages/Dashboard/Store/Dashboard.slice';
 
 const PostModal = () => {
   const dispatch = useDispatch();
+  const videoRef = useRef();
   const { isOpen, postData, limit } = useSelector((state) => state.PostModal); 
 
-  const handleClose = () => dispatch(PostModalActions.handleModal(ModalTypes.CLOSE));
+  const handleClose = () => {
+    if (videoRef.current) {
+      const payload = {
+        isLegal: true,
+        currentTime: videoRef.current.currentTime,
+        isPlaying: !videoRef.current.paused
+      };
+      dispatch(DashboardActions.setVideoData(payload));
+    }
+    dispatch(PostModalActions.setReset());
+  };
 
   const likeHandler = () => {
     const payload = {
@@ -32,7 +43,7 @@ const PostModal = () => {
   const fileType = getFileType(postData?.files?.[0]?.type);
   const fileElement = {
     [FileTypeEnums.IMAGE]: <Image data={postData} likeHandler={likeHandler} src={src} />,
-    [FileTypeEnums.VIDEO]: <Video />
+    [FileTypeEnums.VIDEO]: <Video videoRef={videoRef} />
   };
 
   useHttpResponse({
@@ -56,8 +67,6 @@ const PostModal = () => {
   useEffect(() => {
     if (isOpen) {
       dispatch(PostModalSagaActions.getComments({ post_id: postData.id, page: 1, limit }));
-    } else {
-      dispatch(PostModalActions.setReset()); // TODO: bunu düzelt olmaz böyle
     }
   }, [isOpen]);
 
@@ -69,7 +78,7 @@ const PostModal = () => {
       >
         <S.PostModal file={!!postData?.files?.length} isOpen={isOpen}>
           { postData?.files?.length && <S.File> {fileElement[fileType]} </S.File> }
-          <CommentsSection />
+          <CommentsSection handleClose={handleClose} />
         </S.PostModal>
       </Modal>
     </div>

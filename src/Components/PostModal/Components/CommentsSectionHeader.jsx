@@ -10,8 +10,9 @@ import { ModalTypes } from '../../../Core/Constants/Enums';
 import { DashboardActions } from '../../../Pages/Dashboard/Store/Dashboard.slice';
 import LetterImage from '../../LetterImage/LetterImage';
 import { getFileURL } from '../../../Core/Utils/File';
+import PropTypes from 'prop-types';
 
-const CommentsSectionHeader = () => {
+const CommentsSectionHeader = ({ handleClose }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const location = useLocation();
@@ -24,10 +25,6 @@ const CommentsSectionHeader = () => {
       dispatch(DashboardActions.setReset());
       navigate(targetUrl);
     }
-  };
-
-  const closeModalHandler = () => {
-    dispatch(PostModalActions.setReset());
   };
 
   return (
@@ -49,7 +46,7 @@ const CommentsSectionHeader = () => {
           </div>
         </div>
         <Tooltip title="Close">
-          <IconButton onClick={closeModalHandler}>
+          <IconButton onClick={handleClose}>
             <CloseIcon />
           </IconButton>
         </Tooltip>
@@ -60,3 +57,7 @@ const CommentsSectionHeader = () => {
 };
 
 export default CommentsSectionHeader;
+
+CommentsSectionHeader.propTypes = {
+  handleClose: PropTypes.func.isRequired
+};

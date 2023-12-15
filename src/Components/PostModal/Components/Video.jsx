@@ -1,11 +1,11 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { DashboardActions } from '../../../Pages/Dashboard/Store/Dashboard.slice';
 import { getFileURL } from '../../../Core/Utils/File';
+import PropTypes from 'prop-types';
 
-const Video = () => {
+const Video = ({ videoRef }) => {
   const dispatch = useDispatch();
-  const videoRef = useRef();
   const { isMuted } = useSelector((state) => state.Dashboard);
   const { isOpen, postData, videoData } = useSelector((state) => state.PostModal); 
  
@@ -37,5 +37,9 @@ const Video = () => {
 };
 
 export default Video;
+
+Video.propTypes = {
+  videoRef: PropTypes.object.isRequired
+};
 
 
