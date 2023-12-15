@@ -103,10 +103,18 @@ class PostService {
   static async get(req, res) {
     try {
       const { posts } = postsDB.data;
-      const { page, limit, user_id } = req.query;
+      const { page, limit, user_id, is_removed } = req.query;
       const startIndex = (page - 1) * limit;
       const endIndex = page * limit; 
-      const filteredData = user_id ? posts.filter((obj) => obj.user_id === parseInt(user_id)) : [...posts];
+
+      const filteredData = posts.filter((obj) => {
+        return Object.entries({ user_id, is_removed }).every(([key, value]) => {
+          return value !== undefined ? String(obj[key]) === value : true;
+        });
+      });
+
+      // const filteredData = user_id ? posts.filter((obj) => obj.user_id === parseInt(user_id)) : [...posts];
+
       const sortedData = [...filteredData].sort((a,b) => new Date(b.created_at).getTime() - new Date(a.created_at).getTime());
       const data = sortedData.slice(startIndex, endIndex);
       const result = data.map((obj) => ( getPostDetail(obj) ));
@@ -240,7 +248,7 @@ class PostService {
         };
       }
 
-      const postData = { ...posts[index], is_removed: true };
+      const postData = { ...posts[index], is_removed: true, updated_at: new Date().toString() };
       posts.splice(index, 1, postData);
       await postsDB.write();
 

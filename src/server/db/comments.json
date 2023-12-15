@@ -756,6 +756,46 @@
       "created_at": "Sat Dec 09 2023 17:24:09 GMT+0300 (GMT+03:00)",
       "updated_at": "Sat Dec 09 2023 17:24:09 GMT+0300 (GMT+03:00)",
       "is_removed": false
+    },
+    {
+      "comment": "alo",
+      "post_id": 36,
+      "id": 60,
+      "user_id": 1,
+      "likes": [],
+      "created_at": "Fri Dec 15 2023 22:21:10 GMT+0300 (GMT+03:00)",
+      "updated_at": "Fri Dec 15 2023 22:21:10 GMT+0300 (GMT+03:00)",
+      "is_removed": false
+    },
+    {
+      "comment": "harikasın la",
+      "post_id": 36,
+      "id": 61,
+      "user_id": 1,
+      "likes": [],
+      "created_at": "Fri Dec 15 2023 22:21:13 GMT+0300 (GMT+03:00)",
+      "updated_at": "Fri Dec 15 2023 22:21:13 GMT+0300 (GMT+03:00)",
+      "is_removed": false
+    },
+    {
+      "comment": "aloaoao",
+      "post_id": 36,
+      "id": 62,
+      "user_id": 1,
+      "likes": [],
+      "created_at": "Fri Dec 15 2023 22:21:29 GMT+0300 (GMT+03:00)",
+      "updated_at": "Fri Dec 15 2023 22:21:29 GMT+0300 (GMT+03:00)",
+      "is_removed": false
+    },
+    {
+      "comment": "bbb",
+      "post_id": 36,
+      "id": 63,
+      "user_id": 1,
+      "likes": [],
+      "created_at": "Fri Dec 15 2023 22:21:33 GMT+0300 (GMT+03:00)",
+      "updated_at": "Fri Dec 15 2023 22:21:33 GMT+0300 (GMT+03:00)",
+      "is_removed": true
     }
   ]
 }
