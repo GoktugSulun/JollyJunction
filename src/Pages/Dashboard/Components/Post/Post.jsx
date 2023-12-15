@@ -1,14 +1,35 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import { useDispatch } from 'react-redux';
 import * as S from '../../Style/Dashboard.style';
 import PropTypes from 'prop-types';
 import PostHeader from './Components/PostHeader';
-import PostBody from './Components/PostBody';
 import PostFooter from './Components/PostFooter';
-import { useDispatch } from 'react-redux';
 import { DashboardSagaActions } from '../../Store/Dashboard.saga';
+import { useIntersectionObserver } from '../../../../Hooks';
+import { getFileURL } from '../../../../Core/Utils/File';
+import { getFileType } from '../../../../Core/Utils/FileType';
+import FileTypeEnums from '../Enums/FileTypeEnums';
+import Image from './Components/Image';
+import Video from './Components/Video';
 
-const Post = ({ data }) => {
+const options = {
+  rootMargin: '100% 0px',
+};
+
+const optionsForLastElement = {
+  threshold: 1
+};
+
+const optionsForVideo = {
+  threshold: 0.70
+};
+
+const Post = ({ data, isLastElement, fetchMorePost }) => {
   const dispatch = useDispatch();
+  const [src, setSrc] = useState('');
+  const { ref, isIntersecting } = useIntersectionObserver({ options });
+  const { ref: lastElementRef, isIntersecting: isIntersectingLastElement } = useIntersectionObserver({ options: optionsForLastElement, triggerOnce: true });
+  const { ref: videoRef, isIntersecting: isVideoIntersecting } = useIntersectionObserver({ options: optionsForVideo, dependencies: [src] });
 
   const likeHandler = () => {
     const payload = {
@@ -17,17 +38,49 @@ const Post = ({ data }) => {
     };
     dispatch(DashboardSagaActions.likePost(payload));
   }; 
+  
+  const fileType = getFileType(data.files[0]?.type);
+  const fileElement = {
+    [FileTypeEnums.IMAGE]: <Image data={data} likeHandler={likeHandler} src={src} />,
+    [FileTypeEnums.VIDEO]: <Video data={data} src={src} videoRef={videoRef} isVideoIntersecting={isVideoIntersecting} />
+  };
+
+  useEffect(() => {
+    if (isIntersecting) { 
+      const postElement = ref.current;
+      const mediaElementSrc = postElement.dataset.src;
+      setSrc(mediaElementSrc);
+    } else {
+      setSrc('');
+    }
+  }, [isIntersecting, data]);
+
+  useEffect(() => {
+    if (isIntersectingLastElement) {
+      fetchMorePost();
+    }
+  }, [isIntersectingLastElement]);
 
   return (
-    <S.Post className="post">
+    <S.Post
+      {...(data.files.length ? { 'data-src': getFileURL(data.files[0]) } : {})} 
+      ref={(el) => {
+        if (data.files.length) {
+          ref.current = el;
+        }
+        if (isLastElement) {
+          lastElementRef.current = el;
+        }
+      }}
+      className="post"
+    >
       <PostHeader data={data} />
-      <PostBody 
-        likeHandler={likeHandler} 
-        data={data} 
-      />
+      { data.description && <p className="description"> { data.description } </p> }
+      { !!data.files.length && fileElement[fileType]}
       <PostFooter 
         likeHandler={likeHandler} 
         data={data} 
+        {...(fileType === FileTypeEnums.VIDEO ? { videoRef } : {})}
       />
     </S.Post>
   );
@@ -37,4 +90,11 @@ export default Post;
 
 Post.propTypes = {
   data: PropTypes.object.isRequired,
+  isLastElement: PropTypes.bool,
+  fetchMorePost: PropTypes.func,
+};
+
+Post.defaultProps = {
+  isLastElement: false,
+  fetchMorePost: () => {}
 };

@@ -8,7 +8,6 @@ import useHttpResponse from '../../Core/Hooks/useHttpResponse';
 import Loading from '../../Core/Components/Loading/Loading';
 import { DashboardActions } from './Store/Dashboard.slice';
 import { AppConfigSagaActions } from '../../Core/Store/AppConfig.saga';
-import { intersectionObserver } from '../../Core/Helpers';
 import { PostModalActions } from '../../Components/PostModal/Store/PostModal.slice';
 import { ModalTypes } from '../../Core/Constants/Enums';
 
@@ -26,14 +25,6 @@ const Dashboard = () => {
   useHttpResponse({
     success: ({ idleAction }) => {
       idleAction();
-      const element = Array.from(document.querySelectorAll('.post')).at(-1);
-      intersectionObserver({ element, callback: fetchMorePost, triggerOnce: true });
-    }
-  }, DashboardSagaActions.getPosts());
-
-  useHttpResponse({
-    success: ({ idleAction }) => {
-      idleAction();
     }
   }, DashboardSagaActions.createPost());
 
@@ -47,20 +38,12 @@ const Dashboard = () => {
 
   useEffect(() => {
     dispatch(DashboardSagaActions.getPosts({ page: 1, limit: 10 }));
-    const payload = { query: `?user_id=${authorizedUser.id}` };
-    dispatch(DashboardSagaActions.getFriends(payload));
+    dispatch(DashboardSagaActions.getFriends({ query: `?user_id=${authorizedUser.id}` }));
     return () => {
       dispatch(DashboardActions.setReset());
       dispatch(PostModalActions.handleModal(ModalTypes.CLOSE));
     };
   }, []);
-
-  useEffect(() => {
-    const elements = Array.from(document.querySelectorAll('.file__video'));
-    elements.forEach((element) => {
-      intersectionObserver({ element, callback: () => { console.log(element, ' => görüldüüü'); } });
-    });
-  }, [posts]);
 
   return (
     <S.PostWrapper id="wrapper">
@@ -72,10 +55,11 @@ const Dashboard = () => {
           </div>)
       }
       {
-        posts.map((obj) => (
+        posts.map((obj, index) => (
           <Post 
             key={obj.id}
             data={obj}
+            {...(posts.length - 1 === index ? { fetchMorePost, isLastElement: true } : {})}
           />
         ))
       }

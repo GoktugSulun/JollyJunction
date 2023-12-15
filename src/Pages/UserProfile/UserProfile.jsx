@@ -11,7 +11,6 @@ import { snackbar } from '../../Core/Utils/Snackbar';
 import { ModalTypes, NotifierTypes } from '../../Core/Constants/Enums';
 import useHttpResponse from '../../Core/Hooks/useHttpResponse';
 import { PostModalActions } from '../../Components/PostModal/Store/PostModal.slice';
-import { intersectionObserver } from '../../Core/Helpers';
 
 const UserProfile = () => {
   const dispatch = useDispatch();
@@ -32,14 +31,6 @@ const UserProfile = () => {
       navigate('/');
     }
   }, UserProfileSagaActions.getUserById());
-
-  useHttpResponse({
-    success: ({ idleAction }) => {
-      idleAction();
-      const element = Array.from(document.querySelectorAll('.post'))?.at(-1);
-      intersectionObserver({ element, callback: fetchMorePost, threshold: 0.8, triggerOnce: true });
-    }
-  }, DashboardSagaActions.getPosts());
 
   // useEffect(() => {
   //   if ((parseInt(params.id) !== authorizedUser?.id)) {
@@ -69,11 +60,12 @@ const UserProfile = () => {
       {
         !posts.length && loading?.getPosts === false
           ? <NoData />
-          : posts.map((obj) => (
+          : posts.map((obj, index) => (
             <Post 
               key={obj.id}
               data={obj}
               className="post"
+              {...(posts.length - 1 === index ? { fetchMorePost, isLastElement: true } : {})}
             />
           ))
       }

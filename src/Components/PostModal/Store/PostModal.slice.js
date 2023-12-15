@@ -12,6 +12,10 @@ const initialState = {
   canBeMoreComment: true,
   postData: {},
   comments: [],
+  videoData: {
+    currentTime: 0,
+    isPlaying: false
+  }
 };
 
 const PostModalSlice = createSlice({
@@ -50,6 +54,9 @@ const PostModalSlice = createSlice({
     editComment: (state, action) => {
       const { id, comment } = action.payload;
       state.comments = state.comments.map((obj) => obj.id === id ? {...obj, comment} : obj);
+    },
+    setVideoData: (state, action) => {
+      state.videoData = action.payload;
     },
     likePost: likePostHandler,
     savePost: savePostHandler

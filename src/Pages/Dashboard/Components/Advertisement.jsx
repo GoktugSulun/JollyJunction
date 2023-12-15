@@ -1,17 +1,17 @@
 import React, { useEffect, useRef, useState } from 'react';
 import * as S from '../Style/Dashboard.style';
 import { useSelector } from 'react-redux';
-import { getAdvertisementImageURL } from '../../../assets/Pngs/Pngs';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import CircleIcon from '@mui/icons-material/Circle';
 import { IconButton } from '@mui/material';
+import { getFileURL } from '../../../Core/Utils/File';
 
 const Advertisement = () => {
   const intervalRef = useRef(null);
   const [index, setIndex] = useState(0);  
   const { advertisements } = useSelector((state) => state.AppConfig.init);
-  const { img, title, description, url, url_path } = advertisements?.[index] || {};
+  const { title, description, url, url_path } = advertisements?.[index] || {};
 
   const navigate = () => {
     window.open(url_path, '_blank');
@@ -68,7 +68,17 @@ const Advertisement = () => {
             </S.DotIconButton>
           ))}
         </div>
-        <img onClick={navigate} src={getAdvertisementImageURL(img)} alt="advertisement" />
+        {
+          advertisements.map((obj, idx) => (
+            <img 
+              key={obj.id} 
+              className={`image ${idx === index ? 'image__active' : ''}`} 
+              onClick={navigate} 
+              src={getFileURL(obj.img)} 
+              alt="advertisement" 
+            />
+          ))
+        }
       </div>
       <div className="sponsor">
         <span className="sponsor__name"> {title} </span>

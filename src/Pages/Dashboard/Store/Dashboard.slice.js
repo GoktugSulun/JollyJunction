@@ -11,7 +11,12 @@ const initialState = {
   limit: 10,
   canBeMorePost: true,
   friends: [],
-  isMuted: true
+  isMuted: true,
+  videoData: {
+    isLegal: false, //* when postModal is closed, it is gonna be true and after video settings is changed, it is gonna be again false.
+    currentTime: 0,
+    isPlaying: false
+  }
 };
 
 const DashboardSlice = createSlice({
@@ -65,6 +70,14 @@ const DashboardSlice = createSlice({
     },
     setFriends: (state, action) => {
       state.friends = action.payload;
+    },
+    setVideoData: (state, action) => {
+      const { isLegal, currentTime, isPlaying } = action.payload;
+      if (isLegal) {
+        state.videoData = { isLegal, currentTime, isPlaying };
+      } else {
+        state.videoData = { isLegal: false, currentTime: 0, isPlaying: false };
+      }
     },
     filterFriends: (state, action) => {
       const { friend_id } = action.payload;
