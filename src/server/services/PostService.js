@@ -226,6 +226,35 @@ class PostService {
       };
     }
   }
+
+  static async delete(req, res) {
+    try {
+      const { id } = req.params;
+      const { posts } = postsDB.data;
+
+      const index = posts.findIndex((obj) => obj.id === parseInt(id));
+      if (index === -1) {
+        return {
+          type: false,
+          message: `Post with id ${id} couldn't find`,
+        };
+      }
+
+      const postData = { ...posts[index], is_removed: true };
+      posts.splice(index, 1, postData);
+      await postsDB.write();
+
+      return {
+        type: true,
+        message: 'Post is deleted'
+      };
+    } catch (error) {
+      return {
+        type: false,
+        message: error.message
+      };
+    }
+  }
 }
   
 export default PostService;
