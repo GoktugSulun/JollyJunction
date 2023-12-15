@@ -32,6 +32,7 @@ const CommentsSectionFooter = () => {
     };
     dispatch(DashboardSagaActions.likePost(payload));
   };
+  
   const saveHandler = () => {
     const payload = {
       save: !postData.saved,
@@ -45,12 +46,8 @@ const CommentsSectionFooter = () => {
       <div className="tools">
         <div className="tools__like-comment">
           <Tooltip title={postData.liked ? 'Unlike' : 'Like'} placement="top">
-            <IconButton onClick={likeHandler} >
-              { 
-                postData.liked
-                  ? <FavoriteIcon /> 
-                  : <FavoriteBorderIcon /> 
-              } 
+            <IconButton onClick={likeHandler}>
+              { postData.liked ? <FavoriteIcon /> : <FavoriteBorderIcon /> } 
             </IconButton>
           </Tooltip>
           <Tooltip title="Comment" placement="top">
@@ -61,11 +58,7 @@ const CommentsSectionFooter = () => {
         </div>
         <Tooltip title={postData.saved ? 'Unsave' : 'Save'} placement="top">
           <IconButton onClick={saveHandler}>
-            { 
-              postData.saved
-                ? <BookmarkIcon /> 
-                : <BookmarkBorderIcon /> 
-            } 
+            { postData.saved ? <BookmarkIcon /> : <BookmarkBorderIcon /> } 
           </IconButton>
         </Tooltip>
       </div>

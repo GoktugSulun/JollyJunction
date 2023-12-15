@@ -13,22 +13,23 @@ import Image from './Components/Image';
 import Video from './Components/Video';
 
 const options = {
-  root: null,
   rootMargin: '100% 0px',
-  threshold: 0
 };
 
 const optionsForLastElement = {
-  root: null,
-  rootMargin: '0px',
   threshold: 1
+};
+
+const optionsForVideo = {
+  threshold: 0.70
 };
 
 const Post = ({ data, isLastElement, fetchMorePost }) => {
   const dispatch = useDispatch();
+  const [src, setSrc] = useState('');
   const { ref, isIntersecting } = useIntersectionObserver({ options });
   const { ref: lastElementRef, isIntersecting: isIntersectingLastElement } = useIntersectionObserver({ options: optionsForLastElement, triggerOnce: true });
-  const [src, setSrc] = useState('');
+  const { ref: videoRef, isIntersecting: isVideoIntersecting } = useIntersectionObserver({ options: optionsForVideo, dependencies: [src] });
 
   const likeHandler = () => {
     const payload = {
@@ -41,7 +42,7 @@ const Post = ({ data, isLastElement, fetchMorePost }) => {
   const fileType = getFileType(data.files[0]?.type);
   const fileElement = {
     [FileTypeEnums.IMAGE]: <Image data={data} likeHandler={likeHandler} src={src} />,
-    [FileTypeEnums.VIDEO]: <Video data={data} src={src} />
+    [FileTypeEnums.VIDEO]: <Video data={data} src={src} videoRef={videoRef} isVideoIntersecting={isVideoIntersecting} />
   };
 
   useEffect(() => {
@@ -79,6 +80,7 @@ const Post = ({ data, isLastElement, fetchMorePost }) => {
       <PostFooter 
         likeHandler={likeHandler} 
         data={data} 
+        {...(fileType === FileTypeEnums.VIDEO ? { videoRef } : {})}
       />
     </S.Post>
   );

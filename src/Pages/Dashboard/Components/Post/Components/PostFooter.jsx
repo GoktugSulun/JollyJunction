@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import PropTypes from 'prop-types';
 import { useDispatch } from 'react-redux';
 import { DashboardSagaActions } from '../../../Store/Dashboard.saga';
@@ -11,7 +11,7 @@ import BookmarkIcon from '@mui/icons-material/Bookmark';
 import { PostModalActions } from '../../../../../Components/PostModal/Store/PostModal.slice';
 import { ModalTypes } from '../../../../../Core/Constants/Enums';
 
-const PostFooter = ({ data, likeHandler }) => {
+const PostFooter = ({ data, likeHandler, videoRef }) => {
   const dispatch = useDispatch();
 
   const saveHandler = () => {
@@ -23,6 +23,13 @@ const PostFooter = ({ data, likeHandler }) => {
   };
 
   const openPostModal = () => {
+    if (videoRef.current) {
+      dispatch(PostModalActions.setVideoData({ 
+        currentTime: videoRef.current.currentTime, 
+        isPlaying: !videoRef.current.paused,
+      }));
+      videoRef.current.pause();
+    }
     dispatch(PostModalActions.setPostData(data));
     dispatch(PostModalActions.handleModal(ModalTypes.OPEN));
   };
@@ -32,11 +39,7 @@ const PostFooter = ({ data, likeHandler }) => {
       <div className="buttons__group">
         <Tooltip title={data.liked ? 'Unlike' : 'Like'} >
           <IconButton onClick={likeHandler} >
-            { 
-              data.liked 
-                ? <FavoriteIcon /> 
-                : <FavoriteBorderIcon /> 
-            } 
+            { data.liked ? <FavoriteIcon /> : <FavoriteBorderIcon />  } 
           </IconButton>
         </Tooltip>
         <span className="count"> { data.likes_count } </span>
@@ -49,11 +52,7 @@ const PostFooter = ({ data, likeHandler }) => {
       </div>
       <Tooltip title={data.saved ? 'Unsave' : 'Save'} >
         <IconButton onClick={saveHandler}>
-          { 
-            data.saved
-              ? <BookmarkIcon /> 
-              : <BookmarkBorderIcon /> 
-          } 
+          { data.saved ? <BookmarkIcon /> : <BookmarkBorderIcon />  } 
         </IconButton>
       </Tooltip>
     </div>
@@ -65,4 +64,14 @@ export default PostFooter;
 PostFooter.propTypes = {
   data: PropTypes.object.isRequired,
   likeHandler: PropTypes.func.isRequired,
+  videoRef: PropTypes.shape({
+    current: PropTypes.oneOfType([
+      PropTypes.instanceOf(Element), 
+      PropTypes.oneOf([null]), 
+    ]),
+  })
+};
+
+PostFooter.defaultProps = {
+  videoRef: { current: null }
 };

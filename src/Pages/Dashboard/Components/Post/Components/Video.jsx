@@ -1,39 +1,33 @@
 import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { useDispatch, useSelector } from 'react-redux';
-import { useIntersectionObserver } from '../../../../../Hooks';
 import { DashboardActions } from '../../../Store/Dashboard.slice';
 
-const options = {
-  threshold: 0.70
-};
-
-const Video = ({ data, src }) => {
+const Video = ({ data, src, videoRef, isVideoIntersecting }) => {
   const dispatch = useDispatch();
   const { isMuted } = useSelector((state) => state.Dashboard);
-  const { ref, isIntersecting } = useIntersectionObserver({ options, dependencies: [src] });
  
   useEffect(() => {
-    if (!ref.current) {
+    if (!videoRef.current) {
       return;
     }
-    if (isIntersecting) {
-      if (ref.current.paused) {
-        ref.current.play();
+    if (isVideoIntersecting) {
+      if (videoRef.current.paused) {
+        videoRef.current.play();
       }
     } else {
-      if (!ref.current.paused) {
-        ref.current.pause();
+      if (!videoRef.current.paused) {
+        videoRef.current.pause();
       }
     }
-  }, [isIntersecting, ref.current, data.id]);
+  }, [isVideoIntersecting, data.id]);
 
   return (
     <video 
-      ref={ref}
+      ref={videoRef}
       key={src} 
       className="file file__video" 
-      controls={isIntersecting}
+      controls={isVideoIntersecting}
       preload="metadata"
       loop
       muted={isMuted}
@@ -50,4 +44,7 @@ export default Video;
 Video.propTypes = {
   data: PropTypes.object.isRequired,
   src: PropTypes.string.isRequired,
+  videoRef: PropTypes.object.isRequired,
+  isVideoIntersecting: PropTypes.bool.isRequired,
 };
+

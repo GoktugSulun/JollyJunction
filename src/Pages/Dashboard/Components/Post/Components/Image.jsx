@@ -4,16 +4,20 @@ import { useDispatch } from 'react-redux';
 import PropTypes from 'prop-types';
 import { ModalTypes } from '../../../../../Core/Constants/Enums';
 
-const Image = ({ data, src, likeHandler }) => {
+const Image = ({ data, src, likeHandler, inPostModal }) => {
   const dispatch = useDispatch();
   const clickTimeout = useRef(null);
+
+  const handleLike = () => {
+    if (!data.liked) {
+      likeHandler();
+    }
+  };
 
   const onClickHandler = () => {  
     clearTimeout(clickTimeout.current);
     if (clickTimeout.current) {
-      if (!data.liked) {
-        likeHandler();
-      }
+      handleLike();
       clickTimeout.current = null;
     } else {
       clickTimeout.current = setTimeout(() => {
@@ -26,7 +30,7 @@ const Image = ({ data, src, likeHandler }) => {
 
   return (
     <img 
-      onClick={onClickHandler} 
+      {...(inPostModal ? { onDoubleClick: handleLike } : { onClick: onClickHandler })}
       loading="lazy" 
       className="file file__image"
       src={src} 
@@ -41,4 +45,9 @@ Image.propTypes = {
   data: PropTypes.object.isRequired,
   src: PropTypes.string.isRequired,
   likeHandler: PropTypes.func.isRequired,
+  inPostModal: PropTypes.bool,
+};
+
+Image.defaultProps = {
+  inPostModal: false
 };

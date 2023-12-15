@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef } from 'react';
 import Modal from '@mui/material/Modal';
 import * as S from './Style/PostModal.style';
 import { useDispatch, useSelector } from 'react-redux';
@@ -11,6 +11,8 @@ import { DashboardSagaActions } from '../../Pages/Dashboard/Store/Dashboard.saga
 import { getFileURL } from '../../Core/Utils/File';
 import { getFileType } from '../../Core/Utils/FileType';
 import FileTypeEnums from '../../Pages/Dashboard/Components/Enums/FileTypeEnums';
+import Image from '../../Pages/Dashboard/Components/Post/Components/Image';
+import Video from './Components/Video';
 
 const PostModal = () => {
   const dispatch = useDispatch();
@@ -18,33 +20,19 @@ const PostModal = () => {
 
   const handleClose = () => dispatch(PostModalActions.handleModal(ModalTypes.CLOSE));
 
-  const getFileElement = () => {
-    const fileType = getFileType(postData.files[0].type);
-    switch (fileType) {
-    case FileTypeEnums.IMAGE:
-      return (
-        <img 
-          loading="lazy" 
-          className="file file__image"
-          src={getFileURL(postData.files?.[0])} 
-          alt="post" 
-        />
-      );
-    case FileTypeEnums.VIDEO:
-      return (
-        <video 
-          key={getFileURL(postData.files[0])} 
-          className="file file__video" 
-          controls
-          preload="metadata"
-        >
-          <source src={getFileURL(postData.files[0]) + '#t=0.5'} type="video/mp4" />
-          Your browser does not support the video tag.
-        </video>
-      );
-    default:
-      throw new Error('Undefined video type: => ', fileType);
-    }
+  const likeHandler = () => {
+    const payload = {
+      like: !postData.liked,
+      post_id: postData.id
+    };
+    dispatch(DashboardSagaActions.likePost(payload));
+  };
+
+  const src = getFileURL(postData?.files?.[0]);
+  const fileType = getFileType(postData?.files?.[0]?.type);
+  const fileElement = {
+    [FileTypeEnums.IMAGE]: <Image data={postData} likeHandler={likeHandler} src={src} />,
+    [FileTypeEnums.VIDEO]: <Video />
   };
 
   useHttpResponse({
@@ -69,7 +57,7 @@ const PostModal = () => {
     if (isOpen) {
       dispatch(PostModalSagaActions.getComments({ post_id: postData.id, page: 1, limit }));
     } else {
-      dispatch(PostModalActions.setReset());
+      dispatch(PostModalActions.setReset()); // TODO: bunu düzelt olmaz böyle
     }
   }, [isOpen]);
 
@@ -80,7 +68,7 @@ const PostModal = () => {
         onClose={handleClose}
       >
         <S.PostModal file={!!postData?.files?.length} isOpen={isOpen}>
-          { postData?.files?.length && <S.File> {getFileElement()} </S.File> }
+          { postData?.files?.length && <S.File> {fileElement[fileType]} </S.File> }
           <CommentsSection />
         </S.PostModal>
       </Modal>
