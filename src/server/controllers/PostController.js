@@ -31,7 +31,7 @@ class PostController {
       } catch (error) {
         Helpers.responseMessage(res, ResponseEnums.FAILURE, error.message);
       }
-    }, 500);
+    }, 3000);
   }
 
   static async create(req, res) {
