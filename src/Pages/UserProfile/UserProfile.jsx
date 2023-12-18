@@ -12,6 +12,7 @@ import { ModalTypes, NotifierTypes } from '../../Core/Constants/Enums';
 import useHttpResponse from '../../Core/Hooks/useHttpResponse';
 import { PostModalActions } from '../../Components/PostModal/Store/PostModal.slice';
 import { PostSkeleton } from '../../Components/Skeletons';
+import { AppConfigSagaActions } from '../../Core/Store/AppConfig.saga';
 
 const UserProfile = () => {
   const dispatch = useDispatch();
@@ -38,6 +39,13 @@ const UserProfile = () => {
   //     dispatch(UserProfileSagaActions.getUserById({ user_id: parseInt(params.id) }));
   //   }
   // }, [authorizedUser]);
+
+  useHttpResponse({
+    success: ({ idleAction }) => {
+      idleAction();
+      dispatch(AppConfigSagaActions.getUnseenNotifications({ query: `?is_removed=false&seen=false&receiver_id=${authorizedUser.id}`}));
+    }
+  }, DashboardSagaActions.acceptFriendship());
 
   useEffect(() => {
     if (isNaN(parseInt(params.id))) {

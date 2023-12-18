@@ -11,6 +11,7 @@ app.put('/seen', NotificationController.seen);
 app.put('/read', NotificationController.read);
 app.put('/cancel', NotificationController.cancel);
 app.put('/acceptFriendship', NotificationController.acceptFriendship);
+app.put('/rejectFriendship', NotificationController.rejectFriendship);
 app.delete('/delete', NotificationController.delete);
 
 export default app;

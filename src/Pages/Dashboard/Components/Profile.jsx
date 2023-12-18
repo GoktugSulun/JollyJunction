@@ -135,7 +135,7 @@ const Profile = () => {
     success: () => {
       fetchUser();
     }
-  }, NotificationSagaActions.friendship());
+  }, DashboardSagaActions.rejectFriendship());
 
   useHttpResponse({
     success: () => {
@@ -147,7 +147,7 @@ const Profile = () => {
     success: () => {
       fetchUser();
     }
-  }, DashboardSagaActions.deleteFriend());
+  }, NotificationSagaActions.cancelFriendshipRequest());
   
   return (
     <S.Profile>

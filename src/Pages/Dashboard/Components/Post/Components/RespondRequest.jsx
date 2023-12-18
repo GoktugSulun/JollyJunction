@@ -1,14 +1,15 @@
 import React from 'react';
 import { Button } from '../../../../../Core/Components/Buttons/Button.style';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import * as S from '../../../Style/Dashboard.style';
 import PropTypes from 'prop-types';
 import { DashboardSagaActions } from '../../../Store/Dashboard.saga';
-import FriendshipEnums from '../../../../../server/constants/Enums/FriendshipEnums';
-import { NotificationSagaActions } from '../../../../Notifications/Store/Notifications.saga';
+import useHttpResponse from '../../../../../Core/Hooks/useHttpResponse';
+import { AppConfigSagaActions } from '../../../../../Core/Store/AppConfig.saga';
 
 const RespondRequest = ({ sender_id }) => {
   const dispatch = useDispatch();
+  const { authorizedUser } = useSelector((state) => state.AppConfig.init);
 
   const acceptHandler = () => {
     const payload = {
@@ -18,12 +19,18 @@ const RespondRequest = ({ sender_id }) => {
   };
 
   const rejectHandler = () => {
-    // const payload = {
-    //   notification_id: data.id,
-    //   type: FriendshipEnums.REJECT
-    // };
-    // dispatch(NotificationSagaActions.friendship(payload));
+    const payload = {
+      sender_id
+    };
+    dispatch(DashboardSagaActions.rejectFriendship(payload));
   };
+
+  useHttpResponse({
+    success: ({ idleAction }) => {
+      idleAction();
+      dispatch(AppConfigSagaActions.getUnseenNotifications({ query: `?is_removed=false&seen=false&receiver_id=${authorizedUser.id}`}));
+    }
+  }, DashboardSagaActions.rejectFriendship());
 
   return (
     <S.RespondRequest>

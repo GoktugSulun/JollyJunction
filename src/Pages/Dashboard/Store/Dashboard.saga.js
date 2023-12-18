@@ -16,6 +16,7 @@ export const DashboardSagaActions = {
   savePost: createAction(`${mainSagaName}/savePost`),
   addFriend: createAction(`${mainSagaName}/addFriend`),
   acceptFriendship: createAction(`${mainSagaName}/acceptFriendship`),
+  rejectFriendship: createAction(`${mainSagaName}/rejectFriendship`),
   getFriends: createAction(`${mainSagaName}/getFriends`),
   deleteFriend: createAction(`${mainSagaName}/deleteFriend`),
   deletePost: createAction(`${mainSagaName}/deletePost`),
@@ -75,6 +76,15 @@ export default [
     * func({ payload }) {
       const response = yield call(request, HttpMethodTypes.PUT, `${ApiUrl.acceptFriendship}`, payload);
       yield put(DashboardActions.editFriendAttribute({ receiver_id: payload.sender_id, canBeFriend: false }));
+      yield put(snackbar(response.message));
+    }
+  }),
+  createSagaWatcher({
+    actionType: DashboardSagaActions.rejectFriendship.type,
+    takeType: SagaTakeTypes.TAKE_LATEST,
+    * func({ payload }) {
+      const response = yield call(request, HttpMethodTypes.PUT, `${ApiUrl.rejectFriendship}`, payload);
+      yield put(DashboardActions.editFriendAttribute({ receiver_id: payload.sender_id, canBeFriend: true }));
       yield put(snackbar(response.message));
     }
   }),

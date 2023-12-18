@@ -381,6 +381,37 @@ class NotificationService {
       };
     }
   }
+
+  static async rejectFriendship(req, res) {
+    try {
+      const { sender_id } = req.body;
+      const targetNotification = await this.get({ query: { sender_id, receiver_id: authorizedUserId, type: NotificationTypes.REQUEST_FOR_FRIENDSHIP, is_removed: false } });
+      if (!targetNotification.type) {
+        return {
+          type: false,
+          message: targetNotification.message
+        };
+      }
+
+      const friendshipResult = await this.friendship({ body: { type: FriendshipEnums.REJECT, notification_id: targetNotification.data.notifications[0].id, seen: false } });
+      if (!friendshipResult.type) {
+        return {
+          type: false,
+          message: friendshipResult.message
+        };
+      }
+      
+      return {
+        type: true,
+        message: 'Friendship request is rejected'
+      };
+    } catch (error) {
+      return {
+        type: false,
+        message: error.message
+      };
+    }
+  }
 }
 
 export default NotificationService;
