@@ -45,12 +45,6 @@ const Dashboard = () => {
       <CreatePost />
       { loading?.createPost && <PostSkeleton /> }
       <Posts />
-      {
-        loading?.getPosts &&
-          (<div className="loading-container">
-            <Loading size={50} />
-          </div>)
-      }
     </S.PostWrapper>
   );
 };

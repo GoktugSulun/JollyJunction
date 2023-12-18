@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
 import { ContentWrapper } from '../../../Core/Components/Pages/ContentWrapper.style';
-import { IconButton, Menu } from '@mui/material';
+import { IconButton } from '@mui/material';
 import overridedProps from '../../../Core/Helpers/overridedProps';
 import { SettingsMenu } from '../../Notifications/Style/Notifications.style';
 
@@ -17,22 +17,9 @@ export const ProfileWrapper = styled.div`
 `;
 
 export const PostWrapper = styled.div`
-   .loading-container {
-      margin: 50px 0;
-   }
-   .more-button-container {
-      margin: 25px 0;
-      display: flex;
-      justify-content: center;
-      button {
-         width: 50%;
-      }
-   }
-   @media (max-width: 900px) {
-      .more-button-container {
-         button {
-            width: 100%;
-         }
+   .posts-wrapper {
+      .loading-container {
+         margin: 50px 0;
       }
    }
 `;
@@ -449,7 +436,7 @@ export const Post = styled.div`
    .description {
       color: #c9c9c9;
       font-size: 14px;
-      margin-top: 10px;
+      /* margin-top: 10px; */
    }
    .file {
       width: 100%;

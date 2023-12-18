@@ -28,7 +28,7 @@ const optionsForVideo = {
 const Post = ({ data, isLastElement, fetchMorePost }) => {
   const dispatch = useDispatch();
   const [src, setSrc] = useState('');
-  const { loading, postsInProcess } = useSelector((state) => state.Dashboard);
+  const { postsInProcess } = useSelector((state) => state.Dashboard);
   const { ref, isIntersecting } = useIntersectionObserver({ options });
   const { ref: lastElementRef, isIntersecting: isIntersectingLastElement } = useIntersectionObserver({ options: optionsForLastElement, triggerOnce: true });
   const { ref: videoRef, isIntersecting: isVideoIntersecting } = useIntersectionObserver({ options: optionsForVideo, dependencies: [src] });
