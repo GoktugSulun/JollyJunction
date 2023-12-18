@@ -13,6 +13,7 @@ import FriendshipEnums from '../../server/constants/Enums/FriendshipEnums';
 import { useNavigate } from 'react-router-dom';
 import Notification from './Components/Notification';
 import NoData from '../UserProfile/Components/NoData';
+import { NotificationSkeleton } from '../../Components/Skeletons';
 
 const Notifications = () => {
   const dispatch = useDispatch();
@@ -109,6 +110,7 @@ const Notifications = () => {
             />
           )
       }
+      { loading?.getNotifications && <NotificationSkeleton count={5} /> }
       { loading?.getNotifications && <Loading margin="15px 0 0 0" /> }
     </S.NotificationsContent>
   );

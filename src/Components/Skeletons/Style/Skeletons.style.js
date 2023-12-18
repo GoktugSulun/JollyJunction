@@ -69,3 +69,21 @@ export const CommentSkeleton = styled.div`
       }
    }
 `;
+
+export const NotificationSkeleton = styled.div`
+   display: flex;
+   align-items: center;
+   gap: 30px;
+   background: #181818;
+   padding: 15px 25px;
+   border-radius: 10px;
+   :not(:last-child) {
+      margin-bottom: 20px;
+   }
+   .content {
+      flex: 1;
+      .MuiSkeleton-root:nth-child(1) {
+         margin-bottom: 10px;
+      }
+   }
+`;
