@@ -278,31 +278,40 @@ export const FriendList = styled.div`
    background: #181818;
    border-radius: 10px;
    margin-top: 30px;
-   padding: 25px;
+   padding-bottom: 20px;
    .title {
       color: #c9c9c9;
       font-weight: 500;
-      margin-bottom: 20px;
+      padding: 25px 25px 0 25px;
    }
-   .friend {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 10px;
-      margin-top: 20px;
-      .MuiIconButton-root {
-         background-color: #333;
-         :hover {
-            background-color: #555;
-         }
-         svg path {
-            fill: #927CD9;
+   .friend-list {
+      max-height: 30vh;
+      overflow: auto;
+      padding: 0 15px 10px;
+      margin: 0 10px;
+      ::-webkit-scrollbar {
+         width: 5px;
+      }
+      .friend {
+         display: flex;
+         justify-content: space-between;
+         align-items: center;
+         gap: 10px;
+         margin-top: 20px;
+         .MuiIconButton-root {
+            background-color: #333;
+            :hover {
+               background-color: #555;
+            }
+            svg path {
+               fill: #927CD9;
+            }
          }
       }
-   }
-   .no-friend {
-      color: #575757;
-      font-size: 14px;
+      .no-friend {
+         color: #575757;
+         font-size: 14px;
+      }
    }
 `;
 

@@ -15,6 +15,13 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import { UserProfileSagaActions } from '../../UserProfile/Store/UserProfile.saga';
 import SocialMediaEnums from './Enums/SocialMediaEnums';
 import { getFileURL } from '../../../Core/Utils/File';
+import AddFriend from './Post/Components/AddFriend';
+import RespondRequest from './Post/Components/RespondRequest';
+import Cancel from './Post/Components/Cancel';
+import useHttpResponse from '../../../Core/Hooks/useHttpResponse';
+import { DashboardSagaActions } from '../Store/Dashboard.saga';
+import { NotificationSagaActions } from '../../Notifications/Store/Notifications.saga';
+import PersonRemoveIcon from '@mui/icons-material/PersonRemove';
 
 const Profile = () => {
   const dispatch = useDispatch();
@@ -26,6 +33,14 @@ const Profile = () => {
 
   const navigateSettings = () => {
     navigate('/settings');
+  };
+
+  const removeFriend = (friend_id) => {
+    const payload = {
+      user_id: authorizedUser.id,
+      friend_id
+    };
+    dispatch(DashboardSagaActions.deleteFriend(payload));
   };
 
   const getSocialMediaIcon = (type) => {
@@ -41,6 +56,58 @@ const Profile = () => {
     }
   };
 
+  const getAddRemoveFriendshipComponent = () => {
+    console.log(data, ' data');
+    if (data?.canBeFriend === false) {
+      return (
+        <Tooltip title="Remove Friend" placement="top" >
+          <IconButton onClick={() => removeFriend(data.id)}>
+            <PersonRemoveIcon />
+          </IconButton>
+        </Tooltip>
+      );
+    }
+
+    if (data?.canBeFriend === true) {
+      return <AddFriend id={data.id} />;
+    }
+    
+    return null;
+  };
+
+  const getComponentAboutFriendship = () => {
+    if (!data?.id || authorizedUser.id === data.id) {
+      return null;
+    }
+    if (data.canBeFriend?.sender_id === data.id) {
+      return (
+        <>
+          <RespondRequest sender_id={data.id} />
+          <Divider />
+        </>
+      );
+    }
+
+    if (data.canBeFriend?.sender_id === authorizedUser.id) {
+      return (
+        <>
+          <Cancel receiver_id={data.id} />
+          <Divider />
+        </>
+      );
+    }
+
+    return null;
+  };
+
+  const fetchUser = () => {
+    const user_id = pathname?.split('/')?.[3];
+    if (pathname.includes('/profile') && authorizedUser?.id !== parseInt(user_id)) {
+      const user_id = pathname.split('/')[3];
+      dispatch(UserProfileSagaActions.getUserById({ user_id }));
+    }
+  };
+
   useEffect(() => {
     if (loading?.getUserById) {
       return;
@@ -48,19 +115,40 @@ const Profile = () => {
     const user_id = pathname?.split('/')?.[3];
     if (pathname.includes('/profile') && authorizedUser?.id !== parseInt(user_id)) {
       setData(user);
+      console.log(user, ' user');
     } else {
       setData(authorizedUser);
     }
   }, [loading, pathname]);
 
   useEffect(() => {
-    const user_id = pathname?.split('/')?.[3];
-    if (pathname.includes('/profile') && authorizedUser?.id !== parseInt(user_id)) {
-      const user_id = pathname.split('/')[3];
-      dispatch(UserProfileSagaActions.getUserById({ user_id }));
-    }
+    fetchUser();
   }, [pathname]);
 
+  useHttpResponse({
+    success: () => {
+      fetchUser();
+    }
+  }, DashboardSagaActions.acceptFriendship());
+
+  useHttpResponse({
+    success: () => {
+      fetchUser();
+    }
+  }, NotificationSagaActions.friendship());
+
+  useHttpResponse({
+    success: () => {
+      fetchUser();
+    }
+  }, DashboardSagaActions.addFriend());
+
+  useHttpResponse({
+    success: () => {
+      fetchUser();
+    }
+  }, DashboardSagaActions.deleteFriend());
+  
   return (
     <S.Profile>
       <div className="user">
@@ -72,14 +160,16 @@ const Profile = () => {
         />
         {
           authorizedUser.id === data?.id 
-            && (<Tooltip title="Edit My Informations">
+            ? (<Tooltip title="Edit My Informations">
               <IconButton onClick={navigateSettings}>
                 <SettingsIcon />
               </IconButton>
             </Tooltip>)
+            : data?.id && getAddRemoveFriendshipComponent()
         }
       </div>
       <Divider />
+      { getComponentAboutFriendship() }
       <div className="user-detail">
         <div className="user-detail__row">
           <LocationOnIcon />

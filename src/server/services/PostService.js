@@ -5,11 +5,15 @@ import LikeService from './LikeService.js';
 import NotificationService from './NotificationService.js';
 import SaveService from './SaveService.js';
 
-const canBeFriendHandler = (user_id) => {
+export const canBeFriendHandler = (user_id) => {
   const { notifications } = notificationsDB.data;
   const { friends } = friendsDB.data;
   const isMe = authorizedUserId === user_id;
-  const isFriend = !!friends.find((friendObj) => friendObj.user_id === authorizedUserId)?.friends?.find((friendId) => friendId === user_id);
+  const isFriend = !!friends.find((friendObj) => friendObj.user_id === authorizedUserId)
+    ?.friends?.find((obj) => obj.friend_id === user_id && !obj.is_removed);
+
+    console.log(isFriend, ' isFriend sonucuu');
+    console.log(!!friends.find((friendObj) => friendObj.user_id === authorizedUserId), ' !!friends.find((friendObj) => friendObj.user_id === authorizedUserId) alo => ', user_id);
   if (isMe || isFriend) {
     return false;
   }
@@ -30,6 +34,7 @@ const canBeFriendHandler = (user_id) => {
       && notificationObj.type === NotificationTypes.REQUEST_FOR_FRIENDSHIP
       && !notificationObj.is_removed
   );
+  
   if (didGetRequestForFriendship) {
     return { sender_id: user_id };
   }
@@ -104,7 +109,7 @@ class PostService {
   static async get(req, res) {
     try {
       const { posts } = postsDB.data;
-      const { page, limit, user_id, is_removed } = req.query;
+      const { page = 1, limit = 10, user_id, is_removed } = req.query;
       const startIndex = (page - 1) * limit;
       const endIndex = page * limit; 
 

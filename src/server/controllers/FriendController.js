@@ -4,12 +4,14 @@ import FriendService from '../services/FriendService.js';
 
 class FriendController {
   static async get(req, res) {
-    try {
-      const result = await FriendService.get(req, res);
-      Helpers.responseJSON(res, result);
-    } catch (error) {
-      Helpers.responseMessage(res, ResponseEnums.FAILURE, error.message);
-    }
+    setTimeout(async () => {
+      try {
+        const result = await FriendService.get(req, res);
+        Helpers.responseJSON(res, result);
+      } catch (error) {
+        Helpers.responseMessage(res, ResponseEnums.FAILURE, error.message);
+      }
+    }, 3000);
   }
 
   static async delete(req, res) {

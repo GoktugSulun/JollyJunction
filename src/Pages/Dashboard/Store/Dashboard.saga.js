@@ -15,7 +15,6 @@ export const DashboardSagaActions = {
   likePost: createAction(`${mainSagaName}/likePost`),
   savePost: createAction(`${mainSagaName}/savePost`),
   addFriend: createAction(`${mainSagaName}/addFriend`),
-  removeFriend: createAction(`${mainSagaName}/removeFriend`),
   acceptFriendship: createAction(`${mainSagaName}/acceptFriendship`),
   getFriends: createAction(`${mainSagaName}/getFriends`),
   deleteFriend: createAction(`${mainSagaName}/deleteFriend`),

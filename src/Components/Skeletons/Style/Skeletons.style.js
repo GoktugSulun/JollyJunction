@@ -87,3 +87,16 @@ export const NotificationSkeleton = styled.div`
       }
    }
 `;
+
+export const FriendSkeleton = styled.div`
+   display: flex;
+   align-items: center;
+   gap: 20px;
+   margin-top: 20px;
+   .content {
+      flex: 1;
+      .MuiSkeleton-root:nth-child(1) {
+         margin-bottom: 10px;
+      }
+   }
+`;

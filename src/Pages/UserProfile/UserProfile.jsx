@@ -11,6 +11,7 @@ import { snackbar } from '../../Core/Utils/Snackbar';
 import { ModalTypes, NotifierTypes } from '../../Core/Constants/Enums';
 import useHttpResponse from '../../Core/Hooks/useHttpResponse';
 import { PostModalActions } from '../../Components/PostModal/Store/PostModal.slice';
+import { PostSkeleton } from '../../Components/Skeletons';
 
 const UserProfile = () => {
   const dispatch = useDispatch();
@@ -69,6 +70,7 @@ const UserProfile = () => {
             />
           ))
       }
+      { loading?.getPosts && <PostSkeleton count={2} />}
       { loading?.getPosts && <div className="loading-container"> <Loading /> </div> }
     </div>
   );

@@ -65,7 +65,7 @@ const Notifications = () => {
     success: ({ idleAction, payload }) => {
       idleAction();
       if (payload.type === FriendshipEnums.ACCEPT) {
-        const payload = { query: `?user_id=${authorizedUser.id}` };
+        const payload = { query: `?user_id=${authorizedUser.id}&is_removed=false` };
         dispatch(DashboardSagaActions.getFriends(payload));
       }
     }
@@ -89,7 +89,7 @@ const Notifications = () => {
 
   useEffect(() => {
     dispatch(NotificationSagaActions.getNotifications({ queries: `?page=${1}&limit=${limit}&receiver_id=${authorizedUser.id}&is_removed=${false}` }));
-    dispatch(DashboardSagaActions.getFriends({ query: `?user_id=${authorizedUser.id}` }));
+    dispatch(DashboardSagaActions.getFriends({ query: `?user_id=${authorizedUser.id}&is_removed=false` }));
     return () => {
       dispatch(NotificationActions.setReset());
       dispatch(PostModalActions.handleModal(ModalTypes.CLOSE));

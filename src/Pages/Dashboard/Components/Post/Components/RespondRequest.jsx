@@ -4,19 +4,25 @@ import { useDispatch } from 'react-redux';
 import * as S from '../../../Style/Dashboard.style';
 import PropTypes from 'prop-types';
 import { DashboardSagaActions } from '../../../Store/Dashboard.saga';
+import FriendshipEnums from '../../../../../server/constants/Enums/FriendshipEnums';
+import { NotificationSagaActions } from '../../../../Notifications/Store/Notifications.saga';
 
 const RespondRequest = ({ sender_id }) => {
   const dispatch = useDispatch();
 
-  const accept = () => {
+  const acceptHandler = () => {
     const payload = {
       sender_id
     };
     dispatch(DashboardSagaActions.acceptFriendship(payload));
   };
 
-  const reject = () => {
-    console.log('reject');
+  const rejectHandler = () => {
+    // const payload = {
+    //   notification_id: data.id,
+    //   type: FriendshipEnums.REJECT
+    // };
+    // dispatch(NotificationSagaActions.friendship(payload));
   };
 
   return (
@@ -24,14 +30,14 @@ const RespondRequest = ({ sender_id }) => {
       <p className="text"> You&apos;ve got friendship request </p>
       <div className="buttons">
         <Button
-          onClick={accept}
+          onClick={acceptHandler}
           fontSize="14px"
           padding="8px 15px"
         >
          Accept
         </Button>
         <Button
-          onClick={reject}
+          onClick={rejectHandler}
           fontSize="14px"
           bgColor="#2d2d2d"
           padding="8px 15px"
