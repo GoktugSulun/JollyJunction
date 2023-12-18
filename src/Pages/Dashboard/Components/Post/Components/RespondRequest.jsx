@@ -6,6 +6,9 @@ import PropTypes from 'prop-types';
 import { DashboardSagaActions } from '../../../Store/Dashboard.saga';
 import useHttpResponse from '../../../../../Core/Hooks/useHttpResponse';
 import { AppConfigSagaActions } from '../../../../../Core/Store/AppConfig.saga';
+import DoneIcon from '@mui/icons-material/Done';
+import CloseIcon from '@mui/icons-material/Close';
+import { IconButton, Tooltip } from '@mui/material';
 
 const RespondRequest = ({ sender_id }) => {
   const dispatch = useDispatch();
@@ -34,9 +37,19 @@ const RespondRequest = ({ sender_id }) => {
 
   return (
     <S.RespondRequest>
-      <p className="text"> You&apos;ve got friendship request </p>
+      {/* <p className="text"> You&apos;ve got friendship request </p> */}
       <div className="buttons">
-        <Button
+        <Tooltip title="Accept friendship request">
+          <IconButton onClick={acceptHandler}>
+            <DoneIcon />
+          </IconButton>
+        </Tooltip>
+        <Tooltip title="Reject friendship request">
+          <IconButton onClick={rejectHandler}>
+            <CloseIcon />
+          </IconButton>
+        </Tooltip>
+        {/* <Button
           onClick={acceptHandler}
           fontSize="14px"
           padding="8px 15px"
@@ -50,7 +63,7 @@ const RespondRequest = ({ sender_id }) => {
           padding="8px 15px"
         >
          Reject
-        </Button>
+        </Button> */}
       </div>
     </S.RespondRequest>
   );

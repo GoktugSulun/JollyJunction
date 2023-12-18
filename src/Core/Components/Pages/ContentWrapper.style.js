@@ -22,7 +22,7 @@ export const ContentWrapper = styled.div`
    }
    @media (max-width: 900px) {
       grid-template-columns: 1fr;
-      padding: 0 20px;
+      padding: 0 5px;
       gap: 0;
    }
 `;

@@ -57,7 +57,18 @@ const Profile = () => {
   };
 
   const getAddRemoveFriendshipComponent = () => {
-    console.log(data, ' data');
+    if (!data?.id || authorizedUser.id === data.id) {
+      return null;
+    }
+
+    if (data.canBeFriend?.sender_id === data.id) {
+      return <RespondRequest sender_id={data.id} />;
+    }
+
+    if (data.canBeFriend?.sender_id === authorizedUser.id) {
+      return <Cancel receiver_id={data.id} />;
+    }
+
     if (data?.canBeFriend === false) {
       return (
         <Tooltip title="Remove Friend" placement="top" >
@@ -72,31 +83,6 @@ const Profile = () => {
       return <AddFriend id={data.id} />;
     }
     
-    return null;
-  };
-
-  const getComponentAboutFriendship = () => {
-    if (!data?.id || authorizedUser.id === data.id) {
-      return null;
-    }
-    if (data.canBeFriend?.sender_id === data.id) {
-      return (
-        <>
-          <RespondRequest sender_id={data.id} />
-          <Divider />
-        </>
-      );
-    }
-
-    if (data.canBeFriend?.sender_id === authorizedUser.id) {
-      return (
-        <>
-          <Cancel receiver_id={data.id} />
-          <Divider />
-        </>
-      );
-    }
-
     return null;
   };
 
@@ -135,6 +121,12 @@ const Profile = () => {
     success: () => {
       fetchUser();
     }
+  }, DashboardSagaActions.deleteFriend());
+
+  useHttpResponse({
+    success: () => {
+      fetchUser();
+    }
   }, DashboardSagaActions.rejectFriendship());
 
   useHttpResponse({
@@ -161,7 +153,7 @@ const Profile = () => {
         {
           authorizedUser.id === data?.id 
             ? (<Tooltip title="Edit My Informations">
-              <IconButton onClick={navigateSettings}>
+              <IconButton className="settings" onClick={navigateSettings}>
                 <SettingsIcon />
               </IconButton>
             </Tooltip>)
@@ -169,7 +161,6 @@ const Profile = () => {
         }
       </div>
       <Divider />
-      { getComponentAboutFriendship() }
       <div className="user-detail">
         <div className="user-detail__row">
           <LocationOnIcon />

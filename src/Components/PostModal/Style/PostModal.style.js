@@ -12,6 +12,10 @@ export const PostModal = styled.div`
     width: ${(props) => props.file ? '80vw' : '50vw'};
     height: 80vh;
     display: flex;
+    transition: width 350ms;
+    @media (max-width: 900px) {
+        width: 95%;
+    }
 `;
 
 export const File = styled.div`

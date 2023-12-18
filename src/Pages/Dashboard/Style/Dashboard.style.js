@@ -43,17 +43,27 @@ export const Profile = styled.div`
       justify-content: space-between;
       gap: 5px;
       .MuiIconButton-root {
-         svg {
-            path {
-               fill: #9a9a9a;
-            }
-         }
+         background-color: #333;
          :hover {
-            background-color: #333;
-            svg path {
-               fill: #FFFFFF;
-            }
+            background-color: #555;
          }
+         svg path {
+            fill: #927CD9;
+         }
+         &.settings {
+            background-color: transparent;
+            svg {
+               path {
+                  fill: #9a9a9a;
+               }
+            }
+            :hover {
+                  background-color: #333;
+                  svg path {
+                     fill: #FFFFFF;
+                  }
+               }
+            }
       }
    }
    .user-detail {
@@ -499,10 +509,17 @@ export const RespondRequest = styled.div`
    .buttons {
       display: flex;
       align-items: center;
+      justify-content: flex-end;
       gap: 10px;
       margin-top: 5px;
-      button {
-         flex: 1;
+      .MuiIconButton-root {
+         background-color: #333;
+         :hover {
+            background-color: #555;
+         }
+         svg path {
+            fill: #927CD9;
+         }
       }
    }
 `;

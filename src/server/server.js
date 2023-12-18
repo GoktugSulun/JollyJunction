@@ -11,7 +11,7 @@ import path from 'path';
 
 const __dirname = path.resolve();
 
-export const authorizedUserId = 3;
+export const authorizedUserId = 1;
 export const app = express();
 const PORT = 3000;
 
