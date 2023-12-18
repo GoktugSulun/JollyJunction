@@ -10,7 +10,7 @@ import { AppConfigSagaActions } from '../../Core/Store/AppConfig.saga';
 import { PostModalActions } from '../../Components/PostModal/Store/PostModal.slice';
 import { ModalTypes } from '../../Core/Constants/Enums';
 import Posts from './Components/Posts';
-import PostSkeleton from '../../Components/Skeletons/PostSkeleton';
+import { PostSkeleton } from '../../Components/Skeletons';
 
 const Dashboard = () => {
   const dispatch = useDispatch();

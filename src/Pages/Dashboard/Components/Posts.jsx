@@ -2,7 +2,7 @@ import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import Post from './Post/Post';
 import { DashboardSagaActions } from '../Store/Dashboard.saga';
-import PostSkeleton from '../../../Components/Skeletons/PostSkeleton';
+import { PostSkeleton } from '../../../Components/Skeletons';
 
 const Posts = () => {
   const dispatch = useDispatch();

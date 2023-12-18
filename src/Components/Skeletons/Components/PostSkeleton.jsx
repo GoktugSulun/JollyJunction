@@ -1,5 +1,5 @@
 import React from 'react';
-import * as S from './Style/Skeletons.style';
+import * as S from '../Style/Skeletons.style';
 import Skeleton from '@mui/material/Skeleton';
 import PropTypes from 'prop-types';
 
