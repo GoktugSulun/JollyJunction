@@ -33,7 +33,7 @@ const CreateComment = () => {
   };
 
   const onKeyDownHandler = (e) => {
-    if (e.code === 'Enter' && comment.trim() !== '') {
+    if (e.code === 'Enter' && comment.trim() !== '' && !loading?.getComments) {
       createCommentHandler();
     }
   };
@@ -56,7 +56,7 @@ const CreateComment = () => {
         endAdornment={
           loading?.createComment
             ? <Loading size={25} color="#FFFFFF" />
-            : <IconButton onClick={createCommentHandler} disabled={comment.trim() === ''} > <SendIcon /> </IconButton>}
+            : <IconButton onClick={createCommentHandler} disabled={comment.trim() === '' || loading?.getComments} > <SendIcon /> </IconButton>}
         {...registerHandler('comment')}
         onKeyDown={onKeyDownHandler}
       />

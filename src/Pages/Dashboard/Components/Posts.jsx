@@ -25,7 +25,7 @@ const Posts = () => {
           />
         ))
       }
-      { loading?.getPosts && Array.from({ length: 2 }).map((_, i) => <PostSkeleton key={i} />)}
+      { loading?.getPosts && <PostSkeleton count={2} />}
     </div>
   );
 };

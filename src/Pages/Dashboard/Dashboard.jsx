@@ -10,6 +10,7 @@ import { AppConfigSagaActions } from '../../Core/Store/AppConfig.saga';
 import { PostModalActions } from '../../Components/PostModal/Store/PostModal.slice';
 import { ModalTypes } from '../../Core/Constants/Enums';
 import Posts from './Components/Posts';
+import PostSkeleton from '../../Components/Skeletons/PostSkeleton';
 
 const Dashboard = () => {
   const dispatch = useDispatch();
@@ -42,12 +43,7 @@ const Dashboard = () => {
   return (
     <S.PostWrapper>
       <CreatePost />
-      {
-        loading?.createPost &&
-          (<div className="loading-container">
-            <Loading size={50} /> 
-          </div>)
-      }
+      { loading?.createPost && <PostSkeleton /> }
       <Posts />
       {
         loading?.getPosts &&
