@@ -11,9 +11,6 @@ export const canBeFriendHandler = (user_id) => {
   const isMe = authorizedUserId === user_id;
   const isFriend = !!friends.find((friendObj) => friendObj.user_id === authorizedUserId)
     ?.friends?.find((obj) => obj.friend_id === user_id && !obj.is_removed);
-
-    console.log(isFriend, ' isFriend sonucuu');
-    console.log(!!friends.find((friendObj) => friendObj.user_id === authorizedUserId), ' !!friends.find((friendObj) => friendObj.user_id === authorizedUserId) alo => ', user_id);
   if (isMe || isFriend) {
     return false;
   }

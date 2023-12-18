@@ -343,12 +343,16 @@ export const CreatePost = styled.div`
    }
    .file-container {
       position: relative;
-      .file {
-         width: 100%;
-         max-height: 400px;
-         object-fit: scale-down;
-         height: auto;
-         border-radius: 10px;
+      .file-wrapper {
+         display: flex;
+         justify-content: center;
+         .file {
+            width: 100%;
+            max-height: 60vh;
+            object-fit: cover;
+            height: auto;
+            border-radius: 10px;
+         }
       }
       .clear-file-button {
          position: absolute;
@@ -448,11 +452,15 @@ export const Post = styled.div`
       /* margin-top: 10px; */
    }
    .file {
-      width: 100%;
-      height: 60vh;
+      /* width: 100%;
+      height: 60vh; */
+      max-width: 100%;
+      height: auto;
+      max-height: 60vh;
+      object-fit: cover;
       border-radius: 10px;
       cursor: pointer;
-      object-fit: scale-down;
+      /* object-fit: scale-down; */
       &__image {
          /* object-fit: cover; */
       }

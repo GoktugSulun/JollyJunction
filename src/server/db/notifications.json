@@ -407,6 +407,30 @@
       "seen": true,
       "read": false,
       "is_removed": false
+    },
+    {
+      "id": 35,
+      "type": 1,
+      "receiver_id": 1,
+      "sender_id": 3,
+      "post_id": null,
+      "created_at": "Mon Dec 18 2023 21:54:50 GMT+0300 (GMT+03:00)",
+      "updated_at": "Mon Dec 18 2023 21:54:52 GMT+0300 (GMT+03:00)",
+      "seen": false,
+      "read": false,
+      "is_removed": true
+    },
+    {
+      "id": 36,
+      "type": 1,
+      "receiver_id": 1,
+      "sender_id": 3,
+      "post_id": null,
+      "created_at": "Mon Dec 18 2023 21:54:54 GMT+0300 (GMT+03:00)",
+      "updated_at": "Mon Dec 18 2023 21:54:55 GMT+0300 (GMT+03:00)",
+      "seen": false,
+      "read": false,
+      "is_removed": true
     }
   ]
 }

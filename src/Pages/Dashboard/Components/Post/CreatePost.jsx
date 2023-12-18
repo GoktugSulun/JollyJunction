@@ -116,7 +116,7 @@ const CreatePost = () => {
         {
           fileURL && <>
             <Divider margin="20px 0" />
-            { getFileElement(fileURL) }
+            <div className="file-wrapper"> { getFileElement(fileURL) } </div>
             <IconButton disabled={loading?.createPost} className="clear-file-button" onClick={clearFile}>
               <ClearIcon />
             </IconButton>
