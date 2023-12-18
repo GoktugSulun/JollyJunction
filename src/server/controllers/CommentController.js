@@ -35,12 +35,14 @@ class CommentController {
   }
 
   static async create(req, res) {
-    try {
-      const result = await CommentService.create(req, res);
-      Helpers.responseJSON(res, result);
-    } catch (error) {
-      Helpers.responseMessage(res, ResponseEnums.FAILURE, error.message);
-    }
+    setTimeout(async () => {
+      try {
+        const result = await CommentService.create(req, res);
+        Helpers.responseJSON(res, result);
+      } catch (error) {
+        Helpers.responseMessage(res, ResponseEnums.FAILURE, error.message);
+      }
+    }, 3000);
   }
 
   static async like(req, res) {

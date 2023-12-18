@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import Loading from '../../../Core/Components/Loading/Loading';
 import Comment from './Comment';
 import { PostModalSagaActions } from '../Store/PostModal.saga';
+import { CommentSkeleton } from '../../Skeletons';
 
 const CommentsSectionBody = () => {
   const dispatch = useDispatch();
@@ -18,7 +19,7 @@ const CommentsSectionBody = () => {
 
   return (
     <S.CommentsSectionBody>
-      { loading?.createComments && <Loading /> }
+      { loading?.createComment && <CommentSkeleton /> }
       {
         comments.map((obj, index) => (
           <Comment 
@@ -29,6 +30,7 @@ const CommentsSectionBody = () => {
           />
         ))
       }
+      { loading?.getComments && <CommentSkeleton count={3} /> }
       { loading?.getComments && <Loading /> }
     </S.CommentsSectionBody>
   );

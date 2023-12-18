@@ -816,6 +816,106 @@
       "created_at": "Mon Dec 18 2023 16:42:16 GMT+0300 (GMT+03:00)",
       "updated_at": "Mon Dec 18 2023 16:42:16 GMT+0300 (GMT+03:00)",
       "is_removed": false
+    },
+    {
+      "comment": "Ne diyorsun beee harika yalnız",
+      "post_id": 54,
+      "id": 66,
+      "user_id": 1,
+      "likes": [],
+      "created_at": "Mon Dec 18 2023 17:22:11 GMT+0300 (GMT+03:00)",
+      "updated_at": "Mon Dec 18 2023 17:22:11 GMT+0300 (GMT+03:00)",
+      "is_removed": false
+    },
+    {
+      "comment": "mükemmell",
+      "post_id": 54,
+      "id": 67,
+      "user_id": 1,
+      "likes": [],
+      "created_at": "Mon Dec 18 2023 17:23:12 GMT+0300 (GMT+03:00)",
+      "updated_at": "Mon Dec 18 2023 17:23:12 GMT+0300 (GMT+03:00)",
+      "is_removed": false
+    },
+    {
+      "comment": "adsadsa",
+      "post_id": 54,
+      "id": 68,
+      "user_id": 1,
+      "likes": [],
+      "created_at": "Mon Dec 18 2023 17:23:29 GMT+0300 (GMT+03:00)",
+      "updated_at": "Mon Dec 18 2023 17:23:29 GMT+0300 (GMT+03:00)",
+      "is_removed": false
+    },
+    {
+      "comment": "a",
+      "post_id": 54,
+      "id": 69,
+      "user_id": 1,
+      "likes": [],
+      "created_at": "Mon Dec 18 2023 17:23:37 GMT+0300 (GMT+03:00)",
+      "updated_at": "Mon Dec 18 2023 17:23:37 GMT+0300 (GMT+03:00)",
+      "is_removed": false
+    },
+    {
+      "comment": "aadasd",
+      "post_id": 54,
+      "id": 70,
+      "user_id": 1,
+      "likes": [],
+      "created_at": "Mon Dec 18 2023 17:23:49 GMT+0300 (GMT+03:00)",
+      "updated_at": "Mon Dec 18 2023 17:23:49 GMT+0300 (GMT+03:00)",
+      "is_removed": false
+    },
+    {
+      "comment": "adsadadsa",
+      "post_id": 54,
+      "id": 71,
+      "user_id": 1,
+      "likes": [],
+      "created_at": "Mon Dec 18 2023 17:23:57 GMT+0300 (GMT+03:00)",
+      "updated_at": "Mon Dec 18 2023 17:23:57 GMT+0300 (GMT+03:00)",
+      "is_removed": false
+    },
+    {
+      "comment": "adsadsad",
+      "post_id": 54,
+      "id": 72,
+      "user_id": 1,
+      "likes": [],
+      "created_at": "Mon Dec 18 2023 17:24:02 GMT+0300 (GMT+03:00)",
+      "updated_at": "Mon Dec 18 2023 17:24:02 GMT+0300 (GMT+03:00)",
+      "is_removed": false
+    },
+    {
+      "comment": "asdadsadsadas",
+      "post_id": 54,
+      "id": 73,
+      "user_id": 1,
+      "likes": [],
+      "created_at": "Mon Dec 18 2023 17:24:08 GMT+0300 (GMT+03:00)",
+      "updated_at": "Mon Dec 18 2023 17:24:08 GMT+0300 (GMT+03:00)",
+      "is_removed": false
+    },
+    {
+      "comment": "asdadadsadsa",
+      "post_id": 54,
+      "id": 74,
+      "user_id": 1,
+      "likes": [],
+      "created_at": "Mon Dec 18 2023 17:24:14 GMT+0300 (GMT+03:00)",
+      "updated_at": "Mon Dec 18 2023 17:24:14 GMT+0300 (GMT+03:00)",
+      "is_removed": false
+    },
+    {
+      "comment": "aaa",
+      "post_id": 54,
+      "id": 75,
+      "user_id": 1,
+      "likes": [],
+      "created_at": "Mon Dec 18 2023 17:24:24 GMT+0300 (GMT+03:00)",
+      "updated_at": "Mon Dec 18 2023 17:24:24 GMT+0300 (GMT+03:00)",
+      "is_removed": false
     }
   ]
 }
