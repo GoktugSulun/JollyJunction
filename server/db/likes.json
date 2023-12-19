@@ -155,6 +155,12 @@
       "post_id": 54,
       "user_id": 3,
       "created_at": "Mon Dec 18 2023 22:22:04 GMT+0300 (GMT+03:00)"
+    },
+    {
+      "id": 36,
+      "post_id": 57,
+      "user_id": 1,
+      "created_at": "Tue Dec 19 2023 23:17:02 GMT+0300 (GMT+03:00)"
     }
   ]
 }

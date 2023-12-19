@@ -27,7 +27,7 @@ const defaultValues = {
 const Login = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { loading, user } = useSelector((state) => state.Login);
+  const { loading } = useSelector((state) => state.Login);
   const { registerHandler, form } = useMaterialForm({
     defaultValues,
     schema
@@ -58,20 +58,11 @@ const Login = () => {
     }
   };
 
-  useHttpResponse({
-    success: ({ idleAction }) => {
-      idleAction();
-      localStorage.setItem('user_id', user?.id);
-      navigate('/');
-    }
-  }, LoginSagaActions.login());
-
   return (
     <S.Login>
       <div className="container">
         <div className="sign-in">
           <h1 className="sign-in__title"> Sign In </h1>
-          { import.meta.env?.VITE_TOKEN_SECRET }
           <div className="sign-in__icons">
             <Tooltip title="Google"> 
               <IconButton> 

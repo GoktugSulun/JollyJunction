@@ -8,6 +8,7 @@ import NotificationRoute from './routes/NotificationRoute.js';
 import FriendRoute from './routes/FriendRoute.js';
 import CommentRoute from './routes/CommentRoute.js';
 import AuthRoute from './routes/AuthRoute.js';
+import AuthMiddleware from './helpers/AuthMiddleware.js';
 import path from 'path';
 import dotenv from 'dotenv';
 
@@ -31,12 +32,12 @@ app.get('/health', (req, res) => {
 
 app.use(express.static(__dirname + '/files'));
 app.use('/Auth', AuthRoute);
-app.use('/Post', PostRoute);
-app.use('/User', UserRoute);
-app.use('/Init', InitRoute);
-app.use('/Notification', NotificationRoute);
-app.use('/Friend', FriendRoute);
-app.use('/Comment', CommentRoute);
+app.use('/Post', AuthMiddleware, PostRoute);
+app.use('/User', AuthMiddleware, UserRoute);
+app.use('/Init', AuthMiddleware, InitRoute);
+app.use('/Notification',AuthMiddleware,  NotificationRoute);
+app.use('/Friend', AuthMiddleware, FriendRoute);
+app.use('/Comment', AuthMiddleware, CommentRoute);
 
 app.use((req, res, next) => {
   next();
