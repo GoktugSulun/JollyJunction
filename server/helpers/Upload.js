@@ -1,11 +1,10 @@
 import multer from 'multer';
 import path from 'path';
 import { readdir } from 'fs/promises';
-import { authorizedUserId } from '../server.js';
 
 const __dirname = path.resolve();
 
-const isFileExists = async (fileName) => {
+const isFileExists = async (fileName, authorizedUserId) => {
   const filesFolder = './files';
   try {
     const files = await readdir(filesFolder);
@@ -30,10 +29,10 @@ const storage = multer.diskStorage({
     callback(null, __dirname + '/files');
   },
   filename: async (req, file, callback) => {
-    const result = await isFileExists(file.originalname);
+    const result = await isFileExists(file.originalname, req.user.id);
     if (!result.existing) {
       const timestamp = new Date().getTime();
-      callback(null, `${timestamp}_${authorizedUserId}_${file.originalname}`);
+      callback(null, `${timestamp}_${req.user.id}_${file.originalname}`);
     } else {
       callback(null, result.existingFile);
     }

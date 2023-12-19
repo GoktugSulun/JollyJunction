@@ -1,5 +1,4 @@
 import { savesDB } from '../db/index.js';
-import { authorizedUserId } from '../server.js';
 
 const { saves } = savesDB.data;
 const nextId = Math.max(...saves.map(like => like.id), 0) + 1;
@@ -7,6 +6,7 @@ const nextId = Math.max(...saves.map(like => like.id), 0) + 1;
 class SaveService {
   static async create(req) {
     try {
+      const { id: authorizedUserId } = req.user;
       const { save, post_id } = req.body;
       if (save) {
         const newData = {

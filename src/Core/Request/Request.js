@@ -23,7 +23,7 @@ export const request = async (method, url, payload = undefined, files = null) =>
     const data = files ? payloadWithFiles(payload, files) : payload;
     const headers = { 
       'Authorization': `Bearer ${token}`,
-      'Content-Type': 'application/json',
+      // 'Content-Type': 'application/json',
     };
     const response = await axios({
       method,

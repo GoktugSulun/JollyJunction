@@ -5,7 +5,7 @@ import CommentService from '../services/CommentService.js';
 class CommentController {
   static async getAll(req, res) {
     try {
-      const result = await CommentService.getAll();
+      const result = await CommentService.getAll(req, res);
       Helpers.responseJSON(res, result);
     } catch (error) {
       Helpers.responseMessage(res, ResponseEnums.FAILURE, error.message);

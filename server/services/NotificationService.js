@@ -1,12 +1,11 @@
 import NotificationTypes from '../../src/Core/Constants/Enums/NotificationTypes.js';
 import FriendshipEnums from '../constants/Enums/FriendshipEnums.js';
 import {  notificationsDB } from '../db/index.js';
-import { authorizedUserId } from '../server.js';
 import FriendService from './FriendService.js';
 import UserService from './UserService.js';
 
-const getUser = async (id) => {
-  const user = await UserService.getById({ params: { id }});
+const getUser = async (req, id) => {
+  const user = await UserService.getById({ ...req, params: { id }});
   if (!user.type) {
     return null;
   }
@@ -35,8 +34,8 @@ class NotificationService {
 
       const result = await Promise.all(dataSlice.map(async (obj) => {
         try {
-          const receiver_user = await getUser(obj.receiver_id);
-          const sender_user = await getUser(obj.sender_id);
+          const receiver_user = await getUser(req, obj.receiver_id);
+          const sender_user = await getUser(req, obj.sender_id);
         
           return {
             ...obj,
@@ -47,6 +46,7 @@ class NotificationService {
           return null;
         }
       }));
+      console.log(2);
 
       if (result.some((obj) => obj === null || obj.receiver_user === null || obj.sender_user === null)) {
         return {
@@ -85,8 +85,8 @@ class NotificationService {
         };
       }
 
-      const receiver_user = await getUser(data.receiver_id);
-      const sender_user = await getUser(data.sender_id);
+      const receiver_user = await getUser(req, data.receiver_id);
+      const sender_user = await getUser(req, data.sender_id);
       if (!receiver_user || !sender_user) {
         return {
           type: false,
@@ -118,7 +118,7 @@ class NotificationService {
     const { notifications } = notificationsDB.data;
     const nextId = Math.max(...notifications.map(like => like.id), 0) + 1;
     try {
-      const { receiver_id, type, sender_id=authorizedUserId, post_id=null, seen=false, read=false } = req.body;
+      const { receiver_id, type, sender_id=req.user.id, post_id=null, seen=false, read=false } = req.body;
       const newNotification = {
         id: nextId,
         type,
@@ -226,6 +226,7 @@ class NotificationService {
   
   static async friendship(req, res) {
     try {
+      const { id: authorizedUserId } = req.user;
       const { notifications } = notificationsDB.data;
       const { type, notification_id, seen=true } = req.body;
       
@@ -238,7 +239,7 @@ class NotificationService {
       }
 
       //* remove notification with id notification_id if it is accepted or rejected
-      const deletingResult = await this.delete({ body: { notification_ids: [notification_id] } });
+      const deletingResult = await this.delete({ ...req, body: { notification_ids: [notification_id] } });
       if (!deletingResult.type) {
         return {
           type: false,
@@ -249,8 +250,8 @@ class NotificationService {
       //* accept friendship request
       if (type === FriendshipEnums.ACCEPT) {
         const receiver_id = notifications[targetNotificationIndex].sender_id;
-        const resultForReceiverUser = await this.create({ body: { receiver_id, type: NotificationTypes.ACCEPTED_FRIENDSHIP_REQUEST } });
-        const resultForSenderUser = await this.create({ body: { receiver_id: authorizedUserId, sender_id: receiver_id, seen, type: NotificationTypes.YOU_ARE_FRIEND_NOW } });
+        const resultForReceiverUser = await this.create({ ...req, body: { receiver_id, type: NotificationTypes.ACCEPTED_FRIENDSHIP_REQUEST } });
+        const resultForSenderUser = await this.create({ ...req, body: { receiver_id: authorizedUserId, sender_id: receiver_id, seen, type: NotificationTypes.YOU_ARE_FRIEND_NOW } });
         if (!resultForReceiverUser.type || !resultForSenderUser.type) {
           return {
             type: false,
@@ -259,8 +260,8 @@ class NotificationService {
         }
 
         const friendResults = await Promise.all([
-          FriendService.create({ body: { user_id: receiver_id, friend_id: authorizedUserId } }), 
-          FriendService.create({ body: { user_id: authorizedUserId, friend_id: receiver_id  } })
+          FriendService.create({ ...req, body: { user_id: receiver_id, friend_id: authorizedUserId } }), 
+          FriendService.create({ ...req, body: { user_id: authorizedUserId, friend_id: receiver_id  } })
         ]);
         if (friendResults.some((i) => !i)) {
           return {
@@ -269,7 +270,7 @@ class NotificationService {
           };
         }
 
-        const newNotificationResult = await this.getById({ params: { id: resultForSenderUser.data.id }});
+        const newNotificationResult = await this.getById({ ...req, params: { id: resultForSenderUser.data.id }});
         if (!newNotificationResult.type) {
           return {
             type: false,
@@ -322,7 +323,8 @@ class NotificationService {
   static async cancel(req, res) {
     try {
       const { receiver_id, type } = req.body;
-      const targetNotification = await this.get({ query: { receiver_id, sender_id: authorizedUserId, type, is_removed: false } });
+      console.log(req.user, ' cancle user');
+      const targetNotification = await this.get({ ...req, query: { receiver_id, sender_id: req.user.id, type, is_removed: false } });
 
       if (!targetNotification.type) {
         return {
@@ -331,7 +333,7 @@ class NotificationService {
         };
       }
 
-      const deletingResult = await this.delete({ body: { notification_ids: [targetNotification.data.notifications[0].id] } });
+      const deletingResult = await this.delete({ ...req, body: { notification_ids: [targetNotification.data.notifications[0].id] } });
       if (!deletingResult.type) {
         return {
           type: false,
@@ -354,7 +356,7 @@ class NotificationService {
   static async acceptFriendship(req, res) {
     try {
       const { sender_id } = req.body;
-      const targetNotification = await this.get({ query: { sender_id, receiver_id: authorizedUserId, type: NotificationTypes.REQUEST_FOR_FRIENDSHIP, is_removed: false } });
+      const targetNotification = await this.get({ ...req, query: { sender_id, receiver_id: req.user.id, type: NotificationTypes.REQUEST_FOR_FRIENDSHIP, is_removed: false } });
       if (!targetNotification.type) {
         return {
           type: false,
@@ -362,7 +364,7 @@ class NotificationService {
         };
       }
 
-      const friendshipResult = await this.friendship({ body: { type: FriendshipEnums.ACCEPT, notification_id: targetNotification.data.notifications[0].id, seen: false } });
+      const friendshipResult = await this.friendship({ ...req, body: { type: FriendshipEnums.ACCEPT, notification_id: targetNotification.data.notifications[0].id, seen: false } });
       if (!friendshipResult.type) {
         return {
           type: false,
@@ -385,7 +387,7 @@ class NotificationService {
   static async rejectFriendship(req, res) {
     try {
       const { sender_id } = req.body;
-      const targetNotification = await this.get({ query: { sender_id, receiver_id: authorizedUserId, type: NotificationTypes.REQUEST_FOR_FRIENDSHIP, is_removed: false } });
+      const targetNotification = await this.get({ ...req, query: { sender_id, receiver_id: req.user.id, type: NotificationTypes.REQUEST_FOR_FRIENDSHIP, is_removed: false } });
       if (!targetNotification.type) {
         return {
           type: false,
@@ -393,7 +395,7 @@ class NotificationService {
         };
       }
 
-      const friendshipResult = await this.friendship({ body: { type: FriendshipEnums.REJECT, notification_id: targetNotification.data.notifications[0].id, seen: false } });
+      const friendshipResult = await this.friendship({ ...req, body: { type: FriendshipEnums.REJECT, notification_id: targetNotification.data.notifications[0].id, seen: false } });
       if (!friendshipResult.type) {
         return {
           type: false,

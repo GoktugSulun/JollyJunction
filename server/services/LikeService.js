@@ -1,11 +1,11 @@
 import { commentsDB, likesDB } from '../db/index.js';
-import { authorizedUserId } from '../server.js';
 import CommentService from './CommentService.js';
 
 
 class LikeService {
   static async createForPost(req) {
     try {
+      const { id: authorizedUserId } = req.user;
       const { likes } = likesDB.data;
       const nextId = Math.max(...likes.map(like => like.id), 0) + 1;
       const { like, post_id } = req.body;
@@ -42,8 +42,9 @@ class LikeService {
 
   static async createForComment(req) {
     try {
+      const { id: authorizedUserId } = req.user;
       const { id, like } = req.body;
-      const commentService = await CommentService.getById({ params: { id } });
+      const commentService = await CommentService.getById({ ...req, params: { id } });
       if (!commentService.type) {
         return {
           type: false,

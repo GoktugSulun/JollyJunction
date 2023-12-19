@@ -5,7 +5,7 @@ import PostService from '../services/PostService.js';
 class PostController {
   static async getAll(req, res) {
     try {
-      const result = await PostService.getAll();
+      const result = await PostService.getAll(req, res);
       Helpers.responseJSON(res, result);
     } catch (error) {
       Helpers.responseMessage(res, ResponseEnums.FAILURE, error.message);

@@ -1051,6 +1051,175 @@
       "created_at": "Mon Dec 18 2023 17:31:47 GMT+0300 (GMT+03:00)",
       "updated_at": "Mon Dec 18 2023 17:31:47 GMT+0300 (GMT+03:00)",
       "is_removed": false
+    },
+    {
+      "comment": "iyidir",
+      "post_id": 62,
+      "id": 77,
+      "user_id": 1,
+      "likes": [
+        1
+      ],
+      "created_at": "Tue Dec 19 2023 23:50:50 GMT+0300 (GMT+03:00)",
+      "updated_at": "2023-12-19T20:50:55.120Z",
+      "is_removed": true,
+      "user": {
+        "id": 1,
+        "name": "Goktug",
+        "surname": "Sulun",
+        "email": "goktug.sulun@hotmail.com",
+        "password": "123456",
+        "location": "Kucukcekmece",
+        "city": "Istanbul",
+        "country": "Turkey",
+        "school": "Bahcesehir University",
+        "img": {
+          "name": "1701973520619_1_goktug",
+          "type": "jpeg"
+        },
+        "social_medias": [
+          {
+            "id": 1,
+            "url": "",
+            "name": "LinkedIn",
+            "type": 1
+          },
+          {
+            "id": 2,
+            "url": "",
+            "name": "Instagram",
+            "type": 2
+          },
+          {
+            "id": 3,
+            "url": "",
+            "name": "Twitter",
+            "type": 3
+          }
+        ],
+        "company": "Google",
+        "position": "Fullstack Developer",
+        "updated_at": "Thu Dec 07 2023 21:51:04 GMT+0300 (GMT+03:00)",
+        "friends": [
+          {
+            "friend_id": 3,
+            "created_at": "Mon Dec 18 2023 20:21:27 GMT+0300 (GMT+03:00)",
+            "updated_at": "Mon Dec 18 2023 22:41:24 GMT+0300 (GMT+03:00)",
+            "is_removed": true
+          },
+          {
+            "friend_id": 3,
+            "created_at": "Mon Dec 18 2023 20:37:34 GMT+0300 (GMT+03:00)",
+            "updated_at": "Mon Dec 18 2023 22:41:24 GMT+0300 (GMT+03:00)",
+            "is_removed": true
+          },
+          {
+            "friend_id": 3,
+            "created_at": "Mon Dec 18 2023 20:39:09 GMT+0300 (GMT+03:00)",
+            "updated_at": "Mon Dec 18 2023 22:41:24 GMT+0300 (GMT+03:00)",
+            "is_removed": true
+          },
+          {
+            "friend_id": 3,
+            "created_at": "Mon Dec 18 2023 20:54:48 GMT+0300 (GMT+03:00)",
+            "updated_at": "Mon Dec 18 2023 22:41:24 GMT+0300 (GMT+03:00)",
+            "is_removed": true
+          },
+          {
+            "friend_id": 3,
+            "created_at": "Mon Dec 18 2023 21:21:50 GMT+0300 (GMT+03:00)",
+            "updated_at": "Mon Dec 18 2023 22:41:24 GMT+0300 (GMT+03:00)",
+            "is_removed": true
+          },
+          {
+            "friend_id": 2,
+            "created_at": "Mon Dec 18 2023 21:49:16 GMT+0300 (GMT+03:00)",
+            "updated_at": "Mon Dec 18 2023 21:49:41 GMT+0300 (GMT+03:00)",
+            "is_removed": true
+          },
+          {
+            "friend_id": 2,
+            "created_at": "Mon Dec 18 2023 21:52:07 GMT+0300 (GMT+03:00)",
+            "updated_at": "Mon Dec 18 2023 21:52:07 GMT+0300 (GMT+03:00)",
+            "is_removed": false
+          },
+          {
+            "friend_id": 3,
+            "created_at": "Mon Dec 18 2023 22:36:23 GMT+0300 (GMT+03:00)",
+            "updated_at": "Mon Dec 18 2023 22:41:24 GMT+0300 (GMT+03:00)",
+            "is_removed": true
+          },
+          {
+            "friend_id": 3,
+            "created_at": "Mon Dec 18 2023 22:39:01 GMT+0300 (GMT+03:00)",
+            "updated_at": "Mon Dec 18 2023 22:41:24 GMT+0300 (GMT+03:00)",
+            "is_removed": true
+          },
+          {
+            "friend_id": 3,
+            "created_at": "Mon Dec 18 2023 22:41:19 GMT+0300 (GMT+03:00)",
+            "updated_at": "Mon Dec 18 2023 22:41:24 GMT+0300 (GMT+03:00)",
+            "is_removed": true
+          }
+        ],
+        "canBeFriend": false
+      }
+    },
+    {
+      "comment": "apjdpsosadoapsdsa",
+      "post_id": 58,
+      "id": 78,
+      "user_id": 3,
+      "likes": [
+        3
+      ],
+      "created_at": "Tue Dec 19 2023 23:56:37 GMT+0300 (GMT+03:00)",
+      "updated_at": "Tue Dec 19 2023 23:56:37 GMT+0300 (GMT+03:00)",
+      "is_removed": false,
+      "user": {
+        "id": 3,
+        "name": "Eren Mert",
+        "surname": "Ciftci",
+        "email": "erenmert@hotmail.com",
+        "password": "123456",
+        "location": "Esenler",
+        "city": "Istanbul",
+        "country": "Turkey",
+        "school": "Mimar Sinan University",
+        "img": "",
+        "social_medias": [
+          {
+            "id": 1,
+            "url": "",
+            "name": "LinkedIn",
+            "type": 1
+          },
+          {
+            "id": 2,
+            "url": "",
+            "name": "Instagram",
+            "type": 2
+          },
+          {
+            "id": 3,
+            "url": "",
+            "name": "Twitter",
+            "type": 3
+          }
+        ],
+        "friends": [
+          {
+            "friend_id": 1,
+            "created_at": "Tue Dec 19 2023 23:55:58 GMT+0300 (GMT+03:00)",
+            "updated_at": "Tue Dec 19 2023 23:56:04 GMT+0300 (GMT+03:00)",
+            "is_removed": true
+          }
+        ],
+        "canBeFriend": false,
+        "company": "",
+        "position": "Math Teacher",
+        "updated_at": "Mon Dec 18 2023 21:55:13 GMT+0300 (GMT+03:00)"
+      }
     }
   ]
 }

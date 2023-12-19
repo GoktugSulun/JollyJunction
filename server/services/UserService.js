@@ -31,10 +31,8 @@ class UserService {
         };
       }
       // const { password, ...data } = user;
-
-      const userFriends = friends.find((obj) => obj.user_id === id)?.friends || [];      
-      const data = { ...user, friends: userFriends, canBeFriend: canBeFriendHandler(user.id) };
-
+      const userFriends = friends.find((obj) => obj.user_id === id)?.friends || [];     
+      const data = { ...user, friends: userFriends, canBeFriend: canBeFriendHandler(user.id, req.user.id) };
       return {
         type: true,
         message: `User with ${id} id has been fetched`,
@@ -101,7 +99,7 @@ class UserService {
       users.splice(targetIndex, 1, newData);
       await usersDB.write();
 
-      const user = await UserService.getById({ params: { id } });
+      const user = await UserService.getById({ ...req, params: { id } });
       if (!user.type) {
         return {
           type: false,

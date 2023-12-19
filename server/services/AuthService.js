@@ -15,11 +15,11 @@ class AuthService {
         };
       }
 
-      const token = jwt.sign(user, process.env?.VITE_TOKEN_SECRET, { expiresIn: '1800s' });
+      const token = jwt.sign(user, process.env?.VITE_TOKEN_SECRET, { expiresIn: '72h' });
 
       return {
         type: true,
-        message: 'Fetched init datas',
+        message: 'User log in successfully',
         data: { token }
       };
     } catch(error){

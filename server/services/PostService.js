@@ -1,11 +1,11 @@
 import NotificationTypes from '../../src/Core/Constants/Enums/NotificationTypes.js';
 import { commentsDB, postsDB, savesDB, likesDB, usersDB, friendsDB, notificationsDB } from '../db/index.js';
-import { authorizedUserId } from '../server.js';
 import LikeService from './LikeService.js';
 import NotificationService from './NotificationService.js';
 import SaveService from './SaveService.js';
 
-export const canBeFriendHandler = (user_id) => {
+export const canBeFriendHandler = (user_id, authorizedUserId) => {
+  console.log('can be friend => ', authorizedUserId);
   const { notifications } = notificationsDB.data;
   const { friends } = friendsDB.data;
   const isMe = authorizedUserId === user_id;
@@ -39,7 +39,7 @@ export const canBeFriendHandler = (user_id) => {
   return true;
 };
 
-const getPostDetail = (data) => {
+const getPostDetail = (data, authorizedUserId) => {
   const { likes } = likesDB.data;
   const { saves } = savesDB.data;
   const { comments } = commentsDB.data;
@@ -52,7 +52,7 @@ const getPostDetail = (data) => {
       liked: !!likes.find((likeObj) => likeObj.user_id === authorizedUserId && likeObj.post_id === data.id),
       saved: !!saves.find((saveObj) => saveObj.user_id === authorizedUserId && saveObj.post_id === data.id),
       user: users.find((userObj) => userObj.id === data.user_id),
-      canBeFriend: canBeFriendHandler(data.user_id)
+      canBeFriend: canBeFriendHandler(data.user_id, authorizedUserId)
     }
   );
 };
@@ -87,7 +87,8 @@ class PostService {
         };
       }
 
-      const result = getPostDetail(data);
+      const result = getPostDetail(data, req.user.id);
+      console.log(result, ' result get by id');
       return {
         type: true,
         message: `Post with id ${id} has been fetched`,
@@ -120,7 +121,7 @@ class PostService {
 
       const sortedData = [...filteredData].sort((a,b) => new Date(b.created_at).getTime() - new Date(a.created_at).getTime());
       const data = sortedData.slice(startIndex, endIndex);
-      const result = data.map((obj) => ( getPostDetail(obj) ));
+      const result = data.map((obj) => ( getPostDetail(obj, req.user.id) ));
 
       return {
         type: true,
@@ -155,7 +156,7 @@ class PostService {
       await postsDB.write();
 
       // //* get post that created
-      const createdData = await PostService.getById({ params: { id: data.id } });
+      const createdData = await PostService.getById({ ...req, params: { id: data.id } });
       if (!createdData.type) {
         return {
           type: false,
@@ -189,7 +190,7 @@ class PostService {
         };
       }
 
-      const postResult = await PostService.getById({ params: { id: post_id }});
+      const postResult = await PostService.getById({ ...req, params: { id: post_id }});
       if (!postResult.type) {
         return {
           type: false,
@@ -199,8 +200,8 @@ class PostService {
       
       const receiver_id = postResult.data.user.id;
 
-      if (receiver_id !== authorizedUserId) {
-        const notificationResult = await NotificationService.create({ body: { receiver_id, type: NotificationTypes.LIKED_POST, post_id } }, res);
+      if (receiver_id !== req.user.id) {
+        const notificationResult = await NotificationService.create({ ...req, body: { receiver_id, type: NotificationTypes.LIKED_POST, post_id } }, res);
         if (!notificationResult.type) {
           likesDB.data = { likes: currentState }; //* reset likes data
           await likesDB.write();

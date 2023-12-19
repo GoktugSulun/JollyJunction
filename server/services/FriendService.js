@@ -25,7 +25,7 @@ class FriendService {
       const startIndex = (page - 1) * limit;
       const endIndex = page * limit; 
       const slicedData = filteredData.slice(startIndex, endIndex);
-      const friendResults = await Promise.all(slicedData.map((obj) => UserService.getById({ params: { id: obj.friend_id } })));
+      const friendResults = await Promise.all(slicedData.map((obj) => UserService.getById({ ...req, params: { id: obj.friend_id } })));
       if (friendResults.some((i) => !i.type)) {
         return {
           type: false,

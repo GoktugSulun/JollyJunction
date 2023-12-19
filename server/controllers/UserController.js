@@ -5,7 +5,7 @@ import UserService from '../services/UserService.js';
 class UserController {
   static async getAll(req, res) {
     try {
-      const result = await UserService.getAll();
+      const result = await UserService.getAll(req, res);
       Helpers.responseJSON(res, result);
     } catch (error) {
       Helpers.responseMessage(res, ResponseEnums.FAILURE, error.message);

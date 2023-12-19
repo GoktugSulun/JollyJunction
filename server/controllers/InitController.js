@@ -5,7 +5,7 @@ import InitService from '../services/InitService.js';
 class InitController {
   static async get(req, res) {
     try {
-      const result = await InitService.get();
+      const result = await InitService.get(req, res);
       Helpers.responseJSON(res, result);
     } catch (error) {
       Helpers.responseMessage(res, ResponseEnums.FAILURE, error.message);

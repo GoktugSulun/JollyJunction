@@ -1,6 +1,5 @@
 import NotificationTypes from '../../src/Core/Constants/Enums/NotificationTypes.js';
 import { commentsDB } from '../db/index.js';
-import { authorizedUserId } from '../server.js';
 import LikeService from './LikeService.js';
 import NotificationService from './NotificationService.js';
 import PostService from './PostService.js';
@@ -35,7 +34,7 @@ class CommentService {
         };
       }
       
-      const commentService = await UserService.getById({ params: { id: data.user_id } });
+      const commentService = await UserService.getById({ ...req, params: { id: data.user_id } });
       if (!commentService.type) {
         return {
           type: false,
@@ -76,7 +75,7 @@ class CommentService {
       const slicedData = sortedData.slice(startIndex, endIndex);
 
       const data = await Promise.all(slicedData.map(async(obj) => {
-        const userDetail = await UserService.getById({ params: { id: obj.user_id }});
+        const userDetail = await UserService.getById({ ...req, params: { id: obj.user_id }});
         return { ...obj, user: userDetail?.data };
       }));
 
@@ -95,6 +94,7 @@ class CommentService {
 
   static async create(req, res) {
     try {
+      const { id: authorizedUserId } = req.user;
       const { comments } = commentsDB.data;
       const nextId = Math.max(...comments.map(comment => comment.id), 0) + 1;
       const data = req.body;
@@ -107,7 +107,7 @@ class CommentService {
       comments.push(data);
       await commentsDB.write();
 
-      const createdData = await CommentService.getById({ params: { id: data.id } });
+      const createdData = await CommentService.getById({ ...req, params: { id: data.id } });
       if (!createdData.type) {
         return {
           type: false,
@@ -115,10 +115,10 @@ class CommentService {
         };
       }
 
-      const user = await UserService.getById({ params: { id: data.user_id }});
+      const user = await UserService.getById({ ...req, params: { id: data.user_id }});
       const result = { ...createdData.data, user: user.data };
 
-      const postService = await PostService.getById({ params: { id: data.post_id } });
+      const postService = await PostService.getById({ ...req, params: { id: data.post_id } });
       if (!postService.type) {
         return {
           type: false,
@@ -129,6 +129,7 @@ class CommentService {
       //* if user makes a comment for a post who is not created by himself/herself, then create a notification
       if (postService.data.user_id !== authorizedUserId) {
         const notificationService = await NotificationService.create({ 
+          ...req,
           body: { 
             receiver_id: postService.data.user_id,
             sender_id: authorizedUserId,
@@ -160,6 +161,7 @@ class CommentService {
 
   static async like(req, res) {
     try {
+      const { id: authorizedUserId } = req.user;
       const commentService = await LikeService.createForComment(req, res);
       if (!commentService.type) {
         return {
@@ -181,7 +183,7 @@ class CommentService {
 
       //* User likes a comment, create a notification for it
       if (like) {
-        const commentService = await CommentService.getById({ params: { id }});
+        const commentService = await CommentService.getById({ ...req, params: { id }});
         if (!commentService.type) {
           return {
             type: false,
@@ -190,6 +192,7 @@ class CommentService {
         }
 
         const notificationService = await NotificationService.create({ 
+          ...req,
           body: {
             sender_id: authorizedUserId,
             receiver_id: commentService.data.user_id,
@@ -209,6 +212,7 @@ class CommentService {
       if (!like) {
         //* Find target notification
         const notificationService = await NotificationService.get({
+          ...req,
           query: {
             is_removed: false,
             type: NotificationTypes.LIKED_COMMENT,
@@ -224,7 +228,7 @@ class CommentService {
         }
 
         //* Delete target notification
-        const deleteNotificationService = await NotificationService.delete({ body: { notification_ids: [notificationService.data.notifications[0].id] } });
+        const deleteNotificationService = await NotificationService.delete({ ...req, body: { notification_ids: [notificationService.data.notifications[0].id] } });
         
         if (!deleteNotificationService.type) {
           return {
@@ -251,6 +255,7 @@ class CommentService {
   static async delete(req, res) {
     try {
       const { id } = req.params;
+      const { id: authorizedUserId } = req.user;
       const { comments } = commentsDB.data;
       
       const index = comments.findIndex((obj) => obj.id === parseInt(id));
@@ -276,7 +281,7 @@ class CommentService {
       //* if user delete a comment for a post which is created by another user.
       //* Find target post firstly
       console.log(comments[index].post_id, ' ALO');
-      const postService = await PostService.getById({ params: { id: comments[index].post_id } });
+      const postService = await PostService.getById({ ...req, params: { id: comments[index].post_id } });
       if (!postService.type) {
         return {
           type: false,
@@ -286,6 +291,7 @@ class CommentService {
 
       //* Find target notification
       const notificationService = await NotificationService.get({
+        ...req,
         query: {
           is_removed: false,
           type: NotificationTypes.COMMENTED_POST,
@@ -301,9 +307,9 @@ class CommentService {
       }
 
       //* Delete target notification
-      console.log('notiService data => ', notificationService.data);
       if (notificationService.data.notifications?.[0]?.id) {
         const deleteNotificationService = await NotificationService.delete({ 
+          ...req,
           body: { 
             notification_ids: [notificationService.data.notifications[0].id] 
           }
