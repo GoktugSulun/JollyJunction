@@ -1,14 +1,15 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
-import { Button } from '../../../../../Core/Components/Buttons/Button.style';
 import PropTypes from 'prop-types';
 import { NotificationTypes } from '../../../../../Core/Constants/Enums';
 import { NotificationSagaActions } from '../../../../Notifications/Store/Notifications.saga';
+import RedoIcon from '@mui/icons-material/Redo';
+import { IconButton, Tooltip } from '@mui/material';
 
 const Cancel = ({ receiver_id }) => {
   const dispatch = useDispatch();
 
-  const cancel = () => {
+  const cancelHandler = () => {
     const payload = {
       receiver_id,
       type: NotificationTypes.REQUEST_FOR_FRIENDSHIP,
@@ -17,13 +18,11 @@ const Cancel = ({ receiver_id }) => {
   };
 
   return (
-    <Button
-      onClick={cancel}
-      fontSize="14px"
-      bgColor="#2d2d2d"
-    >
-      Cancel friendship request
-    </Button>
+    <Tooltip title="Cancel friendship request">
+      <IconButton onClick={cancelHandler}>
+        <RedoIcon />
+      </IconButton>
+    </Tooltip>
   );
 };
 

@@ -5,11 +5,12 @@ import LikeService from './LikeService.js';
 import NotificationService from './NotificationService.js';
 import SaveService from './SaveService.js';
 
-const canBeFriendHandler = (user_id) => {
+export const canBeFriendHandler = (user_id) => {
   const { notifications } = notificationsDB.data;
   const { friends } = friendsDB.data;
   const isMe = authorizedUserId === user_id;
-  const isFriend = !!friends.find((friendObj) => friendObj.user_id === authorizedUserId)?.friends?.find((friendId) => friendId === user_id);
+  const isFriend = !!friends.find((friendObj) => friendObj.user_id === authorizedUserId)
+    ?.friends?.find((obj) => obj.friend_id === user_id && !obj.is_removed);
   if (isMe || isFriend) {
     return false;
   }
@@ -30,6 +31,7 @@ const canBeFriendHandler = (user_id) => {
       && notificationObj.type === NotificationTypes.REQUEST_FOR_FRIENDSHIP
       && !notificationObj.is_removed
   );
+  
   if (didGetRequestForFriendship) {
     return { sender_id: user_id };
   }
@@ -52,7 +54,9 @@ const getPostDetail = (data) => {
       user: users.find((userObj) => userObj.id === data.user_id),
       canBeFriend: canBeFriendHandler(data.user_id)
     }
-  );};
+  );
+};
+
 class PostService {
   static async getAll() {
     // TODO: bir sürü key eksik onları ekle
@@ -79,8 +83,7 @@ class PostService {
       if (!data) {
         return {
           type: false,
-          message: `Post with id ${id} couldn't find`,
-          data: result
+          message: `Post with id ${id} couldn't find. It may have been deleted`,
         };
       }
 
@@ -103,10 +106,18 @@ class PostService {
   static async get(req, res) {
     try {
       const { posts } = postsDB.data;
-      const { page, limit, user_id } = req.query;
+      const { page = 1, limit = 10, user_id, is_removed } = req.query;
       const startIndex = (page - 1) * limit;
       const endIndex = page * limit; 
-      const filteredData = user_id ? posts.filter((obj) => obj.user_id === parseInt(user_id)) : [...posts];
+
+      const filteredData = posts.filter((obj) => {
+        return Object.entries({ user_id, is_removed }).every(([key, value]) => {
+          return value !== undefined ? String(obj[key]) === value : true;
+        });
+      });
+
+      // const filteredData = user_id ? posts.filter((obj) => obj.user_id === parseInt(user_id)) : [...posts];
+
       const sortedData = [...filteredData].sort((a,b) => new Date(b.created_at).getTime() - new Date(a.created_at).getTime());
       const data = sortedData.slice(startIndex, endIndex);
       const result = data.map((obj) => ( getPostDetail(obj) ));
@@ -218,6 +229,35 @@ class PostService {
       return {
         type: result.type,
         message: result.message
+      };
+    } catch (error) {
+      return {
+        type: false,
+        message: error.message
+      };
+    }
+  }
+
+  static async delete(req, res) {
+    try {
+      const { id } = req.params;
+      const { posts } = postsDB.data;
+
+      const index = posts.findIndex((obj) => obj.id === parseInt(id));
+      if (index === -1) {
+        return {
+          type: false,
+          message: `Post with id ${id} couldn't find`,
+        };
+      }
+
+      const postData = { ...posts[index], is_removed: true, updated_at: new Date().toString() };
+      posts.splice(index, 1, postData);
+      await postsDB.write();
+
+      return {
+        type: true,
+        message: 'Post is deleted'
       };
     } catch (error) {
       return {

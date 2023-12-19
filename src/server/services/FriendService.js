@@ -5,7 +5,7 @@ class FriendService {
   static async get(req, res) {
     try {
       const { friends } = friendsDB.data;
-      const { user_id } = req.query;
+      const { user_id, page = 1, limit = 10, is_removed } = req.query;
 
       const data = friends.find((obj) => obj.user_id === parseInt(user_id));
       if (!data) {
@@ -15,20 +15,30 @@ class FriendService {
           data: []
         };
       }
-      
-      const friendResults = await Promise.all(data.friends.map((id) => UserService.getById({ params: { id } })));
+
+      const filteredData = data.friends.filter((obj) => {
+        return Object.entries({ is_removed }).every(([key, value]) => {
+          return value !== undefined ? String(obj[key]) === value : true;
+        });
+      });
+
+      const startIndex = (page - 1) * limit;
+      const endIndex = page * limit; 
+      const slicedData = filteredData.slice(startIndex, endIndex);
+      const friendResults = await Promise.all(slicedData.map((obj) => UserService.getById({ params: { id: obj.friend_id } })));
       if (friendResults.some((i) => !i.type)) {
         return {
           type: false,
           message: "Some or multiple user couldn't find"
         };
       }
-      const results = friendResults.map((obj) => obj.data);
+
+      const result = friendResults.map((obj) => obj.data);
 
       return {
         type: true,
         message: 'Fetch friend',
-        data: results
+        data: result
       };
     } catch(error){
       return {
@@ -54,14 +64,34 @@ class FriendService {
 
       const userData = {
         ...friends[userIndex],
-        friends: friends[userIndex].friends.filter((id) => id !== parseInt(friend_id))
+        friends: friends[userIndex].friends.map((obj) => {
+          if (obj.friend_id === parseInt(friend_id)) {
+            return {
+              ...obj,
+              is_removed: true,
+              updated_at: new Date().toString()
+            };
+          }
+          return obj;
+        })
       };
+      console.log(userIndex, ' bu index için => yeni data', userData);
       friends.splice(userIndex, 1, userData);
 
       const friendData = {
         ...friends[friendIndex],
-        friends: friends[friendIndex].friends.filter((id) => id !== parseInt(user_id))
+        friends: friends[friendIndex].friends.map((obj) => {
+          if (obj.friend_id === parseInt(user_id)) {
+            return {
+              ...obj,
+              is_removed: true,
+              updated_at: new Date().toString()
+            };
+          }
+          return obj;
+        })
       };
+      console.log(friendIndex, ' bu index için => yeni data', friendData);
       friends.splice(friendIndex, 1, friendData);
 
 
@@ -90,13 +120,16 @@ class FriendService {
         const data = {
           id: nextId,
           user_id,
-          friends: [friend_id]
+          friends: [{ friend_id, created_at: new Date().toString(), updated_at: new Date().toString(), is_removed: false }]
         };
         friends.push(data);
       } else {
         const data = {
           ...friends[targetIndex],
-          friends: [...friends[targetIndex].friends, friend_id]
+          friends: [
+            ...friends[targetIndex].friends, 
+            { friend_id, created_at: new Date().toString(), updated_at: new Date().toString(), is_removed: false }
+          ]
         };
         friends.splice(targetIndex, 1, data);
       }

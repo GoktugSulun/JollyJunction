@@ -12,6 +12,8 @@ import { PostModalSagaActions } from '../../Components/PostModal/Store/PostModal
 import FriendshipEnums from '../../server/constants/Enums/FriendshipEnums';
 import { useNavigate } from 'react-router-dom';
 import Notification from './Components/Notification';
+import NoData from '../UserProfile/Components/NoData';
+import { NotificationSkeleton } from '../../Components/Skeletons';
 
 const Notifications = () => {
   const dispatch = useDispatch();
@@ -63,7 +65,7 @@ const Notifications = () => {
     success: ({ idleAction, payload }) => {
       idleAction();
       if (payload.type === FriendshipEnums.ACCEPT) {
-        const payload = { query: `?user_id=${authorizedUser.id}` };
+        const payload = { query: `?user_id=${authorizedUser.id}&is_removed=false` };
         dispatch(DashboardSagaActions.getFriends(payload));
       }
     }
@@ -87,7 +89,7 @@ const Notifications = () => {
 
   useEffect(() => {
     dispatch(NotificationSagaActions.getNotifications({ queries: `?page=${1}&limit=${limit}&receiver_id=${authorizedUser.id}&is_removed=${false}` }));
-    dispatch(DashboardSagaActions.getFriends({ query: `?user_id=${authorizedUser.id}` }));
+    dispatch(DashboardSagaActions.getFriends({ query: `?user_id=${authorizedUser.id}&is_removed=false` }));
     return () => {
       dispatch(NotificationActions.setReset());
       dispatch(PostModalActions.handleModal(ModalTypes.CLOSE));
@@ -96,14 +98,19 @@ const Notifications = () => {
 
   return (
     <S.NotificationsContent>
-      { notifications.map((obj, index) => 
-        <Notification 
-          key={obj.id} 
-          data={obj} 
-          {...(notifications.length - 1 === index ? { fetchNotifications, isLastElement: true } : {})}
-          loadingState={[loadingId, setLoadingId]}
-        />
-      )}
+      {
+        !notifications.length && loading?.getNotifications === false
+          ? <NoData message="You have not received notification yet." />
+          : notifications.map((obj, index) => 
+            <Notification 
+              key={obj.id} 
+              data={obj} 
+              {...(notifications.length - 1 === index ? { fetchNotifications, isLastElement: true } : {})}
+              loadingState={[loadingId, setLoadingId]}
+            />
+          )
+      }
+      { loading?.getNotifications && <NotificationSkeleton count={5} /> }
       { loading?.getNotifications && <Loading margin="15px 0 0 0" /> }
     </S.NotificationsContent>
   );

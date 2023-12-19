@@ -15,10 +15,11 @@ export const DashboardSagaActions = {
   likePost: createAction(`${mainSagaName}/likePost`),
   savePost: createAction(`${mainSagaName}/savePost`),
   addFriend: createAction(`${mainSagaName}/addFriend`),
-  removeFriend: createAction(`${mainSagaName}/removeFriend`),
   acceptFriendship: createAction(`${mainSagaName}/acceptFriendship`),
+  rejectFriendship: createAction(`${mainSagaName}/rejectFriendship`),
   getFriends: createAction(`${mainSagaName}/getFriends`),
   deleteFriend: createAction(`${mainSagaName}/deleteFriend`),
+  deletePost: createAction(`${mainSagaName}/deletePost`),
 };
 
 export default [
@@ -27,7 +28,7 @@ export default [
     takeType: SagaTakeTypes.TAKE_LATEST,
     * func({ payload }) {
       const { page, limit, user_id } = payload;
-      const query = `?page=${page}&limit=${limit}${user_id ? `&user_id=${user_id}` : ''}`;
+      const query = `?page=${page}&limit=${limit}${user_id ? `&user_id=${user_id}` : ''}&is_removed=false`;
       const response = yield call(request, HttpMethodTypes.GET, `${ApiUrl.getPosts}${query}`);
       yield put(DashboardActions.setPosts(response?.data || []));
     }
@@ -79,6 +80,15 @@ export default [
     }
   }),
   createSagaWatcher({
+    actionType: DashboardSagaActions.rejectFriendship.type,
+    takeType: SagaTakeTypes.TAKE_LATEST,
+    * func({ payload }) {
+      const response = yield call(request, HttpMethodTypes.PUT, `${ApiUrl.rejectFriendship}`, payload);
+      yield put(DashboardActions.editFriendAttribute({ receiver_id: payload.sender_id, canBeFriend: true }));
+      yield put(snackbar(response.message));
+    }
+  }),
+  createSagaWatcher({
     actionType: DashboardSagaActions.getFriends.type,
     takeType: SagaTakeTypes.TAKE_LATEST,
     * func({ payload }) {
@@ -96,6 +106,18 @@ export default [
       yield put(snackbar(response.message));
       yield put(DashboardActions.filterFriends(payload));
       yield put(DashboardActions.editFriendAttribute({ receiver_id: friend_id, canBeFriend: true }));
+    }
+  }),
+  createSagaWatcher({
+    actionType: DashboardSagaActions.deletePost.type,
+    takeType: SagaTakeTypes.TAKE_EVERY,
+    * func({ payload }) {
+      const { id } = payload;
+      yield put(DashboardActions.setPostInProcess(id));
+      const response = yield call(request, HttpMethodTypes.DELETE, `${ApiUrl.deletePost}/${id}`);
+      yield put(snackbar(response.message));
+      yield put(DashboardActions.deletePost(payload));
+      yield put(DashboardActions.removePostInProcess(id));
     }
   })
 ];

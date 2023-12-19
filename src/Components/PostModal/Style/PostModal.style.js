@@ -12,6 +12,10 @@ export const PostModal = styled.div`
     width: ${(props) => props.file ? '80vw' : '50vw'};
     height: 80vh;
     display: flex;
+    transition: width 350ms;
+    @media (max-width: 900px) {
+        width: 95%;
+    }
 `;
 
 export const File = styled.div`
@@ -19,11 +23,16 @@ export const File = styled.div`
     overflow: hidden;
     border-top-left-radius: 10px;
     border-bottom-left-radius: 10px;
+    background: #0f0f0f;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     .file {
-        object-fit: scale-down;
+        max-width: 100%;
+        height: auto;
+        object-fit: cover;
         background-color: #0f0f0f;
-        width: 100%;
-        height: 100%;
+        border-radius: 10px;
     }
     @media (max-width: 900px) {
         display: none;

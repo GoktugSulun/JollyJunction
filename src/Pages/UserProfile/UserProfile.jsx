@@ -11,6 +11,8 @@ import { snackbar } from '../../Core/Utils/Snackbar';
 import { ModalTypes, NotifierTypes } from '../../Core/Constants/Enums';
 import useHttpResponse from '../../Core/Hooks/useHttpResponse';
 import { PostModalActions } from '../../Components/PostModal/Store/PostModal.slice';
+import { PostSkeleton } from '../../Components/Skeletons';
+import { AppConfigSagaActions } from '../../Core/Store/AppConfig.saga';
 
 const UserProfile = () => {
   const dispatch = useDispatch();
@@ -38,6 +40,13 @@ const UserProfile = () => {
   //   }
   // }, [authorizedUser]);
 
+  useHttpResponse({
+    success: ({ idleAction }) => {
+      idleAction();
+      dispatch(AppConfigSagaActions.getUnseenNotifications({ query: `?is_removed=false&seen=false&receiver_id=${authorizedUser.id}`}));
+    }
+  }, DashboardSagaActions.acceptFriendship());
+
   useEffect(() => {
     if (isNaN(parseInt(params.id))) {
       dispatch(snackbar("Url couldn't found", { variant: NotifierTypes.WARNING }));
@@ -59,7 +68,7 @@ const UserProfile = () => {
     <div>
       {
         !posts.length && loading?.getPosts === false
-          ? <NoData />
+          ? <NoData message="There is no post in this profile." />
           : posts.map((obj, index) => (
             <Post 
               key={obj.id}
@@ -69,6 +78,7 @@ const UserProfile = () => {
             />
           ))
       }
+      { loading?.getPosts && <PostSkeleton count={2} />}
       { loading?.getPosts && <div className="loading-container"> <Loading /> </div> }
     </div>
   );

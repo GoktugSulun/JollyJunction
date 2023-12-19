@@ -7,12 +7,12 @@ import AddFriend from './AddFriend';
 import RespondRequest from './RespondRequest';
 import Cancel from './Cancel';
 import { getFileURL } from '../../../../../Core/Utils/File';
+import PostSettings from './PostSettings';
 
 const PostHeader = ({ data }) => {
   const { authorizedUser } = useSelector((state) => state.AppConfig.init);
   const { loading } = useSelector((state) => state.Dashboard);
   const { loading: notificationLoading } = useSelector((state) => state.Notifications);
-
 
   const getComponent = () => {
     if (data?.canBeFriend?.sender_id === authorizedUser.id) {
@@ -25,6 +25,10 @@ const PostHeader = ({ data }) => {
 
     if (data?.canBeFriend) {
       return <AddFriend id={data.user.id} />;
+    }
+
+    if (data.user.id === authorizedUser.id) {
+      return <PostSettings id={data.id} />;
     }
 
     return null;

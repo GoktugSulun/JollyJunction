@@ -7,6 +7,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { DashboardSagaActions } from '../Store/Dashboard.saga';
 import Loading from '../../../Core/Components/Loading/Loading';
 import { getFileURL } from '../../../Core/Utils/File';
+import { FriendSkeleton } from '../../../Components/Skeletons';
 
 const FriendList = () => {
   const dispatch = useDispatch();
@@ -24,10 +25,9 @@ const FriendList = () => {
   return (
     <S.FriendList>
       <div className="title"> Friend List </div>
-      {
-        loading?.getFriends
-          ? <Loading />
-          : !friends.length
+      <div className="friend-list">
+        {
+          !friends.length && loading?.getFriends === false
             ? <div className="no-friend"> Click &quot;Add Friend&quot; Icon on the top right of the post in order to add friend. </div>
             : friends.map((obj) => (
               <div 
@@ -49,7 +49,10 @@ const FriendList = () => {
                 </Tooltip>
               </div>
             ))
-      }
+        }
+        { loading?.getFriends && <FriendSkeleton count={2} /> }
+        { loading?.getFriends && <Loading margin="20px" /> }
+      </div>
     </S.FriendList>
   );
 };

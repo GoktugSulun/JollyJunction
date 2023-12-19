@@ -76,6 +76,15 @@ class NotificationController {
       Helpers.responseMessage(res, ResponseEnums.FAILURE, error.message);
     }
   }
+
+  static async rejectFriendship(req, res) {
+    try {
+      const result = await NotificationService.rejectFriendship(req, res);
+      Helpers.responseJSON(res, result);
+    } catch (error) {
+      Helpers.responseMessage(res, ResponseEnums.FAILURE, error.message);
+    }
+  }
 }
   
 export default NotificationController;

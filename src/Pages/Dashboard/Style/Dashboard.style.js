@@ -2,6 +2,7 @@ import styled from '@emotion/styled';
 import { ContentWrapper } from '../../../Core/Components/Pages/ContentWrapper.style';
 import { IconButton } from '@mui/material';
 import overridedProps from '../../../Core/Helpers/overridedProps';
+import { SettingsMenu } from '../../Notifications/Style/Notifications.style';
 
 export const Dashboard = styled(ContentWrapper)``;
 
@@ -16,22 +17,9 @@ export const ProfileWrapper = styled.div`
 `;
 
 export const PostWrapper = styled.div`
-   .loading-container {
-      margin: 50px 0;
-   }
-   .more-button-container {
-      margin: 25px 0;
-      display: flex;
-      justify-content: center;
-      button {
-         width: 50%;
-      }
-   }
-   @media (max-width: 900px) {
-      .more-button-container {
-         button {
-            width: 100%;
-         }
+   .posts-wrapper {
+      .loading-container {
+         margin: 50px 0;
       }
    }
 `;
@@ -55,17 +43,27 @@ export const Profile = styled.div`
       justify-content: space-between;
       gap: 5px;
       .MuiIconButton-root {
-         svg {
-            path {
-               fill: #9a9a9a;
-            }
-         }
+         background-color: #333;
          :hover {
-            background-color: #333;
-            svg path {
-               fill: #FFFFFF;
-            }
+            background-color: #555;
          }
+         svg path {
+            fill: #927CD9;
+         }
+         &.settings {
+            background-color: transparent;
+            svg {
+               path {
+                  fill: #9a9a9a;
+               }
+            }
+            :hover {
+                  background-color: #333;
+                  svg path {
+                     fill: #FFFFFF;
+                  }
+               }
+            }
       }
    }
    .user-detail {
@@ -290,31 +288,40 @@ export const FriendList = styled.div`
    background: #181818;
    border-radius: 10px;
    margin-top: 30px;
-   padding: 25px;
+   padding-bottom: 20px;
    .title {
       color: #c9c9c9;
       font-weight: 500;
-      margin-bottom: 20px;
+      padding: 25px 25px 0 25px;
    }
-   .friend {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 10px;
-      margin-top: 20px;
-      .MuiIconButton-root {
-         background-color: #333;
-         :hover {
-            background-color: #555;
-         }
-         svg path {
-            fill: #927CD9;
+   .friend-list {
+      max-height: 30vh;
+      overflow: auto;
+      padding: 0 15px 10px;
+      margin: 0 10px;
+      ::-webkit-scrollbar {
+         width: 5px;
+      }
+      .friend {
+         display: flex;
+         justify-content: space-between;
+         align-items: center;
+         gap: 10px;
+         margin-top: 20px;
+         .MuiIconButton-root {
+            background-color: #333;
+            :hover {
+               background-color: #555;
+            }
+            svg path {
+               fill: #927CD9;
+            }
          }
       }
-   }
-   .no-friend {
-      color: #575757;
-      font-size: 14px;
+      .no-friend {
+         color: #575757;
+         font-size: 14px;
+      }
    }
 `;
 
@@ -346,12 +353,16 @@ export const CreatePost = styled.div`
    }
    .file-container {
       position: relative;
-      .file {
-         width: 100%;
-         max-height: 400px;
-         object-fit: scale-down;
-         height: auto;
-         border-radius: 10px;
+      .file-wrapper {
+         display: flex;
+         justify-content: center;
+         .file {
+            width: 100%;
+            max-height: 60vh;
+            object-fit: cover;
+            height: auto;
+            border-radius: 10px;
+         }
       }
       .clear-file-button {
          position: absolute;
@@ -403,6 +414,23 @@ export const CreatePost = styled.div`
    }
 `;
 
+export const PostOverlay = styled.div`
+   position: absolute;
+   top: 0;
+   left: 0;
+   width: 100%;
+   height: 100%;
+   background-color: rgba(0, 0, 0, .8); 
+   z-index: 99;
+   border-radius: 10px;
+   opacity: ${(props) => props.isDeleting ? 1 : 0};
+   visibility: ${(props) => props.isDeleting ? 'visible' : 'hidden'};
+   transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out;
+   display: flex;
+   justify-content: center;
+   align-items: center;
+`;
+
 export const Post = styled.div`
    background-color: #181818;
    border-radius: 10px;
@@ -411,13 +439,14 @@ export const Post = styled.div`
    display: flex;
    flex-direction: column;
    gap: 20px;
+   position: relative;
    .header {
       display: flex;
       justify-content: space-between;
       align-items: center;
       gap: 10px;
       margin-bottom: 10px;
-      .MuiIconButton-root {
+      > .MuiIconButton-root {
          background-color: #333;
          :hover {
             background-color: #555;
@@ -430,14 +459,18 @@ export const Post = styled.div`
    .description {
       color: #c9c9c9;
       font-size: 14px;
-      margin-top: 10px;
+      /* margin-top: 10px; */
    }
    .file {
-      width: 100%;
-      height: 60vh;
+      /* width: 100%;
+      height: 60vh; */
+      max-width: 100%;
+      height: auto;
+      max-height: 60vh;
+      object-fit: cover;
       border-radius: 10px;
       cursor: pointer;
-      object-fit: scale-down;
+      /* object-fit: scale-down; */
       &__image {
          /* object-fit: cover; */
       }
@@ -476,10 +509,48 @@ export const RespondRequest = styled.div`
    .buttons {
       display: flex;
       align-items: center;
+      justify-content: flex-end;
       gap: 10px;
       margin-top: 5px;
-      button {
-         flex: 1;
+      .MuiIconButton-root {
+         background-color: #333;
+         :hover {
+            background-color: #555;
+         }
+         svg path {
+            fill: #927CD9;
+         }
+      }
+   }
+`;
+
+export const PostSettingsIconButton = styled(IconButton)`
+   :hover {
+      background-color: #333;
+      svg path {
+         fill: #FFFFFF;
+      }
+   }
+   svg path {
+      fill: #c9c9c9;
+      transition: fill 350ms;
+   }
+`;
+
+export const PostSettings = styled(SettingsMenu)`
+   .MuiPaper-root {
+      .MuiList-root {
+         .MuiMenuItem-root {
+            padding: 10px 20px 10px 10px;
+            :hover {
+               background-color: #333;
+            }
+            &.delete {
+               :hover {
+                  color: red;
+               }
+            }
+         }
       }
    }
 `;

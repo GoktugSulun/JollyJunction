@@ -16,7 +16,8 @@ const initialState = {
     isLegal: false, //* when postModal is closed, it is gonna be true and after video settings is changed, it is gonna be again false.
     currentTime: 0,
     isPlaying: false
-  }
+  },
+  postsInProcess: [] 
 };
 
 const DashboardSlice = createSlice({
@@ -44,6 +45,10 @@ const DashboardSlice = createSlice({
       if ((state.posts.length + 1) >= state.limit * state.page) {
         state.page += 1;
       }
+    },
+    deletePost: (state, action) => {
+      const { id } = action.payload;
+      state.posts = state.posts.filter((obj) => obj.id !== id);
     },
     setIsMuted: (state, action) => {
       state.isMuted = action.payload;
@@ -82,6 +87,12 @@ const DashboardSlice = createSlice({
     filterFriends: (state, action) => {
       const { friend_id } = action.payload;
       state.friends = state.friends.filter((obj) => obj.id !== friend_id);
+    },
+    setPostInProcess: (state, action) => {
+      state.postsInProcess.push(action.payload);
+    },
+    removePostInProcess: (state, action) => {
+      state.postsInProcess = state.postsInProcess.filter((id) => id !== action.payload);
     },
     likePost: likePostHandler,
     savePost: savePostHandler

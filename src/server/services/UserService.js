@@ -1,4 +1,5 @@
-import { usersDB } from '../db/index.js';
+import { friendsDB, usersDB } from '../db/index.js';
+import { canBeFriendHandler } from './PostService.js';
 
 class UserService {
   static async getAll() {
@@ -21,6 +22,7 @@ class UserService {
     try {
       const { id } = req.params;
       const { users } = usersDB.data;
+      const { friends } = friendsDB.data;
       const user = users.find((obj) => obj.id === parseInt(id));
       if (!user) {
         return {
@@ -29,10 +31,14 @@ class UserService {
         };
       }
       // const { password, ...data } = user;
+
+      const userFriends = friends.find((obj) => obj.user_id === id)?.friends || [];      
+      const data = { ...user, friends: userFriends, canBeFriend: canBeFriendHandler(user.id) };
+
       return {
         type: true,
         message: `User with ${id} id has been fetched`,
-        data: user
+        data
       };
     } catch (error) {
       return {

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import * as S from '../../Style/Dashboard.style';
 import PropTypes from 'prop-types';
 import PostHeader from './Components/PostHeader';
@@ -11,6 +11,7 @@ import { getFileType } from '../../../../Core/Utils/FileType';
 import FileTypeEnums from '../Enums/FileTypeEnums';
 import Image from './Components/Image';
 import Video from './Components/Video';
+import Loading from '../../../../Core/Components/Loading/Loading';
 
 const options = {
   rootMargin: '100% 0px',
@@ -27,6 +28,7 @@ const optionsForVideo = {
 const Post = ({ data, isLastElement, fetchMorePost }) => {
   const dispatch = useDispatch();
   const [src, setSrc] = useState('');
+  const { postsInProcess } = useSelector((state) => state.Dashboard);
   const { ref, isIntersecting } = useIntersectionObserver({ options });
   const { ref: lastElementRef, isIntersecting: isIntersectingLastElement } = useIntersectionObserver({ options: optionsForLastElement, triggerOnce: true });
   const { ref: videoRef, isIntersecting: isVideoIntersecting } = useIntersectionObserver({ options: optionsForVideo, dependencies: [src] });
@@ -60,7 +62,7 @@ const Post = ({ data, isLastElement, fetchMorePost }) => {
       fetchMorePost();
     }
   }, [isIntersectingLastElement]);
-
+  
   return (
     <S.Post
       {...(data.files.length ? { 'data-src': getFileURL(data.files[0]) } : {})} 
@@ -72,8 +74,10 @@ const Post = ({ data, isLastElement, fetchMorePost }) => {
           lastElementRef.current = el;
         }
       }}
-      className="post"
     >
+      <S.PostOverlay isDeleting={postsInProcess.includes(data.id)}>
+        <Loading color="#FFFFFF" size={80} />
+      </S.PostOverlay>
       <PostHeader data={data} />
       { data.description && <p className="description"> { data.description } </p> }
       { !!data.files.length && fileElement[fileType]}

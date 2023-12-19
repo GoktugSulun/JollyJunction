@@ -1,6 +1,6 @@
 import React from 'react';
 import * as S from '../Style/Header.style';
-import { IconButton } from '@mui/material';
+import { IconButton, useMediaQuery } from '@mui/material';
 import NightlightRoundIcon from '@mui/icons-material/NightlightRound';
 import LightModeIcon from '@mui/icons-material/LightMode';
 import NotificationsIcon from '@mui/icons-material/Notifications';
@@ -11,6 +11,7 @@ import { useSelector } from 'react-redux';
 
 const Tools = () => {
   const navigate = useNavigate();
+  const min600px = useMediaQuery('(min-width: 600px)');
   const { unseenNotificationsCount } = useSelector((state) => state.AppConfig.init);
 
   const toggleTheme = () => {
@@ -19,15 +20,19 @@ const Tools = () => {
 
   return (
     <S.Tools>
-      <IconButton onClick={toggleTheme} >
-        <NightlightRoundIcon />
-      </IconButton>
+      {/* {
+        min600px && <IconButton onClick={toggleTheme} >
+          <NightlightRoundIcon />
+        </IconButton>
+      } */}
       <S.NotificationIconButton count={unseenNotificationsCount} onClick={() => navigate('/notifications')}>
         <NotificationsIcon />
       </S.NotificationIconButton>
-      <IconButton>
-        <HelpIcon />
-      </IconButton>
+      {/* {
+        min600px && <IconButton>
+          <HelpIcon />
+        </IconButton>
+      } */}
       <UserMenu />
     </S.Tools>
   );
