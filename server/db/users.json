@@ -11,7 +11,7 @@
       "country": "Turkey",
       "school": "Bahcesehir University",
       "img": {
-        "name": "1701973520619_1_goktug",
+        "name": "1701972902845_1_profile foto",
         "type": "jpeg"
       },
       "social_medias": [
@@ -36,7 +36,16 @@
       ],
       "company": "Google",
       "position": "Fullstack Developer",
-      "updated_at": "Thu Dec 07 2023 21:51:04 GMT+0300 (GMT+03:00)"
+      "updated_at": "Tue Dec 19 2023 23:59:50 GMT+0300 (GMT+03:00)",
+      "friends": [
+        {
+          "friend_id": 3,
+          "created_at": "Tue Dec 19 2023 23:55:58 GMT+0300 (GMT+03:00)",
+          "updated_at": "Tue Dec 19 2023 23:56:04 GMT+0300 (GMT+03:00)",
+          "is_removed": true
+        }
+      ],
+      "canBeFriend": false
     },
     {
       "id": 2,

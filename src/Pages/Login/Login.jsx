@@ -12,7 +12,6 @@ import { snackbar } from '../../Core/Utils/Snackbar';
 import { NotifierTypes } from '../../Core/Constants/Enums';
 import { LoginSagaActions } from './Store/Login.saga';
 import Loading from '../../Core/Components/Loading/Loading';
-import useHttpResponse from '../../Core/Hooks/useHttpResponse';
 
 const schema = yup.object({
   email: yup.string().email('Invalid email format!').required('Required!'),

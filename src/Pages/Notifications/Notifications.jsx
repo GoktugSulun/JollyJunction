@@ -43,7 +43,7 @@ const Notifications = () => {
   useHttpResponse({
     success: ({ idleAction }) => {
       idleAction();
-      const read = notifications.find((obj) => obj.id === loadingId).read;
+      const read = notifications.find((obj) => obj.id === loadingId)?.read;
       if (!read) {
         const payload = { 
           data: { 

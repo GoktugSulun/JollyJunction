@@ -4,12 +4,14 @@ import AuthService from '../services/AuthService.js';
 
 class AuthController {
   static async login(req, res) {
-    try {
-      const result = await AuthService.login(req, res);
-      Helpers.responseJSON(res, result);
-    } catch (error) {
-      Helpers.responseMessage(res, ResponseEnums.FAILURE, error.message);
-    }
+    setTimeout(async () => {
+      try {
+        const result = await AuthService.login(req, res);
+        Helpers.responseJSON(res, result);
+      } catch (error) {
+        Helpers.responseMessage(res, ResponseEnums.FAILURE, error.message);
+      }
+    }, 3000);
   }
 
   static async register(req, res) {
