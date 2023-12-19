@@ -5,7 +5,6 @@ import NotificationService from './NotificationService.js';
 import SaveService from './SaveService.js';
 
 export const canBeFriendHandler = (user_id, authorizedUserId) => {
-  console.log('can be friend => ', authorizedUserId);
   const { notifications } = notificationsDB.data;
   const { friends } = friendsDB.data;
   const isMe = authorizedUserId === user_id;
@@ -88,7 +87,6 @@ class PostService {
       }
 
       const result = getPostDetail(data, req.user.id);
-      console.log(result, ' result get by id');
       return {
         type: true,
         message: `Post with id ${id} has been fetched`,

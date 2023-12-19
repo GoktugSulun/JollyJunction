@@ -101,7 +101,6 @@ const Profile = () => {
     const user_id = pathname?.split('/')?.[3];
     if (pathname.includes('/profile') && authorizedUser?.id !== parseInt(user_id)) {
       setData(user);
-      console.log(user, ' user');
     } else {
       setData(authorizedUser);
     }

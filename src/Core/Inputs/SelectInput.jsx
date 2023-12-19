@@ -10,8 +10,6 @@ const SelectInput = (props) => {
   //   throw new Error('SelectInput: You passed data prop but missing control or value prop. To fix that, pass the value or spread registerHandler(name) as a prop.');
   // }
 
-  console.log(props.data, ' data');
-
   const onChangeHandler = (event) => {
     if (!_.isEmpty(props.control)) {
       props.field.onChange(event.target.value);

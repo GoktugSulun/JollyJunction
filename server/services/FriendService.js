@@ -75,7 +75,6 @@ class FriendService {
           return obj;
         })
       };
-      console.log(userIndex, ' bu index için => yeni data', userData);
       friends.splice(userIndex, 1, userData);
 
       const friendData = {
@@ -91,7 +90,6 @@ class FriendService {
           return obj;
         })
       };
-      console.log(friendIndex, ' bu index için => yeni data', friendData);
       friends.splice(friendIndex, 1, friendData);
 
 

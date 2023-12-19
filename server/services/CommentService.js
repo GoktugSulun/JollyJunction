@@ -280,7 +280,6 @@ class CommentService {
 
       //* if user delete a comment for a post which is created by another user.
       //* Find target post firstly
-      console.log(comments[index].post_id, ' ALO');
       const postService = await PostService.getById({ ...req, params: { id: comments[index].post_id } });
       if (!postService.type) {
         return {
@@ -316,7 +315,6 @@ class CommentService {
         });
         
         if (!deleteNotificationService.type) {
-          console.log(2);
           return {
             type: false,
             message: deleteNotificationService.message
@@ -329,7 +327,6 @@ class CommentService {
         message: 'Comment is removed'
       };
     } catch (error) {
-      console.log(3);
       return {
         type: false,
         message: error.message
