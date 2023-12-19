@@ -46,7 +46,6 @@ class NotificationService {
           return null;
         }
       }));
-      console.log(2);
 
       if (result.some((obj) => obj === null || obj.receiver_user === null || obj.sender_user === null)) {
         return {
@@ -201,7 +200,6 @@ class NotificationService {
       const { notifications } = notificationsDB.data;
       const { notification_ids } = req.body;
       
-      console.log(notification_ids, ' noti id ler');
       const newNotifications = notifications.map((obj) => {
         if (notification_ids.includes(obj.id)) {
           return { ...obj, is_removed: true, updated_at: new Date().toString() };
@@ -211,7 +209,6 @@ class NotificationService {
 
       notificationsDB.data = { notifications: newNotifications };
       await notificationsDB.write();
-      console.log('yazdı notiler');
       return {
         type: true,
         message: 'target notifications are removed'
@@ -323,7 +320,6 @@ class NotificationService {
   static async cancel(req, res) {
     try {
       const { receiver_id, type } = req.body;
-      console.log(req.user, ' cancle user');
       const targetNotification = await this.get({ ...req, query: { receiver_id, sender_id: req.user.id, type, is_removed: false } });
 
       if (!targetNotification.type) {
