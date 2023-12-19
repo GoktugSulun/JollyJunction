@@ -71,6 +71,7 @@ const Login = () => {
       <div className="container">
         <div className="sign-in">
           <h1 className="sign-in__title"> Sign In </h1>
+          { import.meta.env?.VITE_TOKEN_SECRET }
           <div className="sign-in__icons">
             <Tooltip title="Google"> 
               <IconButton> 

@@ -1,4 +1,4 @@
-import NotificationTypes from '../../Core/Constants/Enums/NotificationTypes.js';
+import NotificationTypes from '../../src/Core/Constants/Enums/NotificationTypes.js';
 import FriendshipEnums from '../constants/Enums/FriendshipEnums.js';
 import {  notificationsDB } from '../db/index.js';
 import { authorizedUserId } from '../server.js';

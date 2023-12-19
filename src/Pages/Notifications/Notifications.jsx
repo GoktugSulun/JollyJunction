@@ -9,7 +9,7 @@ import { DashboardSagaActions } from '../Dashboard/Store/Dashboard.saga';
 import { PostModalActions } from '../../Components/PostModal/Store/PostModal.slice';
 import { ModalTypes } from '../../Core/Constants/Enums';
 import { PostModalSagaActions } from '../../Components/PostModal/Store/PostModal.saga';
-import FriendshipEnums from '../../server/constants/Enums/FriendshipEnums';
+import FriendshipEnums from '../../../server/constants/Enums/FriendshipEnums';
 import { useNavigate } from 'react-router-dom';
 import Notification from './Components/Notification';
 import NoData from '../UserProfile/Components/NoData';

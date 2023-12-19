@@ -7,7 +7,7 @@ import { ApiUrl } from '../../../Core/Constants/ApiUrl';
 import { NotificationActions } from './Notifications.slice';
 import { snackbar } from '../../../Core/Utils/Snackbar';
 import { AppConfigActions } from '../../../Core/Store/AppConfig.slice';
-import FriendshipEnums from '../../../server/constants/Enums/FriendshipEnums';
+import FriendshipEnums from '../../../../server/constants/Enums/FriendshipEnums';
 import { DashboardActions } from '../../Dashboard/Store/Dashboard.slice';
 
 const mainSagaName = 'Notifications/request';

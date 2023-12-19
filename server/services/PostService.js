@@ -1,4 +1,4 @@
-import NotificationTypes from '../../Core/Constants/Enums/NotificationTypes.js';
+import NotificationTypes from '../../src/Core/Constants/Enums/NotificationTypes.js';
 import { commentsDB, postsDB, savesDB, likesDB, usersDB, friendsDB, notificationsDB } from '../db/index.js';
 import { authorizedUserId } from '../server.js';
 import LikeService from './LikeService.js';

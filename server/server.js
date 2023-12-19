@@ -9,6 +9,9 @@ import FriendRoute from './routes/FriendRoute.js';
 import CommentRoute from './routes/CommentRoute.js';
 import AuthRoute from './routes/AuthRoute.js';
 import path from 'path';
+import dotenv from 'dotenv';
+
+dotenv.config();
 
 const __dirname = path.resolve();
 

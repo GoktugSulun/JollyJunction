@@ -1,4 +1,8 @@
 export const ApiUrl = Object.freeze({
+  //* Auth
+  login: 'Auth/login',
+  register: 'Auth/register',
+
   //* Init
   getInit: '/Init/get',
 

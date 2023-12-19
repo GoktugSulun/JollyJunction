@@ -19,15 +19,16 @@ export default [
     actionType: LoginSagaActions.login.type,
     takeType: SagaTakeTypes.TAKE_LATEST,
     * func({ payload }) {
-      const result = yield call(request, HttpMethodTypes.GET, `${ApiUrl.user}?email=${payload.email}&password=${payload.password}`);
-      if (!result?.data?.length) {
-        yield put(snackbar('Email or password are wrong!', { variant: NotifierTypes.ERROR }));
-      } else {
-        const user = { ...result.data[0] };
-        delete user.password;
-        yield put(LoginActions.setUser(user));
-        localStorage.setItem('token', 'ABC123ABC123');
-      }
+      const result = yield call(request, HttpMethodTypes.POST, ApiUrl.login, payload);
+      console.log(result, ' result');
+      // if (!result?.data?.length) {
+      //   yield put(snackbar('Email or password are wrong!', { variant: NotifierTypes.ERROR }));
+      // } else {
+      //   const user = { ...result.data[0] };
+      //   delete user.password;
+      //   yield put(LoginActions.setUser(user));
+      //   localStorage.setItem('token', 'ABC123ABC123');
+      // }
     }
   }),
   createSagaWatcher({

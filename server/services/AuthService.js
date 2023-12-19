@@ -1,8 +1,5 @@
-import { usersDB } from '../db';
+import { usersDB } from '../db/index.js';
 import jwt from 'jsonwebtoken';
-import dotenv from 'dotenv';
-
-dotenv.config();
 
 class AuthService {
   static async login(req) {
@@ -18,7 +15,8 @@ class AuthService {
         };
       }
 
-      const token = jwt.sign(user, process.env.TOKEN_SECRET, { expiresIn: '1800s' });
+      console.log(process.env?.VITE_TOKEN_SECRET, ' process.env?.VITE_TOKEN_SECRET');
+      const token = jwt.sign(user, process.env?.VITE_TOKEN_SECRET, { expiresIn: '1800s' });
       console.log(token, ' token');
 
       return {
