@@ -5,7 +5,7 @@ import * as yup from 'yup';
 import { TextInput } from '../../Core/Inputs';
 import { Button } from '../../Core/Components/Buttons/Button.style';
 import { Facebook, GitHub, Google, LinkedIn } from '@mui/icons-material';
-import { IconButton, Tooltip } from '@mui/material';
+import { IconButton, InputAdornment, Tooltip } from '@mui/material';
 import { Link, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { snackbar } from '../../Core/Utils/Snackbar';
@@ -13,6 +13,8 @@ import { NotifierTypes } from '../../Core/Constants/Enums';
 import Loading from '../../Core/Components/Loading/Loading';
 import { RegisterSagaActions } from './Store/Register.saga';
 import useHttpResponse from '../../Core/Hooks/useHttpResponse';
+import VisibilityIcon from '@mui/icons-material/Visibility';
+import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 
 const schema = yup.object({
   name: yup.string().required('Required!').min(2, 'Name must be at least 2 character'),
@@ -33,8 +35,10 @@ const defaultValues = {
 const Register = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { loading } = useSelector((state) => state.Register);
   const [isClickedSignUp, setIsClickedSignUp] = useState(false);
+  const [isVisiblePassword, setIsVisiblePassword] = useState(false);
+  const [isVisibleRPassword, setIsVisibleRPassword] = useState(false);
+  const { loading } = useSelector((state) => state.Register);
   const { registerHandler, form } = useMaterialForm({
     defaultValues,
     schema
@@ -62,7 +66,6 @@ const Register = () => {
   
   useHttpResponse({
     success: ({ idleAction }) => {
-      dispatch(snackbar('Kayıt işlemi başarılı, giriş yapabilirsiniz.'));
       idleAction();
       navigate('/login');
     }
@@ -116,21 +119,37 @@ const Register = () => {
           />
           <TextInput
             label="Password"
+            type={isVisiblePassword ? 'text' : 'password'}
             {...registerHandler('password')}
             onChange={async () => {
               if (isClickedSignUp) {
                 await form.trigger('rpassword');
               }
             }}
+            endAdornment={<InputAdornment position="end"> 
+              <Tooltip title={isVisiblePassword ? 'Hide' : 'Show'}>
+                <IconButton onClick={() => setIsVisiblePassword((prev) => !prev)}> 
+                  {isVisiblePassword ? <VisibilityIcon /> : <VisibilityOffIcon />} 
+                </IconButton> 
+              </Tooltip>
+            </InputAdornment>}
           />
           <TextInput
             label="R-Password"
+            type={isVisibleRPassword ? 'text' : 'password'}
             {...registerHandler('rpassword')}
             onChange={async () => {
               if (isClickedSignUp) {
                 await form.trigger('password');
               }
             }}
+            endAdornment={<InputAdornment position="end"> 
+              <Tooltip title={isVisibleRPassword ? 'Hide' : 'Show'}>
+                <IconButton onClick={() => setIsVisibleRPassword((prev) => !prev)}> 
+                  {isVisibleRPassword ? <VisibilityIcon /> : <VisibilityOffIcon />} 
+                </IconButton> 
+              </Tooltip>
+            </InputAdornment>}
           />
           <Button 
             className="sign-up__button"

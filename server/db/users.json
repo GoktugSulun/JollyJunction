@@ -44,8 +44,7 @@
           "updated_at": "Tue Dec 19 2023 23:56:04 GMT+0300 (GMT+03:00)",
           "is_removed": true
         }
-      ],
-      "canBeFriend": false
+      ]
     },
     {
       "id": 2,
@@ -154,10 +153,63 @@
           "is_removed": false
         }
       ],
-      "canBeFriend": false,
       "company": "",
       "position": "Math Teacher",
       "updated_at": "Mon Dec 18 2023 21:55:13 GMT+0300 (GMT+03:00)"
+    },
+    {
+      "id": 4,
+      "name": "Yiğit Nezir",
+      "surname": "Akpınar",
+      "email": "yigit_nezzir@hotmail.com",
+      "password": "123456",
+      "location": "",
+      "city": "",
+      "country": "",
+      "school": "",
+      "img": "",
+      "company": "",
+      "position": "",
+      "social_medias": [],
+      "friends": [],
+      "created_at": "Thu Dec 21 2023 11:09:02 GMT+0300 (GMT+03:00)",
+      "updated_at": "Thu Dec 21 2023 11:09:02 GMT+0300 (GMT+03:00)"
+    },
+    {
+      "id": 5,
+      "name": "Emirhan",
+      "surname": "Gül",
+      "email": "emirhan_gul@hotmail.com",
+      "password": "123456",
+      "location": "",
+      "city": "",
+      "country": "",
+      "school": "",
+      "img": "",
+      "company": "",
+      "position": "",
+      "social_medias": [],
+      "friends": [],
+      "created_at": "Thu Dec 21 2023 11:11:05 GMT+0300 (GMT+03:00)",
+      "updated_at": "Thu Dec 21 2023 11:11:05 GMT+0300 (GMT+03:00)"
+    },
+    {
+      "id": 6,
+      "name": "Öznur ",
+      "surname": "Sülün",
+      "email": "oznur.sulun@hotmail.com",
+      "password": "123456",
+      "location": "",
+      "city": "",
+      "country": "",
+      "school": "",
+      "img": "",
+      "company": "",
+      "position": "",
+      "social_medias": [],
+      "friends": [],
+      "created_at": "Thu Dec 21 2023 11:11:40 GMT+0300 (GMT+03:00)",
+      "updated_at": "Thu Dec 21 2023 11:11:40 GMT+0300 (GMT+03:00)"
     }
   ]
 }

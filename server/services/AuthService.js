@@ -30,9 +30,41 @@ class AuthService {
     }
   }
 
-  static async register() {
+  static async register(req) {
     try {
-      console.log('xxx');
+      const { name, surname, email, password } = req.body;
+      const { users } = usersDB.data;
+
+      const isValidEmail = !users.find((obj) => obj.email === email);
+      if (!isValidEmail) {
+        return {
+          type: false,
+          message: 'This email has been already used'
+        };
+      }
+
+      const nextId = Math.max(...users.map(like => like.id), 0) + 1;
+      const newUser = {
+        id: nextId,
+        name,
+        surname,
+        email,
+        password,
+        location: '',
+        city: '',
+        country: '',
+        school: '',
+        img: '',
+        company: '',
+        position: '',
+        social_medias: [],
+        friends: [],
+        created_at: new Date().toString(),
+        updated_at: new Date().toString(),
+      };
+
+      users.push(newUser);
+      await usersDB.write();
      
       return {
         type: true,

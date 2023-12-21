@@ -15,12 +15,14 @@ class AuthController {
   }
 
   static async register(req, res) {
-    try {
-      const result = await AuthService.register(req, res);
-      Helpers.responseJSON(res, result);
-    } catch (error) {
-      Helpers.responseMessage(res, ResponseEnums.FAILURE, error.message);
-    }
+    setTimeout(async () => {
+      try {
+        const result = await AuthService.register(req, res);
+        Helpers.responseJSON(res, result);
+      } catch (error) {
+        Helpers.responseMessage(res, ResponseEnums.FAILURE, error.message);
+      }
+    }, 3000);
   }
 }
   
