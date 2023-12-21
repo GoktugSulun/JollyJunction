@@ -1,6 +1,6 @@
 import React from 'react';
 import * as S from '../Style/Header.style';
-import { IconButton, useMediaQuery } from '@mui/material';
+import { IconButton, Tooltip, useMediaQuery } from '@mui/material';
 import NightlightRoundIcon from '@mui/icons-material/NightlightRound';
 import LightModeIcon from '@mui/icons-material/LightMode';
 import NotificationsIcon from '@mui/icons-material/Notifications';
@@ -25,9 +25,11 @@ const Tools = () => {
           <NightlightRoundIcon />
         </IconButton>
       } */}
-      <S.NotificationIconButton count={unseenNotificationsCount} onClick={() => navigate('/notifications')}>
-        <NotificationsIcon />
-      </S.NotificationIconButton>
+      <Tooltip title="Notifications">
+        <S.NotificationIconButton count={unseenNotificationsCount} onClick={() => navigate('/notifications')}>
+          <NotificationsIcon />
+        </S.NotificationIconButton>
+      </Tooltip>
       {/* {
         min600px && <IconButton>
           <HelpIcon />

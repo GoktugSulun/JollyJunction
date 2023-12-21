@@ -302,6 +302,9 @@ export const FriendList = styled.div`
       ::-webkit-scrollbar {
          width: 5px;
       }
+      .no-friend {
+         margin-top: 20px;
+      }
       .friend {
          display: flex;
          justify-content: space-between;
