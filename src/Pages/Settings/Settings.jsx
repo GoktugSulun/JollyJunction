@@ -130,7 +130,7 @@ const Settings = () => {
                 endAdornment={<InputAdornment position="end"> 
                   <Tooltip title={isVisible ? 'Hide' : 'Show'}>
                     <IconButton onClick={() => setIsVisible((prev) => !prev)}> 
-                      {isVisible ? <VisibilityOffIcon /> : <VisibilityIcon />} 
+                      {isVisible ? <VisibilityIcon /> : <VisibilityOffIcon />} 
                     </IconButton> 
                   </Tooltip>
                 </InputAdornment>}
