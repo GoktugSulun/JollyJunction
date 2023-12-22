@@ -3,6 +3,9 @@ import { Divider, IconButton, Menu } from '@mui/material';
 import { styled as muiStyled, alpha, css } from '@mui/material/styles';
 
 export const Header = styled.div`
+   position: sticky;
+   top: 0;
+   z-index: 99;
    width: 100vw;
    height: 90px;
    background-color: #181818;
@@ -10,6 +13,7 @@ export const Header = styled.div`
    justify-content: space-between;
    padding: 0 75px;
    transition: padding 350ms;
+   box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
 
    @media (max-width: 1536px) {
       padding: 0 40px;
