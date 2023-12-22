@@ -3,6 +3,7 @@ import { Navigate, Outlet } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { MainWrapper } from '../Components/Pages/MainWrapper.style';
 import Header from '../../Components/Header/Header';
+import SettingsModal from '../../Components/SettingsModal/SettingsModal';
 
 const ProtectedRoute = ({ isAllowed, redirectPath }) => {
   const token = localStorage.getItem('token');
@@ -21,6 +22,7 @@ const ProtectedRoute = ({ isAllowed, redirectPath }) => {
       <Suspense fallback={<div />}>
         <Outlet />
       </Suspense>
+      <SettingsModal />
     </MainWrapper>
   );
 };

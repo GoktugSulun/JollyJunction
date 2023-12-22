@@ -1,4 +1,8 @@
 export const ApiUrl = Object.freeze({
+  //* Auth
+  login: 'Auth/login',
+  register: 'Auth/register',
+
   //* Init
   getInit: '/Init/get',
 
@@ -7,6 +11,7 @@ export const ApiUrl = Object.freeze({
   getUserById: '/User/getById',
   createUser: '/User/create',
   editUser: '/User/edit',
+  patchUser: '/User/patch',
 
   //* Post
   getAllPosts: '/Post/getAll',

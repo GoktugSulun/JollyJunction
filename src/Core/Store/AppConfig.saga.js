@@ -12,7 +12,8 @@ const mainSagaName = 'AppConfig/request';
 export const AppConfigSagaActions = {
   getInit: createAction(`${mainSagaName}/getInit`),
   getUnseenNotifications: createAction(`${mainSagaName}/getUnseenNotifications`),
-  editUser: createAction(`${mainSagaName}/editUser`)
+  editUser: createAction(`${mainSagaName}/editUser`),
+  patchUser: createAction(`${mainSagaName}/patchUser`)
 };
 
 export default [
@@ -41,6 +42,16 @@ export default [
       const response = yield call(request, HttpMethodTypes.PUT, `${ApiUrl.editUser}/${id}`, data, file);
       yield put(snackbar('Your informations is saved'));
       yield put(AppConfigActions.setUser(response.data));
+    }
+  }),
+  createSagaWatcher({
+    actionType: AppConfigSagaActions.patchUser.type,
+    takeType: SagaTakeTypes.TAKE_LATEST,
+    * func({ payload }) {
+      yield call(request, HttpMethodTypes.PATCH, ApiUrl.patchUser, payload);
+      if (payload.dont_show_again) {
+        yield put(snackbar('You will no longer receive reminder for profile customization'));
+      }
     }
   })
 ];

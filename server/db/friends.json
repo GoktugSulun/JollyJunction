@@ -1,0 +1,40 @@
+{
+  "friends": [
+    {
+      "id": 1,
+      "user_id": 1,
+      "friends": [
+        {
+          "friend_id": 3,
+          "created_at": "Tue Dec 19 2023 23:55:58 GMT+0300 (GMT+03:00)",
+          "updated_at": "Tue Dec 19 2023 23:56:04 GMT+0300 (GMT+03:00)",
+          "is_removed": true
+        },
+        {
+          "friend_id": 3,
+          "created_at": "Wed Dec 20 2023 00:00:01 GMT+0300 (GMT+03:00)",
+          "updated_at": "Wed Dec 20 2023 00:00:01 GMT+0300 (GMT+03:00)",
+          "is_removed": false
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "user_id": 3,
+      "friends": [
+        {
+          "friend_id": 1,
+          "created_at": "Tue Dec 19 2023 23:55:58 GMT+0300 (GMT+03:00)",
+          "updated_at": "Tue Dec 19 2023 23:56:04 GMT+0300 (GMT+03:00)",
+          "is_removed": true
+        },
+        {
+          "friend_id": 1,
+          "created_at": "Wed Dec 20 2023 00:00:01 GMT+0300 (GMT+03:00)",
+          "updated_at": "Wed Dec 20 2023 00:00:01 GMT+0300 (GMT+03:00)",
+          "is_removed": false
+        }
+      ]
+    }
+  ]
+}

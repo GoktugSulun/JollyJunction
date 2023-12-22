@@ -5,20 +5,13 @@ import { LoginSagaActions } from './Login.saga';
 const NAME = 'Login';
 
 const initialState = {
-  user: {}
+  
 };
 
 const LoginSlice = createSlice({
   name: NAME,
   initialState,
-  reducers: {
-    setUser: (state, action) => {
-      state.user = action.payload;
-    },
-    updateUserFriends: (state, action) => {
-      state.user.friends = action.payload;
-    }
-  },
+  reducers: {},
   extraReducers: (builder) => requestStatusReducer(builder, LoginSagaActions)
 });
 

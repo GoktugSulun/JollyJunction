@@ -4,7 +4,7 @@ import { Button } from '../../../Core/Components/Buttons/Button.style';
 import { useDispatch, useSelector } from 'react-redux';
 import Loading from '../../../Core/Components/Loading/Loading';
 import PropTypes from 'prop-types';
-import FriendshipEnums from '../../../server/constants/Enums/FriendshipEnums';
+import FriendshipEnums from '../../../../server/constants/Enums/FriendshipEnums';
 import { NotificationSagaActions } from '../Store/Notifications.saga';
 
 const Buttons = ({ data }) => {

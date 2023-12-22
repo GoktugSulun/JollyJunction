@@ -12,7 +12,6 @@ import { snackbar } from '../../Core/Utils/Snackbar';
 import { NotifierTypes } from '../../Core/Constants/Enums';
 import { LoginSagaActions } from './Store/Login.saga';
 import Loading from '../../Core/Components/Loading/Loading';
-import useHttpResponse from '../../Core/Hooks/useHttpResponse';
 
 const schema = yup.object({
   email: yup.string().email('Invalid email format!').required('Required!'),
@@ -27,7 +26,7 @@ const defaultValues = {
 const Login = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { loading, user } = useSelector((state) => state.Login);
+  const { loading } = useSelector((state) => state.Login);
   const { registerHandler, form } = useMaterialForm({
     defaultValues,
     schema
@@ -57,14 +56,6 @@ const Login = () => {
       signInHandler();
     }
   };
-
-  useHttpResponse({
-    success: ({ idleAction }) => {
-      idleAction();
-      localStorage.setItem('user_id', user?.id);
-      navigate('/');
-    }
-  }, LoginSagaActions.login());
 
   return (
     <S.Login>

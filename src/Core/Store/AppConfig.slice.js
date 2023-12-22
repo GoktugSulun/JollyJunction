@@ -10,8 +10,10 @@ const initialState = {
   init: {
     authorizedUser: {},
     unseenNotificationsCount: 0,
-    advertisements: []
+    advertisements: [],
+    missingProfile: {}
   },
+  isOpenSettingsModal: false
 };
 
 const AppConfigSlice = createSlice({
@@ -40,6 +42,9 @@ const AppConfigSlice = createSlice({
     },
     setUser: (state, action) => {
       state.init.authorizedUser = action.payload;
+    },
+    handleSettingsModal: (state, action) => {
+      state.isOpenSettingsModal = action.payload;
     }
   },
   extraReducers: (builder) => requestStatusReducer(builder, AppConfigSagaActions)
