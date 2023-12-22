@@ -129,7 +129,7 @@ const Settings = () => {
                 {...registerHandler('password')} 
                 endAdornment={<InputAdornment position="end"> 
                   <Tooltip title={isVisible ? 'Hide' : 'Show'}>
-                    <IconButton onClick={() => setIsVisible((prev) => !prev)}> 
+                    <IconButton disabled={loading?.editUser} onClick={() => setIsVisible((prev) => !prev)}> 
                       {isVisible ? <VisibilityIcon /> : <VisibilityOffIcon />} 
                     </IconButton> 
                   </Tooltip>

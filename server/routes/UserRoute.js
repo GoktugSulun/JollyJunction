@@ -8,5 +8,6 @@ app.get('/getAll', UserController.getAll);
 app.get('/getById/:id', UserController.getById);
 app.post('/create', UserController.create);
 app.put('/edit/:id', files.single('files'), UserController.edit);
+app.patch('/patch', UserController.patch);
 
 export default app;

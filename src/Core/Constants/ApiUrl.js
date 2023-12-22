@@ -11,6 +11,7 @@ export const ApiUrl = Object.freeze({
   getUserById: '/User/getById',
   createUser: '/User/create',
   editUser: '/User/edit',
+  patchUser: '/User/patch',
 
   //* Post
   getAllPosts: '/Post/getAll',

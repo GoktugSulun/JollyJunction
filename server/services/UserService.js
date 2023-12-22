@@ -119,6 +119,37 @@ class UserService {
       };
     }
   }
+
+  static async patch(req) {
+    try {
+      const { users } = usersDB.data;
+
+      const index = users.findIndex((obj) => obj.id === req.user.id);
+      if (index === -1) {
+        return {
+          type: false,
+          message: 'User not found'
+        };
+      }
+
+      const newUserData = {
+        ...users[index],
+        ...req.body
+      };
+      users.splice(index, 1, newUserData);
+      await usersDB.write();
+
+      return {
+        type: true,
+        message: 'User info has been updated',
+      };
+    } catch (error) {
+      return {
+        type: false,
+        message: error.message
+      };
+    }
+  }
 }
   
 export default UserService;

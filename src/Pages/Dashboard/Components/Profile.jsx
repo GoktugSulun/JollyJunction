@@ -22,6 +22,7 @@ import useHttpResponse from '../../../Core/Hooks/useHttpResponse';
 import { DashboardSagaActions } from '../Store/Dashboard.saga';
 import { NotificationSagaActions } from '../../Notifications/Store/Notifications.saga';
 import PersonRemoveIcon from '@mui/icons-material/PersonRemove';
+import AddIcon from '@mui/icons-material/Add';
 
 const Profile = () => {
   const dispatch = useDispatch();
@@ -50,9 +51,9 @@ const Profile = () => {
     case SocialMediaEnums.LINKEDIN:
       return <LinkedInIcon />;
     case SocialMediaEnums.TWITTER:
-      return <LinkedInIcon />;
+      return <TwitterIcon />;
     default:
-      throw Error('undefined type of social media');
+      return null;
     }
   };
 
@@ -139,7 +140,7 @@ const Profile = () => {
       fetchUser();
     }
   }, NotificationSagaActions.cancelFriendshipRequest());
-  
+
   return (
     <S.Profile>
       <div className="user">
@@ -163,15 +164,15 @@ const Profile = () => {
       <div className="user-detail">
         <div className="user-detail__row">
           <LocationOnIcon />
-          <span> {data?.location || ''}, {data?.city || ''} </span>
+          <span> {data?.location || ''} {data?.location && data?.city && ', '} {data?.city || ''} { !data?.city && !data.location && '-------' } </span>
         </div>
         <div className="user-detail__row">
           <SchoolIcon />
-          <span> {data?.school || ''} </span>
+          <span> {data?.school || '-------'} </span>
         </div>
         <div className="user-detail__row">
           <BusinessCenterIcon />
-          <span> {data?.company || ''} </span>
+          <span> {data?.company || '-------'} </span>
         </div>
       </div>
       <Divider />
@@ -187,20 +188,29 @@ const Profile = () => {
       </div>
       <Divider /> */}
       <div className="social-profile">
-        <div className="social-profile__title"> Social Profiles </div>
+        <div className="social-profile__title"> 
+          Social Profiles 
+          { data?.social_medias?.filter((obj) => obj.url)?.length < 3
+            && data?.id === authorizedUser.id
+            && <IconButton onClick={() => navigate('/settings')}>
+              <AddIcon />
+            </IconButton> }
+        </div>
         {
           data?.social_medias?.map((obj) => (
             obj.url 
-              ? <div key={obj.id} className="social-profile__row"> 
+              ? <div key={obj?.id} className="social-profile__row"> 
                 <div className="social-profile__info">
-                  <IconButton> {getSocialMediaIcon(obj.type)} </IconButton>
+                  <IconButton> {getSocialMediaIcon(obj?.type)} </IconButton>
                   <div className="social-profile__names">
-                    <span> {obj.name} </span>
-                    <a href={obj.url} target="_blank" className="link" rel="noreferrer"> {obj.url} </a>
+                    <span> {obj?.name} </span>
+                    <Tooltip title={obj?.url}>
+                      <a href={obj?.url} target="_blank" className="link" rel="noreferrer"> {obj?.url} </a>
+                    </Tooltip>
                   </div>
                 </div>
               </div>
-              : null 
+              : null
           ))
         }
       </div>

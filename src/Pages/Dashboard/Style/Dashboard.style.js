@@ -107,6 +107,23 @@ export const Profile = styled.div`
    .social-profile {
       &__title {
          color: #9a9a9a;
+         .MuiIconButton-root {
+            margin-left: 10px;
+            padding: 5px;
+            background-color: transparent;
+                  background-color: #222;
+            svg {
+               path {
+                  fill: #9a9a9a;
+               }
+            }
+            :hover {
+               background-color: #333;
+               svg path {
+                  fill: #FFFFFF;
+               }
+            }
+         }
       }
       &__row {
          display: flex;
@@ -122,6 +139,7 @@ export const Profile = styled.div`
          }
          .MuiIconButton-root {
             &:has(+ .social-profile__names .link:hover) {
+               background-color: #333;
                svg path {
                   fill: #FFFFFF;
                }
@@ -145,6 +163,7 @@ export const Profile = styled.div`
          align-items: center;
          gap: 15px;
          color: #7a7a7a;
+         width: 100%;
          svg {
             font-size: 30px;
          }
@@ -152,12 +171,20 @@ export const Profile = styled.div`
       &__names {
          display: flex;
          flex-direction: column;
-         color: #9a9a9a;
+         color: #c9c9c9;
          font-size: 14px;
-         word-break: break-all;
+         flex: 1;
+         width: 100%; 
+         overflow: hidden;
+         white-space: nowrap; 
          .link {
             color: #7a7a7a;
             transition: all 350ms;
+            white-space: nowrap; 
+            width: min-content; 
+            max-width: 100%;
+            overflow: hidden;
+            text-overflow: ellipsis; 
             :hover {
                color: #FFFFFF;
             }

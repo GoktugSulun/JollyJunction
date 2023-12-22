@@ -57,8 +57,28 @@ class AuthService {
         img: '',
         company: '',
         position: '',
-        social_medias: [],
+        social_medias: [
+          {
+            id: 1,
+            url: '',
+            name: 'LinkedIn',
+            type: 1
+          },
+          {
+            id: 2,
+            url: '',
+            name: 'Instagram',
+            type: 2
+          },
+          {
+            id: 3,
+            url: '',
+            name: 'Twitter',
+            type: 3
+          }
+        ],
         friends: [],
+        dont_show_again: false,
         created_at: new Date().toString(),
         updated_at: new Date().toString(),
       };

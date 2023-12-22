@@ -40,6 +40,17 @@ class UserController {
       }
     }, 3000);
   }
+
+  static async patch(req, res) {
+    setTimeout(async () => {
+      try {
+        const result = await UserService.patch(req, res);
+        Helpers.responseJSON(res, result);
+      } catch (error) {
+        Helpers.responseMessage(res, ResponseEnums.FAILURE, error.message);
+      }
+    }, 3000);
+  }
 }
   
 export default UserController;
