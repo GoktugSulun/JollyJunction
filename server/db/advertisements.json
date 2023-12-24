@@ -9,7 +9,7 @@
          "title": "İş bankası",
          "url": "iskultur.com",
          "url_path": "https://www.iskultur.com.tr",
-         "description": "Türkiye İş Bankası Kültür Yayınları, 1956 yılında Hasan Âli Yücel tarafından kuruldu."
+         "description": "1956 yılında Hasan Âli Yücel tarafından kuruldu."
       },
       {
          "id": 2,
@@ -31,7 +31,7 @@
          "title": "Monster",
          "url": "monster.com",
          "url_path": "https://www.monsternotebook.com.tr",
-         "description": "Monster Oyun Bilgisayarları Intel ve Nvidia’nın en üst donanımları ile, maksimum performans ve en mükemmel oyun deneyimini sunar."
+         "description": "Maksimum performans ve oyun deneyimini sunar."
       }
    ]
 }

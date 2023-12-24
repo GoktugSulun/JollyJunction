@@ -4,7 +4,6 @@ import CreatePost from './Components/Post/CreatePost';
 import { useDispatch, useSelector } from 'react-redux';
 import { DashboardSagaActions } from './Store/Dashboard.saga';
 import useHttpResponse from '../../Core/Hooks/useHttpResponse';
-import Loading from '../../Core/Components/Loading/Loading';
 import { DashboardActions } from './Store/Dashboard.slice';
 import { AppConfigSagaActions } from '../../Core/Store/AppConfig.saga';
 import { PostModalActions } from '../../Components/PostModal/Store/PostModal.slice';
@@ -14,7 +13,7 @@ import { PostSkeleton } from '../../Components/Skeletons';
 
 const Dashboard = () => {
   const dispatch = useDispatch();
-  const { loading } = useSelector(state => state.Dashboard);
+  const { loading, limitForFriendList, pageForFriendList, friends } = useSelector(state => state.Dashboard);
   const { authorizedUser } = useSelector(state => state.AppConfig.init);
 
   useHttpResponse({
@@ -27,13 +26,15 @@ const Dashboard = () => {
     success: ({ idleAction }) => {
       idleAction();
       dispatch(AppConfigSagaActions.getUnseenNotifications({ query: `?is_removed=false&seen=false&receiver_id=${authorizedUser.id}`}));
-      dispatch(DashboardSagaActions.getFriends({ query: `?user_id=${authorizedUser.id}&is_removed=false` }));
+      dispatch(DashboardSagaActions.getFriends({ query: `?user_id=${authorizedUser.id}&page=${pageForFriendList}&limit=${limitForFriendList}&is_removed=false` }));
     }
   }, DashboardSagaActions.acceptFriendship());
 
   useEffect(() => {
     dispatch(DashboardSagaActions.getPosts({ page: 1, limit: 10 }));
-    dispatch(DashboardSagaActions.getFriends({ query: `?user_id=${authorizedUser.id}&is_removed=false` }));
+    if (!friends.length) {
+      dispatch(DashboardSagaActions.getFriends({ query: `?user_id=${authorizedUser.id}&page=1&limit=${limitForFriendList}&is_removed=false` }));
+    }
     return () => {
       dispatch(DashboardActions.setReset());
       dispatch(PostModalActions.handleModal(ModalTypes.CLOSE));
@@ -43,7 +44,7 @@ const Dashboard = () => {
   return (
     <S.PostWrapper>
       <CreatePost />
-      { loading?.createPost && <PostSkeleton /> }
+      { loading?.createPost || true && <PostSkeleton /> }
       <Posts />
     </S.PostWrapper>
   );

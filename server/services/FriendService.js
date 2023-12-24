@@ -21,10 +21,11 @@ class FriendService {
           return value !== undefined ? String(obj[key]) === value : true;
         });
       });
+      const sortedData = [...filteredData].sort((a,b) => new Date(b.created_at).getTime() - new Date(a.created_at).getTime());
 
       const startIndex = (page - 1) * limit;
       const endIndex = page * limit; 
-      const slicedData = filteredData.slice(startIndex, endIndex);
+      const slicedData = sortedData.slice(startIndex, endIndex);
       const friendResults = await Promise.all(slicedData.map((obj) => UserService.getById({ ...req, params: { id: obj.friend_id } })));
       if (friendResults.some((i) => !i.type)) {
         return {

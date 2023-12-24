@@ -5,7 +5,7 @@ import { styled as muiStyled, alpha, css } from '@mui/material/styles';
 export const Header = styled.div`
    position: sticky;
    top: 0;
-   z-index: 99;
+   z-index: 999;
    width: 100vw;
    height: 90px;
    background-color: #181818;

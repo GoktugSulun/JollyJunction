@@ -10,8 +10,8 @@ const PostSkeleton = ({ count }) => {
         <div className="header">
           <S.CustomSkeleton animation="wave" variant="circular" width={60} height={60} />
           <div className="user">
-            <S.CustomSkeleton animation="wave" variant="rounded" width={350} height={15} />
-            <S.CustomSkeleton animation="wave" variant="rounded" width={250} height={15} />
+            <S.CustomSkeleton animation="wave" variant="rounded" width="65%" height={15} />
+            <S.CustomSkeleton animation="wave" variant="rounded" width="40%" height={15} />
           </div>
         </div>
         <div className="body">

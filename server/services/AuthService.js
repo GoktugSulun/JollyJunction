@@ -77,7 +77,6 @@ class AuthService {
             type: 3
           }
         ],
-        friends: [],
         dont_show_again: false,
         created_at: new Date().toString(),
         updated_at: new Date().toString(),

@@ -230,7 +230,7 @@ export const Advertisement = styled.div`
          width: 100%;
          height: calc(100%);
          background-color: rgba(0, 0, 0, 0.3); 
-         z-index: 99;
+         z-index: 90;
          border-radius: 10px;
          opacity: 0;
          transition: opacity 0.3s ease-in-out;
@@ -322,10 +322,10 @@ export const FriendList = styled.div`
       padding: 25px 25px 0 25px;
    }
    .friend-list {
-      max-height: 30vh;
-      overflow: auto;
       padding: 0 15px 10px;
       margin: 0 10px;
+      max-height: 30vh;
+      overflow: auto;
       ::-webkit-scrollbar {
          width: 5px;
       }
