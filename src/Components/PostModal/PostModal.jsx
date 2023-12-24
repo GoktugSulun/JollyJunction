@@ -13,21 +13,19 @@ import FileTypeEnums from '../../Pages/Dashboard/Components/Enums/FileTypeEnums'
 import Image from '../../Pages/Dashboard/Components/Post/Components/Image';
 import Video from './Components/Video';
 import { DashboardActions } from '../../Pages/Dashboard/Store/Dashboard.slice';
+import { useMediaQuery } from '@mui/material';
 
 const PostModal = () => {
   const dispatch = useDispatch();
   const videoRef = useRef();
-  const { isOpen, postData, limit } = useSelector((state) => state.PostModal); 
+  const { isOpen, postData, limit, videoData } = useSelector((state) => state.PostModal); 
+  const min900px = useMediaQuery('(min-width: 900px)');
 
   const handleClose = () => {
-    if (videoRef.current) {
-      const payload = {
-        isLegal: true,
-        currentTime: videoRef.current.currentTime,
-        isPlaying: !videoRef.current.paused
-      };
-      dispatch(DashboardActions.setVideoData(payload));
-    }
+    const payload = videoRef.current 
+      ? { isLegal: true, currentTime: videoRef.current.currentTime, isPlaying: !videoRef.current.paused }
+      : { isLegal: true, ...videoData };
+    dispatch(DashboardActions.setVideoData(payload));
     dispatch(PostModalActions.setReset());
   };
 
@@ -77,7 +75,7 @@ const PostModal = () => {
         onClose={handleClose}
       >
         <S.PostModal file={!!postData?.files?.length} isOpen={isOpen}>
-          { postData?.files?.length && <S.File> {fileElement[fileType]} </S.File> }
+          { postData?.files?.length && min900px && <S.File> {fileElement[fileType]} </S.File> }
           <CommentsSection handleClose={handleClose} />
         </S.PostModal>
       </Modal>
