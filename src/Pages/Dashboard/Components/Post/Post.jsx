@@ -12,7 +12,6 @@ import FileTypeEnums from '../Enums/FileTypeEnums';
 import Image from './Components/Image';
 import Video from './Components/Video';
 import Loading from '../../../../Core/Components/Loading/Loading';
-import { useLocation } from 'react-router-dom';
 
 const options = {
   rootMargin: '100% 0px',
@@ -28,9 +27,9 @@ const optionsForVideo = {
 
 const Post = ({ data, isLastElement, fetchMorePost }) => {
   const dispatch = useDispatch();
-  const { pathname } = useLocation();
   const [src, setSrc] = useState('');
   const { postsInProcess } = useSelector((state) => state.Dashboard);
+  const { isOpen: isOpenPostDetailModal } = useSelector((state) => state.PostModal);
   const { ref, isIntersecting } = useIntersectionObserver({ options });
   const { ref: lastElementRef, isIntersecting: isIntersectingLastElement } = useIntersectionObserver({ options: optionsForLastElement, triggerOnce: true });
   const { ref: videoRef, isIntersecting: isVideoIntersecting } = useIntersectionObserver({ options: optionsForVideo, dependencies: [src] });
@@ -50,7 +49,7 @@ const Post = ({ data, isLastElement, fetchMorePost }) => {
   };
 
   useEffect(() => {
-    if (pathname.includes('/post')) {
+    if (isOpenPostDetailModal) {
       return;
     }
     if (isIntersecting) { 
@@ -58,9 +57,9 @@ const Post = ({ data, isLastElement, fetchMorePost }) => {
       const mediaElementSrc = postElement.dataset.src;
       setSrc(mediaElementSrc);
     } else {
-      // setSrc('');
+      setSrc('');
     }
-  }, [isIntersecting, data, pathname]);
+  }, [isIntersecting, data, isOpenPostDetailModal]);
 
   useEffect(() => {
     if (isIntersectingLastElement) {

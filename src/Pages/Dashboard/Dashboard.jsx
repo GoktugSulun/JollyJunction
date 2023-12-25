@@ -10,7 +10,6 @@ import { PostModalActions } from '../../Components/PostModal/Store/PostModal.sli
 import { ModalTypes } from '../../Core/Constants/Enums';
 import Posts from './Components/Posts';
 import { PostSkeleton } from '../../Components/Skeletons';
-import { Outlet } from 'react-router-dom';
 
 const Dashboard = () => {
   const dispatch = useDispatch();
@@ -32,6 +31,7 @@ const Dashboard = () => {
   }, DashboardSagaActions.acceptFriendship());
 
   useEffect(() => {
+    console.log('dashboard mount oluyor');
     dispatch(DashboardSagaActions.getPosts({ page: 1, limit: 10 }));
     if (!friends.length) {
       dispatch(DashboardSagaActions.getFriends({ query: `?user_id=${authorizedUser.id}&page=1&limit=${limitForFriendList}&is_removed=false` }));

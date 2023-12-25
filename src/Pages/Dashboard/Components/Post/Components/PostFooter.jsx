@@ -30,7 +30,6 @@ const PostFooter = ({ data, likeHandler, videoRef }) => {
         currentTime: videoRef.current.currentTime, 
         isPlaying: !videoRef.current.paused,
       }));
-      console.log('durdu video');
       videoRef.current.pause();
     }
     dispatch(PostModalActions.setPostData(data));

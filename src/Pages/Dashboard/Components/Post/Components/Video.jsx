@@ -2,16 +2,22 @@ import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { useDispatch, useSelector } from 'react-redux';
 import { DashboardActions } from '../../../Store/Dashboard.slice';
-import { useLocation } from 'react-router-dom';
 
 const Video = ({ data, src, videoRef, isVideoIntersecting }) => {
   const dispatch = useDispatch();
-  const location = useLocation();
   const { isMuted, videoData: { isLegal, currentTime, isPlaying } } = useSelector((state) => state.Dashboard);
   const { isOpen } = useSelector((state) => state.PostModal);
  
   useEffect(() => {
     if (!videoRef.current || isOpen) {
+      return;
+    }
+    if (isLegal && isVideoIntersecting) {
+      videoRef.current.currentTime = currentTime;
+      if (isPlaying) {
+        videoRef.current.play();
+      }
+      dispatch(DashboardActions.setVideoData({ isLegal: false }));
       return;
     }
     if (isVideoIntersecting) {
@@ -23,21 +29,7 @@ const Video = ({ data, src, videoRef, isVideoIntersecting }) => {
         videoRef.current.pause();
       }
     }
-  }, [isVideoIntersecting, data.id]);
-
-  //* After postModal data is closed, start/stop video on actual time
-  // useEffect(() => {
-  //   if (!videoRef.current || !isLegal || !isVideoIntersecting || isOpen) {
-  //     console.log('yapma');
-  //     return;
-  //   }
-  //   videoRef.current.currentTime = currentTime;
-  //   if (isPlaying) {
-  //     console.log(data.id, ' başlatıldı 2 => ', currentTime);
-  //     videoRef.current.play();
-  //   }
-  //   // dispatch(DashboardActions.setVideoData({ isLegal: false }));
-  // }, [isLegal, isVideoIntersecting]);
+  }, [isVideoIntersecting, data.id, isOpen]);
 
   return (
     <video 

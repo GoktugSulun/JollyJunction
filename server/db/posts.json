@@ -209,8 +209,8 @@
       "user_id": 1,
       "id": 48,
       "created_at": "Mon Dec 18 2023 16:30:35 GMT+0300 (GMT+03:00)",
-      "updated_at": "Mon Dec 18 2023 16:30:35 GMT+0300 (GMT+03:00)",
-      "is_removed": false,
+      "updated_at": "Mon Dec 25 2023 16:12:42 GMT+0300 (GMT+03:00)",
+      "is_removed": true,
       "files": [
         {
           "name": "1702906231978_1_img-1",
@@ -388,6 +388,15 @@
           "type": "mp4"
         }
       ]
+    },
+    {
+      "description": "hh",
+      "user_id": 1,
+      "id": 64,
+      "created_at": "Mon Dec 25 2023 16:10:02 GMT+0300 (GMT+03:00)",
+      "updated_at": "Mon Dec 25 2023 16:12:02 GMT+0300 (GMT+03:00)",
+      "is_removed": true,
+      "files": []
     }
   ]
 }

@@ -30,7 +30,14 @@ const RouteList = () => {
   }, [authorizedUser?.id]);
 
   useEffect(() => {
-    window.scrollTo(0, 0);
+    /*
+      * Reset scroll and start page from the top when page is reload or path is changed
+      * Dont do it when postDetailModal exists, ...
+      * ... Because it causes to intersect for the first element of posts and if it has a video, it causes "use effect in Video compoenent for dashboard post" to work incorrectly
+    */
+    if (!postDetailModal) {
+      window.scrollTo(0, 0);
+    }
   }, [location.pathname]);
 
   useEffect(() => {
@@ -59,7 +66,7 @@ const RouteList = () => {
         <Route element={<ProtectedRoute isAllowed />}>
           <Route element={<Layout /> }>
             <Route path="/" element={<Dashboard />} />
-            <Route path="/post/:id" element={<PostModal />} />
+            {/* <Route path="/post/:id" element={<PostModal />} /> */}
             <Route path="/profile/:user/:id" element={<UserProfile />} />
             <Route path="/notifications" element={<Notifications />} />
           </Route>

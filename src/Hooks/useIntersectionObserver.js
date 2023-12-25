@@ -20,11 +20,14 @@ export const useIntersectionObserver = (
    
   useEffect(() => {
     const callback = (entries, observer) => {
-      const element = entries[0];
-      setEntry(element);
-      setIsIntersecting(element.isIntersecting);
-      setIntersectionRatio(Math.round(element.intersectionRatio * 100));
-      if (element.isIntersecting && triggerOnce) {
+      const el = entries[0];
+      setEntry(el);
+      setIsIntersecting(el.isIntersecting);
+      setIntersectionRatio(Math.round(el.intersectionRatio * 100));
+      if (isIntersecting) { 
+        // console.log(el, ' => intersect olan el'); TODO: sil
+      }
+      if (el.isIntersecting && triggerOnce) {
         observer.unobserve(ref.current);
       }
     };

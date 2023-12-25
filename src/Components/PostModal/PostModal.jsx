@@ -30,6 +30,9 @@ const PostModal = () => {
     const payload = videoRef.current 
       ? { isLegal: true, currentTime: videoRef.current.currentTime, isPlaying: !videoRef.current.paused }
       : { isLegal: true, ...videoData };
+    if (!videoRef.current.paused) {
+      videoRef.current.pause();
+    }
     dispatch(DashboardActions.setVideoData(payload));
     dispatch(PostModalActions.setReset());
     navigate(location.key === 'default' ? '/' : -1, { replace: true }); //* it means that there is no previous page
