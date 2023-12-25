@@ -1,7 +1,7 @@
 import { Route, Routes, useLocation } from 'react-router-dom';
 import ProtectedRoute from './ProtectedRoute';
 import { useDispatch, useSelector } from 'react-redux';
-import { useEffect } from 'react';
+import { useEffect, useLayoutEffect } from 'react';
 import Loading from '../Components/Loading/Loading';
 import { FullSizeLoadingWrapper } from '../Components/Pages/FullSizeLoadingWrapper.style';
 import { AppConfigSagaActions } from '../Store/AppConfig.saga';
@@ -14,22 +14,32 @@ import UserProfile from '../../Pages/UserProfile/UserProfile';
 import Notifications from '../../Pages/Notifications/Notifications';
 import Layout from '../../Pages/Layout/Layout';
 import Settings from '../../Pages/Settings/Settings';
+import PostModal from '../../Components/PostModal/PostModal';
 
 const RouteList = () => {
   const token = localStorage.getItem('token');
   const dispatch = useDispatch();
   const location = useLocation();
+  const postDetailModal = location.state?.postDetailModal;
   const { authorizedUser } = useSelector((state) => state.AppConfig.init);
 
   useEffect(() => {
     if (!authorizedUser?.id && token) {
       dispatch(AppConfigSagaActions.getInit());
     }
-  }, [authorizedUser?.id, token]);
+  }, [authorizedUser?.id]);
 
   useEffect(() => {
     window.scrollTo(0, 0);
   }, [location.pathname]);
+
+  useEffect(() => {
+    const scrollTo = () => window.scrollTo(0, 0);
+    window.addEventListener('beforeunload', scrollTo);
+    return () => {
+      window.removeEventListener('beforeunload', scrollTo);
+    };
+  }, []);
 
   if (!authorizedUser?.id && token) {
     return (
@@ -40,19 +50,29 @@ const RouteList = () => {
   }
 
   return (
-    <Routes>
-      <Route path="/login" element={<Login />} />
-      <Route path="/register" element={<Register />} />
-      <Route element={<ProtectedRoute isAllowed />}>
-        <Route element={<Layout /> }>
-          <Route path="/" element={<Dashboard />} />
-          <Route path="/profile/:user/:id" element={<UserProfile />} />
-          <Route path="/notifications" element={<Notifications />} />
+    <>
+      <Routes location={postDetailModal || location}>
+        <Route element={<ProtectedRoute isPrivate  redirectPath="/" />}>
+          <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
         </Route>
-        <Route path="/settings" element={<Settings />} />
-      </Route>
-      <Route path="*" element={<div> Page Not Found! </div>} />
-    </Routes>
+        <Route element={<ProtectedRoute isAllowed />}>
+          <Route element={<Layout /> }>
+            <Route path="/" element={<Dashboard />} />
+            <Route path="/post/:id" element={<PostModal />} />
+            <Route path="/profile/:user/:id" element={<UserProfile />} />
+            <Route path="/notifications" element={<Notifications />} />
+          </Route>
+          <Route path="/settings" element={<Settings />} />
+        </Route>
+        <Route path="*" element={<div> Page Not Found! </div>} />
+      </Routes>
+      {
+        postDetailModal && <Routes>
+          <Route path="/post/:id" element={<PostModal />} />
+        </Routes>
+      }
+    </>
   );
 };
 
