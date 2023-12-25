@@ -77,7 +77,7 @@ const UserMenu = () => {
   const logout = () => {
     handleClose();
     localStorage.clear();
-    location.reload();
+    navigate('/login', { replace: true });
   };
 
   const navigateMyProfile = () => {

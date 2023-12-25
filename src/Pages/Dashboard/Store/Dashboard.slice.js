@@ -16,7 +16,7 @@ const initialState = {
   friends: [],
   isMuted: true,
   videoData: {
-    isLegal: false, //* when postModal is closed, it is gonna be true and after video settings is changed, it is gonna be again false.
+    isLegal: null, //* when postModal is closed, it is gonna be true and after video settings is changed, it is gonna be again false.
     currentTime: 0,
     isPlaying: false
   },

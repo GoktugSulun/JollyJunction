@@ -18,7 +18,8 @@ export default [
     * func({ payload }) {
       const result = yield call(request, HttpMethodTypes.POST, ApiUrl.login, payload);
       localStorage.setItem('token', result.data.token);
-      window.location.href = '/';
+      const targetLocation = localStorage.getItem('targetLocation');
+      window.location.replace(targetLocation || '/');
     }
   })
 ];

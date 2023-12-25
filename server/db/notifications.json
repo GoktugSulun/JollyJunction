@@ -239,6 +239,18 @@
       "seen": true,
       "read": false,
       "is_removed": false
+    },
+    {
+      "id": 21,
+      "type": 3,
+      "receiver_id": 1,
+      "sender_id": 5,
+      "post_id": 54,
+      "created_at": "Mon Dec 25 2023 14:35:14 GMT+0300 (GMT+03:00)",
+      "updated_at": "Mon Dec 25 2023 14:35:14 GMT+0300 (GMT+03:00)",
+      "seen": false,
+      "read": false,
+      "is_removed": false
     }
   ]
 }

@@ -10,6 +10,7 @@ import { PostModalActions } from '../../Components/PostModal/Store/PostModal.sli
 import { ModalTypes } from '../../Core/Constants/Enums';
 import Posts from './Components/Posts';
 import { PostSkeleton } from '../../Components/Skeletons';
+import { Outlet } from 'react-router-dom';
 
 const Dashboard = () => {
   const dispatch = useDispatch();
@@ -44,7 +45,7 @@ const Dashboard = () => {
   return (
     <S.PostWrapper>
       <CreatePost />
-      { loading?.createPost || true && <PostSkeleton /> }
+      { loading?.createPost && <PostSkeleton /> }
       <Posts />
     </S.PostWrapper>
   );

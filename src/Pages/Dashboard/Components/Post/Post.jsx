@@ -12,6 +12,7 @@ import FileTypeEnums from '../Enums/FileTypeEnums';
 import Image from './Components/Image';
 import Video from './Components/Video';
 import Loading from '../../../../Core/Components/Loading/Loading';
+import { useLocation } from 'react-router-dom';
 
 const options = {
   rootMargin: '100% 0px',
@@ -27,6 +28,7 @@ const optionsForVideo = {
 
 const Post = ({ data, isLastElement, fetchMorePost }) => {
   const dispatch = useDispatch();
+  const { pathname } = useLocation();
   const [src, setSrc] = useState('');
   const { postsInProcess } = useSelector((state) => state.Dashboard);
   const { ref, isIntersecting } = useIntersectionObserver({ options });
@@ -48,14 +50,17 @@ const Post = ({ data, isLastElement, fetchMorePost }) => {
   };
 
   useEffect(() => {
+    if (pathname.includes('/post')) {
+      return;
+    }
     if (isIntersecting) { 
       const postElement = ref.current;
       const mediaElementSrc = postElement.dataset.src;
       setSrc(mediaElementSrc);
     } else {
-      setSrc('');
+      // setSrc('');
     }
-  }, [isIntersecting, data]);
+  }, [isIntersecting, data, pathname]);
 
   useEffect(() => {
     if (isIntersectingLastElement) {

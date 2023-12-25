@@ -19,7 +19,7 @@ const Layout = () => {
       <S.SidebarWrapper>
         { min1200px && <Sidebar /> }
       </S.SidebarWrapper>
-      <PostModal />
+      {/* <PostModal /> */}
     </S.Layout>
   );
 };

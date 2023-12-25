@@ -14,9 +14,14 @@ import Image from '../../Pages/Dashboard/Components/Post/Components/Image';
 import Video from './Components/Video';
 import { DashboardActions } from '../../Pages/Dashboard/Store/Dashboard.slice';
 import { useMediaQuery } from '@mui/material';
+import { useLocation, useNavigate } from 'react-router-dom';
+import { ModalTypes } from '../../Core/Constants/Enums';
+import _ from 'lodash';
 
 const PostModal = () => {
   const dispatch = useDispatch();
+  const location = useLocation();
+  const navigate = useNavigate();
   const videoRef = useRef();
   const { isOpen, postData, limit, videoData } = useSelector((state) => state.PostModal); 
   const min900px = useMediaQuery('(min-width: 900px)');
@@ -27,6 +32,7 @@ const PostModal = () => {
       : { isLegal: true, ...videoData };
     dispatch(DashboardActions.setVideoData(payload));
     dispatch(PostModalActions.setReset());
+    navigate(location.key === 'default' ? '/' : -1, { replace: true }); //* it means that there is no previous page
   };
 
   const likeHandler = () => {
@@ -66,12 +72,21 @@ const PostModal = () => {
     if (isOpen) {
       dispatch(PostModalSagaActions.getComments({ post_id: postData.id, page: 1, limit }));
     }
+    if (isOpen && _.isEmpty(postData)) {
+      dispatch(PostModalSagaActions.getSpecificPost({ post_id: location.pathname.split('/')[2] }));
+    }
   }, [isOpen]);
+
+  useEffect(() => {
+    if (location.pathname.includes('/post')) {
+      dispatch(PostModalActions.handleModal(ModalTypes.OPEN));
+    }
+  }, [location.pathname]);
 
   return (
     <div>
       <Modal
-        open={isOpen}
+        open={location.pathname.includes('/post')}
         onClose={handleClose}
       >
         <S.PostModal file={!!postData?.files?.length} isOpen={isOpen}>

@@ -8,7 +8,7 @@ export const handleError = (error) => {
 
   if (error?.response?.status === 401) {
     //* unauthorized : clear localStorage and send user to login
-    localStorage.clear();
+    localStorage.removeItem('token');
     window.location.replace('#/login');
   }
 

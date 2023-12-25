@@ -1283,6 +1283,16 @@
           "sender_id": 5
         }
       }
+    },
+    {
+      "comment": "nabersin usta",
+      "post_id": 54,
+      "id": 80,
+      "user_id": 5,
+      "likes": [],
+      "created_at": "Mon Dec 25 2023 14:35:14 GMT+0300 (GMT+03:00)",
+      "updated_at": "Mon Dec 25 2023 14:35:14 GMT+0300 (GMT+03:00)",
+      "is_removed": false
     }
   ]
 }
