@@ -66,7 +66,7 @@ const RouteList = () => {
         <Route element={<ProtectedRoute isAllowed />}>
           <Route element={<Layout /> }>
             <Route path="/" element={<Dashboard />} />
-            {/* <Route path="/post/:id" element={<PostModal />} /> */}
+            <Route path="/post/:id" element={<PostModal />} />
             <Route path="/profile/:user/:id" element={<UserProfile />} />
             <Route path="/notifications" element={<Notifications />} />
           </Route>

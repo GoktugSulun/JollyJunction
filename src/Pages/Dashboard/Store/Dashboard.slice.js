@@ -28,7 +28,7 @@ const DashboardSlice = createSlice({
   initialState,
   reducers: {
     setReset: (state) => {
-      return { ...initialState, friends: state.friends };
+      return { ...initialState, friends: state.friends, isMuted: state.isMuted };
     },
     setPosts: (state, action) => {
       if (state.page === 1) {

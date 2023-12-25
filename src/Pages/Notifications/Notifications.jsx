@@ -95,7 +95,6 @@ const Notifications = () => {
     }
     return () => {
       dispatch(NotificationActions.setReset());
-      dispatch(PostModalActions.handleModal(ModalTypes.CLOSE));
     };
   }, []);
 

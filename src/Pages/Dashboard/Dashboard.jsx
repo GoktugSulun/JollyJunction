@@ -38,7 +38,6 @@ const Dashboard = () => {
     }
     return () => {
       dispatch(DashboardActions.setReset());
-      dispatch(PostModalActions.handleModal(ModalTypes.CLOSE));
     };
   }, []);
 

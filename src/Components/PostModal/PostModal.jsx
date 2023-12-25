@@ -30,8 +30,8 @@ const PostModal = () => {
     const payload = videoRef.current 
       ? { isLegal: true, currentTime: videoRef.current.currentTime, isPlaying: !videoRef.current.paused }
       : { isLegal: true, ...videoData };
-    if (!videoRef.current.paused) {
-      videoRef.current.pause();
+    if (!videoRef?.current?.paused) {
+      videoRef?.current?.pause?.();
     }
     dispatch(DashboardActions.setVideoData(payload));
     dispatch(PostModalActions.setReset());
@@ -89,7 +89,7 @@ const PostModal = () => {
   return (
     <div>
       <Modal
-        open={location.pathname.includes('/post')}
+        open={isOpen}
         onClose={handleClose}
       >
         <S.PostModal file={!!postData?.files?.length} isOpen={isOpen}>
