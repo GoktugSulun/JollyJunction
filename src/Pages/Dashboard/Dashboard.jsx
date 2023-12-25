@@ -6,8 +6,6 @@ import { DashboardSagaActions } from './Store/Dashboard.saga';
 import useHttpResponse from '../../Core/Hooks/useHttpResponse';
 import { DashboardActions } from './Store/Dashboard.slice';
 import { AppConfigSagaActions } from '../../Core/Store/AppConfig.saga';
-import { PostModalActions } from '../../Components/PostModal/Store/PostModal.slice';
-import { ModalTypes } from '../../Core/Constants/Enums';
 import Posts from './Components/Posts';
 import { PostSkeleton } from '../../Components/Skeletons';
 
@@ -31,7 +29,6 @@ const Dashboard = () => {
   }, DashboardSagaActions.acceptFriendship());
 
   useEffect(() => {
-    console.log('dashboard mount oluyor');
     dispatch(DashboardSagaActions.getPosts({ page: 1, limit: 10 }));
     if (!friends.length) {
       dispatch(DashboardSagaActions.getFriends({ query: `?user_id=${authorizedUser.id}&page=1&limit=${limitForFriendList}&is_removed=false` }));
