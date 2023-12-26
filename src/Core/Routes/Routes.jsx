@@ -1,19 +1,21 @@
 import { Route, Routes, useLocation } from 'react-router-dom';
 import ProtectedRoute from './ProtectedRoute';
 import { useDispatch, useSelector } from 'react-redux';
-import { useEffect, useLayoutEffect } from 'react';
+import { Suspense, lazy, useEffect } from 'react';
 import Loading from '../Components/Loading/Loading';
 import { FullSizeLoadingWrapper } from '../Components/Pages/FullSizeLoadingWrapper.style';
 import { AppConfigSagaActions } from '../Store/AppConfig.saga';
 
 // PAGES
-import Dashboard from '../../Pages/Dashboard/Dashboard';
-import Login from '../../Pages/Login/Login';
-import Register from '../../Pages/Register/Register';
-import UserProfile from '../../Pages/UserProfile/UserProfile';
-import Notifications from '../../Pages/Notifications/Notifications';
-import Layout from '../../Pages/Layout/Layout';
-import Settings from '../../Pages/Settings/Settings';
+const Dashboard = lazy(() => import('../../Pages/Dashboard/Dashboard'));
+const Login = lazy(() => import('../../Pages/Login/Login'));
+const Register = lazy(() => import('../../Pages/Register/Register'));
+const UserProfile = lazy(() => import('../../Pages/UserProfile/UserProfile'));
+const Notifications = lazy(() => import('../../Pages/Notifications/Notifications'));
+const Layout = lazy(() => import('../../Pages/Layout/Layout'));
+const Settings = lazy(() => import('../../Pages/Settings/Settings'));
+
+// MODAL
 import PostModal from '../../Components/PostModal/PostModal';
 
 const RouteList = () => {
@@ -57,7 +59,7 @@ const RouteList = () => {
   }
 
   return (
-    <>
+    <Suspense fallback={<div />}>
       <Routes location={postDetailModal || location}>
         <Route element={<ProtectedRoute isPrivate  redirectPath="/" />}>
           <Route path="/login" element={<Login />} />
@@ -79,7 +81,7 @@ const RouteList = () => {
           <Route path="/post/:id" element={<PostModal />} />
         </Routes>
       }
-    </>
+    </Suspense>
   );
 };
 

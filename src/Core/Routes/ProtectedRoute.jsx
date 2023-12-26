@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import { MainWrapper } from '../Components/Pages/MainWrapper.style';
 import Header from '../../Components/Header/Header';
 import SettingsModal from '../../Components/SettingsModal/SettingsModal';
+import SuspenseFallback from './SuspenseFallback';
 
 const ProtectedRoute = ({ isAllowed, redirectPath, state, isPrivate }) => {
   const token = localStorage.getItem('token');
@@ -11,7 +12,11 @@ const ProtectedRoute = ({ isAllowed, redirectPath, state, isPrivate }) => {
 
   if (isPrivate) {
     if (!token) {
-      return <Outlet />;
+      return (
+        <Suspense fallback={<SuspenseFallback />}>
+          <Outlet />
+        </Suspense>
+      );
     }
     return <Navigate to={redirectPath} replace state={state} />;
   }
@@ -28,7 +33,7 @@ const ProtectedRoute = ({ isAllowed, redirectPath, state, isPrivate }) => {
   return (
     <MainWrapper>
       <Header />
-      <Suspense fallback={<div />}>
+      <Suspense fallback={<SuspenseFallback height="calc(100vh - 90px)" />}>
         <Outlet />
       </Suspense>
       <SettingsModal />
