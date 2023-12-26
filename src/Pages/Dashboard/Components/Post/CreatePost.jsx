@@ -125,32 +125,34 @@ const CreatePost = () => {
       </div>
       <Divider margin="20px 0" />
       <div className="tools">
-        <Button
-          startIcon={<ImageIcon />}
-          component="label"
-          onChange={handleFiles}
-        >
+        <div className="tools__file-buttons">
+          <Button
+            startIcon={<ImageIcon />}
+            component="label"
+            onChange={handleFiles}
+          >
           Image
-          <input type="file" accept="image/*" />
-        </Button>
-        <Button
-          startIcon={<VideoCameraBackIcon />}
-          component="label"
-          onChange={handleFiles}
-        >
+            <input type="file" accept="image/*" />
+          </Button>
+          <Button
+            startIcon={<VideoCameraBackIcon />}
+            component="label"
+            onChange={handleFiles}
+          >
           Video
-          <input type="file" accept="video/*" />
-        </Button>
-        <Button
-          startIcon={<AudioFileIcon />}
-        >
+            <input type="file" accept="video/*" />
+          </Button>
+          <Button
+            startIcon={<AudioFileIcon />}
+          >
           Music
-        </Button>
-        <Button
+          </Button>
+          {/* <Button
           startIcon={<AttachFileIcon />}
         >
           Attachment
-        </Button>
+        </Button> */}
+        </div>
         <Button
           endIcon={loading?.createPost ? <Loading size={20} /> : <SendIcon />}
           className="create-post"

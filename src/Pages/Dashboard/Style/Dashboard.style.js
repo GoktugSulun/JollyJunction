@@ -417,6 +417,10 @@ export const CreatePost = styled.div`
       align-items: center;
       flex-wrap: wrap;
       justify-content: space-between;
+      &__file-buttons {
+         display: flex;
+         gap: 20px;
+      }
       .MuiButton-root {
          position: relative;
          background-color: transparent;
