@@ -15,6 +15,7 @@ const initialState = {
   canBeMoreFriends: true,
   friends: [],
   isMuted: true,
+  volume: 1,
   videoData: {
     isLegal: false, //* false: (modal has already closed and process has been done || modal hasnt been opened and closed) && true: modal has just closed.
     currentTime: 0,
@@ -28,7 +29,7 @@ const DashboardSlice = createSlice({
   initialState,
   reducers: {
     setReset: (state) => {
-      return { ...initialState, friends: state.friends, isMuted: state.isMuted };
+      return { ...initialState, friends: state.friends, isMuted: state.isMuted, volume: state.volume };
     },
     setPosts: (state, action) => {
       if (state.page === 1) {
@@ -57,6 +58,9 @@ const DashboardSlice = createSlice({
     },
     setIsMuted: (state, action) => {
       state.isMuted = action.payload;
+    },
+    setVolume: (state, action) => {
+      state.volume = action.payload;
     },
     setPage: (state, action) => {
       state.page = action.payload;
