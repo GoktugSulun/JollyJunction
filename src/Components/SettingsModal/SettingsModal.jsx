@@ -93,16 +93,16 @@ const SettingsModal = () => {
           <div className="hidden-wrapper">
             <S.SettingsModalContent>
               <div className="header">
-                <h2 className="title"> Hello SocialPedia member! </h2>
+                <h2 className="title"> Hello JollyJunction member! </h2>
                 <IconButton onClick={handleClose}>
                   <CloseIcon />
                 </IconButton>
               </div>
               <p className="description"> 
-            &nbsp;&nbsp;Welcome to the world of social media! We are here to meet you better and make your <b>Socialpedia</b> experience more personal.
+            &nbsp;&nbsp;Welcome to the world of social media! We are here to meet you better and make your <b>JollyJunction</b> experience more personal.
               </p>
               <p className="description">
-            &nbsp;&nbsp;Can you spare a few minutes to make your profile richer and more attractive? These small steps will connect you with other users with similar interests and further strengthen the <b>Socialpedia</b> community.
+            &nbsp;&nbsp;Can you spare a few minutes to make your profile richer and more attractive? These small steps will connect you with other users with similar interests and further strengthen the <b>JollyJunction</b> community.
               </p>
               <Divider />
               <h2 className="missing-infos-title"> <b>Last {Object.keys(missingProfile).length} step</b> to customize your profile! </h2>

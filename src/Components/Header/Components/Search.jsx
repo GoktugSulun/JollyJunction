@@ -29,7 +29,7 @@ const Search = () => {
         className="title" 
         onClick={() => navigate('/', { replace: location.pathname === '/', state: location.pathname === '/' ? { refresh: Math.random() } : null })}
       > 
-        Socialpedia 
+        JollyJunction
       </IconButton>
       {/* <TextInput
         {...registerHandler('search')}
