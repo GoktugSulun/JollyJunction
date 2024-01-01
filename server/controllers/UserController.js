@@ -31,25 +31,21 @@ class UserController {
   }
 
   static async edit(req, res) {
-    setTimeout(async () => {
-      try {
-        const result = await UserService.edit(req, res);
-        Helpers.responseJSON(res, result);
-      } catch (error) {
-        Helpers.responseMessage(res, ResponseEnums.FAILURE, error.message);
-      }
-    }, 3000);
+    try {
+      const result = await UserService.edit(req, res);
+      Helpers.responseJSON(res, result);
+    } catch (error) {
+      Helpers.responseMessage(res, ResponseEnums.FAILURE, error.message);
+    }
   }
 
   static async patch(req, res) {
-    setTimeout(async () => {
-      try {
-        const result = await UserService.patch(req, res);
-        Helpers.responseJSON(res, result);
-      } catch (error) {
-        Helpers.responseMessage(res, ResponseEnums.FAILURE, error.message);
-      }
-    }, 3000);
+    try {
+      const result = await UserService.patch(req, res);
+      Helpers.responseJSON(res, result);
+    } catch (error) {
+      Helpers.responseMessage(res, ResponseEnums.FAILURE, error.message);
+    }
   }
 }
   

@@ -33,14 +33,12 @@ class PostController {
   }
 
   static async create(req, res) {
-    setTimeout(async () => {
-      try {
-        const result = await PostService.create(req, res);
-        Helpers.responseJSON(res, result);
-      } catch (error) {
-        Helpers.responseMessage(res, ResponseEnums.FAILURE, error.message);
-      }
-    }, 3000);
+    try {
+      const result = await PostService.create(req, res);
+      Helpers.responseJSON(res, result);
+    } catch (error) {
+      Helpers.responseMessage(res, ResponseEnums.FAILURE, error.message);
+    }
   }
 
   static async like(req, res) {
@@ -62,14 +60,12 @@ class PostController {
   }
 
   static async delete(req, res) {
-    setTimeout(async () => {
-      try {
-        const result = await PostService.delete(req, res);
-        Helpers.responseJSON(res, result);
-      } catch (error) {
-        Helpers.responseMessage(res, ResponseEnums.FAILURE, error.message);
-      }
-    }, 5000);
+    try {
+      const result = await PostService.delete(req, res);
+      Helpers.responseJSON(res, result);
+    } catch (error) {
+      Helpers.responseMessage(res, ResponseEnums.FAILURE, error.message);
+    }
   }
 }
   

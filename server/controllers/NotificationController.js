@@ -4,14 +4,12 @@ import NotificationService from '../services/NotificationService.js';
 
 class NotificationController {
   static async get(req, res) {
-    setTimeout(async() => {
-      try {
-        const result = await NotificationService.get(req, res);
-        Helpers.responseJSON(res, result);
-      } catch (error) {
-        Helpers.responseMessage(res, ResponseEnums.FAILURE, error.message);
-      }
-    }, 3000);
+    try {
+      const result = await NotificationService.get(req, res);
+      Helpers.responseJSON(res, result);
+    } catch (error) {
+      Helpers.responseMessage(res, ResponseEnums.FAILURE, error.message);
+    }
   }
 
   static async seen(req, res) {
