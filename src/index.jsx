@@ -34,8 +34,8 @@ ReactDOM.createRoot(root).render(
         maxSnack={3}
         autoHideDuration={3000}
         anchorOrigin={{
-          vertical: 'bottom',
-          horizontal: 'left'
+          vertical: 'top',
+          horizontal: 'right'
         }}
       >
         <App />

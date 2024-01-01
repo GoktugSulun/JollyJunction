@@ -1,7 +1,7 @@
 import styled from '@emotion/styled';
 import { css, keyframes } from '@emotion/react';
-import { FormControl, FormControlLabel, InputLabel, OutlinedInput, Select } from '@mui/material';
-import overridedProps from '../../Helpers/overridedProps';
+import { Checkbox, FormControl, FormControlLabel, InputLabel, OutlinedInput, Select } from '@mui/material';
+import overridedProps from '../../Helper/overrideProps';
 
 export const shake = keyframes`
    0% { transform: translateX(0) }

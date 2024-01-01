@@ -6,40 +6,40 @@ import { AppConfigActions } from '../Store/AppConfig.slice';
 let displayed = [];
 
 const useNotifier = () => {
-  const dispatch = useDispatch();
-  const { notifications } = useSelector((state) => state.AppConfig);
-  const { enqueueSnackbar, closeSnackbar  } = useSnackbar();
+   const dispatch = useDispatch();
+   const { notifications } = useSelector((state) => state.AppConfig);
+   const { enqueueSnackbar, closeSnackbar  } = useSnackbar();
 
-  const addSnackbar = (key) => {
-    displayed.push(key);
-  };
+   const addSnackbar = (key) => {
+      displayed.push(key);
+   };
 
-  const removeSnackbar = (key) => {
-    displayed = [...displayed.filter((id) => id !== key)];
-  };
+   const removeSnackbar = (key) => {
+      displayed = [...displayed.filter((id) => id !== key)];
+   };
 
-  useEffect(() => {
-    notifications.forEach((notification) => {
-      const { message, options } = notification;
+   useEffect(() => {
+      notifications.forEach((notification) => {
+         const { message, options } = notification;
 
-      // do nothing if snackbar is already displayed
-      if (displayed.includes(options.key)) {
-        return;
-      }
+         // do nothing if snackbar is already displayed
+         if (displayed.includes(options.key)) {
+            return;
+         }
 
-      // display snackbar using notistack
-      enqueueSnackbar(message, {
-        ...options,
-        // remove this snackbar from redux store and displayed
-        onExited: (_, key) => {
-          dispatch(AppConfigActions.closeSnackbar(key));
-          removeSnackbar(key);
-        }
+         // display snackbar using notistack
+         enqueueSnackbar(message, {
+            ...options,
+            // remove this snackbar from redux store and displayed
+            onExited: (_, key) => {
+               dispatch(AppConfigActions.closeSnackbar(key));
+               removeSnackbar(key);
+            }
+         });
+
+         addSnackbar(options.key);
       });
-
-      addSnackbar(options.key);
-    });
-  }, [notifications]);
+   }, [notifications]);
 
 };
 

@@ -7,29 +7,6 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-<<<<<<< HEAD
-=======
-  ::-webkit-scrollbar {
-    width: 10px;
-  }
-  ::-webkit-scrollbar-track {
-    background: #181818; 
-  }
-  ::-webkit-scrollbar-thumb {
-    background: #302f2f; 
-    border-radius: 10px;
-  }
-}
-
-body {
-  font-family: 'Poppins', sans-serif;
-  width: 100vw;
-  height: auto;
-  min-height: 100vh;
-  overflow-x: hidden;
-  overflow-y: auto;
-  background-color: #0f0f0f;
->>>>>>> 0452f2104a19d0a98bf9eeeece832c5cb872d4bf
 }
 
 input[type=number]::-webkit-inner-spin-button, 

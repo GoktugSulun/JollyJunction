@@ -25,7 +25,6 @@ module.exports = {
     "semi": [2, "always"],
     "react-hooks/rules-of-hooks": 'error',
     "react-hooks/exhaustive-deps": 'off',
-    "quotes": [2, "single", { "avoidEscape": true }],
-    "indent": ["error", 2],
+    "quotes": [2, "single", { "avoidEscape": true }]
   }
 }
