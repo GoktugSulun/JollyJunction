@@ -1,0 +1,32 @@
+{
+  "posts": [
+    {
+      "description": "Bu güzel foto ile açılışı yapalım bakalım :)",
+      "user_id": 1,
+      "id": 1,
+      "created_at": "Mon Jan 01 2024 18:15:38 GMT+0300 (GMT+03:00)",
+      "updated_at": "Mon Jan 01 2024 18:15:38 GMT+0300 (GMT+03:00)",
+      "is_removed": false,
+      "files": [
+        {
+          "name": "1704122138966_1_img-1-min",
+          "type": "jpg"
+        }
+      ]
+    },
+    {
+      "description": "Harika beşliiikkk ",
+      "user_id": 1,
+      "id": 2,
+      "created_at": "Mon Jan 01 2024 19:14:33 GMT+0300 (GMT+03:00)",
+      "updated_at": "Mon Jan 01 2024 19:14:33 GMT+0300 (GMT+03:00)",
+      "is_removed": false,
+      "files": [
+        {
+          "name": "1704125673459_1_edit beÅlik",
+          "type": "mp4"
+        }
+      ]
+    }
+  ]
+}
