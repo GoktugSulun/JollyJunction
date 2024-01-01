@@ -29,26 +29,29 @@ const Login = () => {
   const { loading } = useSelector((state) => state.Login);
   const { registerHandler, form } = useMaterialForm({
     defaultValues,
-    schema
+    schema,
+    mode: 'onChange'
   });
 
-  const onSignIn = (data) => {
+  const onSignIn = () => {
+    const data = form.getValues();
     dispatch(LoginSagaActions.login(data));
   };
 
   const capitiliaze = (str) => (`${str[0].toUpperCase()}${str.slice(1)}`);
 
-  const onError = (error) => {
-    const emptyEntry = Object.entries(error).find(([, value]) => value.type === 'required');
-    if (emptyEntry?.length) {
-      dispatch(snackbar(`${capitiliaze(emptyEntry[0])} cannot be empty!`, { variant: NotifierTypes.ERROR }));
-    } else {
-      dispatch(snackbar(`${Object.values(error)[0].message}`, { variant: NotifierTypes.ERROR }));
+  const signInHandler = async () => {
+    const isValid = await form.trigger();
+    if (isValid) {
+      onSignIn();
+      return;
     }
-  };
-
-  const signInHandler = () => {
-    form.handleSubmit(onSignIn, onError)();
+    const emptyArray = Object.entries(form.getValues()).filter(([, value]) => value === '');
+    if (emptyArray.length) {
+      dispatch(snackbar(`${capitiliaze(emptyArray[0][0])} cannot be empty!`, { variant: NotifierTypes.ERROR }));
+    } else {
+      dispatch(snackbar('Invalid username or password!', { variant: NotifierTypes.ERROR }));
+    }
   };
 
   const onKeyDownHandler = (e) => {
@@ -90,6 +93,7 @@ const Login = () => {
           <TextInput
             label="Email"
             {...registerHandler('email')}
+            onChange={(e) => console.log(e.target.value, ' eeee')}
             onKeyDown={onKeyDownHandler}
           />
           <TextInput

@@ -8,8 +8,10 @@ const TextInput = (props) => {
 
   const onChangeHandler = (event) => {
     if (!_.isEmpty(props.control)) {
+      console.log(event.target.value, ' bu ne');
       props.field.onChange(event.target.value);
     }
+    console.log(event.target.value, ' alo');
     props.onChange(event, event.target.value);
   };
 
