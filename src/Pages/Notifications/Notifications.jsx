@@ -20,6 +20,7 @@ const Notifications = () => {
   const navigate = useNavigate();
   const [loadingId, setLoadingId] = useState(null);
   const { loading, notifications, page, limit, canBeMore } = useSelector((state) => state.Notifications);
+  const { limitForFriendList, friends, pageForFriendList } = useSelector((state) => state.Dashboard);
   const { authorizedUser } = useSelector((state) => state.AppConfig.init);
 
   const fetchNotifications = () => {
@@ -89,10 +90,11 @@ const Notifications = () => {
 
   useEffect(() => {
     dispatch(NotificationSagaActions.getNotifications({ queries: `?page=${1}&limit=${limit}&receiver_id=${authorizedUser.id}&is_removed=${false}` }));
-    dispatch(DashboardSagaActions.getFriends({ query: `?user_id=${authorizedUser.id}&is_removed=false` }));
+    if (!friends.length) {
+      dispatch(DashboardSagaActions.getFriends({ query: `?user_id=${authorizedUser.id}&page=1&limit=${limitForFriendList}&is_removed=false` }));
+    }
     return () => {
       dispatch(NotificationActions.setReset());
-      dispatch(PostModalActions.handleModal(ModalTypes.CLOSE));
     };
   }, []);
 

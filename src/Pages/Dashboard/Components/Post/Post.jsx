@@ -29,6 +29,7 @@ const Post = ({ data, isLastElement, fetchMorePost }) => {
   const dispatch = useDispatch();
   const [src, setSrc] = useState('');
   const { postsInProcess } = useSelector((state) => state.Dashboard);
+  const { isOpen: isOpenPostDetailModal } = useSelector((state) => state.PostModal);
   const { ref, isIntersecting } = useIntersectionObserver({ options });
   const { ref: lastElementRef, isIntersecting: isIntersectingLastElement } = useIntersectionObserver({ options: optionsForLastElement, triggerOnce: true });
   const { ref: videoRef, isIntersecting: isVideoIntersecting } = useIntersectionObserver({ options: optionsForVideo, dependencies: [src] });
@@ -48,6 +49,9 @@ const Post = ({ data, isLastElement, fetchMorePost }) => {
   };
 
   useEffect(() => {
+    if (isOpenPostDetailModal) {
+      return;
+    }
     if (isIntersecting) { 
       const postElement = ref.current;
       const mediaElementSrc = postElement.dataset.src;
@@ -55,7 +59,7 @@ const Post = ({ data, isLastElement, fetchMorePost }) => {
     } else {
       setSrc('');
     }
-  }, [isIntersecting, data]);
+  }, [isIntersecting, data, isOpenPostDetailModal]);
 
   useEffect(() => {
     if (isIntersectingLastElement) {

@@ -5,14 +5,32 @@ import { DashboardActions } from '../../../Store/Dashboard.slice';
 
 const Video = ({ data, src, videoRef, isVideoIntersecting }) => {
   const dispatch = useDispatch();
-  const { isMuted, videoData: { isLegal, currentTime, isPlaying } } = useSelector((state) => state.Dashboard);
+  const { isMuted, volume, videoData: { isLegal, currentTime, isPlaying } } = useSelector((state) => state.Dashboard);
+  const { isOpen } = useSelector((state) => state.PostModal);
+
+  const onVolumeChangeHandler = (e) => {
+    if (!e.target.muted) {
+      dispatch(DashboardActions.setVolume(e.target.volume));
+    }
+    dispatch(DashboardActions.setIsMuted(e.target.muted));
+  }; 
  
   useEffect(() => {
-    if (!videoRef.current) {
+    if (!videoRef.current || isOpen) {
+      return;
+    }
+    if (isLegal && isVideoIntersecting) {
+      videoRef.current.currentTime = currentTime;
+      if (isPlaying) {
+        videoRef.current.volume = volume;
+        videoRef.current.play();
+      }
+      dispatch(DashboardActions.setVideoData({ isLegal: false }));
       return;
     }
     if (isVideoIntersecting) {
       if (videoRef.current.paused) {
+        videoRef.current.volume = volume;
         videoRef.current.play();
       }
     } else {
@@ -20,19 +38,7 @@ const Video = ({ data, src, videoRef, isVideoIntersecting }) => {
         videoRef.current.pause();
       }
     }
-  }, [isVideoIntersecting, data.id]);
-
-  //* After postModal data is closed, start/stop video on actual time
-  useEffect(() => {
-    if (!videoRef.current || !isLegal || !isVideoIntersecting) {
-      return;
-    }
-    videoRef.current.currentTime = currentTime;
-    if (isPlaying) {
-      videoRef.current.play();
-    }
-    dispatch(DashboardActions.setVideoData({ isLegal: false }));
-  }, [isLegal, isVideoIntersecting]);
+  }, [isVideoIntersecting, data.id, isOpen]);
 
   return (
     <video 
@@ -44,7 +50,7 @@ const Video = ({ data, src, videoRef, isVideoIntersecting }) => {
       loop
       muted={isMuted}
       // onClick={setManullyPlayPauseHandler}
-      onVolumeChange={(e) => dispatch(DashboardActions.setIsMuted(e.target.muted))}
+      onVolumeChange={(e) => onVolumeChangeHandler(e)}
     >
       <source src={src + '#t=0.5'} type="video/mp4" />
       Your browser does not support the video tag.

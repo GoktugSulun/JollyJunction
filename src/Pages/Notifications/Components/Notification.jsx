@@ -6,8 +6,8 @@ import * as S from '../Style/Notifications.style';
 import Content from './Content';
 import { NotificationTypes } from '../../../Core/Constants/Enums';
 import { NotificationSagaActions } from '../Store/Notifications.saga';
-import { PostModalSagaActions } from '../../../Components/PostModal/Store/PostModal.saga';
 import { useIntersectionObserver } from '../../../Hooks/useIntersectionObserver';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 const options = {
   threshold: 0.5
@@ -15,6 +15,8 @@ const options = {
 
 const Notification = ({ data, isLastElement, loadingState, fetchNotifications }) => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const location = useLocation();
   const [loadingId, setLoadingId] = loadingState;
   const { loading: postModalLoading } = useSelector((state) => state.PostModal);
   const { ref, isIntersecting } = useIntersectionObserver({ options, triggerOnce: true });
@@ -22,7 +24,7 @@ const Notification = ({ data, isLastElement, loadingState, fetchNotifications })
   const getPostDetail = (post_id, notification_id, sender_user, type) => {
     if (post_id) {
       setLoadingId(notification_id);
-      dispatch(PostModalSagaActions.getSpecificPost({ post_id }));
+      navigate(`/post/${post_id}`, { state: { postDetailModal: location } });
       return;
     }
     if (type === NotificationTypes.ACCEPTED_FRIENDSHIP_REQUEST || type === NotificationTypes.YOU_ARE_FRIEND_NOW) {

@@ -8,7 +8,7 @@ export const ProfileWrapper = styled.div`
    flex-direction: column;
    gap: 25px;
    position: sticky;
-   top: 20px;
+   top: 120px;
    max-height: calc(100vh - 40px);
    overflow-x: hidden;
    overflow-y: auto;
@@ -29,5 +29,5 @@ export const ProfileWrapper = styled.div`
 `;
 export const SidebarWrapper = styled.div`
    position: sticky;
-   top: 20px;
+   top: 120px;
 `;

@@ -9,10 +9,12 @@ import ChatBubbleOutlineIcon from '@mui/icons-material/ChatBubbleOutline';
 import BookmarkBorderIcon from '@mui/icons-material/BookmarkBorder';
 import BookmarkIcon from '@mui/icons-material/Bookmark';
 import { PostModalActions } from '../../../../../Components/PostModal/Store/PostModal.slice';
-import { ModalTypes } from '../../../../../Core/Constants/Enums';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 const PostFooter = ({ data, likeHandler, videoRef }) => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const location = useLocation();
 
   const saveHandler = () => {
     const payload = {
@@ -31,7 +33,7 @@ const PostFooter = ({ data, likeHandler, videoRef }) => {
       videoRef.current.pause();
     }
     dispatch(PostModalActions.setPostData(data));
-    dispatch(PostModalActions.handleModal(ModalTypes.OPEN));
+    navigate(`/post/${data.id}`, { state: { postDetailModal: location } });
   };
 
   return (

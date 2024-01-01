@@ -6,8 +6,15 @@ import PropTypes from 'prop-types';
 
 const Video = ({ videoRef }) => {
   const dispatch = useDispatch();
-  const { isMuted } = useSelector((state) => state.Dashboard);
+  const { isMuted, volume } = useSelector((state) => state.Dashboard);
   const { isOpen, postData, videoData } = useSelector((state) => state.PostModal); 
+
+  const onVolumeChangeHandler = (e) => {
+    if (!e.target.muted) {
+      dispatch(DashboardActions.setVolume(e.target.volume));
+    }
+    dispatch(DashboardActions.setIsMuted(e.target.muted));
+  }; 
  
   useEffect(() => {
     if (!videoRef.current || !isOpen) {
@@ -15,6 +22,7 @@ const Video = ({ videoRef }) => {
     }
     videoRef.current.currentTime = videoData.currentTime;
     if (videoData.isPlaying) {
+      videoRef.current.volume = volume;
       videoRef.current.play();
     }
   }, [isOpen]);
@@ -28,7 +36,7 @@ const Video = ({ videoRef }) => {
       preload="metadata"
       loop
       muted={isMuted}
-      onVolumeChange={(e) => dispatch(DashboardActions.setIsMuted(e.target.muted))}
+      onVolumeChange={(e) => onVolumeChangeHandler(e)}
     >
       <source src={getFileURL(postData?.files?.[0]) + '#t=0.5'} type="video/mp4" />
       Your browser does not support the video tag.

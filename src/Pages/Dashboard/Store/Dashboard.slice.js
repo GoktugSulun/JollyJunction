@@ -10,10 +10,14 @@ const initialState = {
   page: 1,
   limit: 10,
   canBeMorePost: true,
+  pageForFriendList: 1,
+  limitForFriendList: 10,
+  canBeMoreFriends: true,
   friends: [],
   isMuted: true,
+  volume: 1,
   videoData: {
-    isLegal: false, //* when postModal is closed, it is gonna be true and after video settings is changed, it is gonna be again false.
+    isLegal: false, //* false: (modal has already closed and process has been done || modal hasnt been opened and closed) && true: modal has just closed.
     currentTime: 0,
     isPlaying: false
   },
@@ -24,7 +28,9 @@ const DashboardSlice = createSlice({
   name: NAME,
   initialState,
   reducers: {
-    setReset: () => initialState,
+    setReset: (state) => {
+      return { ...initialState, friends: state.friends, isMuted: state.isMuted, volume: state.volume };
+    },
     setPosts: (state, action) => {
       if (state.page === 1) {
         state.posts = action.payload;
@@ -53,6 +59,9 @@ const DashboardSlice = createSlice({
     setIsMuted: (state, action) => {
       state.isMuted = action.payload;
     },
+    setVolume: (state, action) => {
+      state.volume = action.payload;
+    },
     setPage: (state, action) => {
       state.page = action.payload;
     },
@@ -74,7 +83,21 @@ const DashboardSlice = createSlice({
       });
     },
     setFriends: (state, action) => {
-      state.friends = action.payload;
+      if (state.pageForFriendList === 1) {
+        state.friends = action.payload;
+      } else {
+        state.friends = [...state.friends, ...action.payload];
+      }
+
+      if ((state.friends.length + action.payload.length) >= state.limitForFriendList * state.pageForFriendList) {
+        state.pageForFriendList += 1;
+      }
+      if (action.payload.length < state.limitForFriendList) {
+        state.canBeMoreFriends = false;
+      }
+    },
+    setPageForFriendList: (state, action) => {
+      state.pageForFriendList = action.payload;
     },
     setVideoData: (state, action) => {
       const { isLegal, currentTime, isPlaying } = action.payload;

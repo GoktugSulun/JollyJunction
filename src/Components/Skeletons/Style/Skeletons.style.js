@@ -24,6 +24,7 @@ export const PostSkeleton = styled(Post)`
          display: flex;
          flex-direction: column;
          gap: 10px;
+         flex: 1;
       }
    }
    .body {
@@ -52,7 +53,7 @@ export const CommentSkeleton = styled.div`
          align-items: center;
          .user {
             flex: 1;
-            .MuiSkeleton-root:nth-child(1) {
+            .MuiSkeleton-root:nth-of-type(1) {
                margin-bottom: 10px;
             }
          }
@@ -82,7 +83,7 @@ export const NotificationSkeleton = styled.div`
    }
    .content {
       flex: 1;
-      .MuiSkeleton-root:nth-child(1) {
+      .MuiSkeleton-root:nth-of-type(1) {
          margin-bottom: 10px;
       }
    }
@@ -95,7 +96,7 @@ export const FriendSkeleton = styled.div`
    margin-top: 20px;
    .content {
       flex: 1;
-      .MuiSkeleton-root:nth-child(1) {
+      .MuiSkeleton-root:nth-of-type(1) {
          margin-bottom: 10px;
       }
    }
