@@ -37,10 +37,10 @@ const RouteList = () => {
       * Dont do it when postDetailModal exists, ...
       * ... Because it causes to intersect for the first element of posts and if it has a video, it causes "use effect in Video compoenent for dashboard post" to work incorrectly
     */
-    if (!postDetailModal) {
+    if (!postDetailModal || !location.state) {
       window.scrollTo(0, 0);
     }
-  }, [location.pathname]);
+  }, [location.pathname, location.state]);
 
   useEffect(() => {
     const scrollTo = () => window.scrollTo(0, 0);
@@ -67,7 +67,7 @@ const RouteList = () => {
         </Route>
         <Route element={<ProtectedRoute isAllowed />}>
           <Route element={<Layout /> }>
-            <Route path="/" element={<Dashboard />} />
+            <Route path="/" element={<Dashboard key={location.state?.refresh} />} />
             <Route path="/post/:id" element={<PostModal />} />
             <Route path="/profile/:user/:id" element={<UserProfile />} />
             <Route path="/notifications" element={<Notifications />} />
