@@ -1,0 +1,76 @@
+import ResponseEnums from '../constants/Enums/ResponseEnums.js';
+import Helpers from '../helpers/Helpers.js';
+import CommentService from '../services/CommentService.js';
+
+class CommentController {
+  static async getAll(req, res) {
+    try {
+      const result = await CommentService.getAll(req, res);
+      Helpers.responseJSON(res, result);
+    } catch (error) {
+      Helpers.responseMessage(res, ResponseEnums.FAILURE, error.message);
+    }
+  }
+
+  static async getById(req, res) {
+    try {
+      const result = await CommentService.getById(req, res);
+      Helpers.responseJSON(res, result);
+    } catch (error) {
+      Helpers.responseMessage(res, ResponseEnums.FAILURE, error.message);
+    }
+  }
+  /**
+   * @query = page, limit
+  */
+  static async get(req, res) {
+    setTimeout(async () => {
+      try {
+        const result = await CommentService.get(req, res);
+        Helpers.responseJSON(res, result);
+      } catch (error) {
+        Helpers.responseMessage(res, ResponseEnums.FAILURE, error.message);
+      }
+    }, 3000);
+  }
+
+  static async create(req, res) {
+    setTimeout(async () => {
+      try {
+        const result = await CommentService.create(req, res);
+        Helpers.responseJSON(res, result);
+      } catch (error) {
+        Helpers.responseMessage(res, ResponseEnums.FAILURE, error.message);
+      }
+    }, 3000);
+  }
+
+  static async like(req, res) {
+    try {
+      const result = await CommentService.like(req, res);
+      Helpers.responseJSON(res, result);
+    } catch (error) {
+      Helpers.responseMessage(res, ResponseEnums.FAILURE, error.message);
+    }
+  }
+
+  static async delete(req, res) {
+    try {
+      const result = await CommentService.delete(req, res);
+      Helpers.responseJSON(res, result);
+    } catch (error) {
+      Helpers.responseMessage(res, ResponseEnums.FAILURE, error.message);
+    }
+  }
+  
+  static async edit(req, res) {
+    try {
+      const result = await CommentService.edit(req, res);
+      Helpers.responseJSON(res, result);
+    } catch (error) {
+      Helpers.responseMessage(res, ResponseEnums.FAILURE, error.message);
+    }
+  }
+}
+  
+export default CommentController;

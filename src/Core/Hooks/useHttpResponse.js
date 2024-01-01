@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from 'react-redux';
-import requestStatusAction from '../Helper/requestStatusAction';
+import requestStatusAction from '../Helpers/requestStatusAction';
 import { HttpResponseTypes } from '../Constants/Enums';
 import { useEffect } from 'react';
 
@@ -9,40 +9,40 @@ import { useEffect } from 'react';
 */
 
 const useHttpResponse = (
-   { idle, loading, success, failure }, 
-   sagaAction
+  { idle, loading, success, failure }, 
+  sagaAction
 ) => {
-   const dispatch = useDispatch();
-   const [sliceName,,actionType] = sagaAction.type.split('/');
+  const dispatch = useDispatch();
+  const [sliceName,,actionType] = sagaAction.type.split('/');
 
-   const requestStatus = useSelector((state) => state[sliceName]?.requestStatus?.[actionType]) ?? HttpResponseTypes.IDLE;
-   const payload = useSelector((state) => state[sliceName]?.actionPayload?.[actionType]) ?? null;
+  const requestStatus = useSelector((state) => state[sliceName]?.requestStatus?.[actionType]) ?? HttpResponseTypes.IDLE;
+  const payload = useSelector((state) => state[sliceName]?.actionPayload?.[actionType]) ?? null;
 
-   const idleAction = () => {
-      dispatch(requestStatusAction.idle(sagaAction.type));
-   };
+  const idleAction = () => {
+    dispatch(requestStatusAction.idle(sagaAction.type));
+  };
 
-   useEffect(() => {
-      switch (requestStatus) {
-         case HttpResponseTypes.IDLE:
-            idle?.({ idleAction, payload });
-            loading?.(false);
-            break;
-         case HttpResponseTypes.LOADING:
-            loading?.(true);
-            break;
-         case HttpResponseTypes.SUCCESS:
-            success?.({ idleAction, payload });
-            loading?.(false);
-            break;
-         case HttpResponseTypes. FAILURE:
-            failure?.({ idleAction, payload });
-            loading?.(false);
-            break;
-         default:
-            throw Error('useHttpResponse: undefined requestStatus value!');
-      }
-   }, [requestStatus]);
+  useEffect(() => {
+    switch (requestStatus) {
+    case HttpResponseTypes.IDLE:
+      idle?.({ idleAction, payload });
+      loading?.(false);
+      break;
+    case HttpResponseTypes.LOADING:
+      loading?.(true);
+      break;
+    case HttpResponseTypes.SUCCESS:
+      success?.({ idleAction, payload });
+      loading?.(false);
+      break;
+    case HttpResponseTypes. FAILURE:
+      failure?.({ idleAction, payload });
+      loading?.(false);
+      break;
+    default:
+      throw Error('useHttpResponse: undefined requestStatus value!');
+    }
+  }, [requestStatus]);
 
 };
 

@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import * as S from './Style/Dashboard.style';
+<<<<<<< HEAD
 import { useDispatch, useSelector } from 'react-redux';
 import { DashboardSagaActions } from './Store/Dashboard.saga';
 import { useNavigate } from 'react-router-dom';
@@ -72,6 +73,44 @@ const Dashboard = () => {
 
   useEffect(() => {
     dispatch(DashboardSagaActions.getPosts());
+=======
+import CreatePost from './Components/Post/CreatePost';
+import { useDispatch, useSelector } from 'react-redux';
+import { DashboardSagaActions } from './Store/Dashboard.saga';
+import useHttpResponse from '../../Core/Hooks/useHttpResponse';
+import { DashboardActions } from './Store/Dashboard.slice';
+import { AppConfigSagaActions } from '../../Core/Store/AppConfig.saga';
+import Posts from './Components/Posts';
+import { PostSkeleton } from '../../Components/Skeletons';
+
+const Dashboard = () => {
+  const dispatch = useDispatch();
+  const { loading, limitForFriendList, pageForFriendList, friends } = useSelector(state => state.Dashboard);
+  const { authorizedUser } = useSelector(state => state.AppConfig.init);
+
+  useHttpResponse({
+    success: ({ idleAction }) => {
+      idleAction();
+    }
+  }, DashboardSagaActions.createPost());
+
+  useHttpResponse({
+    success: ({ idleAction }) => {
+      idleAction();
+      dispatch(AppConfigSagaActions.getUnseenNotifications({ query: `?is_removed=false&seen=false&receiver_id=${authorizedUser.id}`}));
+      dispatch(DashboardSagaActions.getFriends({ query: `?user_id=${authorizedUser.id}&page=${pageForFriendList}&limit=${limitForFriendList}&is_removed=false` }));
+    }
+  }, DashboardSagaActions.acceptFriendship());
+
+  useEffect(() => {
+    dispatch(DashboardSagaActions.getPosts({ page: 1, limit: 10 }));
+    if (!friends.length) {
+      dispatch(DashboardSagaActions.getFriends({ query: `?user_id=${authorizedUser.id}&page=1&limit=${limitForFriendList}&is_removed=false` }));
+    }
+    return () => {
+      dispatch(DashboardActions.setReset());
+    };
+>>>>>>> 0452f2104a19d0a98bf9eeeece832c5cb872d4bf
   }, []);
 
   useEffect(() => {
@@ -79,6 +118,7 @@ const Dashboard = () => {
   }, [checked]);
 
   return (
+<<<<<<< HEAD
     <S.Dashboard>
       <h2> Posts - Dashboard </h2>
       <button onClick={reFetch} > ReFetch posts </button>
@@ -118,6 +158,13 @@ const Dashboard = () => {
           })
       }
     </S.Dashboard>
+=======
+    <S.PostWrapper>
+      <CreatePost />
+      { loading?.createPost && <PostSkeleton /> }
+      <Posts />
+    </S.PostWrapper>
+>>>>>>> 0452f2104a19d0a98bf9eeeece832c5cb872d4bf
   );
 };
 

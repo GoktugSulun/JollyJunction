@@ -6,9 +6,9 @@ import _ from 'lodash';
 
 const SelectInput = (props) => {
 
-  if (props.value === null && _.isEmpty(props.control) && props.data.length) {
-    throw new Error('SelectInput: You passed data prop but missing control or value prop. To fix that, pass the value or spread registerHandler(name) as a prop.');
-  }
+  // if (props.value === null && _.isEmpty(props.control) && props.data.length) {
+  //   throw new Error('SelectInput: You passed data prop but missing control or value prop. To fix that, pass the value or spread registerHandler(name) as a prop.');
+  // }
 
   const onChangeHandler = (event) => {
     if (!_.isEmpty(props.control)) {
@@ -30,52 +30,52 @@ const SelectInput = (props) => {
     return {};
   };
 
-   return (
-      <CustomFormControl 
-        fullWidth={props.fullWidth}
-        $withLabel={!!props.label}
+  return (
+    <CustomFormControl 
+      fullWidth={props.fullWidth}
+      $withLabel={!!props.label}
+    >
+      <CustomInputLabel 
+        shrink
+        error={props.error || !!props.fieldState?.error} 
+        htmlFor={props.id}
+        palette={props.palette}
       >
-        <CustomInputLabel 
-          shrink
-          error={props.error || !!props.fieldState?.error} 
-          htmlFor={props.id}
-          palette={props.palette}
-        >
-          {props.label}
-        </CustomInputLabel>
-        <CustomSelectInput
-          id={props.id}
-          {...getValue()}
-          startAdornment={props.startAdornment}
-          endAdornment={props.endAdornment}
-          onChange={onChangeHandler}
-          onBlur={props.field?.onBlur || props.onBlur} 
-          name={props.field?.name || props.name} 
-          inputRef={props.field?.ref || props.inputRef} 
-          type={props.type}
-          placeholder={props.placeholder}
-          notched={false}
-          error={props.error || !!props.fieldState?.error} 
-          color={props.palette.defaultColor}
-          palette={props.palette}
-        >
-          {
-            !!props.emptyValue
+        {props.label}
+      </CustomInputLabel>
+      <CustomSelectInput
+        id={props.id}
+        {...getValue()}
+        startAdornment={props.startAdornment}
+        endAdornment={props.endAdornment}
+        onChange={onChangeHandler}
+        onBlur={props.field?.onBlur || props.onBlur} 
+        name={props.field?.name || props.name} 
+        inputRef={props.field?.ref || props.inputRef} 
+        type={props.type}
+        placeholder={props.placeholder}
+        notched={false}
+        error={props.error || !!props.fieldState?.error} 
+        color={props.palette.defaultColor}
+        palette={props.palette}
+      >
+        {
+          !!props.emptyValue
               && <MenuItem value=""> <em>{props.emptyValue}</em> </MenuItem>
-          }
-          {
-            props.data.map((obj, index) => (
-              <MenuItem key={obj.id || index} value={obj.id}> {obj.name} </MenuItem>
-            ))
-          }
-        </CustomSelectInput>
-        <FormHelperText
-          error={props.error || !!props.fieldState?.error} 
-        >
-          { props.fieldState?.error?.message || props.helperText }
-        </FormHelperText>
-      </CustomFormControl>
-   );
+        }
+        {
+          props.data.map((obj, index) => (
+            <MenuItem key={obj.id || index} value={obj.id}> {obj.name} </MenuItem>
+          ))
+        }
+      </CustomSelectInput>
+      <FormHelperText
+        error={props.error || !!props.fieldState?.error} 
+      >
+        { props.fieldState?.error?.message || props.helperText }
+      </FormHelperText>
+    </CustomFormControl>
+  );
 };
 
 export default withInput(SelectInput);
@@ -124,7 +124,7 @@ SelectInput.defaultProps = {
   defaultValue: null,
   palette: {
     defaultColor: 'primary',
-    inputColor: '#800080', // default #1976d2
+    inputColor: '#4A329A', // default #1976d2
     labelColor: '', 
     hoverColor: '' // default rgba(0, 0, 0, 0.87)
   },
