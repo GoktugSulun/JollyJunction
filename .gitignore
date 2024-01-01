@@ -9,7 +9,7 @@ lerna-debug.log*
 
 node_modules
 .env
-.json
+server/db/
 dist
 dist-ssr
 *.local
