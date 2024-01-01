@@ -72,6 +72,9 @@ export const Content = styled.div`
          }
       }
    }
+   @media (max-width: 900px) {
+      gap: 10px;
+   }
 `;
 
 export const SettingsWrapper = styled.div`
@@ -160,6 +163,9 @@ export const NotificationItem = styled.button`
       height: 1px;
       background: #555; 
    } */
+   @media (max-width: 900px) {
+      padding: 15px 5px;
+   }
  `;
 
 export const ProgressBar = styled(LinearProgress)`
