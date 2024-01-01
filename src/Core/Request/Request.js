@@ -2,7 +2,7 @@ import axios from 'axios';
 import { handleSuccess } from './HandleSuccess';
 import { handleError } from './HandleError';
 
-const baseURL = 'http://localhost:3000';
+const baseURL = import.meta.env.VITE_API_URL;
 
 const payloadWithFiles = (payload, files) => {
   const formData = new FormData();
