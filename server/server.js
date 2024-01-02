@@ -19,6 +19,11 @@ const __dirname = path.resolve();
 export const app = express();
 const PORT = 3000;
 
+app.use((req, res, next) => {
+  res.header('Access-Control-Allow-Origin', '*'); // Allow requests from any domain
+  res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
+  next();
+});
 app.use(cors());
 app.use(bodyParser.json());
 
