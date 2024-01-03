@@ -78,22 +78,22 @@ const Register = () => {
           <h1 className="sign-up__title"> Sign Up </h1>
           <div className="sign-up__icons">
             <Tooltip title="Google"> 
-              <IconButton> 
+              <IconButton disabled> 
                 <Google /> 
               </IconButton> 
             </Tooltip>
             <Tooltip title="Facebook"> 
-              <IconButton> 
+              <IconButton disabled> 
                 <Facebook /> 
               </IconButton> 
             </Tooltip>
             <Tooltip title="Github"> 
-              <IconButton> 
+              <IconButton disabled> 
                 <GitHub /> 
               </IconButton> 
             </Tooltip>
             <Tooltip title="LinkedIn"> 
-              <IconButton> 
+              <IconButton disabled> 
                 <LinkedIn /> 
               </IconButton> 
             </Tooltip>
