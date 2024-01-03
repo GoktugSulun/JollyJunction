@@ -20,8 +20,8 @@ export const app = express();
 const PORT = process.env.PORT || 3000;
 
 app.use((req, res, next) => {
-  res.header('Access-Control-Allow-Origin', '*'); // Allow requests from any domain
-  res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
+  // res.header('Access-Control-Allow-Origin', '*'); // Allow requests from any domain
+  // res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
   next();
 });
 app.use(cors());
@@ -32,6 +32,11 @@ app.get('/health', (req, res) => {
     type: true,
     message: 'Deployment is running'
   });
+});
+
+app.get('/deneme', (req, res) => {
+  res.type('text/html');
+  res.send('<h1>I am html</h1>');
 });
 
 app.use(express.static(__dirname + '/files'));
