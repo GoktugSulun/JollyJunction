@@ -53,7 +53,7 @@ const Register = () => {
   const onError = (error) => {
     const emptyEntry = Object.entries(error).find(([, value]) => value.type === 'required');
     if (emptyEntry?.length) {
-      dispatch(snackbar('Boş alan bırakılamaz!', { variant: NotifierTypes.ERROR }));
+      dispatch(snackbar('All fields must be filled!', { variant: NotifierTypes.ERROR }));
     } else {
       dispatch(snackbar(`${Object.values(error)[0].message}`, { variant: NotifierTypes.ERROR }));
     }
