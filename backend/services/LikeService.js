@@ -1,6 +1,5 @@
-import { commentsDB, likesDB } from '../db/index.js';
+import { commentsDB, likesDB } from '../index.js';
 import CommentService from './CommentService.js';
-
 
 class LikeService {
   static async createForPost(req) {

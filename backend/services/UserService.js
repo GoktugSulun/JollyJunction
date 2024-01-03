@@ -1,4 +1,4 @@
-import { friendsDB, usersDB } from '../db/index.js';
+import { friendsDB, usersDB } from '../index.js';
 import { canBeFriendHandler } from './PostService.js';
 
 class UserService {

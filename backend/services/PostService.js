@@ -1,4 +1,4 @@
-import { commentsDB, postsDB, savesDB, likesDB, usersDB, friendsDB, notificationsDB } from '../db/index.js';
+import { commentsDB, postsDB, savesDB, likesDB, usersDB, friendsDB, notificationsDB } from '../index.js';
 import LikeService from './LikeService.js';
 import NotificationService from './NotificationService.js';
 import SaveService from './SaveService.js';

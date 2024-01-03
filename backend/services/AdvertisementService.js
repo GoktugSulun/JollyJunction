@@ -1,4 +1,4 @@
-import { advertisementsDB } from '../db/index.js';
+import { advertisementsDB } from '../index.js';
 
 class AdvertisementService {
   static async getAll() {

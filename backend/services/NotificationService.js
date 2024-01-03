@@ -1,6 +1,6 @@
 import FriendshipEnums from '../constants/Enums/FriendshipEnums.js';
 import NotificationEnums from '../constants/Enums/NotificationEnums.js';
-import {  notificationsDB } from '../db/index.js';
+import { notificationsDB } from '../index.js';
 import FriendService from './FriendService.js';
 import UserService from './UserService.js';
 
