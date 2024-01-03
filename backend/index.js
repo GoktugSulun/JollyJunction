@@ -62,5 +62,5 @@ app.use((req, res, next) => {
 });
 
 app.listen(PORT, () => {
-  console.log('JSON app is running');
+  console.log('JSON app is running :)');
 });
