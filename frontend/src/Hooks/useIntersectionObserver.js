@@ -20,7 +20,6 @@ export const useIntersectionObserver = (
    
   useEffect(() => {
     const callback = (entries, observer) => {
-      console.log('reobserve');
       const el = entries[0];
       setEntry(el);
       setIsIntersecting(el.isIntersecting);

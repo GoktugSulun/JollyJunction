@@ -93,7 +93,6 @@ const Login = () => {
           <TextInput
             label="Email"
             {...registerHandler('email')}
-            onChange={(e) => console.log(e.target.value, ' eeee')}
             onKeyDown={onKeyDownHandler}
           />
           <TextInput
