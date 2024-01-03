@@ -2,7 +2,7 @@ import styled from '@emotion/styled';
 
 export const ContentWrapper = styled.div`
    width: 100vw;
-   overflow-x: hidden;
+   /* overflow-x: hidden; it cause problem sticky elements in sidebar */ 
    height: auto;
    min-height: calc(100vh - 90px);
    background-color: #0f0f0f;
