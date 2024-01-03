@@ -2,5 +2,5 @@ export const getFileURL = ({ name, type } = {}) => {
   if (!name || !type) {
     return '';
   }
-  return `http://localhost:3000/${name}.${type}`;
+  return `${import.meta.env.VITE_API_URL}/${name}.${type}`;
 };
