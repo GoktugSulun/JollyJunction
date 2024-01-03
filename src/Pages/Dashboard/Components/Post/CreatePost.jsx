@@ -105,7 +105,7 @@ const CreatePost = () => {
   return (
     <S.CreatePost>
       <div className="header">
-        <UserProfile name={authorizedUser.name} clickable={false} src={getFileURL(authorizedUser.img)} displayName={false} />
+        <UserProfile name={authorizedUser.name} clickable={false} src={getFileURL(authorizedUser.img)} displayName={false} className="header__user-img" />
         <TextInput
           {...registerHandler('value')}
           placeholder="What's on your mind..."
@@ -131,7 +131,7 @@ const CreatePost = () => {
             component="label"
             onChange={handleFiles}
           >
-          Image
+            <span className="text">Image</span>
             <input type="file" accept="image/*" />
           </Button>
           <Button
@@ -139,14 +139,14 @@ const CreatePost = () => {
             component="label"
             onChange={handleFiles}
           >
-          Video
+            <span className="text">Video</span>
             <input type="file" accept="video/*" />
           </Button>
-          <Button
+          {/* <Button
             startIcon={<AudioFileIcon />}
           >
-          Music
-          </Button>
+            <span className="text">Music</span>
+          </Button> */}
           {/* <Button
           startIcon={<AttachFileIcon />}
         >

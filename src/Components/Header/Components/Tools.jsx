@@ -6,11 +6,12 @@ import LightModeIcon from '@mui/icons-material/LightMode';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import HelpIcon from '@mui/icons-material/Help';
 import UserMenu from './UserMenu';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 
 const Tools = () => {
   const navigate = useNavigate();
+  const location = useLocation();
   const min600px = useMediaQuery('(min-width: 600px)');
   const { unseenNotificationsCount } = useSelector((state) => state.AppConfig.init);
 
@@ -26,7 +27,11 @@ const Tools = () => {
         </IconButton>
       } */}
       <Tooltip title="Notifications">
-        <S.NotificationIconButton count={unseenNotificationsCount} onClick={() => navigate('/notifications')}>
+        <S.NotificationIconButton 
+          open={location.pathname === '/notifications'}
+          count={unseenNotificationsCount} 
+          onClick={() => navigate('/notifications')}
+        >
           <NotificationsIcon />
         </S.NotificationIconButton>
       </Tooltip>

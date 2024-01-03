@@ -67,22 +67,22 @@ const Login = () => {
           <h1 className="sign-in__title"> Sign In </h1>
           <div className="sign-in__icons">
             <Tooltip title="Google"> 
-              <IconButton> 
+              <IconButton disabled> 
                 <Google /> 
               </IconButton> 
             </Tooltip>
             <Tooltip title="Facebook"> 
-              <IconButton> 
+              <IconButton disabled> 
                 <Facebook /> 
               </IconButton> 
             </Tooltip>
             <Tooltip title="Github"> 
-              <IconButton> 
+              <IconButton disabled> 
                 <GitHub /> 
               </IconButton> 
             </Tooltip>
             <Tooltip title="LinkedIn"> 
-              <IconButton> 
+              <IconButton disabled>  
                 <LinkedIn /> 
               </IconButton> 
             </Tooltip>

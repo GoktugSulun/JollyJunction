@@ -12,6 +12,11 @@ export const Login = styled(PageWrapper)`
       border-radius: 15px;
       display: flex;
       .sign-in, .sign-up {
+         max-height: 95vh;
+         overflow-y: auto;
+         ::-webkit-scrollbar {
+            width: 0;
+         }
          width: 500px;
          padding: 50px 70px;
          display: flex;
@@ -136,7 +141,7 @@ export const Login = styled(PageWrapper)`
       .container {
          width: 95%;
          .sign-in, .sign-up {
-            padding: 50px 25px;
+            padding: 20px;
          }
       }
    }

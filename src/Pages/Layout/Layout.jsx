@@ -2,7 +2,6 @@ import React from 'react';
 import * as S from './Layout.style';
 import { useMediaQuery } from '@mui/material';
 import Profile from '../Dashboard/Components/Profile';
-import PostModal from '../../Components/PostModal/PostModal';
 import Sidebar from './Components/Sidebar';
 import { Outlet } from 'react-router-dom';
 
@@ -16,10 +15,7 @@ const Layout = () => {
         { !min1200px && <Sidebar /> }
       </S.ProfileWrapper>
       <Outlet />
-      <S.SidebarWrapper>
-        { min1200px && <Sidebar /> }
-      </S.SidebarWrapper>
-      {/* <PostModal /> */}
+      { min1200px && (<S.SidebarWrapper> <Sidebar /> </S.SidebarWrapper>)}
     </S.Layout>
   );
 };
