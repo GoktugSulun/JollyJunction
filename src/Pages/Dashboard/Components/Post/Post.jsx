@@ -12,6 +12,7 @@ import FileTypeEnums from '../Enums/FileTypeEnums';
 import Image from './Components/Image';
 import Video from './Components/Video';
 import Loading from '../../../../Core/Components/Loading/Loading';
+import { useMediaQuery } from '@mui/material';
 
 const options = {
   rootMargin: '100% 0px',
@@ -21,18 +22,16 @@ const optionsForLastElement = {
   threshold: 1
 };
 
-const optionsForVideo = {
-  threshold: 0.70
-};
-
 const Post = ({ data, isLastElement, fetchMorePost }) => {
   const dispatch = useDispatch();
+  const max600px = useMediaQuery('(max-width: 600px)'); //* screen width <= 600px
   const [src, setSrc] = useState('');
+  const [optionsForVideo, setOptionsForVideo] = useState({ rootMargin: '-150px 0px', threshold: 0.70 });
   const { postsInProcess } = useSelector((state) => state.Dashboard);
   const { isOpen: isOpenPostDetailModal } = useSelector((state) => state.PostModal);
   const { ref, isIntersecting } = useIntersectionObserver({ options });
   const { ref: lastElementRef, isIntersecting: isIntersectingLastElement } = useIntersectionObserver({ options: optionsForLastElement, triggerOnce: true });
-  const { ref: videoRef, isIntersecting: isVideoIntersecting } = useIntersectionObserver({ options: optionsForVideo, dependencies: [src] });
+  const { ref: videoRef, isIntersecting: isVideoIntersecting, intersectionRatio } = useIntersectionObserver({ options: optionsForVideo, dependencies: [src] });
 
   const likeHandler = () => {
     const payload = {
@@ -45,8 +44,16 @@ const Post = ({ data, isLastElement, fetchMorePost }) => {
   const fileType = getFileType(data.files[0]?.type);
   const fileElement = {
     [FileTypeEnums.IMAGE]: <Image data={data} likeHandler={likeHandler} src={src} />,
-    [FileTypeEnums.VIDEO]: <Video data={data} src={src} videoRef={videoRef} isVideoIntersecting={isVideoIntersecting} />
+    [FileTypeEnums.VIDEO]: <Video data={data} src={src} videoRef={videoRef} isVideoIntersecting={isVideoIntersecting} intersectionRatio={intersectionRatio} />
   };
+
+  useEffect(() => {
+    if (max600px) { //* screen width <= 600px
+      setOptionsForVideo((prev) => ({ ...prev, threshold: 1 }));
+    } else {
+      setOptionsForVideo((prev) => ({ ...prev, threshold: 0.70 }));
+    }
+  }, [max600px]);
 
   useEffect(() => {
     if (isOpenPostDetailModal) {
@@ -83,7 +90,7 @@ const Post = ({ data, isLastElement, fetchMorePost }) => {
         <Loading color="#FFFFFF" size={80} />
       </S.PostOverlay>
       <PostHeader data={data} />
-      { data.description && <p className="description"> { data.description } </p> }
+      { data.description && <p className="description"> { data.description } - { data.id } </p> }
       { !!data.files.length && fileElement[fileType]}
       <PostFooter 
         likeHandler={likeHandler} 
