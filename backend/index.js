@@ -39,7 +39,7 @@ export const advertisementsDB = await JSONFilePreset(path.join(__dirname, './db/
 app.get('/health', (req, res) => {
   res.json({
     type: true,
-    message: 'Deployment is running'
+    message: 'Deployment is running :=)'
   });
 });
 
