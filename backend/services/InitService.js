@@ -22,13 +22,20 @@ const desriptionForMissingInformations = {
 };
 
 class InitService {
-  static async get(req) {
+  static async get(req, res) {
     try {
       const authorizedUser = await UserService.getById({ ...req, params: { id: req.user.id }});
       const unseenNotifications = await NotificationService.get({ ...req, query: { is_removed: false, seen: false, receiver_id: req.user.id } });
       const advertisements = await AdvertisementService.getAll(req);
 
-      if (!authorizedUser.type || !unseenNotifications.type || !advertisements.type) {
+      if (!authorizedUser.type) {
+        return {
+          type: false,
+          message: 'Authentication failed'
+        }
+      }
+
+      if (!unseenNotifications.type || !advertisements.type) {
         return {
           type: false,
           message: "Couldn't fetch init datas"

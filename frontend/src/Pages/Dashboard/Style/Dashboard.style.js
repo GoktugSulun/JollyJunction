@@ -447,9 +447,9 @@ export const CreatePost = styled.div`
       }
    }
    @media (max-width: 900px) {
-      padding: 25px 10px;
+      padding: 25px 15px 25px 10px;
       .header {
-         gap: 5px;
+         gap: 10px;
          .MuiOutlinedInput-root {
             input {
                padding: 15px;

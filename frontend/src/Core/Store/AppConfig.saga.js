@@ -40,7 +40,7 @@ export default [
     * func({ payload }) {
       const { id, data, file } = payload;
       const response = yield call(request, HttpMethodTypes.PUT, `${ApiUrl.editUser}/${id}`, data, file);
-      yield put(snackbar('Your informations is saved'));
+      yield put(snackbar('Your informations has been updated'));
       yield put(AppConfigActions.setUser(response.data));
     }
   }),
