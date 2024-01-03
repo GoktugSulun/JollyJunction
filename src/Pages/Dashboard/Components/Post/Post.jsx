@@ -90,7 +90,7 @@ const Post = ({ data, isLastElement, fetchMorePost }) => {
         <Loading color="#FFFFFF" size={80} />
       </S.PostOverlay>
       <PostHeader data={data} />
-      { data.description && <p className="description"> { data.description } - { data.id } </p> }
+      { data.description && <p className="description"> { data.description } </p> }
       { !!data.files.length && fileElement[fileType]}
       <PostFooter 
         likeHandler={likeHandler} 
