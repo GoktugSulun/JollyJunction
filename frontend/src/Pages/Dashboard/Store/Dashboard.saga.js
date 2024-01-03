@@ -6,6 +6,7 @@ import createSagaWatcher from '../../../Core/Helpers/createSagaWatcher';
 import { DashboardActions } from './Dashboard.slice';
 import { ApiUrl } from '../../../Core/Constants/ApiUrl';
 import { snackbar } from '../../../Core/Utils/Snackbar';
+import { PostModalActions } from '../../../Components/PostModal/Store/PostModal.slice';
 
 const mainSagaName = 'Dashboard/request';
 
@@ -46,8 +47,12 @@ export default [
     actionType: DashboardSagaActions.likePost.type,
     takeType: SagaTakeTypes.TAKE_LATEST,
     * func({ payload }) {
-      const response = yield call(request, HttpMethodTypes.POST, `${ApiUrl.likeUnlikePost}`, payload);
-      yield put(DashboardActions.likePost(payload));
+      const { inPostModal, ...data } = payload;
+      const response = yield call(request, HttpMethodTypes.POST, `${ApiUrl.likeUnlikePost}`, data);
+      yield put(DashboardActions.likePost(data));
+      if (inPostModal) {
+        yield put(PostModalActions.likePost(data));
+      }
       yield put(snackbar(response.message));
     }
   }),
@@ -55,8 +60,12 @@ export default [
     actionType: DashboardSagaActions.savePost.type,
     takeType: SagaTakeTypes.TAKE_LATEST,
     * func({ payload }) {
-      const response = yield call(request, HttpMethodTypes.POST, `${ApiUrl.saveUnsavePost}`, payload);
-      yield put(DashboardActions.savePost(payload));
+      const { inPostModal, ...data } = payload;
+      const response = yield call(request, HttpMethodTypes.POST, `${ApiUrl.saveUnsavePost}`, data);
+      yield put(DashboardActions.savePost(data));
+      if (inPostModal) {
+        yield put(PostModalActions.savePost(data));
+      }
       yield put(snackbar(response.message));
     }
   }),

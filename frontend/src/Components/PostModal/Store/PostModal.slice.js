@@ -58,8 +58,19 @@ const PostModalSlice = createSlice({
     setVideoData: (state, action) => {
       state.videoData = action.payload;
     },
-    likePost: likePostHandler,
-    savePost: savePostHandler
+    likePost: (state, action) => {
+      const { like } = action.payload;
+      state.postData.liked = like;
+      if (like) {
+        state.postData.likes_count++;
+      } else {
+        state.postData.likes_count--;
+      }
+    },
+    savePost: (state, action) => {
+      const { save } = action.payload;
+      state.postData.saved = save;
+    },
   },
   extraReducers: (builder) => requestStatusReducer(builder, PostModalSagaActions)
 });

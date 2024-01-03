@@ -28,7 +28,8 @@ const CommentsSectionFooter = () => {
   const likeHandler = () => {
     const payload = {
       like: !postData.liked,
-      post_id: postData.id
+      post_id: postData.id,
+      inPostModal: true
     };
     dispatch(DashboardSagaActions.likePost(payload));
   };
@@ -36,7 +37,8 @@ const CommentsSectionFooter = () => {
   const saveHandler = () => {
     const payload = {
       save: !postData.saved,
-      post_id: postData.id
+      post_id: postData.id,
+      inPostModal: true
     };
     dispatch(DashboardSagaActions.savePost(payload));
   };

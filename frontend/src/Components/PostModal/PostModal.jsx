@@ -41,7 +41,8 @@ const PostModal = () => {
   const likeHandler = () => {
     const payload = {
       like: !postData.liked,
-      post_id: postData.id
+      post_id: postData.id,
+      inPostModal: true
     };
     dispatch(DashboardSagaActions.likePost(payload));
   };
@@ -56,34 +57,14 @@ const PostModal = () => {
   useHttpResponse({
     success: ({ idleAction }) => {
       if (isOpen) {
-        dispatch(PostModalSagaActions.getSpecificPost({ post_id: postData.id }));
-        idleAction();
-      }
-    }
-  }, DashboardSagaActions.likePost());
-
-  useHttpResponse({
-    success: ({ idleAction }) => {
-      if (isOpen) {
-        dispatch(PostModalSagaActions.getSpecificPost({ post_id: postData.id }));
-        idleAction();
-      }
-    }
-  }, DashboardSagaActions.savePost());
-
-  useHttpResponse({
-    success: ({ idleAction }) => {
-      if (isOpen) {
         dispatch(PostModalSagaActions.getComments({ post_id: postData.id, page: 1, limit }));
         idleAction();
       }
     },
     failure: ({ idleAction }) => {
       if (isOpen) {
-        setTimeout(() => {
-          dispatch(PostModalActions.handleModal(ModalTypes.CLOSE));
-          navigate('/', { replace: true });
-        }, 2000);
+        dispatch(PostModalActions.handleModal(ModalTypes.CLOSE));
+        navigate('/', { replace: true });
         idleAction();
       }
     }

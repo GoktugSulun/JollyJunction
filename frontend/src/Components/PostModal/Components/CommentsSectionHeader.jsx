@@ -19,11 +19,11 @@ const CommentsSectionHeader = ({ handleClose }) => {
   const { postData } = useSelector((state) => state.PostModal); 
 
   const navigateHandler = () => {
-    const targetUrl = `profile/${postData.user.name.split(' ').join('')}${postData.user.surname}/${postData.user.id}`;
+    const targetUrl = `/profile/${postData.user.name.split(' ').join('')}${postData.user.surname}/${postData.user.id}`;
     if (location.pathname !== targetUrl) {
       dispatch(PostModalActions.handleModal(ModalTypes.CLOSE));
       dispatch(DashboardActions.setReset());
-      navigate(targetUrl);
+      navigate(targetUrl, { replace: true });
     }
   };
 
