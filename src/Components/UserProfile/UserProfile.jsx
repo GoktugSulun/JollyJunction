@@ -22,6 +22,7 @@ const UserProfile = (props) => {
       small={props.small} 
       justImage={!props.name.trim() && !props.position.trim()} 
       clickable={props.clickable}
+      className={props.className}
     >
       {
         props.src
@@ -60,7 +61,8 @@ UserProfile.propTypes = {
   fontSize: PropTypes.string,
   displayName: PropTypes.bool,
   clickable: PropTypes.bool,
-  id: validateId
+  id: validateId,
+  className: PropTypes.string
 };
 
 UserProfile.defaultProps = {
@@ -71,4 +73,5 @@ UserProfile.defaultProps = {
   fontSize: '35px',
   clickable: true,
   displayName: true,
+  className: ''
 };

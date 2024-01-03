@@ -61,6 +61,11 @@ export const Search = styled.div`
          }
       }
    }
+   @media (max-width: 900px) {
+      .title {
+         padding: 10px;
+      }
+   }
 `;
 
 export const Tools = styled.div`
