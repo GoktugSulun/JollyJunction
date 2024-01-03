@@ -2,6 +2,7 @@ import styled from '@emotion/styled';
 
 export const ContentWrapper = styled.div`
    width: 100vw;
+   /* overflow-x: hidden; it cause problem sticky elements in sidebar */ 
    height: auto;
    min-height: calc(100vh - 90px);
    background-color: #0f0f0f;
@@ -22,7 +23,7 @@ export const ContentWrapper = styled.div`
    }
    @media (max-width: 900px) {
       grid-template-columns: 1fr;
-      padding: 0 5px;
+      padding: 0;
       gap: 0;
    }
 `;

@@ -364,7 +364,7 @@ export const CreatePost = styled.div`
       display: flex;
       align-items: center;
       gap: 30px;
-      img {
+      &__user-img {
          width: 60px;
          height: 60px;
          border-radius: 50%;
@@ -443,6 +443,31 @@ export const CreatePost = styled.div`
             width: 100%;
             height: 100%;
             position: absolute;
+         }
+      }
+   }
+   @media (max-width: 900px) {
+      padding: 25px 10px;
+      .header {
+         gap: 5px;
+         .MuiOutlinedInput-root {
+            input {
+               padding: 15px;
+               ::placeholder {
+                  padding-left: 10px;
+               }
+            }
+         }
+      }
+      .tools {
+         &__file-buttons {
+            gap: 5px;
+         }
+      }
+      .file-container {
+         .clear-file-button {
+            top: 35px;
+            right: -15px;
          }
       }
    }

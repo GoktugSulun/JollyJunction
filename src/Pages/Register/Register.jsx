@@ -53,7 +53,7 @@ const Register = () => {
   const onError = (error) => {
     const emptyEntry = Object.entries(error).find(([, value]) => value.type === 'required');
     if (emptyEntry?.length) {
-      dispatch(snackbar('Boş alan bırakılamaz!', { variant: NotifierTypes.ERROR }));
+      dispatch(snackbar('All fields must be filled!', { variant: NotifierTypes.ERROR }));
     } else {
       dispatch(snackbar(`${Object.values(error)[0].message}`, { variant: NotifierTypes.ERROR }));
     }
@@ -78,22 +78,22 @@ const Register = () => {
           <h1 className="sign-up__title"> Sign Up </h1>
           <div className="sign-up__icons">
             <Tooltip title="Google"> 
-              <IconButton> 
+              <IconButton disabled> 
                 <Google /> 
               </IconButton> 
             </Tooltip>
             <Tooltip title="Facebook"> 
-              <IconButton> 
+              <IconButton disabled> 
                 <Facebook /> 
               </IconButton> 
             </Tooltip>
             <Tooltip title="Github"> 
-              <IconButton> 
+              <IconButton disabled> 
                 <GitHub /> 
               </IconButton> 
             </Tooltip>
             <Tooltip title="LinkedIn"> 
-              <IconButton> 
+              <IconButton disabled> 
                 <LinkedIn /> 
               </IconButton> 
             </Tooltip>
