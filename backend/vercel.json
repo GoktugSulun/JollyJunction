@@ -8,10 +8,6 @@
     {
       "src": "db/**/*",
       "use": "@vercel/node"
-    },
-    {
-      "src": "files/**/*",
-      "use": "@vercel/node"
     }
   ],
    "routes": [
