@@ -40,7 +40,7 @@ export default [
     * func({ payload }) {
       const response = yield call(request, HttpMethodTypes.POST, `${ApiUrl.createPost}`, payload.data, payload.files);
       yield put(DashboardActions.setPost(response.data));
-      yield put(snackbar('Post is created successfully'));
+      yield put(snackbar('Post created successfully'));
     }
   }),
   createSagaWatcher({
