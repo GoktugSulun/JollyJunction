@@ -71,8 +71,26 @@ const PostModal = () => {
     }
   }, DashboardSagaActions.savePost());
 
+  useHttpResponse({
+    success: ({ idleAction }) => {
+      if (isOpen) {
+        dispatch(PostModalSagaActions.getComments({ post_id: postData.id, page: 1, limit }));
+        idleAction();
+      }
+    },
+    failure: ({ idleAction }) => {
+      if (isOpen) {
+        setTimeout(() => {
+          dispatch(PostModalActions.handleModal(ModalTypes.CLOSE));
+          navigate('/', { replace: true });
+        }, 2000);
+        idleAction();
+      }
+    }
+  }, PostModalSagaActions.getSpecificPost());
+
   useEffect(() => {
-    if (isOpen) {
+    if (isOpen && postData?.id) {
       dispatch(PostModalSagaActions.getComments({ post_id: postData.id, page: 1, limit }));
     }
     if (isOpen && _.isEmpty(postData)) {
