@@ -22,9 +22,10 @@ export const ProfileWrapper = styled.div`
    }
 
    @media (max-width: 900px) {
-      position: static;
+      /* position: static;
       max-height: initial;
-      margin-bottom: 25px;
+      margin-bottom: 25px; */
+      display: none;
    }
 `;
 export const SidebarWrapper = styled.div`
