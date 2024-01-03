@@ -20,7 +20,7 @@ const AuthMiddleware = (req, res, next) => {
       return res.status(401).json({ message: 'Authentication failed' });
     }
     
-    req.user = decoded || { id: -1 };
+    req.user = decoded;
     next();
   });
 };
