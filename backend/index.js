@@ -27,14 +27,14 @@ const PORT = process.env.PORT || 3000;
 app.use(cors());
 app.use(bodyParser.json());
 
-export const postsDB = await JSONFilePreset(path.join(__dirname, './db/posts.json'), { posts: [] });
-export const usersDB = await JSONFilePreset(path.join(__dirname, './db/users.json'), { users: [] });
-export const commentsDB = await JSONFilePreset(path.join(__dirname, './db/comments.json'), { comments: [] });
-export const notificationsDB = await JSONFilePreset(path.join(__dirname, './db/notifications.json'), { notifications: [] });
-export const likesDB = await JSONFilePreset(path.join(__dirname, './db/likes.json'), { likes: [] });
-export const savesDB = await JSONFilePreset(path.join(__dirname, './db/saves.json'), { saves: [] });
-export const friendsDB = await JSONFilePreset(path.join(__dirname, './db/friends.json'), { friends: [] });
-export const advertisementsDB = await JSONFilePreset(path.join(__dirname, './db/advertisements.json'), { advertisements: [] });
+export const postsDB = await JSONFilePreset('./db/posts.json', { posts: [] });
+export const usersDB = await JSONFilePreset('./db/users.json', { users: [] });
+export const commentsDB = await JSONFilePreset('./db/comments.json', { comments: [] });
+export const notificationsDB = await JSONFilePreset('./db/notifications.json', { notifications: [] });
+export const likesDB = await JSONFilePreset('./db/likes.json', { likes: [] });
+export const savesDB = await JSONFilePreset('./db/saves.json', { saves: [] });
+export const friendsDB = await JSONFilePreset('./db/friends.json', { friends: [] });
+export const advertisementsDB = await JSONFilePreset('./db/advertisements.json', { advertisements: [] });
 
 app.get('/health', (req, res) => {
   res.json({
