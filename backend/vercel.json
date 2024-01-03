@@ -1,16 +1,19 @@
 {
    "version": 2,
-   "functions": {
-    "index.js": {
-      "includeFiles": "/backend/db/**"
-    }
-  },
    "builds": [
-     {
-       "src": "index.js",
-       "use": "@vercel/node"
-     }
-   ],
+    {
+      "src": "index.js",
+      "use": "@vercel/node"
+    },
+    {
+      "src": "db/**/*",
+      "use": "@vercel/node"
+    },
+    {
+      "src": "files/**/*",
+      "use": "@vercel/node"
+    }
+  ],
    "routes": [
      {
        "src": "/(.*)",
