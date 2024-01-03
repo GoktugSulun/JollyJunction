@@ -11,20 +11,10 @@ import AuthRoute from './routes/AuthRoute.js';
 import AuthMiddleware from './helpers/AuthMiddleware.js';
 import path from 'path';
 import dotenv from 'dotenv';
+import { JSONFilePreset } from 'lowdb/node';
 
 dotenv.config();
 const __dirname = path.resolve();
-
-import { JSONFilePreset } from 'lowdb/node';
-
-export const postsDB = await JSONFilePreset(path.join(__dirname, './db/posts.json'), { posts: [] });
-export const usersDB = await JSONFilePreset(path.join(__dirname, './db/users.json'), { users: [] });
-export const commentsDB = await JSONFilePreset(path.join(__dirname, './db/comments.json'), { comments: [] });
-export const notificationsDB = await JSONFilePreset(path.join(__dirname, './db/notifications.json'), { notifications: [] });
-export const likesDB = await JSONFilePreset(path.join(__dirname, './db/likes.json'), { likes: [] });
-export const savesDB = await JSONFilePreset(path.join(__dirname, './db/saves.json'), { saves: [] });
-export const friendsDB = await JSONFilePreset(path.join(__dirname, './db/friends.json'), { friends: [] });
-export const advertisementsDB = await JSONFilePreset(path.join(__dirname, './db/advertisements.json'), { advertisements: [] });
 
 export const app = express();
 const PORT = process.env.PORT || 3000;
@@ -36,6 +26,15 @@ const PORT = process.env.PORT || 3000;
 // });
 app.use(cors());
 app.use(bodyParser.json());
+
+export const postsDB = await JSONFilePreset(path.join(__dirname, './db/posts.json'), { posts: [] });
+export const usersDB = await JSONFilePreset(path.join(__dirname, './db/users.json'), { users: [] });
+export const commentsDB = await JSONFilePreset(path.join(__dirname, './db/comments.json'), { comments: [] });
+export const notificationsDB = await JSONFilePreset(path.join(__dirname, './db/notifications.json'), { notifications: [] });
+export const likesDB = await JSONFilePreset(path.join(__dirname, './db/likes.json'), { likes: [] });
+export const savesDB = await JSONFilePreset(path.join(__dirname, './db/saves.json'), { saves: [] });
+export const friendsDB = await JSONFilePreset(path.join(__dirname, './db/friends.json'), { friends: [] });
+export const advertisementsDB = await JSONFilePreset(path.join(__dirname, './db/advertisements.json'), { advertisements: [] });
 
 app.get('/health', (req, res) => {
   res.json({
@@ -54,7 +53,7 @@ app.use('/Auth', AuthRoute);
 app.use('/Post', AuthMiddleware, PostRoute);
 app.use('/User', AuthMiddleware, UserRoute);
 app.use('/Init', AuthMiddleware, InitRoute);
-app.use('/Notification',AuthMiddleware,  NotificationRoute);
+app.use('/Notification',AuthMiddleware, NotificationRoute);
 app.use('/Friend', AuthMiddleware, FriendRoute);
 app.use('/Comment', AuthMiddleware, CommentRoute);
 

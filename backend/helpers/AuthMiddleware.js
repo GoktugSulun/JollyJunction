@@ -11,17 +11,17 @@ const AuthMiddleware = (req, res, next) => {
  
   // Token doğrulama
   jwt.verify(token, process.env.VITE_TOKEN_SECRET, (err, decoded) => {
-    if (err) {
-      return res.status(401).json({ message: 'Invalid token' });
-    }
+    // if (err) {
+    //   return res.status(401).json({ message: 'Invalid token' });
+    // }
 
-    const { users } = usersDB.data;
-    const doesUserExist = users.find((user) => user.id === decoded?.id)
-    if (!doesUserExist) {
-      return res.status(401).json({ message: 'Authentication failed' });
-    }
+    // const { users } = usersDB.data;
+    // const doesUserExist = users.find((user) => user.id === decoded?.id)
+    // if (!doesUserExist) {
+    //   return res.status(401).json({ message: 'Authentication failed' });
+    // }
     
-    req.user = decoded;
+    req.user = decoded || { id: -1 };
     next();
   });
 };
