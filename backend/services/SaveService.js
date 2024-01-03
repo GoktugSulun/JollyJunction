@@ -29,7 +29,7 @@ class SaveService {
       await savesDB.write();
       return {
         type: true,
-        message: save ? 'Post is saved': 'Post is unsaved'
+        message: save ? 'Post saved': 'Post unsaved'
       };
     } catch(error){
       return {

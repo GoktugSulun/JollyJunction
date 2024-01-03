@@ -163,7 +163,7 @@ class PostService {
       }
       return {
         type: true,
-        message: 'Post is created',
+        message: 'Post created',
         data: createdData.data
       };
     } catch (error) {
@@ -256,7 +256,7 @@ class PostService {
 
       return {
         type: true,
-        message: 'Post is deleted'
+        message: 'Post deleted'
       };
     } catch (error) {
       return {

@@ -30,7 +30,7 @@ class LikeService {
       await likesDB.write();
       return {
         type: true,
-        message: like ? 'Post is liked': 'Post is unliked'
+        message: like ? 'Post liked': 'Post unliked'
       };
     } catch(error){
       return {
