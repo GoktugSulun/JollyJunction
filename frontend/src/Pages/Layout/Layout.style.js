@@ -9,12 +9,12 @@ export const ProfileWrapper = styled.div`
    gap: 25px;
    position: sticky;
    top: 120px;
-   max-height: calc(100vh - 40px);
+   max-height: calc(100vh - 60px - 90px);
    overflow-x: hidden;
    overflow-y: auto;
 
    ::-webkit-scrollbar {
-      width: 0;
+      width: 3px;
    }
 
    @media (max-width: 1200px) {
