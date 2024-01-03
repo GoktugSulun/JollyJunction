@@ -14,6 +14,7 @@ const UserProfile = lazy(() => import('../../Pages/UserProfile/UserProfile'));
 const Notifications = lazy(() => import('../../Pages/Notifications/Notifications'));
 const Layout = lazy(() => import('../../Pages/Layout/Layout'));
 const Settings = lazy(() => import('../../Pages/Settings/Settings'));
+const NotFound = lazy(() => import('../../Pages/NotFound/NotFound'));
 
 // MODAL
 import PostModal from '../../Components/PostModal/PostModal';
@@ -73,8 +74,8 @@ const RouteList = () => {
             <Route path="/notifications" element={<Notifications />} />
           </Route>
           <Route path="/settings" element={<Settings />} />
+          <Route path="*" element={<NotFound />} />
         </Route>
-        <Route path="*" element={<div> Page Not Found! </div>} />
       </Routes>
       {
         postDetailModal && <Routes>
