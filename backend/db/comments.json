@@ -1,3 +1,14 @@
 {
-  "comments": []
+  "comments": [
+    {
+      "comment": "Yorumlarını bekliyorum gençler",
+      "post_id": 1,
+      "id": 1,
+      "user_id": 1,
+      "likes": [],
+      "created_at": "Wed Jan 03 2024 20:19:56 GMT+0300 (GMT+03:00)",
+      "updated_at": "Wed Jan 03 2024 20:19:56 GMT+0300 (GMT+03:00)",
+      "is_removed": false
+    }
+  ]
 }
