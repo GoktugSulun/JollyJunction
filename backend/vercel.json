@@ -1,5 +1,19 @@
 {
    "version": 2,
+   "functions": {
+    "index.js": {
+      "includeFiles": [
+        "/backend/db/advertisements.json",
+        "/backend/db/comments.json",
+        "/backend/db/friends.json",
+        "/backend/db/likes.json",
+        "/backend/db/notifications.json",
+        "/backend/db/posts.json",
+        "/backend/db/saves.json",
+        "/backend/db/users.json"
+      ]
+    }
+  },
    "builds": [
      {
        "src": "index.js",
