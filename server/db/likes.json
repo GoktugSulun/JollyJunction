@@ -1,3 +1,10 @@
 {
-   "likes": []
- }
+  "likes": [
+    {
+      "id": 1,
+      "post_id": 1,
+      "user_id": 2,
+      "created_at": "Wed Jan 03 2024 11:25:15 GMT+0300 (GMT+03:00)"
+    }
+  ]
+}

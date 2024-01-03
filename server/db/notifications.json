@@ -1,3 +1,16 @@
 {
-   "notifications": []
- }
+  "notifications": [
+    {
+      "id": 1,
+      "type": 2,
+      "receiver_id": 1,
+      "sender_id": 2,
+      "post_id": 1,
+      "created_at": "Wed Jan 03 2024 11:25:15 GMT+0300 (GMT+03:00)",
+      "updated_at": "Wed Jan 03 2024 11:25:15 GMT+0300 (GMT+03:00)",
+      "seen": false,
+      "read": false,
+      "is_removed": false
+    }
+  ]
+}
