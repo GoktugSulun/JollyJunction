@@ -1,0 +1,18 @@
+{
+  "posts": [
+    {
+      "description": "Harika beşliiikk :=)",
+      "user_id": 1,
+      "id": 1,
+      "created_at": "Wed Jan 03 2024 20:18:29 GMT+0300 (GMT+03:00)",
+      "updated_at": "Wed Jan 03 2024 20:18:29 GMT+0300 (GMT+03:00)",
+      "is_removed": false,
+      "files": [
+        {
+          "name": "1704302309439_1_edit beÅlik",
+          "type": "mp4"
+        }
+      ]
+    }
+  ]
+}
