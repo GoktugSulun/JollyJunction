@@ -1,5 +1,5 @@
 import NotificationEnums from '../constants/Enums/NotificationEnums.js';
-import { commentsDB } from '../db/index.js';
+import { commentsDB } from '../index.js';
 import LikeService from './LikeService.js';
 import NotificationService from './NotificationService.js';
 import PostService from './PostService.js';

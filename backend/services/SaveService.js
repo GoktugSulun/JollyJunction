@@ -1,11 +1,10 @@
-import { savesDB } from '../db/index.js';
-
-const { saves } = savesDB.data;
-const nextId = Math.max(...saves.map(like => like.id), 0) + 1;
+import { savesDB } from '../index.js';
 
 class SaveService {
   static async create(req) {
     try {
+      const { saves } = savesDB.data;
+      const nextId = Math.max(...saves.map(like => like.id), 0) + 1;
       const { id: authorizedUserId } = req.user;
       const { save, post_id } = req.body;
       if (save) {

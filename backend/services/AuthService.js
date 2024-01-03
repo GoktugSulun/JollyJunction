@@ -1,4 +1,4 @@
-import { usersDB } from '../db/index.js';
+import { usersDB } from '../index.js';
 import jwt from 'jsonwebtoken';
 
 class AuthService {

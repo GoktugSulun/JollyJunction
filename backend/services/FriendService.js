@@ -1,4 +1,4 @@
-import { friendsDB } from '../db/index.js';
+import { friendsDB } from '../index.js';
 import UserService from './UserService.js';
 
 class FriendService {
