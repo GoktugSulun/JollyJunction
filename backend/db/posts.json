@@ -1,0 +1,88 @@
+{
+  "posts": [
+    {
+      "description": "Bu güzel foto ile açılışı yapalım bakalım :)",
+      "user_id": 1,
+      "id": 1,
+      "created_at": "Mon Jan 01 2024 18:15:38 GMT+0300 (GMT+03:00)",
+      "updated_at": "Mon Jan 01 2024 18:15:38 GMT+0300 (GMT+03:00)",
+      "is_removed": false,
+      "files": [
+        {
+          "name": "1704122138966_1_img-1-min",
+          "type": "jpg"
+        }
+      ]
+    },
+    {
+      "description": "Harika beşliiikkk ",
+      "user_id": 1,
+      "id": 2,
+      "created_at": "Mon Jan 01 2024 19:14:33 GMT+0300 (GMT+03:00)",
+      "updated_at": "Mon Jan 01 2024 19:14:33 GMT+0300 (GMT+03:00)",
+      "is_removed": false,
+      "files": [
+        {
+          "name": "1704125673459_1_edit beÅlik",
+          "type": "mp4"
+        }
+      ]
+    },
+    {
+      "description": "Harika gol be",
+      "user_id": 2,
+      "id": 3,
+      "created_at": "Wed Jan 03 2024 10:41:43 GMT+0300 (GMT+03:00)",
+      "updated_at": "Wed Jan 03 2024 10:41:43 GMT+0300 (GMT+03:00)",
+      "is_removed": false,
+      "files": [
+        {
+          "name": "1704267703731_2_goal edit 13.11.2023",
+          "type": "mp4"
+        }
+      ]
+    },
+    {
+      "description": "",
+      "user_id": 2,
+      "id": 4,
+      "created_at": "Wed Jan 03 2024 11:23:06 GMT+0300 (GMT+03:00)",
+      "updated_at": "Wed Jan 03 2024 11:23:06 GMT+0300 (GMT+03:00)",
+      "is_removed": false,
+      "files": [
+        {
+          "name": "1704270186972_2_Mehmet Ali abi beÅlik 13.11.2023",
+          "type": "mp4"
+        }
+      ]
+    },
+    {
+      "description": "",
+      "user_id": 2,
+      "id": 5,
+      "created_at": "Wed Jan 03 2024 11:23:27 GMT+0300 (GMT+03:00)",
+      "updated_at": "Wed Jan 03 2024 11:23:27 GMT+0300 (GMT+03:00)",
+      "is_removed": false,
+      "files": [
+        {
+          "name": "1704270206681_2_Y2meta.app - The Code Behind If Pixar Made Programming Tutorials",
+          "type": "mp4"
+        }
+      ]
+    },
+    {
+      "description": "Harika algoritma",
+      "user_id": 1,
+      "id": 6,
+      "created_at": "Wed Jan 03 2024 15:52:02 GMT+0300 (GMT+03:00)",
+      "updated_at": "Wed Jan 03 2024 15:52:02 GMT+0300 (GMT+03:00)",
+      "is_removed": false,
+      "files": [
+        {
+          "name": "1704286322536_1_algoritma",
+          "type": "jpeg"
+        }
+      ]
+    }
+  ]
+}
