@@ -67,24 +67,32 @@ const Login = () => {
           <h1 className="sign-in__title"> Sign In </h1>
           <div className="sign-in__icons">
             <Tooltip title="Google"> 
-              <IconButton disabled> 
-                <Google /> 
-              </IconButton> 
+              <span>
+                <IconButton disabled> 
+                  <Google /> 
+                </IconButton> 
+              </span>
             </Tooltip>
             <Tooltip title="Facebook"> 
-              <IconButton disabled> 
-                <Facebook /> 
-              </IconButton> 
+              <span>
+                <IconButton disabled> 
+                  <Facebook /> 
+                </IconButton> 
+              </span>
             </Tooltip>
             <Tooltip title="Github"> 
-              <IconButton disabled> 
-                <GitHub /> 
-              </IconButton> 
+              <span>
+                <IconButton disabled> 
+                  <GitHub /> 
+                </IconButton> 
+              </span>
             </Tooltip>
             <Tooltip title="LinkedIn"> 
-              <IconButton disabled>  
-                <LinkedIn /> 
-              </IconButton> 
+              <span>
+                <IconButton disabled> 
+                  <LinkedIn /> 
+                </IconButton> 
+              </span>
             </Tooltip>
           </div>
           <div className="sign-in__horizontal-line">
