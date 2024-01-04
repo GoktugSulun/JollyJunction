@@ -57,10 +57,6 @@ app.use('/Notification',AuthMiddleware, NotificationRoute);
 app.use('/Friend', AuthMiddleware, FriendRoute);
 app.use('/Comment', AuthMiddleware, CommentRoute);
 
-app.use((req, res, next) => {
-  next();
-});
-
 app.listen(PORT, () => {
   console.log('JSON app is running :)');
 });
