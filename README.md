@@ -8,7 +8,7 @@
 * <strong> Frontend: </strong> React.js
 * <strong> Backend: </strong> Express.js
 * <strong> Database: </strong> JSON-server (initially), lowdb (finally)
-* <strong> Helper packages: </strong> Redux-toolkit, Redux-saga,  Material UI, React-hook-form, Axios, Notistack, Jsonwebtoken, Multer, ...
+* <strong> Helper packages: </strong> Redux-toolkit, Redux-saga, React-router, Material UI, Emotion, React-hook-form, Axios, Notistack, Jsonwebtoken, Multer, ...
 
 <h2> 📷 Screenshots </h2>
 <strong> LOGIN PAGE </strong>
