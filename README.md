@@ -66,7 +66,7 @@
 <p>&nbsp;&nbsp;&nbsp; To run the project locally, follow these steps: </p>
 
 * Clone the repository.
-* Install dependencies using <code>npm install</code>.
+* Install dependencies using <code>npm install</code> for global folder, frontend folder, and backend folder.
 * Create a <code>.env</code> file in the frontend folder and write <code>VITE_API_URL = "http://localhost:3000"</code> in it.
 * Create a <code>.env</code> file in the backend folder and write <code>VITE_TOKEN_SECRET = "your_secure_random_string"</code> (Generate a secure random string to enhance security.)
 * Run the project with <code>npm start</code>.
