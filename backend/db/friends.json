@@ -1,3 +1,46 @@
 {
-   "friends": []
- }
+  "friends": [
+    {
+      "id": 1,
+      "user_id": 1,
+      "friends": [
+        {
+          "friend_id": 2,
+          "created_at": "Thu Jan 11 2024 17:43:18 GMT+0300 (GMT+03:00)",
+          "updated_at": "Thu Jan 11 2024 17:43:18 GMT+0300 (GMT+03:00)",
+          "is_removed": false
+        },
+        {
+          "friend_id": 3,
+          "created_at": "Thu Jan 11 2024 17:53:20 GMT+0300 (GMT+03:00)",
+          "updated_at": "Thu Jan 11 2024 17:53:20 GMT+0300 (GMT+03:00)",
+          "is_removed": false
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "user_id": 2,
+      "friends": [
+        {
+          "friend_id": 1,
+          "created_at": "Thu Jan 11 2024 17:43:18 GMT+0300 (GMT+03:00)",
+          "updated_at": "Thu Jan 11 2024 17:43:18 GMT+0300 (GMT+03:00)",
+          "is_removed": false
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "user_id": 3,
+      "friends": [
+        {
+          "friend_id": 1,
+          "created_at": "Thu Jan 11 2024 17:53:20 GMT+0300 (GMT+03:00)",
+          "updated_at": "Thu Jan 11 2024 17:53:20 GMT+0300 (GMT+03:00)",
+          "is_removed": false
+        }
+      ]
+    }
+  ]
+}

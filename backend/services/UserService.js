@@ -85,10 +85,11 @@ class UserService {
 
       const [name, type] = req.file?.filename?.split('.') || [];
 
+      console.log(data, ' data');
       const newData = { 
         ...users[targetIndex], 
-        ...data, updated_at: 
-        new Date().toString(), 
+        ...data, 
+        updated_at: new Date().toString(), 
         ...(req.file 
           ? { img: { name, type } } 
           : is_file_deleted 
@@ -96,6 +97,7 @@ class UserService {
             : {}
         )
       };
+      console.log(newData, ' new data');
       users.splice(targetIndex, 1, newData);
       await usersDB.write();
 

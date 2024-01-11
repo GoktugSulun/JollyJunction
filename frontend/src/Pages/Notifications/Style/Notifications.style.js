@@ -1,7 +1,7 @@
 import styled from '@emotion/styled';
 import { ContentWrapper } from '../../../Core/Components/Pages/ContentWrapper.style';
 import Menu from '@mui/material/Menu';
-import { LinearProgress } from '@mui/material';
+import { LinearProgress, css } from '@mui/material';
 
 export const Notifications = styled(ContentWrapper)`
    min-height: calc(100vh - 150px);
@@ -81,6 +81,12 @@ export const SettingsWrapper = styled.div`
    .MuiIconButton-root {
       width: 40px;
       height: 40px;
+      ${(props) => props.open && css`
+         background-color: #333;
+         svg path {
+            fill: #FFFFFF;
+         }
+      `}
       :hover {
          background-color: #333;
          svg path {

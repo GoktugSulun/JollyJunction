@@ -87,7 +87,7 @@ const Settings = ({ data }) => {
   }, NotificationSagaActions.deleteNotifications());
 
   return (
-    <S.SettingsWrapper>
+    <S.SettingsWrapper open={open}>
       <IconButton
         id="notification-setting-button"
         aria-controls={open ? 'notification-settings-menu' : undefined}
