@@ -16,7 +16,7 @@ import LocationOnIcon from '@mui/icons-material/LocationOn';
 import SchoolIcon from '@mui/icons-material/School';
 import WorkIcon from '@mui/icons-material/Work';
 import styled from '@emotion/styled';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { Button } from '../../Core/Components/Buttons/Button.style';
 import Loading from '../../Core/Components/Loading/Loading';
 import { snackbar } from '../../Core/Utils/Snackbar';
@@ -39,6 +39,7 @@ const CustomTooltip = styled(({ className, ...props }) => (
 const SettingsModal = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const location = useLocation();
   const { isOpenSettingsModal, init: { missingProfile }, loading } = useSelector((state) => state.AppConfig);
 
   const handleClose = () => {
@@ -47,7 +48,9 @@ const SettingsModal = () => {
 
   const navigateToSettings = () => {
     handleClose();
-    navigate('/settings');
+    if (location.pathname !== '/settings') {
+      navigate('/settings');
+    }
   };
 
   const remindMeLater = () => {
@@ -131,10 +134,10 @@ const SettingsModal = () => {
                 />
                 <div className="button-group">
                   <Button onClick={remindMeLater} className="remind-me-later">
-                Remind me later
+                    Remind me later
                   </Button>
                   <Button onClick={navigateToSettings}>
-                Customize now
+                    Customize now
                   </Button>
                 </div>
               </div>

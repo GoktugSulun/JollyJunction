@@ -1,14 +1,129 @@
 {
   "comments": [
     {
-      "comment": "Yorumlarını bekliyorum gençler",
+      "comment": "Mükemmel",
       "post_id": 1,
       "id": 1,
       "user_id": 1,
-      "likes": [],
-      "created_at": "Wed Jan 03 2024 20:19:56 GMT+0300 (GMT+03:00)",
-      "updated_at": "Wed Jan 03 2024 20:19:56 GMT+0300 (GMT+03:00)",
-      "is_removed": false
+      "likes": [
+        3
+      ],
+      "created_at": "Thu Jan 11 2024 17:56:40 GMT+0300 (GMT+03:00)",
+      "updated_at": "Thu Jan 11 2024 17:56:40 GMT+0300 (GMT+03:00)",
+      "is_removed": false,
+      "user": {
+        "id": 1,
+        "name": "Goktug",
+        "surname": "Sulun",
+        "email": "goktug.sulun@hotmail.com",
+        "password": "123456",
+        "location": "Kucukcekmece",
+        "city": "Istanbul",
+        "country": "Türkiye",
+        "school": "Bahcesehir Univeristy",
+        "img": {
+          "name": "1704302273225_1_profile foto",
+          "type": "jpeg"
+        },
+        "company": "",
+        "position": "Frontend Developer",
+        "social_medias": [
+          {
+            "id": 1,
+            "url": "https://www.linkedin.com/in/goktugsulun",
+            "name": "LinkedIn",
+            "type": 1
+          },
+          {
+            "id": 2,
+            "url": "https://www.instagram.com/goktugsulun",
+            "name": "Instagram",
+            "type": 2
+          },
+          {
+            "id": 3,
+            "url": "",
+            "name": "Twitter",
+            "type": 3
+          }
+        ],
+        "dont_show_again": false,
+        "created_at": "Wed Jan 03 2024 20:16:35 GMT+0300 (GMT+03:00)",
+        "updated_at": "Thu Jan 11 2024 17:38:37 GMT+0300 (GMT+03:00)",
+        "friends": [
+          {
+            "friend_id": 2,
+            "created_at": "Thu Jan 11 2024 17:43:18 GMT+0300 (GMT+03:00)",
+            "updated_at": "Thu Jan 11 2024 17:43:18 GMT+0300 (GMT+03:00)",
+            "is_removed": false
+          },
+          {
+            "friend_id": 3,
+            "created_at": "Thu Jan 11 2024 17:53:20 GMT+0300 (GMT+03:00)",
+            "updated_at": "Thu Jan 11 2024 17:53:20 GMT+0300 (GMT+03:00)",
+            "is_removed": false
+          }
+        ],
+        "canBeFriend": false
+      }
+    },
+    {
+      "comment": "Harika",
+      "post_id": 1,
+      "id": 2,
+      "user_id": 3,
+      "likes": [
+        1
+      ],
+      "created_at": "Thu Jan 11 2024 17:57:14 GMT+0300 (GMT+03:00)",
+      "updated_at": "Thu Jan 11 2024 17:57:14 GMT+0300 (GMT+03:00)",
+      "is_removed": false,
+      "user": {
+        "id": 3,
+        "name": "Eren Mert",
+        "surname": "Ciftci",
+        "email": "erenmert@hotmail.com",
+        "password": "123",
+        "location": "",
+        "city": "Istanbul",
+        "country": "Türkiye",
+        "school": "",
+        "img": "",
+        "company": "",
+        "position": "Mathematician",
+        "social_medias": [
+          {
+            "id": 1,
+            "url": "",
+            "name": "LinkedIn",
+            "type": 1
+          },
+          {
+            "id": 2,
+            "url": "",
+            "name": "Instagram",
+            "type": 2
+          },
+          {
+            "id": 3,
+            "url": "",
+            "name": "Twitter",
+            "type": 3
+          }
+        ],
+        "dont_show_again": false,
+        "created_at": "Thu Jan 11 2024 17:45:45 GMT+0300 (GMT+03:00)",
+        "updated_at": "Thu Jan 11 2024 17:47:41 GMT+0300 (GMT+03:00)",
+        "friends": [
+          {
+            "friend_id": 1,
+            "created_at": "Thu Jan 11 2024 17:53:20 GMT+0300 (GMT+03:00)",
+            "updated_at": "Thu Jan 11 2024 17:53:20 GMT+0300 (GMT+03:00)",
+            "is_removed": false
+          }
+        ],
+        "canBeFriend": false
+      }
     }
   ]
 }

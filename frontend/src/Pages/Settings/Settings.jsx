@@ -57,6 +57,8 @@ const Settings = () => {
   const { form, registerHandler } = useMaterialForm({ defaultValues, schema, mode: 'onChange' });
 
   const name = useWatch({ control: form.control, name: 'name' });
+  const all = useWatch({ control: form.control });
+  console.log(all, ' all');
 
   const imageHandler = (e) => {
     const file = e.target.files?.[0];
@@ -80,6 +82,7 @@ const Settings = () => {
       },
       file
     };
+    console.log(payload, ' payload');
     dispatch(AppConfigSagaActions.editUser(payload));
   };
 
@@ -90,6 +93,7 @@ const Settings = () => {
   useEffect(() => {
     const { id, img, ...user } = authorizedUser;
     form.reset(user);
+    console.log(user, ' user');
     if (img) {
       setImageURL(getFileURL(img));
     }
